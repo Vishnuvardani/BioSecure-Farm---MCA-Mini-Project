@@ -1,0 +1,7 @@
+[
+  { "diseaseName": "Bird Flu H5N1", "diseaseType": "bird_flu", "affectedSpecies": ["chicken"], "affectedCount": 250, "symptoms": ["respiratory_distress", "sudden_death", "swollen_head"], "severity": "critical", "status": "confirmed", "isOutbreak": true, "notifiedAuthorities": true },
+  { "diseaseName": "African Swine Fever", "diseaseType": "african_swine_fever", "affectedSpecies": ["pig"], "affectedCount": 45, "symptoms": ["high_fever", "skin_hemorrhage", "loss_of_appetite"], "severity": "high", "status": "suspected", "isOutbreak": false, "notifiedAuthorities": false },
+  { "diseaseName": "Foot and Mouth Disease", "diseaseType": "foot_and_mouth", "affectedSpecies": ["pig", "chicken"], "affectedCount": 120, "symptoms": ["blisters_mouth", "lameness", "drooling"], "severity": "moderate", "status": "under_treatment", "isOutbreak": false, "notifiedAuthorities": true },
+  { "diseaseName": "Newcastle Disease", "diseaseType": "newcastle", "affectedSpecies": ["chicken", "turkey"], "affectedCount": 800, "symptoms": ["respiratory_distress", "diarrhea", "nasal_discharge"], "severity": "high", "status": "confirmed", "isOutbreak": true, "notifiedAuthorities": true },
+  { "diseaseName": "Swine Flu", "diseaseType": "other", "affectedSpecies": ["pig"], "affectedCount": 30, "symptoms": ["high_fever", "vomiting", "loss_of_appetite"], "severity": "moderate", "status": "resolved", "isOutbreak": false, "notifiedAuthorities": false }
+]
