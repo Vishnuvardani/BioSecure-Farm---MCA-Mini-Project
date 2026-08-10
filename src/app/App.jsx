@@ -2845,14 +2845,36 @@ function DashboardShell({ role, onLogout }) {
     ] })
   ] });
 }
-function App() {
+function App({
+  onMongoLogin,
+  mongoRole, mongoUser, mongoFarms, mongoLivestock, mongoVaccinations,
+  mongoDiseases, mongoBiosecurity, mongoVetReports, mongoAlerts,
+  mongoGIS, mongoNotifications, mongoAnalytics, mongoAllUsers,
+  onLogout: mongoLogout,
+} = {}) {
   const [screen, setScreen] = useState("splash");
   const [role, setRole] = useState("farmer");
+
+  // If MongoDB data is already loaded (passed from AppWithData), go straight to dashboard
+  if (mongoRole && mongoUser) {
+    return /* @__PURE__ */ jsx(DashboardShell, {
+      role: mongoRole.toLowerCase().replace(" officer", "").replace("veterinarian", "veterinarian"),
+      onLogout: mongoLogout || (() => {}),
+      mongoFarms, mongoLivestock, mongoVaccinations, mongoDiseases,
+      mongoBiosecurity, mongoVetReports, mongoAlerts, mongoGIS,
+      mongoNotifications, mongoAnalytics, mongoAllUsers, mongoUser,
+    });
+  }
+
   if (screen === "splash") return /* @__PURE__ */ jsx(SplashScreen, { onDone: () => setScreen("onboarding") });
   if (screen === "onboarding") return /* @__PURE__ */ jsx(OnboardingScreen, { onDone: () => setScreen("login") });
   if (screen === "login") return /* @__PURE__ */ jsx(LoginScreen, { onLogin: (r) => {
     setRole(r);
-    setScreen("dashboard");
+    if (onMongoLogin) {
+      onMongoLogin(r);
+    } else {
+      setScreen("dashboard");
+    }
   }, onRegister: () => setScreen("register") });
   if (screen === "register") return /* @__PURE__ */ jsx(RegisterScreen, { onBack: () => setScreen("login"), onSuccess: () => setScreen("login") });
   return /* @__PURE__ */ jsx(DashboardShell, { role, onLogout: () => setScreen("login") });

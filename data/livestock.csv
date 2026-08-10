@@ -1,0 +1,1001 @@
+﻿livestockId,farmId,animalType,breed,age,quantity,healthStatus
+LV-3000,FARM-2091,Layer,Kadaknath,34 months,155,Healthy
+LV-3001,FARM-2077,Layer,Cobb 500,8 months,441,Healthy
+LV-3002,FARM-2098,Breeder,Lohmann Brown,28 months,236,At Risk
+LV-3003,FARM-2052,Layer,Vanraja,26 months,217,Healthy
+LV-3004,FARM-2040,Pig,Tamworth,21 months,345,Healthy
+LV-3005,FARM-2019,Pig,Chester White,5 months,51,At Risk
+LV-3006,FARM-2011,Pig,Tamworth,7 months,386,Healthy
+LV-3007,FARM-2016,Breeder,Ross 308,36 months,292,Healthy
+LV-3008,FARM-2015,Layer,Aseel,28 months,449,At Risk
+LV-3009,FARM-2006,Pig,Berkshire,20 months,185,Healthy
+LV-3010,FARM-2064,Pig,Hampshire,10 months,341,Healthy
+LV-3011,FARM-2013,Layer,Aseel,8 months,395,Healthy
+LV-3012,FARM-2028,Layer,Ross 308,18 months,19,Healthy
+LV-3013,FARM-2089,Pig,Berkshire,22 months,184,Healthy
+LV-3014,FARM-2018,Breeder,Kadaknath,5 months,77,Healthy
+LV-3015,FARM-2003,Broiler,Lohmann Brown,25 months,219,Healthy
+LV-3016,FARM-2020,Layer,Giriraja,21 months,402,Sick
+LV-3017,FARM-2076,Broiler,Ross 308,10 months,85,At Risk
+LV-3018,FARM-2006,Pig,Duroc,18 months,231,Healthy
+LV-3019,FARM-2062,Breeder,Vanraja,27 months,144,Healthy
+LV-3020,FARM-2065,Broiler,Aseel,28 months,61,Healthy
+LV-3021,FARM-2086,Breeder,Vanraja,34 months,346,Healthy
+LV-3022,FARM-2028,Layer,Ross 308,1 months,109,Healthy
+LV-3023,FARM-2027,Broiler,Giriraja,19 months,172,Healthy
+LV-3024,FARM-2063,Breeder,Kadaknath,12 months,71,Healthy
+LV-3025,FARM-2090,Broiler,Aseel,5 months,208,At Risk
+LV-3026,FARM-2005,Pig,Tamworth,2 months,240,At Risk
+LV-3027,FARM-2040,Pig,Tamworth,26 months,368,Healthy
+LV-3028,FARM-2037,Pig,Duroc,26 months,15,Sick
+LV-3029,FARM-2021,Breeder,Vanraja,24 months,50,Healthy
+LV-3030,FARM-2013,Broiler,Kadaknath,26 months,273,Healthy
+LV-3031,FARM-2039,Pig,Pietrain,15 months,175,At Risk
+LV-3032,FARM-2009,Breeder,Cobb 500,34 months,266,Healthy
+LV-3033,FARM-2099,Pig,Pietrain,23 months,377,Sick
+LV-3034,FARM-2082,Broiler,Lohmann Brown,7 months,79,Healthy
+LV-3035,FARM-2022,Breeder,Hy-Line Brown,5 months,95,Sick
+LV-3036,FARM-2080,Layer,Vanraja,29 months,353,At Risk
+LV-3037,FARM-2072,Breeder,Aseel,21 months,82,Healthy
+LV-3038,FARM-2060,Layer,Giriraja,18 months,307,Healthy
+LV-3039,FARM-2064,Pig,Duroc,20 months,241,Healthy
+LV-3040,FARM-2007,Layer,Giriraja,5 months,335,At Risk
+LV-3041,FARM-2011,Pig,Tamworth,30 months,302,Healthy
+LV-3042,FARM-2094,Broiler,Vanraja,13 months,169,Healthy
+LV-3043,FARM-2064,Pig,Landrace,4 months,235,Healthy
+LV-3044,FARM-2043,Breeder,Cobb 500,33 months,335,Healthy
+LV-3045,FARM-2031,Pig,Chester White,29 months,273,Healthy
+LV-3046,FARM-2020,Layer,Aseel,19 months,203,Healthy
+LV-3047,FARM-2043,Breeder,Ross 308,22 months,38,Healthy
+LV-3048,FARM-2071,Breeder,Kadaknath,19 months,134,Healthy
+LV-3049,FARM-2084,Pig,Landrace,22 months,46,Healthy
+LV-3050,FARM-2018,Layer,Giriraja,26 months,71,Healthy
+LV-3051,FARM-2010,Pig,Berkshire,36 months,197,Healthy
+LV-3052,FARM-2042,Broiler,Cobb 500,28 months,265,Healthy
+LV-3053,FARM-2046,Layer,Hy-Line Brown,14 months,179,Sick
+LV-3054,FARM-2062,Broiler,Lohmann Brown,9 months,84,Healthy
+LV-3055,FARM-2012,Breeder,Ross 308,22 months,453,At Risk
+LV-3056,FARM-2016,Breeder,Kadaknath,10 months,88,Healthy
+LV-3057,FARM-2088,Pig,Landrace,29 months,27,Healthy
+LV-3058,FARM-2086,Breeder,Lohmann Brown,29 months,317,Healthy
+LV-3059,FARM-2095,Pig,Chester White,15 months,278,Healthy
+LV-3060,FARM-2060,Broiler,Aseel,29 months,241,At Risk
+LV-3061,FARM-2099,Pig,Tamworth,33 months,275,Healthy
+LV-3062,FARM-2020,Broiler,Hy-Line Brown,17 months,31,Healthy
+LV-3063,FARM-2047,Breeder,Cobb 500,34 months,440,Healthy
+LV-3064,FARM-2010,Pig,Landrace,18 months,235,At Risk
+LV-3065,FARM-2018,Layer,Cobb 500,15 months,423,Healthy
+LV-3066,FARM-2044,Broiler,Kadaknath,4 months,207,Healthy
+LV-3067,FARM-2030,Pig,Tamworth,6 months,196,Healthy
+LV-3068,FARM-2040,Pig,Duroc,22 months,410,Healthy
+LV-3069,FARM-2004,Layer,Vanraja,9 months,393,Healthy
+LV-3070,FARM-2057,Pig,Large White,6 months,14,Healthy
+LV-3071,FARM-2019,Pig,Tamworth,8 months,402,Healthy
+LV-3072,FARM-2038,Broiler,Ross 308,16 months,219,Healthy
+LV-3073,FARM-2079,Layer,Cobb 500,8 months,433,At Risk
+LV-3074,FARM-2076,Breeder,Ross 308,33 months,299,Healthy
+LV-3075,FARM-2018,Layer,Kadaknath,1 months,319,Healthy
+LV-3076,FARM-2073,Pig,Tamworth,12 months,345,Healthy
+LV-3077,FARM-2067,Layer,Cobb 500,34 months,283,Healthy
+LV-3078,FARM-2064,Pig,Large White,25 months,452,Healthy
+LV-3079,FARM-2081,Pig,Tamworth,24 months,134,Healthy
+LV-3080,FARM-2045,Pig,Duroc,23 months,128,Healthy
+LV-3081,FARM-2080,Broiler,Aseel,9 months,27,Healthy
+LV-3082,FARM-2043,Breeder,Hy-Line Brown,30 months,361,Healthy
+LV-3083,FARM-2023,Pig,Landrace,5 months,371,At Risk
+LV-3084,FARM-2058,Pig,Large White,19 months,108,Healthy
+LV-3085,FARM-2025,Broiler,Aseel,20 months,268,Healthy
+LV-3086,FARM-2069,Pig,Chester White,17 months,23,At Risk
+LV-3087,FARM-2024,Layer,Aseel,4 months,448,Healthy
+LV-3088,FARM-2034,Pig,Duroc,24 months,228,At Risk
+LV-3089,FARM-2095,Pig,Chester White,25 months,178,Sick
+LV-3090,FARM-2063,Breeder,Vanraja,24 months,478,At Risk
+LV-3091,FARM-2034,Pig,Duroc,28 months,45,Healthy
+LV-3092,FARM-2023,Pig,Berkshire,21 months,57,Healthy
+LV-3093,FARM-2084,Pig,Berkshire,20 months,233,Healthy
+LV-3094,FARM-2054,Pig,Landrace,29 months,184,Healthy
+LV-3095,FARM-2093,Pig,Pietrain,28 months,145,Healthy
+LV-3096,FARM-2007,Broiler,Kadaknath,24 months,267,At Risk
+LV-3097,FARM-2086,Broiler,Ross 308,10 months,439,Healthy
+LV-3098,FARM-2056,Broiler,Hy-Line Brown,5 months,125,At Risk
+LV-3099,FARM-2046,Layer,Kadaknath,3 months,314,Healthy
+LV-3100,FARM-2057,Pig,Pietrain,24 months,232,At Risk
+LV-3101,FARM-2073,Pig,Landrace,34 months,192,Healthy
+LV-3102,FARM-2083,Pig,Berkshire,16 months,496,Healthy
+LV-3103,FARM-2094,Broiler,Vanraja,34 months,203,At Risk
+LV-3104,FARM-2015,Layer,Giriraja,29 months,114,Sick
+LV-3105,FARM-2036,Pig,Chester White,13 months,67,Healthy
+LV-3106,FARM-2009,Layer,Hy-Line Brown,29 months,49,At Risk
+LV-3107,FARM-2040,Pig,Pietrain,5 months,286,Healthy
+LV-3108,FARM-2038,Broiler,Hy-Line Brown,24 months,265,Healthy
+LV-3109,FARM-2025,Broiler,Lohmann Brown,32 months,18,Healthy
+LV-3110,FARM-2073,Pig,Pietrain,30 months,416,Sick
+LV-3111,FARM-2016,Breeder,Cobb 500,5 months,163,Healthy
+LV-3112,FARM-2091,Breeder,Vanraja,34 months,215,At Risk
+LV-3113,FARM-2073,Pig,Duroc,9 months,167,Healthy
+LV-3114,FARM-2057,Pig,Chester White,34 months,181,Healthy
+LV-3115,FARM-2099,Pig,Landrace,9 months,226,Healthy
+LV-3116,FARM-2007,Broiler,Hy-Line Brown,20 months,89,Healthy
+LV-3117,FARM-2090,Broiler,Aseel,34 months,463,Healthy
+LV-3118,FARM-2010,Pig,Berkshire,13 months,330,Sick
+LV-3119,FARM-2035,Broiler,Giriraja,35 months,52,Healthy
+LV-3120,FARM-2021,Breeder,Hy-Line Brown,11 months,342,Healthy
+LV-3121,FARM-2077,Layer,Ross 308,2 months,46,Healthy
+LV-3122,FARM-2082,Breeder,Giriraja,14 months,397,Healthy
+LV-3123,FARM-2079,Breeder,Ross 308,32 months,460,Healthy
+LV-3124,FARM-2037,Pig,Berkshire,31 months,130,At Risk
+LV-3125,FARM-2087,Pig,Tamworth,20 months,237,Healthy
+LV-3126,FARM-2007,Broiler,Vanraja,27 months,252,Healthy
+LV-3127,FARM-2043,Breeder,Hy-Line Brown,21 months,446,Healthy
+LV-3128,FARM-2093,Pig,Pietrain,26 months,71,At Risk
+LV-3129,FARM-2065,Breeder,Cobb 500,21 months,128,Healthy
+LV-3130,FARM-2034,Pig,Chester White,16 months,77,Healthy
+LV-3131,FARM-2037,Pig,Tamworth,27 months,132,Sick
+LV-3132,FARM-2020,Layer,Aseel,13 months,395,Healthy
+LV-3133,FARM-2065,Layer,Vanraja,20 months,259,Healthy
+LV-3134,FARM-2050,Breeder,Vanraja,16 months,115,Healthy
+LV-3135,FARM-2006,Pig,Large White,19 months,258,Healthy
+LV-3136,FARM-2083,Pig,Chester White,19 months,279,Healthy
+LV-3137,FARM-2013,Layer,Hy-Line Brown,17 months,377,Healthy
+LV-3138,FARM-2051,Layer,Ross 308,26 months,31,Healthy
+LV-3139,FARM-2024,Layer,Giriraja,5 months,202,Healthy
+LV-3140,FARM-2097,Breeder,Giriraja,8 months,70,Sick
+LV-3141,FARM-2050,Layer,Aseel,36 months,485,Healthy
+LV-3142,FARM-2018,Broiler,Kadaknath,33 months,25,Healthy
+LV-3143,FARM-2017,Pig,Pietrain,31 months,270,Healthy
+LV-3144,FARM-2077,Breeder,Hy-Line Brown,21 months,481,Healthy
+LV-3145,FARM-2020,Layer,Giriraja,22 months,264,At Risk
+LV-3146,FARM-2068,Layer,Giriraja,31 months,422,Healthy
+LV-3147,FARM-2042,Breeder,Cobb 500,27 months,303,Healthy
+LV-3148,FARM-2092,Breeder,Ross 308,31 months,140,Sick
+LV-3149,FARM-2099,Pig,Hampshire,4 months,303,Healthy
+LV-3150,FARM-2067,Breeder,Kadaknath,10 months,425,Healthy
+LV-3151,FARM-2004,Breeder,Cobb 500,13 months,14,Healthy
+LV-3152,FARM-2053,Broiler,Kadaknath,14 months,215,Healthy
+LV-3153,FARM-2078,Layer,Ross 308,9 months,270,Healthy
+LV-3154,FARM-2041,Pig,Chester White,34 months,197,Healthy
+LV-3155,FARM-2022,Layer,Aseel,35 months,186,Healthy
+LV-3156,FARM-2092,Breeder,Giriraja,31 months,103,Sick
+LV-3157,FARM-2035,Breeder,Giriraja,15 months,487,Sick
+LV-3158,FARM-2038,Layer,Lohmann Brown,32 months,167,Healthy
+LV-3159,FARM-2071,Breeder,Giriraja,19 months,67,Healthy
+LV-3160,FARM-2069,Pig,Tamworth,26 months,424,Healthy
+LV-3161,FARM-2098,Broiler,Giriraja,3 months,152,Sick
+LV-3162,FARM-2010,Pig,Pietrain,29 months,340,Healthy
+LV-3163,FARM-2061,Broiler,Lohmann Brown,35 months,143,Sick
+LV-3164,FARM-2089,Pig,Berkshire,9 months,60,Healthy
+LV-3165,FARM-2075,Pig,Hampshire,16 months,30,Healthy
+LV-3166,FARM-2067,Broiler,Lohmann Brown,4 months,56,Healthy
+LV-3167,FARM-2091,Layer,Cobb 500,9 months,7,Sick
+LV-3168,FARM-2020,Layer,Vanraja,31 months,338,Healthy
+LV-3169,FARM-2036,Pig,Pietrain,19 months,335,Healthy
+LV-3170,FARM-2098,Broiler,Lohmann Brown,35 months,383,Healthy
+LV-3171,FARM-2004,Broiler,Kadaknath,12 months,483,At Risk
+LV-3172,FARM-2050,Layer,Hy-Line Brown,19 months,453,Healthy
+LV-3173,FARM-2038,Breeder,Cobb 500,22 months,150,Healthy
+LV-3174,FARM-2082,Breeder,Vanraja,9 months,440,Healthy
+LV-3175,FARM-2034,Pig,Hampshire,8 months,174,Healthy
+LV-3176,FARM-2058,Pig,Berkshire,12 months,12,Healthy
+LV-3177,FARM-2037,Pig,Hampshire,12 months,317,At Risk
+LV-3178,FARM-2051,Layer,Aseel,6 months,210,Healthy
+LV-3179,FARM-2023,Pig,Landrace,31 months,170,Sick
+LV-3180,FARM-2000,Pig,Berkshire,25 months,125,Healthy
+LV-3181,FARM-2034,Pig,Pietrain,20 months,303,Healthy
+LV-3182,FARM-2001,Layer,Aseel,16 months,36,Healthy
+LV-3183,FARM-2059,Layer,Hy-Line Brown,26 months,356,Healthy
+LV-3184,FARM-2090,Layer,Cobb 500,19 months,193,Healthy
+LV-3185,FARM-2028,Broiler,Vanraja,10 months,237,Healthy
+LV-3186,FARM-2077,Layer,Kadaknath,36 months,472,Healthy
+LV-3187,FARM-2068,Breeder,Lohmann Brown,16 months,353,At Risk
+LV-3188,FARM-2010,Pig,Chester White,34 months,365,Healthy
+LV-3189,FARM-2072,Broiler,Ross 308,36 months,467,Healthy
+LV-3190,FARM-2073,Pig,Landrace,11 months,172,At Risk
+LV-3191,FARM-2056,Broiler,Lohmann Brown,32 months,51,At Risk
+LV-3192,FARM-2057,Pig,Large White,30 months,72,Healthy
+LV-3193,FARM-2058,Pig,Large White,36 months,241,Healthy
+LV-3194,FARM-2039,Pig,Large White,26 months,135,At Risk
+LV-3195,FARM-2095,Pig,Hampshire,5 months,28,Healthy
+LV-3196,FARM-2089,Pig,Duroc,35 months,35,Sick
+LV-3197,FARM-2008,Pig,Chester White,3 months,151,Healthy
+LV-3198,FARM-2098,Broiler,Kadaknath,24 months,461,Healthy
+LV-3199,FARM-2048,Pig,Tamworth,6 months,354,Sick
+LV-3200,FARM-2069,Pig,Landrace,23 months,65,Healthy
+LV-3201,FARM-2068,Layer,Hy-Line Brown,15 months,432,Healthy
+LV-3202,FARM-2002,Layer,Vanraja,35 months,222,Healthy
+LV-3203,FARM-2029,Broiler,Vanraja,23 months,84,Healthy
+LV-3204,FARM-2092,Broiler,Ross 308,27 months,319,At Risk
+LV-3205,FARM-2002,Broiler,Lohmann Brown,5 months,56,Healthy
+LV-3206,FARM-2057,Pig,Large White,16 months,384,Healthy
+LV-3207,FARM-2056,Broiler,Lohmann Brown,4 months,76,Healthy
+LV-3208,FARM-2037,Pig,Hampshire,21 months,300,Healthy
+LV-3209,FARM-2086,Layer,Lohmann Brown,20 months,453,Healthy
+LV-3210,FARM-2084,Pig,Hampshire,27 months,158,Healthy
+LV-3211,FARM-2071,Breeder,Hy-Line Brown,28 months,289,Healthy
+LV-3212,FARM-2044,Breeder,Kadaknath,34 months,168,Healthy
+LV-3213,FARM-2052,Broiler,Giriraja,25 months,99,At Risk
+LV-3214,FARM-2060,Broiler,Lohmann Brown,20 months,444,Healthy
+LV-3215,FARM-2059,Broiler,Kadaknath,27 months,290,Healthy
+LV-3216,FARM-2049,Broiler,Giriraja,14 months,174,Healthy
+LV-3217,FARM-2057,Pig,Pietrain,6 months,279,Healthy
+LV-3218,FARM-2024,Broiler,Giriraja,25 months,349,Healthy
+LV-3219,FARM-2005,Pig,Duroc,13 months,416,At Risk
+LV-3220,FARM-2092,Breeder,Lohmann Brown,31 months,111,At Risk
+LV-3221,FARM-2042,Layer,Ross 308,14 months,484,Healthy
+LV-3222,FARM-2094,Broiler,Vanraja,16 months,361,Healthy
+LV-3223,FARM-2026,Pig,Tamworth,16 months,287,Healthy
+LV-3224,FARM-2036,Pig,Tamworth,30 months,278,Healthy
+LV-3225,FARM-2039,Pig,Berkshire,24 months,267,At Risk
+LV-3226,FARM-2059,Broiler,Vanraja,21 months,473,Healthy
+LV-3227,FARM-2040,Pig,Tamworth,3 months,293,At Risk
+LV-3228,FARM-2094,Broiler,Ross 308,17 months,288,Sick
+LV-3229,FARM-2074,Pig,Tamworth,19 months,83,Healthy
+LV-3230,FARM-2029,Layer,Lohmann Brown,32 months,286,Healthy
+LV-3231,FARM-2087,Pig,Pietrain,17 months,395,At Risk
+LV-3232,FARM-2092,Breeder,Vanraja,30 months,91,Healthy
+LV-3233,FARM-2045,Pig,Landrace,9 months,373,Healthy
+LV-3234,FARM-2023,Pig,Large White,34 months,22,At Risk
+LV-3235,FARM-2009,Breeder,Ross 308,1 months,216,Healthy
+LV-3236,FARM-2080,Broiler,Cobb 500,10 months,9,Healthy
+LV-3237,FARM-2058,Pig,Pietrain,4 months,321,Healthy
+LV-3238,FARM-2078,Layer,Vanraja,2 months,8,Healthy
+LV-3239,FARM-2052,Broiler,Ross 308,34 months,374,Healthy
+LV-3240,FARM-2036,Pig,Large White,33 months,421,Healthy
+LV-3241,FARM-2055,Pig,Landrace,7 months,475,Healthy
+LV-3242,FARM-2019,Pig,Hampshire,13 months,322,Healthy
+LV-3243,FARM-2045,Pig,Berkshire,26 months,45,Healthy
+LV-3244,FARM-2051,Layer,Lohmann Brown,15 months,158,Healthy
+LV-3245,FARM-2010,Pig,Large White,6 months,212,Healthy
+LV-3246,FARM-2070,Pig,Chester White,4 months,331,Healthy
+LV-3247,FARM-2021,Broiler,Vanraja,28 months,335,At Risk
+LV-3248,FARM-2072,Broiler,Ross 308,15 months,113,At Risk
+LV-3249,FARM-2088,Pig,Chester White,18 months,28,At Risk
+LV-3250,FARM-2087,Pig,Berkshire,35 months,293,Healthy
+LV-3251,FARM-2022,Layer,Ross 308,14 months,305,Healthy
+LV-3252,FARM-2091,Layer,Cobb 500,20 months,88,Healthy
+LV-3253,FARM-2072,Layer,Aseel,25 months,391,Healthy
+LV-3254,FARM-2088,Pig,Duroc,33 months,386,Sick
+LV-3255,FARM-2006,Pig,Duroc,28 months,123,At Risk
+LV-3256,FARM-2043,Breeder,Kadaknath,21 months,20,Healthy
+LV-3257,FARM-2057,Pig,Chester White,15 months,187,Healthy
+LV-3258,FARM-2048,Pig,Tamworth,12 months,353,Healthy
+LV-3259,FARM-2048,Pig,Duroc,19 months,413,Healthy
+LV-3260,FARM-2009,Broiler,Giriraja,10 months,199,Healthy
+LV-3261,FARM-2081,Pig,Landrace,25 months,167,Healthy
+LV-3262,FARM-2011,Pig,Large White,20 months,232,Healthy
+LV-3263,FARM-2034,Pig,Duroc,9 months,49,Healthy
+LV-3264,FARM-2057,Pig,Tamworth,7 months,18,Healthy
+LV-3265,FARM-2070,Pig,Duroc,21 months,447,Healthy
+LV-3266,FARM-2037,Pig,Tamworth,25 months,403,Healthy
+LV-3267,FARM-2071,Broiler,Hy-Line Brown,25 months,91,Healthy
+LV-3268,FARM-2038,Layer,Vanraja,10 months,37,Healthy
+LV-3269,FARM-2035,Layer,Giriraja,31 months,405,Healthy
+LV-3270,FARM-2032,Pig,Hampshire,32 months,309,Healthy
+LV-3271,FARM-2058,Pig,Duroc,9 months,160,Healthy
+LV-3272,FARM-2050,Layer,Kadaknath,22 months,230,Healthy
+LV-3273,FARM-2083,Pig,Landrace,20 months,169,Healthy
+LV-3274,FARM-2088,Pig,Hampshire,31 months,165,Healthy
+LV-3275,FARM-2050,Layer,Giriraja,32 months,500,Healthy
+LV-3276,FARM-2031,Pig,Pietrain,25 months,148,At Risk
+LV-3277,FARM-2050,Layer,Cobb 500,13 months,308,Sick
+LV-3278,FARM-2023,Pig,Large White,30 months,487,Healthy
+LV-3279,FARM-2056,Layer,Cobb 500,27 months,349,Healthy
+LV-3280,FARM-2081,Pig,Berkshire,16 months,134,Healthy
+LV-3281,FARM-2091,Layer,Kadaknath,5 months,234,Sick
+LV-3282,FARM-2061,Breeder,Kadaknath,35 months,264,At Risk
+LV-3283,FARM-2088,Pig,Tamworth,35 months,23,At Risk
+LV-3284,FARM-2046,Breeder,Cobb 500,7 months,398,Healthy
+LV-3285,FARM-2085,Pig,Pietrain,11 months,336,Healthy
+LV-3286,FARM-2072,Breeder,Kadaknath,22 months,499,At Risk
+LV-3287,FARM-2013,Broiler,Cobb 500,17 months,118,Healthy
+LV-3288,FARM-2066,Pig,Hampshire,29 months,196,Healthy
+LV-3289,FARM-2098,Breeder,Hy-Line Brown,23 months,17,Healthy
+LV-3290,FARM-2037,Pig,Tamworth,6 months,64,At Risk
+LV-3291,FARM-2093,Pig,Landrace,23 months,164,Healthy
+LV-3292,FARM-2026,Pig,Chester White,23 months,248,Healthy
+LV-3293,FARM-2092,Breeder,Vanraja,21 months,39,Healthy
+LV-3294,FARM-2090,Broiler,Ross 308,22 months,336,Healthy
+LV-3295,FARM-2021,Breeder,Lohmann Brown,34 months,94,Healthy
+LV-3296,FARM-2042,Breeder,Kadaknath,30 months,123,At Risk
+LV-3297,FARM-2080,Broiler,Hy-Line Brown,28 months,207,Healthy
+LV-3298,FARM-2078,Broiler,Vanraja,28 months,204,Healthy
+LV-3299,FARM-2027,Broiler,Giriraja,5 months,300,Healthy
+LV-3300,FARM-2068,Broiler,Aseel,21 months,105,Healthy
+LV-3301,FARM-2033,Pig,Chester White,34 months,499,Healthy
+LV-3302,FARM-2076,Layer,Kadaknath,8 months,183,Healthy
+LV-3303,FARM-2058,Pig,Landrace,20 months,475,Healthy
+LV-3304,FARM-2010,Pig,Landrace,21 months,65,Healthy
+LV-3305,FARM-2014,Broiler,Aseel,10 months,266,Healthy
+LV-3306,FARM-2076,Broiler,Kadaknath,28 months,100,Healthy
+LV-3307,FARM-2068,Breeder,Hy-Line Brown,36 months,90,Healthy
+LV-3308,FARM-2017,Pig,Landrace,21 months,436,Healthy
+LV-3309,FARM-2006,Pig,Pietrain,1 months,253,Healthy
+LV-3310,FARM-2049,Breeder,Vanraja,27 months,355,Healthy
+LV-3311,FARM-2090,Layer,Vanraja,11 months,47,Healthy
+LV-3312,FARM-2097,Broiler,Giriraja,3 months,145,Healthy
+LV-3313,FARM-2036,Pig,Landrace,30 months,294,Healthy
+LV-3314,FARM-2098,Layer,Cobb 500,8 months,142,At Risk
+LV-3315,FARM-2046,Breeder,Ross 308,29 months,284,Healthy
+LV-3316,FARM-2054,Pig,Duroc,16 months,157,At Risk
+LV-3317,FARM-2004,Layer,Giriraja,23 months,446,At Risk
+LV-3318,FARM-2056,Broiler,Lohmann Brown,14 months,420,Healthy
+LV-3319,FARM-2088,Pig,Pietrain,28 months,89,Healthy
+LV-3320,FARM-2026,Pig,Hampshire,4 months,296,Healthy
+LV-3321,FARM-2035,Breeder,Hy-Line Brown,21 months,365,Healthy
+LV-3322,FARM-2073,Pig,Berkshire,33 months,465,Healthy
+LV-3323,FARM-2012,Broiler,Kadaknath,4 months,146,At Risk
+LV-3324,FARM-2016,Breeder,Hy-Line Brown,16 months,79,Healthy
+LV-3325,FARM-2031,Pig,Tamworth,32 months,77,Healthy
+LV-3326,FARM-2034,Pig,Tamworth,25 months,236,Healthy
+LV-3327,FARM-2098,Broiler,Kadaknath,33 months,388,Healthy
+LV-3328,FARM-2047,Layer,Vanraja,21 months,302,Healthy
+LV-3329,FARM-2099,Pig,Duroc,30 months,330,Healthy
+LV-3330,FARM-2045,Pig,Duroc,35 months,208,Healthy
+LV-3331,FARM-2054,Pig,Hampshire,32 months,142,Healthy
+LV-3332,FARM-2036,Pig,Pietrain,36 months,300,Healthy
+LV-3333,FARM-2062,Layer,Ross 308,3 months,55,Healthy
+LV-3334,FARM-2058,Pig,Large White,8 months,480,At Risk
+LV-3335,FARM-2056,Layer,Ross 308,28 months,108,Sick
+LV-3336,FARM-2016,Breeder,Giriraja,11 months,452,Sick
+LV-3337,FARM-2035,Broiler,Aseel,17 months,47,Healthy
+LV-3338,FARM-2083,Pig,Landrace,4 months,207,Healthy
+LV-3339,FARM-2092,Breeder,Lohmann Brown,28 months,340,Healthy
+LV-3340,FARM-2012,Broiler,Lohmann Brown,31 months,44,Healthy
+LV-3341,FARM-2028,Breeder,Vanraja,1 months,9,Healthy
+LV-3342,FARM-2015,Layer,Hy-Line Brown,31 months,41,Healthy
+LV-3343,FARM-2011,Pig,Duroc,7 months,165,Healthy
+LV-3344,FARM-2038,Broiler,Kadaknath,9 months,333,Sick
+LV-3345,FARM-2018,Broiler,Ross 308,11 months,230,Healthy
+LV-3346,FARM-2027,Breeder,Hy-Line Brown,27 months,320,Healthy
+LV-3347,FARM-2027,Broiler,Cobb 500,9 months,390,Healthy
+LV-3348,FARM-2093,Pig,Tamworth,23 months,498,Healthy
+LV-3349,FARM-2017,Pig,Hampshire,18 months,335,Healthy
+LV-3350,FARM-2070,Pig,Berkshire,2 months,439,At Risk
+LV-3351,FARM-2038,Broiler,Lohmann Brown,26 months,156,Healthy
+LV-3352,FARM-2030,Pig,Chester White,25 months,62,Healthy
+LV-3353,FARM-2081,Pig,Duroc,34 months,460,Sick
+LV-3354,FARM-2046,Layer,Hy-Line Brown,25 months,445,At Risk
+LV-3355,FARM-2053,Layer,Hy-Line Brown,31 months,493,Sick
+LV-3356,FARM-2009,Broiler,Cobb 500,1 months,139,Healthy
+LV-3357,FARM-2007,Layer,Giriraja,33 months,397,Healthy
+LV-3358,FARM-2089,Pig,Tamworth,6 months,332,Healthy
+LV-3359,FARM-2078,Broiler,Giriraja,6 months,163,Healthy
+LV-3360,FARM-2026,Pig,Landrace,35 months,172,Healthy
+LV-3361,FARM-2081,Pig,Duroc,20 months,362,Healthy
+LV-3362,FARM-2030,Pig,Large White,16 months,49,At Risk
+LV-3363,FARM-2014,Layer,Ross 308,20 months,346,Healthy
+LV-3364,FARM-2094,Broiler,Cobb 500,1 months,367,Healthy
+LV-3365,FARM-2001,Broiler,Vanraja,23 months,272,Healthy
+LV-3366,FARM-2092,Layer,Hy-Line Brown,24 months,69,Healthy
+LV-3367,FARM-2034,Pig,Duroc,2 months,176,At Risk
+LV-3368,FARM-2034,Pig,Duroc,17 months,369,Sick
+LV-3369,FARM-2080,Broiler,Vanraja,30 months,266,Healthy
+LV-3370,FARM-2063,Breeder,Hy-Line Brown,24 months,85,Healthy
+LV-3371,FARM-2013,Breeder,Cobb 500,15 months,384,Healthy
+LV-3372,FARM-2005,Pig,Large White,16 months,28,Healthy
+LV-3373,FARM-2049,Broiler,Hy-Line Brown,3 months,288,At Risk
+LV-3374,FARM-2091,Breeder,Kadaknath,15 months,169,Healthy
+LV-3375,FARM-2092,Layer,Giriraja,5 months,297,Healthy
+LV-3376,FARM-2064,Pig,Large White,12 months,119,At Risk
+LV-3377,FARM-2005,Pig,Tamworth,5 months,454,Healthy
+LV-3378,FARM-2036,Pig,Berkshire,21 months,49,Healthy
+LV-3379,FARM-2001,Layer,Lohmann Brown,19 months,293,At Risk
+LV-3380,FARM-2094,Breeder,Lohmann Brown,30 months,193,Healthy
+LV-3381,FARM-2063,Broiler,Lohmann Brown,10 months,8,Sick
+LV-3382,FARM-2003,Broiler,Aseel,1 months,491,Healthy
+LV-3383,FARM-2097,Breeder,Kadaknath,20 months,58,Healthy
+LV-3384,FARM-2030,Pig,Tamworth,32 months,497,Healthy
+LV-3385,FARM-2018,Breeder,Giriraja,6 months,27,At Risk
+LV-3386,FARM-2066,Pig,Tamworth,24 months,239,Sick
+LV-3387,FARM-2010,Pig,Duroc,33 months,73,Healthy
+LV-3388,FARM-2050,Broiler,Ross 308,28 months,344,Sick
+LV-3389,FARM-2030,Pig,Berkshire,17 months,440,Healthy
+LV-3390,FARM-2050,Breeder,Aseel,21 months,236,Healthy
+LV-3391,FARM-2009,Broiler,Hy-Line Brown,7 months,84,Healthy
+LV-3392,FARM-2057,Pig,Chester White,21 months,213,Healthy
+LV-3393,FARM-2045,Pig,Hampshire,29 months,162,Healthy
+LV-3394,FARM-2015,Broiler,Hy-Line Brown,20 months,428,Healthy
+LV-3395,FARM-2077,Broiler,Lohmann Brown,21 months,80,Healthy
+LV-3396,FARM-2031,Pig,Pietrain,26 months,267,Healthy
+LV-3397,FARM-2038,Layer,Hy-Line Brown,2 months,492,Healthy
+LV-3398,FARM-2057,Pig,Hampshire,7 months,241,Healthy
+LV-3399,FARM-2017,Pig,Duroc,1 months,36,At Risk
+LV-3400,FARM-2028,Broiler,Lohmann Brown,26 months,195,Healthy
+LV-3401,FARM-2082,Broiler,Giriraja,5 months,16,Sick
+LV-3402,FARM-2025,Breeder,Vanraja,9 months,52,At Risk
+LV-3403,FARM-2042,Broiler,Ross 308,30 months,30,Healthy
+LV-3404,FARM-2073,Pig,Tamworth,26 months,259,Healthy
+LV-3405,FARM-2087,Pig,Tamworth,12 months,186,Healthy
+LV-3406,FARM-2023,Pig,Berkshire,18 months,233,At Risk
+LV-3407,FARM-2004,Breeder,Lohmann Brown,19 months,260,Healthy
+LV-3408,FARM-2070,Pig,Chester White,4 months,49,Healthy
+LV-3409,FARM-2017,Pig,Tamworth,13 months,334,At Risk
+LV-3410,FARM-2067,Broiler,Ross 308,25 months,405,Healthy
+LV-3411,FARM-2061,Breeder,Vanraja,23 months,472,Healthy
+LV-3412,FARM-2041,Pig,Tamworth,18 months,97,Healthy
+LV-3413,FARM-2076,Broiler,Ross 308,18 months,34,At Risk
+LV-3414,FARM-2060,Breeder,Aseel,15 months,86,Healthy
+LV-3415,FARM-2084,Pig,Hampshire,18 months,278,At Risk
+LV-3416,FARM-2094,Broiler,Lohmann Brown,25 months,186,Sick
+LV-3417,FARM-2022,Broiler,Lohmann Brown,21 months,417,Healthy
+LV-3418,FARM-2045,Pig,Large White,23 months,490,Healthy
+LV-3419,FARM-2018,Breeder,Lohmann Brown,32 months,282,Healthy
+LV-3420,FARM-2062,Broiler,Cobb 500,4 months,124,Healthy
+LV-3421,FARM-2002,Breeder,Vanraja,1 months,174,At Risk
+LV-3422,FARM-2025,Broiler,Aseel,12 months,475,At Risk
+LV-3423,FARM-2041,Pig,Large White,2 months,80,Healthy
+LV-3424,FARM-2018,Broiler,Aseel,5 months,196,Healthy
+LV-3425,FARM-2084,Pig,Tamworth,7 months,177,Healthy
+LV-3426,FARM-2017,Pig,Landrace,28 months,410,Healthy
+LV-3427,FARM-2062,Breeder,Aseel,12 months,367,Sick
+LV-3428,FARM-2088,Pig,Pietrain,15 months,345,Healthy
+LV-3429,FARM-2022,Layer,Giriraja,19 months,70,Healthy
+LV-3430,FARM-2000,Pig,Tamworth,3 months,98,Healthy
+LV-3431,FARM-2078,Broiler,Cobb 500,32 months,77,Healthy
+LV-3432,FARM-2009,Broiler,Aseel,21 months,90,Healthy
+LV-3433,FARM-2011,Pig,Pietrain,29 months,10,Healthy
+LV-3434,FARM-2031,Pig,Duroc,23 months,136,At Risk
+LV-3435,FARM-2092,Broiler,Ross 308,25 months,229,Healthy
+LV-3436,FARM-2021,Layer,Vanraja,25 months,184,Healthy
+LV-3437,FARM-2012,Layer,Lohmann Brown,11 months,236,Healthy
+LV-3438,FARM-2004,Layer,Ross 308,21 months,138,Sick
+LV-3439,FARM-2009,Layer,Hy-Line Brown,25 months,87,Healthy
+LV-3440,FARM-2070,Pig,Duroc,22 months,309,Sick
+LV-3441,FARM-2061,Breeder,Ross 308,28 months,487,Healthy
+LV-3442,FARM-2077,Layer,Hy-Line Brown,4 months,56,Healthy
+LV-3443,FARM-2024,Layer,Giriraja,19 months,157,Healthy
+LV-3444,FARM-2006,Pig,Tamworth,36 months,435,Healthy
+LV-3445,FARM-2006,Pig,Pietrain,1 months,223,Healthy
+LV-3446,FARM-2084,Pig,Chester White,13 months,54,Healthy
+LV-3447,FARM-2021,Breeder,Giriraja,6 months,247,At Risk
+LV-3448,FARM-2039,Pig,Tamworth,31 months,255,At Risk
+LV-3449,FARM-2033,Pig,Duroc,35 months,203,Healthy
+LV-3450,FARM-2048,Pig,Pietrain,12 months,233,Healthy
+LV-3451,FARM-2056,Layer,Giriraja,15 months,433,Healthy
+LV-3452,FARM-2007,Broiler,Cobb 500,6 months,347,Healthy
+LV-3453,FARM-2069,Pig,Tamworth,15 months,288,Healthy
+LV-3454,FARM-2049,Breeder,Kadaknath,35 months,356,At Risk
+LV-3455,FARM-2060,Breeder,Lohmann Brown,31 months,158,Healthy
+LV-3456,FARM-2091,Broiler,Hy-Line Brown,8 months,491,At Risk
+LV-3457,FARM-2022,Broiler,Lohmann Brown,13 months,69,Healthy
+LV-3458,FARM-2010,Pig,Tamworth,13 months,426,Healthy
+LV-3459,FARM-2076,Layer,Aseel,5 months,49,Healthy
+LV-3460,FARM-2050,Breeder,Aseel,18 months,271,Healthy
+LV-3461,FARM-2001,Breeder,Kadaknath,8 months,217,Healthy
+LV-3462,FARM-2072,Breeder,Cobb 500,7 months,293,At Risk
+LV-3463,FARM-2036,Pig,Pietrain,27 months,140,Healthy
+LV-3464,FARM-2062,Breeder,Vanraja,3 months,93,Healthy
+LV-3465,FARM-2018,Breeder,Kadaknath,3 months,207,At Risk
+LV-3466,FARM-2042,Breeder,Lohmann Brown,4 months,386,Healthy
+LV-3467,FARM-2034,Pig,Pietrain,2 months,177,At Risk
+LV-3468,FARM-2038,Layer,Giriraja,32 months,444,Healthy
+LV-3469,FARM-2012,Broiler,Hy-Line Brown,20 months,385,Healthy
+LV-3470,FARM-2041,Pig,Berkshire,27 months,314,Healthy
+LV-3471,FARM-2024,Layer,Lohmann Brown,27 months,384,Healthy
+LV-3472,FARM-2066,Pig,Pietrain,4 months,268,At Risk
+LV-3473,FARM-2008,Pig,Berkshire,33 months,211,Healthy
+LV-3474,FARM-2067,Breeder,Ross 308,12 months,103,At Risk
+LV-3475,FARM-2025,Broiler,Lohmann Brown,3 months,238,Healthy
+LV-3476,FARM-2046,Breeder,Lohmann Brown,18 months,193,At Risk
+LV-3477,FARM-2064,Pig,Tamworth,8 months,353,Healthy
+LV-3478,FARM-2047,Layer,Vanraja,12 months,496,At Risk
+LV-3479,FARM-2075,Pig,Pietrain,23 months,88,At Risk
+LV-3480,FARM-2033,Pig,Duroc,19 months,19,Healthy
+LV-3481,FARM-2020,Breeder,Lohmann Brown,15 months,336,Healthy
+LV-3482,FARM-2026,Pig,Berkshire,27 months,267,Healthy
+LV-3483,FARM-2099,Pig,Large White,31 months,471,Healthy
+LV-3484,FARM-2022,Breeder,Ross 308,15 months,134,Healthy
+LV-3485,FARM-2039,Pig,Berkshire,28 months,463,Healthy
+LV-3486,FARM-2044,Layer,Giriraja,14 months,243,Healthy
+LV-3487,FARM-2066,Pig,Tamworth,7 months,8,Healthy
+LV-3488,FARM-2084,Pig,Pietrain,36 months,336,Healthy
+LV-3489,FARM-2036,Pig,Berkshire,7 months,251,Healthy
+LV-3490,FARM-2035,Breeder,Aseel,18 months,138,Healthy
+LV-3491,FARM-2083,Pig,Berkshire,13 months,81,Healthy
+LV-3492,FARM-2030,Pig,Large White,26 months,343,Healthy
+LV-3493,FARM-2017,Pig,Large White,32 months,156,Healthy
+LV-3494,FARM-2053,Layer,Kadaknath,3 months,303,Healthy
+LV-3495,FARM-2073,Pig,Hampshire,22 months,376,Healthy
+LV-3496,FARM-2087,Pig,Chester White,23 months,264,Healthy
+LV-3497,FARM-2021,Breeder,Hy-Line Brown,19 months,54,Healthy
+LV-3498,FARM-2094,Layer,Hy-Line Brown,22 months,340,Healthy
+LV-3499,FARM-2045,Pig,Hampshire,20 months,220,At Risk
+LV-3500,FARM-2042,Layer,Giriraja,19 months,242,At Risk
+LV-3501,FARM-2060,Broiler,Cobb 500,31 months,460,Healthy
+LV-3502,FARM-2015,Breeder,Kadaknath,34 months,157,Healthy
+LV-3503,FARM-2019,Pig,Landrace,13 months,180,Healthy
+LV-3504,FARM-2072,Layer,Hy-Line Brown,21 months,446,Healthy
+LV-3505,FARM-2099,Pig,Duroc,32 months,175,Healthy
+LV-3506,FARM-2022,Layer,Ross 308,1 months,236,Healthy
+LV-3507,FARM-2097,Broiler,Hy-Line Brown,32 months,407,At Risk
+LV-3508,FARM-2011,Pig,Landrace,28 months,329,Healthy
+LV-3509,FARM-2054,Pig,Chester White,25 months,7,Healthy
+LV-3510,FARM-2025,Breeder,Aseel,1 months,461,Healthy
+LV-3511,FARM-2067,Broiler,Ross 308,1 months,325,Healthy
+LV-3512,FARM-2028,Breeder,Aseel,20 months,71,Healthy
+LV-3513,FARM-2064,Pig,Berkshire,11 months,38,At Risk
+LV-3514,FARM-2038,Layer,Vanraja,34 months,310,Healthy
+LV-3515,FARM-2055,Pig,Landrace,22 months,466,Healthy
+LV-3516,FARM-2096,Pig,Hampshire,11 months,490,At Risk
+LV-3517,FARM-2051,Broiler,Lohmann Brown,15 months,377,Sick
+LV-3518,FARM-2027,Breeder,Ross 308,33 months,91,Healthy
+LV-3519,FARM-2091,Breeder,Ross 308,25 months,453,Healthy
+LV-3520,FARM-2098,Breeder,Ross 308,4 months,343,Healthy
+LV-3521,FARM-2002,Broiler,Cobb 500,27 months,232,Healthy
+LV-3522,FARM-2070,Pig,Berkshire,31 months,364,Healthy
+LV-3523,FARM-2088,Pig,Large White,20 months,220,Healthy
+LV-3524,FARM-2084,Pig,Berkshire,9 months,219,At Risk
+LV-3525,FARM-2013,Breeder,Cobb 500,19 months,63,At Risk
+LV-3526,FARM-2063,Broiler,Lohmann Brown,17 months,430,Healthy
+LV-3527,FARM-2025,Layer,Kadaknath,19 months,87,Healthy
+LV-3528,FARM-2063,Broiler,Vanraja,22 months,125,Healthy
+LV-3529,FARM-2085,Pig,Duroc,8 months,432,Healthy
+LV-3530,FARM-2063,Broiler,Cobb 500,33 months,43,Healthy
+LV-3531,FARM-2012,Layer,Lohmann Brown,30 months,156,Healthy
+LV-3532,FARM-2006,Pig,Duroc,12 months,452,Healthy
+LV-3533,FARM-2037,Pig,Pietrain,21 months,223,Healthy
+LV-3534,FARM-2012,Broiler,Ross 308,9 months,344,Healthy
+LV-3535,FARM-2042,Layer,Vanraja,18 months,454,Healthy
+LV-3536,FARM-2047,Layer,Hy-Line Brown,8 months,210,Healthy
+LV-3537,FARM-2058,Pig,Berkshire,25 months,358,At Risk
+LV-3538,FARM-2053,Breeder,Hy-Line Brown,8 months,72,Healthy
+LV-3539,FARM-2007,Broiler,Cobb 500,27 months,471,Healthy
+LV-3540,FARM-2072,Breeder,Vanraja,12 months,317,Healthy
+LV-3541,FARM-2045,Pig,Large White,9 months,252,At Risk
+LV-3542,FARM-2014,Layer,Vanraja,3 months,37,Healthy
+LV-3543,FARM-2040,Pig,Large White,34 months,397,Healthy
+LV-3544,FARM-2092,Breeder,Lohmann Brown,22 months,270,Healthy
+LV-3545,FARM-2089,Pig,Duroc,28 months,343,Healthy
+LV-3546,FARM-2061,Layer,Kadaknath,10 months,434,At Risk
+LV-3547,FARM-2078,Broiler,Ross 308,11 months,263,At Risk
+LV-3548,FARM-2063,Broiler,Cobb 500,32 months,169,Healthy
+LV-3549,FARM-2035,Broiler,Lohmann Brown,36 months,334,Healthy
+LV-3550,FARM-2030,Pig,Duroc,30 months,232,At Risk
+LV-3551,FARM-2057,Pig,Duroc,32 months,233,Healthy
+LV-3552,FARM-2063,Breeder,Ross 308,7 months,211,Healthy
+LV-3553,FARM-2071,Breeder,Ross 308,6 months,410,Healthy
+LV-3554,FARM-2079,Breeder,Giriraja,33 months,292,Healthy
+LV-3555,FARM-2085,Pig,Chester White,22 months,191,At Risk
+LV-3556,FARM-2028,Layer,Aseel,36 months,397,Healthy
+LV-3557,FARM-2060,Breeder,Aseel,29 months,63,Healthy
+LV-3558,FARM-2084,Pig,Hampshire,1 months,179,Healthy
+LV-3559,FARM-2081,Pig,Berkshire,36 months,272,Healthy
+LV-3560,FARM-2013,Broiler,Hy-Line Brown,32 months,76,At Risk
+LV-3561,FARM-2095,Pig,Tamworth,7 months,135,Healthy
+LV-3562,FARM-2024,Broiler,Kadaknath,14 months,239,At Risk
+LV-3563,FARM-2024,Breeder,Aseel,7 months,392,Healthy
+LV-3564,FARM-2081,Pig,Duroc,29 months,239,Healthy
+LV-3565,FARM-2064,Pig,Landrace,32 months,7,Healthy
+LV-3566,FARM-2006,Pig,Tamworth,31 months,478,Healthy
+LV-3567,FARM-2022,Breeder,Hy-Line Brown,9 months,58,Healthy
+LV-3568,FARM-2076,Breeder,Aseel,33 months,456,Healthy
+LV-3569,FARM-2077,Breeder,Lohmann Brown,18 months,208,Sick
+LV-3570,FARM-2037,Pig,Chester White,9 months,75,Healthy
+LV-3571,FARM-2089,Pig,Berkshire,36 months,445,Healthy
+LV-3572,FARM-2094,Breeder,Lohmann Brown,13 months,112,Healthy
+LV-3573,FARM-2037,Pig,Pietrain,9 months,368,Healthy
+LV-3574,FARM-2022,Breeder,Aseel,8 months,394,Healthy
+LV-3575,FARM-2061,Breeder,Kadaknath,35 months,151,At Risk
+LV-3576,FARM-2054,Pig,Large White,34 months,59,Healthy
+LV-3577,FARM-2018,Broiler,Ross 308,13 months,141,At Risk
+LV-3578,FARM-2020,Layer,Giriraja,10 months,434,Healthy
+LV-3579,FARM-2037,Pig,Hampshire,35 months,21,Healthy
+LV-3580,FARM-2057,Pig,Duroc,36 months,447,Healthy
+LV-3581,FARM-2082,Breeder,Kadaknath,16 months,266,At Risk
+LV-3582,FARM-2089,Pig,Berkshire,4 months,479,Healthy
+LV-3583,FARM-2053,Breeder,Aseel,36 months,32,Healthy
+LV-3584,FARM-2032,Pig,Hampshire,29 months,429,Healthy
+LV-3585,FARM-2081,Pig,Pietrain,35 months,383,Healthy
+LV-3586,FARM-2099,Pig,Hampshire,19 months,234,Healthy
+LV-3587,FARM-2087,Pig,Duroc,12 months,497,Healthy
+LV-3588,FARM-2065,Broiler,Kadaknath,3 months,224,Healthy
+LV-3589,FARM-2033,Pig,Landrace,11 months,304,At Risk
+LV-3590,FARM-2000,Pig,Pietrain,30 months,368,Sick
+LV-3591,FARM-2005,Pig,Landrace,21 months,310,Healthy
+LV-3592,FARM-2080,Breeder,Giriraja,32 months,409,Healthy
+LV-3593,FARM-2045,Pig,Duroc,21 months,274,Healthy
+LV-3594,FARM-2023,Pig,Duroc,33 months,86,Healthy
+LV-3595,FARM-2068,Layer,Cobb 500,23 months,118,At Risk
+LV-3596,FARM-2084,Pig,Pietrain,22 months,189,Healthy
+LV-3597,FARM-2096,Pig,Chester White,36 months,426,At Risk
+LV-3598,FARM-2083,Pig,Large White,8 months,347,Healthy
+LV-3599,FARM-2030,Pig,Hampshire,3 months,354,At Risk
+LV-3600,FARM-2048,Pig,Duroc,25 months,136,Healthy
+LV-3601,FARM-2036,Pig,Large White,34 months,425,At Risk
+LV-3602,FARM-2065,Breeder,Vanraja,32 months,27,Healthy
+LV-3603,FARM-2083,Pig,Hampshire,21 months,268,Healthy
+LV-3604,FARM-2012,Broiler,Ross 308,5 months,112,Healthy
+LV-3605,FARM-2099,Pig,Hampshire,28 months,432,Healthy
+LV-3606,FARM-2068,Breeder,Kadaknath,5 months,387,Healthy
+LV-3607,FARM-2003,Layer,Aseel,3 months,49,Healthy
+LV-3608,FARM-2022,Layer,Cobb 500,15 months,471,Healthy
+LV-3609,FARM-2049,Layer,Kadaknath,28 months,166,Healthy
+LV-3610,FARM-2086,Broiler,Ross 308,5 months,392,Healthy
+LV-3611,FARM-2005,Pig,Duroc,23 months,480,Healthy
+LV-3612,FARM-2037,Pig,Berkshire,6 months,149,At Risk
+LV-3613,FARM-2056,Layer,Kadaknath,2 months,247,Healthy
+LV-3614,FARM-2028,Broiler,Kadaknath,35 months,156,Sick
+LV-3615,FARM-2018,Layer,Aseel,1 months,288,At Risk
+LV-3616,FARM-2018,Broiler,Ross 308,1 months,298,Healthy
+LV-3617,FARM-2068,Breeder,Cobb 500,20 months,112,Healthy
+LV-3618,FARM-2092,Layer,Lohmann Brown,27 months,468,Healthy
+LV-3619,FARM-2065,Broiler,Hy-Line Brown,12 months,118,Healthy
+LV-3620,FARM-2032,Pig,Hampshire,8 months,97,Healthy
+LV-3621,FARM-2072,Broiler,Vanraja,36 months,42,Healthy
+LV-3622,FARM-2008,Pig,Berkshire,7 months,106,Healthy
+LV-3623,FARM-2062,Layer,Aseel,9 months,348,Healthy
+LV-3624,FARM-2012,Layer,Cobb 500,13 months,167,Healthy
+LV-3625,FARM-2042,Breeder,Giriraja,10 months,294,Healthy
+LV-3626,FARM-2040,Pig,Tamworth,11 months,7,Healthy
+LV-3627,FARM-2028,Breeder,Kadaknath,18 months,435,Healthy
+LV-3628,FARM-2086,Breeder,Aseel,31 months,241,Healthy
+LV-3629,FARM-2099,Pig,Berkshire,32 months,287,Healthy
+LV-3630,FARM-2082,Breeder,Cobb 500,18 months,444,At Risk
+LV-3631,FARM-2068,Broiler,Giriraja,5 months,377,Healthy
+LV-3632,FARM-2002,Breeder,Ross 308,26 months,398,Healthy
+LV-3633,FARM-2004,Breeder,Giriraja,35 months,462,Sick
+LV-3634,FARM-2060,Breeder,Hy-Line Brown,24 months,205,Healthy
+LV-3635,FARM-2098,Breeder,Giriraja,9 months,242,Healthy
+LV-3636,FARM-2011,Pig,Tamworth,24 months,262,Healthy
+LV-3637,FARM-2030,Pig,Landrace,33 months,76,Healthy
+LV-3638,FARM-2022,Breeder,Hy-Line Brown,31 months,485,Healthy
+LV-3639,FARM-2028,Layer,Lohmann Brown,5 months,140,Healthy
+LV-3640,FARM-2005,Pig,Hampshire,34 months,469,At Risk
+LV-3641,FARM-2049,Layer,Vanraja,3 months,25,Sick
+LV-3642,FARM-2041,Pig,Duroc,34 months,329,At Risk
+LV-3643,FARM-2094,Layer,Hy-Line Brown,25 months,339,Healthy
+LV-3644,FARM-2075,Pig,Duroc,34 months,133,Healthy
+LV-3645,FARM-2028,Breeder,Kadaknath,23 months,423,At Risk
+LV-3646,FARM-2062,Layer,Ross 308,33 months,456,Healthy
+LV-3647,FARM-2021,Broiler,Cobb 500,33 months,334,Healthy
+LV-3648,FARM-2019,Pig,Landrace,11 months,190,Healthy
+LV-3649,FARM-2015,Breeder,Lohmann Brown,27 months,420,Healthy
+LV-3650,FARM-2014,Layer,Vanraja,31 months,112,Healthy
+LV-3651,FARM-2082,Layer,Ross 308,16 months,27,Healthy
+LV-3652,FARM-2075,Pig,Landrace,9 months,327,Healthy
+LV-3653,FARM-2073,Pig,Landrace,4 months,90,Healthy
+LV-3654,FARM-2023,Pig,Tamworth,2 months,454,Healthy
+LV-3655,FARM-2084,Pig,Berkshire,6 months,115,Healthy
+LV-3656,FARM-2060,Layer,Hy-Line Brown,15 months,430,Healthy
+LV-3657,FARM-2018,Breeder,Hy-Line Brown,33 months,140,Healthy
+LV-3658,FARM-2087,Pig,Pietrain,30 months,310,Healthy
+LV-3659,FARM-2029,Layer,Kadaknath,9 months,60,Healthy
+LV-3660,FARM-2066,Pig,Tamworth,10 months,315,Healthy
+LV-3661,FARM-2060,Breeder,Ross 308,35 months,262,At Risk
+LV-3662,FARM-2011,Pig,Chester White,9 months,466,Healthy
+LV-3663,FARM-2000,Pig,Tamworth,34 months,220,Healthy
+LV-3664,FARM-2005,Pig,Tamworth,15 months,485,At Risk
+LV-3665,FARM-2098,Layer,Aseel,7 months,222,Healthy
+LV-3666,FARM-2061,Broiler,Cobb 500,19 months,311,At Risk
+LV-3667,FARM-2052,Layer,Lohmann Brown,1 months,368,Healthy
+LV-3668,FARM-2000,Pig,Duroc,34 months,8,Healthy
+LV-3669,FARM-2026,Pig,Pietrain,27 months,190,Healthy
+LV-3670,FARM-2054,Pig,Berkshire,17 months,442,Healthy
+LV-3671,FARM-2072,Layer,Giriraja,26 months,391,Healthy
+LV-3672,FARM-2070,Pig,Chester White,12 months,194,Healthy
+LV-3673,FARM-2061,Layer,Giriraja,23 months,401,Healthy
+LV-3674,FARM-2094,Broiler,Cobb 500,15 months,233,At Risk
+LV-3675,FARM-2020,Broiler,Lohmann Brown,33 months,210,At Risk
+LV-3676,FARM-2070,Pig,Large White,11 months,204,Sick
+LV-3677,FARM-2000,Pig,Duroc,10 months,246,At Risk
+LV-3678,FARM-2055,Pig,Duroc,5 months,139,Healthy
+LV-3679,FARM-2010,Pig,Large White,25 months,481,Sick
+LV-3680,FARM-2078,Breeder,Giriraja,4 months,489,At Risk
+LV-3681,FARM-2022,Breeder,Vanraja,29 months,10,Healthy
+LV-3682,FARM-2084,Pig,Berkshire,13 months,22,At Risk
+LV-3683,FARM-2065,Breeder,Lohmann Brown,11 months,350,Healthy
+LV-3684,FARM-2030,Pig,Large White,11 months,49,Sick
+LV-3685,FARM-2099,Pig,Tamworth,23 months,347,Healthy
+LV-3686,FARM-2075,Pig,Hampshire,34 months,12,Healthy
+LV-3687,FARM-2008,Pig,Duroc,36 months,150,Healthy
+LV-3688,FARM-2071,Breeder,Aseel,23 months,498,At Risk
+LV-3689,FARM-2028,Breeder,Lohmann Brown,30 months,481,Healthy
+LV-3690,FARM-2000,Pig,Berkshire,12 months,213,Healthy
+LV-3691,FARM-2071,Broiler,Giriraja,22 months,489,Healthy
+LV-3692,FARM-2065,Layer,Giriraja,29 months,499,Healthy
+LV-3693,FARM-2061,Broiler,Aseel,30 months,353,Healthy
+LV-3694,FARM-2075,Pig,Large White,31 months,64,Healthy
+LV-3695,FARM-2048,Pig,Hampshire,15 months,414,Healthy
+LV-3696,FARM-2045,Pig,Large White,17 months,132,Healthy
+LV-3697,FARM-2051,Breeder,Aseel,5 months,288,Sick
+LV-3698,FARM-2060,Layer,Aseel,14 months,462,Healthy
+LV-3699,FARM-2023,Pig,Hampshire,32 months,382,Healthy
+LV-3700,FARM-2094,Broiler,Giriraja,14 months,122,Healthy
+LV-3701,FARM-2031,Pig,Pietrain,10 months,403,Healthy
+LV-3702,FARM-2010,Pig,Chester White,1 months,396,At Risk
+LV-3703,FARM-2005,Pig,Chester White,24 months,322,Healthy
+LV-3704,FARM-2073,Pig,Berkshire,32 months,98,Sick
+LV-3705,FARM-2065,Layer,Kadaknath,15 months,389,Healthy
+LV-3706,FARM-2006,Pig,Tamworth,31 months,486,Healthy
+LV-3707,FARM-2064,Pig,Pietrain,26 months,445,Healthy
+LV-3708,FARM-2022,Layer,Cobb 500,34 months,240,Healthy
+LV-3709,FARM-2001,Broiler,Lohmann Brown,25 months,302,Healthy
+LV-3710,FARM-2046,Breeder,Giriraja,12 months,285,Healthy
+LV-3711,FARM-2034,Pig,Chester White,22 months,192,Healthy
+LV-3712,FARM-2054,Pig,Hampshire,27 months,363,At Risk
+LV-3713,FARM-2046,Layer,Giriraja,29 months,97,Healthy
+LV-3714,FARM-2073,Pig,Hampshire,7 months,374,Healthy
+LV-3715,FARM-2030,Pig,Tamworth,25 months,105,Healthy
+LV-3716,FARM-2094,Broiler,Vanraja,1 months,95,Healthy
+LV-3717,FARM-2017,Pig,Pietrain,32 months,158,Healthy
+LV-3718,FARM-2072,Broiler,Kadaknath,7 months,358,Healthy
+LV-3719,FARM-2027,Layer,Vanraja,7 months,235,Healthy
+LV-3720,FARM-2033,Pig,Pietrain,24 months,291,Healthy
+LV-3721,FARM-2032,Pig,Pietrain,2 months,215,Healthy
+LV-3722,FARM-2086,Breeder,Lohmann Brown,35 months,94,Sick
+LV-3723,FARM-2036,Pig,Pietrain,21 months,349,Healthy
+LV-3724,FARM-2099,Pig,Chester White,6 months,200,Healthy
+LV-3725,FARM-2059,Breeder,Hy-Line Brown,11 months,332,At Risk
+LV-3726,FARM-2043,Layer,Kadaknath,5 months,45,Healthy
+LV-3727,FARM-2029,Layer,Aseel,19 months,368,Healthy
+LV-3728,FARM-2082,Layer,Giriraja,29 months,404,At Risk
+LV-3729,FARM-2046,Breeder,Vanraja,27 months,90,Healthy
+LV-3730,FARM-2002,Broiler,Lohmann Brown,17 months,486,Healthy
+LV-3731,FARM-2095,Pig,Duroc,14 months,90,Healthy
+LV-3732,FARM-2012,Broiler,Vanraja,36 months,32,Healthy
+LV-3733,FARM-2050,Breeder,Cobb 500,7 months,139,Healthy
+LV-3734,FARM-2010,Pig,Tamworth,20 months,122,Healthy
+LV-3735,FARM-2036,Pig,Chester White,9 months,72,Healthy
+LV-3736,FARM-2021,Broiler,Ross 308,23 months,445,At Risk
+LV-3737,FARM-2060,Layer,Giriraja,36 months,232,Healthy
+LV-3738,FARM-2089,Pig,Landrace,30 months,328,Healthy
+LV-3739,FARM-2072,Layer,Giriraja,23 months,251,Healthy
+LV-3740,FARM-2011,Pig,Chester White,20 months,192,Healthy
+LV-3741,FARM-2019,Pig,Berkshire,1 months,5,Healthy
+LV-3742,FARM-2097,Broiler,Aseel,19 months,245,Healthy
+LV-3743,FARM-2088,Pig,Chester White,31 months,158,Healthy
+LV-3744,FARM-2055,Pig,Berkshire,15 months,412,Healthy
+LV-3745,FARM-2047,Broiler,Kadaknath,36 months,228,Healthy
+LV-3746,FARM-2020,Breeder,Kadaknath,25 months,117,Healthy
+LV-3747,FARM-2054,Pig,Hampshire,34 months,396,At Risk
+LV-3748,FARM-2078,Breeder,Giriraja,19 months,337,Healthy
+LV-3749,FARM-2034,Pig,Tamworth,13 months,441,Healthy
+LV-3750,FARM-2017,Pig,Berkshire,8 months,331,Healthy
+LV-3751,FARM-2057,Pig,Berkshire,32 months,101,Healthy
+LV-3752,FARM-2019,Pig,Large White,35 months,16,Healthy
+LV-3753,FARM-2013,Layer,Giriraja,9 months,371,Healthy
+LV-3754,FARM-2001,Broiler,Cobb 500,10 months,12,Healthy
+LV-3755,FARM-2043,Layer,Giriraja,32 months,195,Healthy
+LV-3756,FARM-2004,Layer,Cobb 500,10 months,33,Healthy
+LV-3757,FARM-2050,Broiler,Vanraja,12 months,103,At Risk
+LV-3758,FARM-2032,Pig,Tamworth,1 months,67,Sick
+LV-3759,FARM-2091,Broiler,Kadaknath,29 months,131,Healthy
+LV-3760,FARM-2004,Broiler,Vanraja,7 months,271,Healthy
+LV-3761,FARM-2026,Pig,Chester White,25 months,353,Sick
+LV-3762,FARM-2041,Pig,Landrace,3 months,386,Sick
+LV-3763,FARM-2066,Pig,Duroc,17 months,251,Healthy
+LV-3764,FARM-2025,Layer,Ross 308,14 months,62,Healthy
+LV-3765,FARM-2055,Pig,Pietrain,1 months,90,At Risk
+LV-3766,FARM-2074,Pig,Duroc,26 months,409,Healthy
+LV-3767,FARM-2005,Pig,Chester White,10 months,195,At Risk
+LV-3768,FARM-2031,Pig,Landrace,32 months,51,Healthy
+LV-3769,FARM-2043,Breeder,Ross 308,4 months,187,Healthy
+LV-3770,FARM-2089,Pig,Duroc,9 months,254,Healthy
+LV-3771,FARM-2071,Breeder,Aseel,29 months,380,Healthy
+LV-3772,FARM-2088,Pig,Tamworth,23 months,375,Healthy
+LV-3773,FARM-2005,Pig,Chester White,29 months,291,Healthy
+LV-3774,FARM-2089,Pig,Chester White,13 months,295,Healthy
+LV-3775,FARM-2044,Layer,Vanraja,18 months,449,At Risk
+LV-3776,FARM-2070,Pig,Landrace,5 months,276,Healthy
+LV-3777,FARM-2037,Pig,Berkshire,35 months,192,Healthy
+LV-3778,FARM-2099,Pig,Tamworth,12 months,457,Healthy
+LV-3779,FARM-2046,Breeder,Lohmann Brown,21 months,374,Healthy
+LV-3780,FARM-2068,Layer,Lohmann Brown,34 months,354,Healthy
+LV-3781,FARM-2070,Pig,Landrace,19 months,170,Healthy
+LV-3782,FARM-2041,Pig,Duroc,7 months,272,Healthy
+LV-3783,FARM-2005,Pig,Landrace,12 months,452,Healthy
+LV-3784,FARM-2013,Layer,Lohmann Brown,7 months,21,Healthy
+LV-3785,FARM-2049,Breeder,Vanraja,34 months,324,Healthy
+LV-3786,FARM-2032,Pig,Large White,24 months,118,Healthy
+LV-3787,FARM-2009,Broiler,Lohmann Brown,32 months,480,At Risk
+LV-3788,FARM-2010,Pig,Chester White,4 months,189,Healthy
+LV-3789,FARM-2053,Layer,Ross 308,18 months,275,Healthy
+LV-3790,FARM-2009,Layer,Cobb 500,14 months,496,Healthy
+LV-3791,FARM-2012,Breeder,Lohmann Brown,35 months,202,Healthy
+LV-3792,FARM-2067,Breeder,Lohmann Brown,12 months,290,Healthy
+LV-3793,FARM-2053,Breeder,Cobb 500,23 months,350,Healthy
+LV-3794,FARM-2085,Pig,Tamworth,7 months,90,At Risk
+LV-3795,FARM-2070,Pig,Tamworth,33 months,177,Healthy
+LV-3796,FARM-2068,Breeder,Vanraja,23 months,467,Healthy
+LV-3797,FARM-2041,Pig,Pietrain,27 months,396,Healthy
+LV-3798,FARM-2092,Layer,Lohmann Brown,35 months,114,Healthy
+LV-3799,FARM-2070,Pig,Berkshire,24 months,497,Healthy
+LV-3800,FARM-2050,Broiler,Ross 308,19 months,310,Healthy
+LV-3801,FARM-2017,Pig,Berkshire,1 months,158,Sick
+LV-3802,FARM-2027,Layer,Ross 308,18 months,475,Healthy
+LV-3803,FARM-2071,Breeder,Hy-Line Brown,7 months,24,Healthy
+LV-3804,FARM-2019,Pig,Landrace,17 months,192,At Risk
+LV-3805,FARM-2031,Pig,Hampshire,17 months,420,Healthy
+LV-3806,FARM-2073,Pig,Tamworth,14 months,380,Healthy
+LV-3807,FARM-2041,Pig,Chester White,12 months,254,At Risk
+LV-3808,FARM-2088,Pig,Duroc,20 months,24,Healthy
+LV-3809,FARM-2073,Pig,Tamworth,6 months,404,Healthy
+LV-3810,FARM-2098,Layer,Aseel,28 months,218,Sick
+LV-3811,FARM-2015,Broiler,Ross 308,25 months,32,Healthy
+LV-3812,FARM-2005,Pig,Pietrain,35 months,294,Healthy
+LV-3813,FARM-2064,Pig,Hampshire,10 months,30,Healthy
+LV-3814,FARM-2050,Layer,Cobb 500,15 months,226,Healthy
+LV-3815,FARM-2050,Broiler,Hy-Line Brown,22 months,47,Healthy
+LV-3816,FARM-2095,Pig,Large White,36 months,209,Healthy
+LV-3817,FARM-2051,Breeder,Kadaknath,9 months,395,Healthy
+LV-3818,FARM-2071,Broiler,Vanraja,26 months,338,Healthy
+LV-3819,FARM-2071,Breeder,Lohmann Brown,16 months,41,Healthy
+LV-3820,FARM-2055,Pig,Pietrain,6 months,62,Healthy
+LV-3821,FARM-2054,Pig,Pietrain,23 months,102,Healthy
+LV-3822,FARM-2076,Breeder,Ross 308,20 months,91,Sick
+LV-3823,FARM-2078,Layer,Hy-Line Brown,29 months,27,At Risk
+LV-3824,FARM-2029,Broiler,Aseel,10 months,392,Healthy
+LV-3825,FARM-2010,Pig,Duroc,4 months,129,Sick
+LV-3826,FARM-2018,Layer,Ross 308,22 months,360,At Risk
+LV-3827,FARM-2039,Pig,Chester White,31 months,16,Healthy
+LV-3828,FARM-2094,Breeder,Lohmann Brown,14 months,284,Healthy
+LV-3829,FARM-2033,Pig,Chester White,10 months,360,Healthy
+LV-3830,FARM-2002,Layer,Ross 308,17 months,92,Healthy
+LV-3831,FARM-2025,Breeder,Giriraja,4 months,243,Healthy
+LV-3832,FARM-2001,Broiler,Kadaknath,18 months,344,At Risk
+LV-3833,FARM-2084,Pig,Pietrain,7 months,14,Healthy
+LV-3834,FARM-2083,Pig,Tamworth,15 months,199,Healthy
+LV-3835,FARM-2090,Broiler,Aseel,32 months,448,Healthy
+LV-3836,FARM-2011,Pig,Landrace,13 months,261,Sick
+LV-3837,FARM-2071,Breeder,Ross 308,3 months,131,At Risk
+LV-3838,FARM-2039,Pig,Pietrain,32 months,206,Healthy
+LV-3839,FARM-2002,Layer,Aseel,23 months,325,Healthy
+LV-3840,FARM-2064,Pig,Berkshire,4 months,325,Healthy
+LV-3841,FARM-2049,Broiler,Giriraja,15 months,82,Healthy
+LV-3842,FARM-2050,Breeder,Hy-Line Brown,6 months,378,Healthy
+LV-3843,FARM-2086,Breeder,Lohmann Brown,27 months,128,Healthy
+LV-3844,FARM-2054,Pig,Berkshire,22 months,234,Healthy
+LV-3845,FARM-2026,Pig,Landrace,35 months,355,At Risk
+LV-3846,FARM-2017,Pig,Berkshire,34 months,470,Healthy
+LV-3847,FARM-2098,Broiler,Hy-Line Brown,21 months,39,Healthy
+LV-3848,FARM-2092,Broiler,Hy-Line Brown,21 months,434,At Risk
+LV-3849,FARM-2093,Pig,Large White,21 months,455,Sick
+LV-3850,FARM-2052,Layer,Vanraja,18 months,82,At Risk
+LV-3851,FARM-2013,Broiler,Hy-Line Brown,2 months,395,Sick
+LV-3852,FARM-2078,Layer,Lohmann Brown,15 months,123,Healthy
+LV-3853,FARM-2045,Pig,Duroc,31 months,73,Healthy
+LV-3854,FARM-2077,Layer,Aseel,12 months,441,Healthy
+LV-3855,FARM-2060,Broiler,Hy-Line Brown,13 months,120,Healthy
+LV-3856,FARM-2097,Broiler,Giriraja,27 months,118,Healthy
+LV-3857,FARM-2025,Broiler,Cobb 500,12 months,479,Sick
+LV-3858,FARM-2056,Breeder,Vanraja,21 months,448,Healthy
+LV-3859,FARM-2031,Pig,Tamworth,26 months,402,Healthy
+LV-3860,FARM-2094,Layer,Aseel,26 months,318,Sick
+LV-3861,FARM-2073,Pig,Large White,34 months,60,Healthy
+LV-3862,FARM-2005,Pig,Hampshire,34 months,280,Healthy
+LV-3863,FARM-2094,Broiler,Kadaknath,34 months,396,Healthy
+LV-3864,FARM-2006,Pig,Hampshire,19 months,230,Healthy
+LV-3865,FARM-2038,Layer,Vanraja,11 months,221,Healthy
+LV-3866,FARM-2006,Pig,Landrace,30 months,429,Healthy
+LV-3867,FARM-2011,Pig,Duroc,12 months,403,Healthy
+LV-3868,FARM-2089,Pig,Landrace,26 months,216,Healthy
+LV-3869,FARM-2003,Broiler,Vanraja,13 months,456,Healthy
+LV-3870,FARM-2032,Pig,Pietrain,11 months,372,Healthy
+LV-3871,FARM-2011,Pig,Duroc,29 months,329,Healthy
+LV-3872,FARM-2067,Breeder,Kadaknath,33 months,318,Sick
+LV-3873,FARM-2048,Pig,Tamworth,3 months,398,Healthy
+LV-3874,FARM-2042,Breeder,Hy-Line Brown,11 months,449,Healthy
+LV-3875,FARM-2098,Breeder,Ross 308,27 months,162,Healthy
+LV-3876,FARM-2098,Layer,Giriraja,12 months,65,At Risk
+LV-3877,FARM-2025,Broiler,Giriraja,1 months,239,Healthy
+LV-3878,FARM-2063,Breeder,Ross 308,32 months,126,Healthy
+LV-3879,FARM-2084,Pig,Chester White,30 months,214,Healthy
+LV-3880,FARM-2076,Breeder,Ross 308,16 months,456,Healthy
+LV-3881,FARM-2079,Breeder,Lohmann Brown,4 months,99,Healthy
+LV-3882,FARM-2083,Pig,Pietrain,3 months,79,At Risk
+LV-3883,FARM-2085,Pig,Berkshire,22 months,476,Healthy
+LV-3884,FARM-2013,Layer,Hy-Line Brown,11 months,349,Healthy
+LV-3885,FARM-2084,Pig,Landrace,30 months,388,Healthy
+LV-3886,FARM-2004,Broiler,Giriraja,21 months,193,At Risk
+LV-3887,FARM-2008,Pig,Tamworth,36 months,38,Healthy
+LV-3888,FARM-2017,Pig,Duroc,18 months,173,Healthy
+LV-3889,FARM-2067,Broiler,Lohmann Brown,4 months,60,Healthy
+LV-3890,FARM-2080,Breeder,Cobb 500,31 months,375,Healthy
+LV-3891,FARM-2090,Layer,Kadaknath,21 months,137,Healthy
+LV-3892,FARM-2079,Layer,Hy-Line Brown,32 months,271,Healthy
+LV-3893,FARM-2063,Layer,Hy-Line Brown,15 months,367,Healthy
+LV-3894,FARM-2024,Broiler,Cobb 500,2 months,243,Healthy
+LV-3895,FARM-2015,Breeder,Lohmann Brown,27 months,216,Healthy
+LV-3896,FARM-2044,Breeder,Lohmann Brown,1 months,332,Healthy
+LV-3897,FARM-2036,Pig,Berkshire,5 months,162,Healthy
+LV-3898,FARM-2070,Pig,Pietrain,1 months,63,Healthy
+LV-3899,FARM-2043,Layer,Ross 308,12 months,104,Healthy
+LV-3900,FARM-2043,Breeder,Vanraja,31 months,413,Healthy
+LV-3901,FARM-2017,Pig,Chester White,10 months,326,Healthy
+LV-3902,FARM-2068,Layer,Vanraja,27 months,480,Healthy
+LV-3903,FARM-2066,Pig,Berkshire,21 months,289,Healthy
+LV-3904,FARM-2026,Pig,Pietrain,23 months,38,Sick
+LV-3905,FARM-2035,Broiler,Aseel,25 months,325,Healthy
+LV-3906,FARM-2021,Breeder,Kadaknath,12 months,309,Healthy
+LV-3907,FARM-2096,Pig,Berkshire,21 months,368,Healthy
+LV-3908,FARM-2052,Broiler,Vanraja,16 months,195,Healthy
+LV-3909,FARM-2038,Broiler,Giriraja,12 months,62,Healthy
+LV-3910,FARM-2004,Broiler,Cobb 500,29 months,264,Healthy
+LV-3911,FARM-2061,Breeder,Hy-Line Brown,13 months,179,At Risk
+LV-3912,FARM-2093,Pig,Berkshire,21 months,78,At Risk
+LV-3913,FARM-2012,Breeder,Hy-Line Brown,14 months,375,Healthy
+LV-3914,FARM-2049,Breeder,Cobb 500,1 months,164,Sick
+LV-3915,FARM-2087,Pig,Duroc,22 months,244,At Risk
+LV-3916,FARM-2013,Breeder,Giriraja,2 months,300,At Risk
+LV-3917,FARM-2081,Pig,Hampshire,21 months,107,Healthy
+LV-3918,FARM-2035,Breeder,Aseel,29 months,348,Healthy
+LV-3919,FARM-2019,Pig,Landrace,18 months,63,Healthy
+LV-3920,FARM-2079,Breeder,Cobb 500,14 months,282,Healthy
+LV-3921,FARM-2040,Pig,Berkshire,10 months,487,Healthy
+LV-3922,FARM-2036,Pig,Hampshire,11 months,41,Healthy
+LV-3923,FARM-2043,Breeder,Vanraja,4 months,71,Healthy
+LV-3924,FARM-2086,Broiler,Cobb 500,25 months,32,Healthy
+LV-3925,FARM-2050,Broiler,Vanraja,23 months,164,Healthy
+LV-3926,FARM-2025,Breeder,Cobb 500,30 months,295,Healthy
+LV-3927,FARM-2089,Pig,Chester White,7 months,238,Healthy
+LV-3928,FARM-2082,Breeder,Vanraja,31 months,123,Sick
+LV-3929,FARM-2018,Breeder,Giriraja,24 months,205,Healthy
+LV-3930,FARM-2085,Pig,Pietrain,21 months,237,Healthy
+LV-3931,FARM-2008,Pig,Chester White,8 months,184,Healthy
+LV-3932,FARM-2021,Layer,Aseel,9 months,265,Healthy
+LV-3933,FARM-2091,Broiler,Aseel,36 months,337,Healthy
+LV-3934,FARM-2038,Breeder,Vanraja,26 months,307,Healthy
+LV-3935,FARM-2079,Broiler,Hy-Line Brown,31 months,201,Healthy
+LV-3936,FARM-2026,Pig,Tamworth,28 months,295,At Risk
+LV-3937,FARM-2069,Pig,Hampshire,12 months,344,Healthy
+LV-3938,FARM-2094,Breeder,Vanraja,8 months,308,Healthy
+LV-3939,FARM-2041,Pig,Duroc,29 months,95,Healthy
+LV-3940,FARM-2051,Broiler,Cobb 500,25 months,172,Healthy
+LV-3941,FARM-2084,Pig,Large White,6 months,116,At Risk
+LV-3942,FARM-2074,Pig,Large White,10 months,343,Healthy
+LV-3943,FARM-2068,Layer,Kadaknath,29 months,105,Healthy
+LV-3944,FARM-2040,Pig,Berkshire,20 months,475,Sick
+LV-3945,FARM-2055,Pig,Pietrain,6 months,303,Healthy
+LV-3946,FARM-2065,Layer,Hy-Line Brown,19 months,36,Healthy
+LV-3947,FARM-2070,Pig,Large White,1 months,365,Healthy
+LV-3948,FARM-2045,Pig,Duroc,19 months,448,Healthy
+LV-3949,FARM-2055,Pig,Tamworth,21 months,369,Healthy
+LV-3950,FARM-2048,Pig,Tamworth,35 months,113,Healthy
+LV-3951,FARM-2060,Broiler,Lohmann Brown,36 months,201,At Risk
+LV-3952,FARM-2046,Layer,Hy-Line Brown,19 months,451,Healthy
+LV-3953,FARM-2017,Pig,Large White,5 months,336,Healthy
+LV-3954,FARM-2092,Layer,Kadaknath,9 months,48,Healthy
+LV-3955,FARM-2053,Layer,Kadaknath,12 months,237,Healthy
+LV-3956,FARM-2070,Pig,Chester White,25 months,186,Healthy
+LV-3957,FARM-2054,Pig,Large White,32 months,438,Healthy
+LV-3958,FARM-2091,Breeder,Giriraja,27 months,479,Healthy
+LV-3959,FARM-2046,Broiler,Ross 308,31 months,365,Healthy
+LV-3960,FARM-2074,Pig,Chester White,6 months,77,Healthy
+LV-3961,FARM-2067,Layer,Vanraja,34 months,45,Healthy
+LV-3962,FARM-2078,Broiler,Lohmann Brown,31 months,327,Healthy
+LV-3963,FARM-2085,Pig,Duroc,35 months,413,Healthy
+LV-3964,FARM-2078,Broiler,Aseel,35 months,403,Healthy
+LV-3965,FARM-2058,Pig,Chester White,22 months,220,Healthy
+LV-3966,FARM-2037,Pig,Berkshire,11 months,23,Healthy
+LV-3967,FARM-2076,Breeder,Giriraja,17 months,36,Healthy
+LV-3968,FARM-2074,Pig,Landrace,4 months,341,Sick
+LV-3969,FARM-2094,Breeder,Ross 308,19 months,253,Healthy
+LV-3970,FARM-2064,Pig,Duroc,18 months,134,Healthy
+LV-3971,FARM-2035,Layer,Giriraja,1 months,384,Healthy
+LV-3972,FARM-2022,Breeder,Hy-Line Brown,29 months,194,At Risk
+LV-3973,FARM-2033,Pig,Hampshire,32 months,97,At Risk
+LV-3974,FARM-2004,Layer,Cobb 500,10 months,309,Sick
+LV-3975,FARM-2019,Pig,Chester White,27 months,399,Healthy
+LV-3976,FARM-2084,Pig,Chester White,11 months,112,Healthy
+LV-3977,FARM-2044,Broiler,Giriraja,8 months,31,Healthy
+LV-3978,FARM-2051,Layer,Giriraja,31 months,387,Sick
+LV-3979,FARM-2068,Broiler,Kadaknath,25 months,247,Healthy
+LV-3980,FARM-2067,Layer,Ross 308,19 months,479,At Risk
+LV-3981,FARM-2048,Pig,Pietrain,34 months,354,Sick
+LV-3982,FARM-2012,Breeder,Aseel,28 months,317,At Risk
+LV-3983,FARM-2034,Pig,Pietrain,18 months,141,At Risk
+LV-3984,FARM-2032,Pig,Tamworth,30 months,400,Healthy
+LV-3985,FARM-2030,Pig,Hampshire,34 months,177,Healthy
+LV-3986,FARM-2023,Pig,Pietrain,36 months,10,Healthy
+LV-3987,FARM-2008,Pig,Large White,27 months,55,Healthy
+LV-3988,FARM-2087,Pig,Chester White,23 months,117,Healthy
+LV-3989,FARM-2032,Pig,Hampshire,3 months,17,Healthy
+LV-3990,FARM-2007,Breeder,Lohmann Brown,8 months,367,Sick
+LV-3991,FARM-2011,Pig,Landrace,25 months,341,At Risk
+LV-3992,FARM-2082,Breeder,Hy-Line Brown,8 months,361,Healthy
+LV-3993,FARM-2037,Pig,Chester White,5 months,332,Healthy
+LV-3994,FARM-2035,Layer,Aseel,17 months,87,At Risk
+LV-3995,FARM-2035,Broiler,Kadaknath,25 months,175,Sick
+LV-3996,FARM-2033,Pig,Berkshire,12 months,230,Healthy
+LV-3997,FARM-2025,Breeder,Kadaknath,12 months,335,Healthy
+LV-3998,FARM-2018,Breeder,Kadaknath,14 months,319,Healthy
+LV-3999,FARM-2056,Breeder,Giriraja,7 months,22,Healthy

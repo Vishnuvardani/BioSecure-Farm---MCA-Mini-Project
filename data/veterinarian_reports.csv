@@ -1,0 +1,101 @@
+﻿reportId,veterinarianName,farmId,inspectionDate,observations,recommendations
+RPT-7000,Dr. Suresh Reddy,FARM-2047,2025-05-05,"Minor respiratory symptoms observed in 2-3 animals, monitoring recommended.",Increase frequency of biosecurity assessments to monthly.
+RPT-7001,Dr. Deepa Krishnan,FARM-2023,2024-07-08,"Vaccination records up to date, biosecurity measures adequate.",Schedule follow-up inspection in 14 days to monitor health status.
+RPT-7002,Dr. Deepa Krishnan,FARM-2072,2024-07-03,"Slight decrease in feed intake noted, further observation required.",Continue current vaccination schedule and maintain biosecurity protocols.
+RPT-7003,Dr. Suresh Reddy,FARM-2039,2024-06-30,"Litter management needs attention, moisture levels elevated.",Submit samples to regional veterinary laboratory for confirmation.
+RPT-7004,Dr. Priya Nair,FARM-2024,2024-05-26,"Minor respiratory symptoms observed in 2-3 animals, monitoring recommended.",Conduct immediate PRRS screening for affected animals.
+RPT-7005,Dr. Deepa Krishnan,FARM-2031,2025-10-22,"Litter management needs attention, moisture levels elevated.",Improve ventilation in housing units to reduce respiratory risk.
+RPT-7006,Dr. Karthik Naidu,FARM-2092,2024-05-20,Animals appear healthy with no visible signs of disease.,Submit samples to regional veterinary laboratory for confirmation.
+RPT-7007,Dr. Arjun Sharma,FARM-2012,2025-01-28,Animals appear healthy with no visible signs of disease.,Improve ventilation in housing units to reduce respiratory risk.
+RPT-7008,Dr. Anand Subramanian,FARM-2001,2025-10-21,Animals appear healthy with no visible signs of disease.,Implement strict visitor control and disinfection procedures.
+RPT-7009,Dr. Anand Subramanian,FARM-2031,2024-03-26,"Slight decrease in feed intake noted, further observation required.",Implement strict visitor control and disinfection procedures.
+RPT-7010,Dr. Meena Venkatesh,FARM-2080,2024-01-14,Animals appear healthy with no visible signs of disease.,Improve ventilation in housing units to reduce respiratory risk.
+RPT-7011,Dr. Selvi Natarajan,FARM-2069,2024-12-12,"Minor respiratory symptoms observed in 2-3 animals, monitoring recommended.",Schedule follow-up inspection in 14 days to monitor health status.
+RPT-7012,Dr. Deepa Krishnan,FARM-2017,2025-07-30,"Biosecurity entry protocols not fully followed, corrective action needed.",Implement strict visitor control and disinfection procedures.
+RPT-7013,Dr. Lakshmi Iyer,FARM-2039,2025-05-05,"Vaccination records up to date, biosecurity measures adequate.",Schedule follow-up inspection in 14 days to monitor health status.
+RPT-7014,Dr. Karthik Naidu,FARM-2007,2025-12-09,"Slight decrease in feed intake noted, further observation required.",Provide training to farm workers on disease recognition.
+RPT-7015,Dr. Ravi Kumar,FARM-2015,2024-02-15,"Minor respiratory symptoms observed in 2-3 animals, monitoring recommended.",Provide training to farm workers on disease recognition.
+RPT-7016,Dr. Priya Nair,FARM-2037,2025-06-07,"Litter management needs attention, moisture levels elevated.",Implement strict visitor control and disinfection procedures.
+RPT-7017,Dr. Ramesh Duraisamy,FARM-2000,2024-08-17,Animals appear healthy with no visible signs of disease.,Schedule follow-up inspection in 14 days to monitor health status.
+RPT-7018,Dr. Arjun Sharma,FARM-2054,2024-05-30,"All animals vaccinated as per schedule, good health status.",Upgrade waste management system to prevent disease spread.
+RPT-7019,Dr. Ramesh Duraisamy,FARM-2028,2025-12-01,"Litter management needs attention, moisture levels elevated.",Improve ventilation in housing units to reduce respiratory risk.
+RPT-7020,Dr. Suresh Reddy,FARM-2062,2024-04-22,"Feed and water quality satisfactory, waste management needs improvement.",Improve ventilation in housing units to reduce respiratory risk.
+RPT-7021,Dr. Lakshmi Iyer,FARM-2036,2024-03-19,"Farm infrastructure in good condition, minor repairs recommended.",Ensure cold chain maintenance for all vaccines.
+RPT-7022,Dr. Lakshmi Iyer,FARM-2015,2024-03-27,Animals appear healthy with no visible signs of disease.,Submit samples to regional veterinary laboratory for confirmation.
+RPT-7023,Dr. Suresh Reddy,FARM-2019,2025-03-14,"Suspected early signs of respiratory infection, samples collected.",Ensure cold chain maintenance for all vaccines.
+RPT-7024,Dr. Suresh Reddy,FARM-2076,2025-11-26,"Litter management needs attention, moisture levels elevated.",Implement strict visitor control and disinfection procedures.
+RPT-7025,Dr. Vijay Balakrishnan,FARM-2085,2024-11-04,"Farm infrastructure in good condition, minor repairs recommended.",Upgrade waste management system to prevent disease spread.
+RPT-7026,Dr. Ramesh Duraisamy,FARM-2044,2024-04-16,"Slight decrease in feed intake noted, further observation required.",Increase frequency of biosecurity assessments to monthly.
+RPT-7027,Dr. Lakshmi Iyer,FARM-2084,2024-09-28,"Minor respiratory symptoms observed in 2-3 animals, monitoring recommended.",Continue current vaccination schedule and maintain biosecurity protocols.
+RPT-7028,Dr. Anand Subramanian,FARM-2019,2025-11-02,"Vaccination records up to date, biosecurity measures adequate.",Ensure cold chain maintenance for all vaccines.
+RPT-7029,Dr. Arjun Sharma,FARM-2018,2025-04-02,"Biosecurity entry protocols not fully followed, corrective action needed.",Improve ventilation in housing units to reduce respiratory risk.
+RPT-7030,Dr. Meena Venkatesh,FARM-2014,2025-03-13,"Slight decrease in feed intake noted, further observation required.",Implement strict visitor control and disinfection procedures.
+RPT-7031,Dr. Lakshmi Iyer,FARM-2011,2024-05-10,"Vaccination records up to date, biosecurity measures adequate.",Conduct immediate PRRS screening for affected animals.
+RPT-7032,Dr. Lakshmi Iyer,FARM-2045,2025-05-21,"Litter management needs attention, moisture levels elevated.",Increase frequency of biosecurity assessments to monthly.
+RPT-7033,Dr. Arjun Sharma,FARM-2088,2025-09-08,"All animals vaccinated as per schedule, good health status.",Implement strict visitor control and disinfection procedures.
+RPT-7034,Dr. Ramesh Duraisamy,FARM-2083,2024-09-08,"Litter management needs attention, moisture levels elevated.",Conduct immediate PRRS screening for affected animals.
+RPT-7035,Dr. Deepa Krishnan,FARM-2070,2025-07-05,"Suspected early signs of respiratory infection, samples collected.",Increase frequency of biosecurity assessments to monthly.
+RPT-7036,Dr. Karthik Naidu,FARM-2068,2024-08-23,"Litter management needs attention, moisture levels elevated.",Improve ventilation in housing units to reduce respiratory risk.
+RPT-7037,Dr. Selvi Natarajan,FARM-2074,2025-03-07,"Suspected early signs of respiratory infection, samples collected.",Submit samples to regional veterinary laboratory for confirmation.
+RPT-7038,Dr. Selvi Natarajan,FARM-2099,2024-08-12,"Minor respiratory symptoms observed in 2-3 animals, monitoring recommended.",Schedule follow-up inspection in 14 days to monitor health status.
+RPT-7039,Dr. Ravi Kumar,FARM-2046,2024-07-27,Animals appear healthy with no visible signs of disease.,Ensure cold chain maintenance for all vaccines.
+RPT-7040,Dr. Deepa Krishnan,FARM-2071,2024-05-16,"Minor respiratory symptoms observed in 2-3 animals, monitoring recommended.",Continue current vaccination schedule and maintain biosecurity protocols.
+RPT-7041,Dr. Lakshmi Iyer,FARM-2044,2024-05-22,"Slight decrease in feed intake noted, further observation required.",Increase frequency of biosecurity assessments to monthly.
+RPT-7042,Dr. Geetha Ramasamy,FARM-2018,2025-07-18,"Litter management needs attention, moisture levels elevated.",Schedule follow-up inspection in 14 days to monitor health status.
+RPT-7043,Dr. Geetha Ramasamy,FARM-2026,2024-08-17,Animals appear healthy with no visible signs of disease.,Implement strict visitor control and disinfection procedures.
+RPT-7044,Dr. Selvi Natarajan,FARM-2015,2025-12-21,"Vaccination records up to date, biosecurity measures adequate.",Conduct immediate PRRS screening for affected animals.
+RPT-7045,Dr. Ravi Kumar,FARM-2093,2025-12-13,"Litter management needs attention, moisture levels elevated.",Ensure cold chain maintenance for all vaccines.
+RPT-7046,Dr. Selvi Natarajan,FARM-2006,2024-04-18,"Farm infrastructure in good condition, minor repairs recommended.",Improve ventilation in housing units to reduce respiratory risk.
+RPT-7047,Dr. Geetha Ramasamy,FARM-2061,2025-08-31,"Vaccination records up to date, biosecurity measures adequate.",Continue current vaccination schedule and maintain biosecurity protocols.
+RPT-7048,Dr. Lakshmi Iyer,FARM-2018,2024-05-24,"Minor respiratory symptoms observed in 2-3 animals, monitoring recommended.",Schedule follow-up inspection in 14 days to monitor health status.
+RPT-7049,Dr. Ravi Kumar,FARM-2009,2025-08-05,"Litter management needs attention, moisture levels elevated.",Implement strict visitor control and disinfection procedures.
+RPT-7050,Dr. Suresh Reddy,FARM-2097,2025-04-26,"Vaccination records up to date, biosecurity measures adequate.",Provide training to farm workers on disease recognition.
+RPT-7051,Dr. Murugan Selvam,FARM-2089,2025-04-26,"Litter management needs attention, moisture levels elevated.",Ensure cold chain maintenance for all vaccines.
+RPT-7052,Dr. Anand Subramanian,FARM-2056,2025-10-22,Animals appear healthy with no visible signs of disease.,Upgrade waste management system to prevent disease spread.
+RPT-7053,Dr. Suresh Reddy,FARM-2014,2024-03-02,Animals appear healthy with no visible signs of disease.,Submit samples to regional veterinary laboratory for confirmation.
+RPT-7054,Dr. Suresh Reddy,FARM-2096,2025-05-30,"Vaccination records up to date, biosecurity measures adequate.",Continue current vaccination schedule and maintain biosecurity protocols.
+RPT-7055,Dr. Geetha Ramasamy,FARM-2050,2025-03-09,"Biosecurity entry protocols not fully followed, corrective action needed.",Provide training to farm workers on disease recognition.
+RPT-7056,Dr. Geetha Ramasamy,FARM-2091,2024-09-21,"Farm infrastructure in good condition, minor repairs recommended.",Provide training to farm workers on disease recognition.
+RPT-7057,Dr. Selvi Natarajan,FARM-2039,2024-08-20,"Litter management needs attention, moisture levels elevated.",Implement strict visitor control and disinfection procedures.
+RPT-7058,Dr. Priya Nair,FARM-2034,2025-06-18,"Litter management needs attention, moisture levels elevated.",Implement strict visitor control and disinfection procedures.
+RPT-7059,Dr. Kavitha Pillai,FARM-2095,2025-02-14,"Farm infrastructure in good condition, minor repairs recommended.",Continue current vaccination schedule and maintain biosecurity protocols.
+RPT-7060,Dr. Arjun Sharma,FARM-2028,2024-07-07,"Suspected early signs of respiratory infection, samples collected.",Submit samples to regional veterinary laboratory for confirmation.
+RPT-7061,Dr. Geetha Ramasamy,FARM-2009,2025-12-10,"Biosecurity entry protocols not fully followed, corrective action needed.",Increase frequency of biosecurity assessments to monthly.
+RPT-7062,Dr. Vijay Balakrishnan,FARM-2040,2025-10-19,"Litter management needs attention, moisture levels elevated.",Conduct immediate PRRS screening for affected animals.
+RPT-7063,Dr. Ravi Kumar,FARM-2021,2025-01-15,"Litter management needs attention, moisture levels elevated.",Schedule follow-up inspection in 14 days to monitor health status.
+RPT-7064,Dr. Priya Nair,FARM-2034,2024-04-16,"Minor respiratory symptoms observed in 2-3 animals, monitoring recommended.",Ensure cold chain maintenance for all vaccines.
+RPT-7065,Dr. Anand Subramanian,FARM-2077,2024-12-09,Animals appear healthy with no visible signs of disease.,Schedule follow-up inspection in 14 days to monitor health status.
+RPT-7066,Dr. Suresh Reddy,FARM-2036,2025-07-08,"Minor respiratory symptoms observed in 2-3 animals, monitoring recommended.",Improve ventilation in housing units to reduce respiratory risk.
+RPT-7067,Dr. Meena Venkatesh,FARM-2027,2024-01-12,"Slight decrease in feed intake noted, further observation required.",Schedule follow-up inspection in 14 days to monitor health status.
+RPT-7068,Dr. Kavitha Pillai,FARM-2070,2025-10-15,Animals appear healthy with no visible signs of disease.,Schedule follow-up inspection in 14 days to monitor health status.
+RPT-7069,Dr. Priya Nair,FARM-2034,2025-08-06,"Farm infrastructure in good condition, minor repairs recommended.",Continue current vaccination schedule and maintain biosecurity protocols.
+RPT-7070,Dr. Anand Subramanian,FARM-2072,2025-05-10,Animals appear healthy with no visible signs of disease.,Continue current vaccination schedule and maintain biosecurity protocols.
+RPT-7071,Dr. Priya Nair,FARM-2040,2024-11-12,Animals appear healthy with no visible signs of disease.,Ensure cold chain maintenance for all vaccines.
+RPT-7072,Dr. Murugan Selvam,FARM-2096,2025-02-11,"Suspected early signs of respiratory infection, samples collected.",Schedule follow-up inspection in 14 days to monitor health status.
+RPT-7073,Dr. Anand Subramanian,FARM-2040,2025-02-04,"All animals vaccinated as per schedule, good health status.",Implement strict visitor control and disinfection procedures.
+RPT-7074,Dr. Vijay Balakrishnan,FARM-2089,2024-04-09,"All animals vaccinated as per schedule, good health status.",Conduct immediate PRRS screening for affected animals.
+RPT-7075,Dr. Karthik Naidu,FARM-2094,2024-04-13,"Suspected early signs of respiratory infection, samples collected.",Implement strict visitor control and disinfection procedures.
+RPT-7076,Dr. Meena Venkatesh,FARM-2003,2025-01-26,"Biosecurity entry protocols not fully followed, corrective action needed.",Submit samples to regional veterinary laboratory for confirmation.
+RPT-7077,Dr. Murugan Selvam,FARM-2004,2024-06-14,"Vaccination records up to date, biosecurity measures adequate.",Increase frequency of biosecurity assessments to monthly.
+RPT-7078,Dr. Ramesh Duraisamy,FARM-2010,2025-10-02,"Minor respiratory symptoms observed in 2-3 animals, monitoring recommended.",Schedule follow-up inspection in 14 days to monitor health status.
+RPT-7079,Dr. Anand Subramanian,FARM-2027,2025-11-28,"Vaccination records up to date, biosecurity measures adequate.",Implement strict visitor control and disinfection procedures.
+RPT-7080,Dr. Karthik Naidu,FARM-2064,2025-09-15,"Suspected early signs of respiratory infection, samples collected.",Ensure cold chain maintenance for all vaccines.
+RPT-7081,Dr. Anand Subramanian,FARM-2057,2024-05-14,"All animals vaccinated as per schedule, good health status.",Upgrade waste management system to prevent disease spread.
+RPT-7082,Dr. Meena Venkatesh,FARM-2046,2025-03-17,Animals appear healthy with no visible signs of disease.,Conduct immediate PRRS screening for affected animals.
+RPT-7083,Dr. Kavitha Pillai,FARM-2030,2025-09-17,"Farm infrastructure in good condition, minor repairs recommended.",Improve ventilation in housing units to reduce respiratory risk.
+RPT-7084,Dr. Meena Venkatesh,FARM-2019,2025-10-04,"Biosecurity entry protocols not fully followed, corrective action needed.",Improve ventilation in housing units to reduce respiratory risk.
+RPT-7085,Dr. Suresh Reddy,FARM-2001,2024-11-12,"Suspected early signs of respiratory infection, samples collected.",Improve ventilation in housing units to reduce respiratory risk.
+RPT-7086,Dr. Priya Nair,FARM-2063,2025-04-10,"All animals vaccinated as per schedule, good health status.",Implement strict visitor control and disinfection procedures.
+RPT-7087,Dr. Suresh Reddy,FARM-2037,2024-03-10,"Slight decrease in feed intake noted, further observation required.",Submit samples to regional veterinary laboratory for confirmation.
+RPT-7088,Dr. Lakshmi Iyer,FARM-2046,2024-04-01,"Minor respiratory symptoms observed in 2-3 animals, monitoring recommended.",Implement strict visitor control and disinfection procedures.
+RPT-7089,Dr. Anand Subramanian,FARM-2090,2025-04-16,"Slight decrease in feed intake noted, further observation required.",Increase frequency of biosecurity assessments to monthly.
+RPT-7090,Dr. Anand Subramanian,FARM-2032,2025-03-28,"Vaccination records up to date, biosecurity measures adequate.",Improve ventilation in housing units to reduce respiratory risk.
+RPT-7091,Dr. Deepa Krishnan,FARM-2072,2024-02-10,"All animals vaccinated as per schedule, good health status.",Upgrade waste management system to prevent disease spread.
+RPT-7092,Dr. Arjun Sharma,FARM-2051,2025-09-26,"Vaccination records up to date, biosecurity measures adequate.",Increase frequency of biosecurity assessments to monthly.
+RPT-7093,Dr. Karthik Naidu,FARM-2046,2025-10-01,"All animals vaccinated as per schedule, good health status.",Ensure cold chain maintenance for all vaccines.
+RPT-7094,Dr. Vijay Balakrishnan,FARM-2010,2025-02-27,"Suspected early signs of respiratory infection, samples collected.",Increase frequency of biosecurity assessments to monthly.
+RPT-7095,Dr. Ramesh Duraisamy,FARM-2033,2025-11-29,Animals appear healthy with no visible signs of disease.,Submit samples to regional veterinary laboratory for confirmation.
+RPT-7096,Dr. Ravi Kumar,FARM-2082,2024-09-07,"Suspected early signs of respiratory infection, samples collected.",Continue current vaccination schedule and maintain biosecurity protocols.
+RPT-7097,Dr. Geetha Ramasamy,FARM-2019,2024-04-17,"Slight decrease in feed intake noted, further observation required.",Conduct immediate PRRS screening for affected animals.
+RPT-7098,Dr. Meena Venkatesh,FARM-2020,2025-02-12,"Minor respiratory symptoms observed in 2-3 animals, monitoring recommended.",Schedule follow-up inspection in 14 days to monitor health status.
+RPT-7099,Dr. Geetha Ramasamy,FARM-2049,2025-04-18,"Minor respiratory symptoms observed in 2-3 animals, monitoring recommended.",Ensure cold chain maintenance for all vaccines.

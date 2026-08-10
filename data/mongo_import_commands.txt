@@ -1,0 +1,25 @@
+# BioSecure Farm - MongoDB Import Commands
+# Run these from the /data directory after generating JSON files
+# Requires: mongoimport (MongoDB Database Tools)
+
+# ── Using mongoimport (MongoDB Database Tools) ────────────────────────────
+mongoimport --uri "mongodb://localhost:27017/biosecure_db" --collection users                --file users.json                --jsonArray --drop
+mongoimport --uri "mongodb://localhost:27017/biosecure_db" --collection farms                --file farms.json                --jsonArray --drop
+mongoimport --uri "mongodb://localhost:27017/biosecure_db" --collection livestock            --file livestock.json            --jsonArray --drop
+mongoimport --uri "mongodb://localhost:27017/biosecure_db" --collection vaccinations         --file vaccinations.json         --jsonArray --drop
+mongoimport --uri "mongodb://localhost:27017/biosecure_db" --collection diseases             --file diseases.json             --jsonArray --drop
+mongoimport --uri "mongodb://localhost:27017/biosecure_db" --collection biosecurity          --file biosecurity.json          --jsonArray --drop
+mongoimport --uri "mongodb://localhost:27017/biosecure_db" --collection veterinarian_reports --file veterinarian_reports.json --jsonArray --drop
+mongoimport --uri "mongodb://localhost:27017/biosecure_db" --collection government_alerts    --file government_alerts.json    --jsonArray --drop
+mongoimport --uri "mongodb://localhost:27017/biosecure_db" --collection gis_locations        --file gis_locations.json        --jsonArray --drop
+mongoimport --uri "mongodb://localhost:27017/biosecure_db" --collection notifications        --file notifications.json        --jsonArray --drop
+
+# ── Using Node.js seeder (recommended) ───────────────────────────────────
+# node data/seed.js
+
+# ── Verify in MongoDB Compass ─────────────────────────────────────────────
+# Connection: mongodb://localhost:27017
+# Database:   biosecure_db
+# Collections: users, farms, livestock, vaccinations, diseases,
+#              biosecurity, veterinarian_reports, government_alerts,
+#              gis_locations, notifications

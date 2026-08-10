@@ -1,0 +1,201 @@
+﻿outbreakId,diseaseName,district,state,outbreakDate,affectedAnimals,severity
+OUT-5000,Swine Influenza,Thiruvananthapuram,Kerala,2024-03-17,1888,Low
+OUT-5001,Foot and Mouth Disease,Trichy,Tamil Nadu,2024-11-14,138,Moderate
+OUT-5002,Bird Flu,Chennai,Tamil Nadu,2025-05-06,894,High
+OUT-5003,Foot and Mouth Disease,Hyderabad,Telangana,2024-09-13,516,Low
+OUT-5004,Foot and Mouth Disease,Thiruvananthapuram,Kerala,2024-02-25,1692,Moderate
+OUT-5005,Bird Flu,Thiruvananthapuram,Kerala,2025-09-06,1278,Moderate
+OUT-5006,Swine Influenza,Chennai,Tamil Nadu,2025-08-15,265,Low
+OUT-5007,Bird Flu,Salem,Tamil Nadu,2025-01-21,651,High
+OUT-5008,African Swine Fever,Erode,Tamil Nadu,2024-03-04,1892,High
+OUT-5009,Foot and Mouth Disease,Salem,Tamil Nadu,2025-09-17,1292,Moderate
+OUT-5010,Bird Flu,Chennai,Tamil Nadu,2025-07-26,116,Low
+OUT-5011,Swine Influenza,Hubli,Karnataka,2024-04-08,1274,High
+OUT-5012,Newcastle Disease,Thiruvananthapuram,Kerala,2025-11-06,1287,Low
+OUT-5013,Swine Influenza,Hubli,Karnataka,2025-03-14,1812,Moderate
+OUT-5014,Foot and Mouth Disease,Chennai,Tamil Nadu,2025-10-28,1930,Moderate
+OUT-5015,Swine Influenza,Coimbatore,Tamil Nadu,2025-06-13,682,Moderate
+OUT-5016,Bird Flu,Chennai,Tamil Nadu,2024-01-13,1228,High
+OUT-5017,African Swine Fever,Hyderabad,Telangana,2025-08-09,268,Moderate
+OUT-5018,Foot and Mouth Disease,Kozhikode,Kerala,2025-03-07,995,High
+OUT-5019,African Swine Fever,Vijayawada,Andhra Pradesh,2024-09-05,291,High
+OUT-5020,African Swine Fever,Salem,Tamil Nadu,2024-11-15,1207,Moderate
+OUT-5021,Foot and Mouth Disease,Nizamabad,Telangana,2024-11-14,1205,High
+OUT-5022,African Swine Fever,Madurai,Tamil Nadu,2025-04-25,642,Moderate
+OUT-5023,Foot and Mouth Disease,Thrissur,Kerala,2024-01-09,1070,Moderate
+OUT-5024,African Swine Fever,Karimnagar,Telangana,2024-02-28,496,Moderate
+OUT-5025,Bird Flu,Tirupati,Andhra Pradesh,2025-03-08,714,Low
+OUT-5026,African Swine Fever,Kochi,Kerala,2024-03-11,709,Low
+OUT-5027,Swine Influenza,Visakhapatnam,Andhra Pradesh,2025-09-06,1428,Moderate
+OUT-5028,Newcastle Disease,Hyderabad,Telangana,2024-12-09,1271,Low
+OUT-5029,African Swine Fever,Bengaluru,Karnataka,2024-04-17,940,High
+OUT-5030,Swine Influenza,Salem,Tamil Nadu,2024-08-12,1894,Low
+OUT-5031,African Swine Fever,Thiruvananthapuram,Kerala,2025-04-22,1287,Low
+OUT-5032,Foot and Mouth Disease,Visakhapatnam,Andhra Pradesh,2025-01-19,430,Moderate
+OUT-5033,Foot and Mouth Disease,Coimbatore,Tamil Nadu,2024-01-11,161,Moderate
+OUT-5034,Bird Flu,Tirupati,Andhra Pradesh,2024-05-25,605,Moderate
+OUT-5035,Newcastle Disease,Nizamabad,Telangana,2025-01-03,99,High
+OUT-5036,African Swine Fever,Kochi,Kerala,2024-10-17,366,Low
+OUT-5037,African Swine Fever,Kozhikode,Kerala,2024-12-13,1745,Moderate
+OUT-5038,African Swine Fever,Trichy,Tamil Nadu,2024-01-23,370,High
+OUT-5039,Bird Flu,Chennai,Tamil Nadu,2025-11-24,291,Moderate
+OUT-5040,Foot and Mouth Disease,Chennai,Tamil Nadu,2024-08-03,634,Moderate
+OUT-5041,Foot and Mouth Disease,Mysuru,Karnataka,2025-11-07,360,High
+OUT-5042,Swine Influenza,Warangal,Telangana,2025-12-29,143,Low
+OUT-5043,African Swine Fever,Madurai,Tamil Nadu,2024-07-15,1100,Moderate
+OUT-5044,Foot and Mouth Disease,Mysuru,Karnataka,2025-09-05,889,High
+OUT-5045,Bird Flu,Thiruvananthapuram,Kerala,2025-09-22,1212,Low
+OUT-5046,Foot and Mouth Disease,Tirupati,Andhra Pradesh,2024-06-01,681,Low
+OUT-5047,Foot and Mouth Disease,Nizamabad,Telangana,2024-05-09,1753,Moderate
+OUT-5048,Swine Influenza,Hyderabad,Telangana,2024-08-02,1499,Low
+OUT-5049,Newcastle Disease,Visakhapatnam,Andhra Pradesh,2024-03-07,352,Moderate
+OUT-5050,Newcastle Disease,Nizamabad,Telangana,2025-01-18,1031,Moderate
+OUT-5051,Foot and Mouth Disease,Trichy,Tamil Nadu,2025-12-30,775,Moderate
+OUT-5052,Swine Influenza,Visakhapatnam,Andhra Pradesh,2025-04-30,559,Moderate
+OUT-5053,Newcastle Disease,Nizamabad,Telangana,2025-10-27,84,Low
+OUT-5054,Swine Influenza,Kochi,Kerala,2024-08-28,820,Low
+OUT-5055,Swine Influenza,Mangaluru,Karnataka,2025-08-08,331,High
+OUT-5056,Foot and Mouth Disease,Mysuru,Karnataka,2025-07-17,183,Low
+OUT-5057,Foot and Mouth Disease,Erode,Tamil Nadu,2025-03-31,1072,Moderate
+OUT-5058,Bird Flu,Hyderabad,Telangana,2025-04-21,1059,Moderate
+OUT-5059,Swine Influenza,Mangaluru,Karnataka,2025-04-23,895,Moderate
+OUT-5060,Foot and Mouth Disease,Visakhapatnam,Andhra Pradesh,2024-10-06,793,Low
+OUT-5061,African Swine Fever,Vijayawada,Andhra Pradesh,2024-09-28,1331,Low
+OUT-5062,Foot and Mouth Disease,Erode,Tamil Nadu,2025-05-28,1060,Moderate
+OUT-5063,Foot and Mouth Disease,Erode,Tamil Nadu,2024-08-21,211,Low
+OUT-5064,Bird Flu,Mysuru,Karnataka,2025-07-13,420,Moderate
+OUT-5065,Foot and Mouth Disease,Karimnagar,Telangana,2024-09-13,629,High
+OUT-5066,Foot and Mouth Disease,Karimnagar,Telangana,2024-07-14,1455,Moderate
+OUT-5067,Newcastle Disease,Madurai,Tamil Nadu,2024-09-24,27,High
+OUT-5068,Foot and Mouth Disease,Thrissur,Kerala,2025-02-17,1947,Moderate
+OUT-5069,Bird Flu,Hyderabad,Telangana,2025-04-28,1349,Moderate
+OUT-5070,Swine Influenza,Madurai,Tamil Nadu,2024-08-21,474,High
+OUT-5071,Swine Influenza,Kochi,Kerala,2024-08-27,1066,Moderate
+OUT-5072,Swine Influenza,Tirupati,Andhra Pradesh,2025-04-17,707,High
+OUT-5073,African Swine Fever,Bengaluru,Karnataka,2025-03-15,1587,High
+OUT-5074,African Swine Fever,Mangaluru,Karnataka,2025-03-25,931,High
+OUT-5075,Foot and Mouth Disease,Coimbatore,Tamil Nadu,2024-05-22,1192,High
+OUT-5076,Bird Flu,Thrissur,Kerala,2025-05-26,1669,Moderate
+OUT-5077,Foot and Mouth Disease,Mysuru,Karnataka,2024-08-18,868,Moderate
+OUT-5078,Newcastle Disease,Hubli,Karnataka,2024-11-02,677,Moderate
+OUT-5079,Bird Flu,Hyderabad,Telangana,2024-05-22,324,High
+OUT-5080,Newcastle Disease,Bengaluru,Karnataka,2025-10-06,1646,Moderate
+OUT-5081,Newcastle Disease,Warangal,Telangana,2025-02-04,790,Low
+OUT-5082,Bird Flu,Hubli,Karnataka,2025-07-01,801,Low
+OUT-5083,Foot and Mouth Disease,Chennai,Tamil Nadu,2025-08-06,1980,Moderate
+OUT-5084,Bird Flu,Thrissur,Kerala,2024-06-24,223,Moderate
+OUT-5085,Bird Flu,Trichy,Tamil Nadu,2025-12-06,1245,Moderate
+OUT-5086,African Swine Fever,Trichy,Tamil Nadu,2024-03-12,1876,High
+OUT-5087,African Swine Fever,Thrissur,Kerala,2024-08-26,606,Moderate
+OUT-5088,Swine Influenza,Erode,Tamil Nadu,2024-02-28,764,Moderate
+OUT-5089,Foot and Mouth Disease,Trichy,Tamil Nadu,2025-02-24,810,Low
+OUT-5090,African Swine Fever,Chennai,Tamil Nadu,2025-07-03,866,Moderate
+OUT-5091,Swine Influenza,Erode,Tamil Nadu,2024-07-30,276,High
+OUT-5092,Swine Influenza,Thrissur,Kerala,2025-12-27,1371,Moderate
+OUT-5093,Newcastle Disease,Warangal,Telangana,2024-11-13,1213,Low
+OUT-5094,Swine Influenza,Karimnagar,Telangana,2024-10-09,423,Low
+OUT-5095,Swine Influenza,Madurai,Tamil Nadu,2024-03-06,1698,Moderate
+OUT-5096,Newcastle Disease,Thiruvananthapuram,Kerala,2024-12-02,1874,Moderate
+OUT-5097,Swine Influenza,Visakhapatnam,Andhra Pradesh,2025-04-18,1189,Low
+OUT-5098,Foot and Mouth Disease,Erode,Tamil Nadu,2025-10-23,1814,High
+OUT-5099,Foot and Mouth Disease,Mysuru,Karnataka,2025-02-04,1265,High
+OUT-5100,Swine Influenza,Trichy,Tamil Nadu,2024-09-12,377,High
+OUT-5101,Swine Influenza,Mangaluru,Karnataka,2025-01-28,1875,Moderate
+OUT-5102,Bird Flu,Hyderabad,Telangana,2025-02-06,1440,High
+OUT-5103,African Swine Fever,Thiruvananthapuram,Kerala,2024-10-07,1817,Moderate
+OUT-5104,Bird Flu,Thrissur,Kerala,2025-12-15,1497,High
+OUT-5105,Swine Influenza,Kochi,Kerala,2025-02-25,1570,Moderate
+OUT-5106,Bird Flu,Mysuru,Karnataka,2024-04-17,1043,High
+OUT-5107,Swine Influenza,Bengaluru,Karnataka,2025-04-06,347,Low
+OUT-5108,Bird Flu,Guntur,Andhra Pradesh,2025-04-18,64,Low
+OUT-5109,Swine Influenza,Karimnagar,Telangana,2025-01-25,713,High
+OUT-5110,Swine Influenza,Kochi,Kerala,2024-02-08,31,Low
+OUT-5111,Foot and Mouth Disease,Madurai,Tamil Nadu,2025-11-17,1543,Moderate
+OUT-5112,Bird Flu,Vijayawada,Andhra Pradesh,2024-03-25,1133,Moderate
+OUT-5113,African Swine Fever,Vijayawada,Andhra Pradesh,2025-04-27,1690,Low
+OUT-5114,African Swine Fever,Trichy,Tamil Nadu,2024-01-19,1253,Low
+OUT-5115,Bird Flu,Thrissur,Kerala,2025-07-01,1528,Moderate
+OUT-5116,Bird Flu,Erode,Tamil Nadu,2025-11-24,569,Low
+OUT-5117,African Swine Fever,Mysuru,Karnataka,2024-08-09,1473,Low
+OUT-5118,Newcastle Disease,Karimnagar,Telangana,2024-08-09,915,Moderate
+OUT-5119,Newcastle Disease,Nizamabad,Telangana,2025-10-18,1366,High
+OUT-5120,Swine Influenza,Chennai,Tamil Nadu,2025-12-07,641,Moderate
+OUT-5121,Bird Flu,Warangal,Telangana,2024-02-19,1591,Moderate
+OUT-5122,African Swine Fever,Kochi,Kerala,2025-01-18,1871,Low
+OUT-5123,Bird Flu,Erode,Tamil Nadu,2025-03-07,67,High
+OUT-5124,African Swine Fever,Bengaluru,Karnataka,2025-11-27,1380,Low
+OUT-5125,African Swine Fever,Chennai,Tamil Nadu,2024-06-20,100,Moderate
+OUT-5126,Foot and Mouth Disease,Chennai,Tamil Nadu,2024-11-26,1161,Moderate
+OUT-5127,African Swine Fever,Warangal,Telangana,2025-07-08,819,High
+OUT-5128,African Swine Fever,Chennai,Tamil Nadu,2024-08-06,226,Moderate
+OUT-5129,Bird Flu,Trichy,Tamil Nadu,2025-02-15,1349,Moderate
+OUT-5130,African Swine Fever,Hubli,Karnataka,2025-04-14,460,Low
+OUT-5131,Newcastle Disease,Kozhikode,Kerala,2025-01-12,99,Low
+OUT-5132,Swine Influenza,Kochi,Kerala,2024-11-04,1581,Moderate
+OUT-5133,Newcastle Disease,Chennai,Tamil Nadu,2025-08-05,361,Low
+OUT-5134,Newcastle Disease,Chennai,Tamil Nadu,2024-11-28,1302,Moderate
+OUT-5135,African Swine Fever,Karimnagar,Telangana,2024-12-06,369,Moderate
+OUT-5136,Swine Influenza,Bengaluru,Karnataka,2024-03-10,696,Low
+OUT-5137,Swine Influenza,Hyderabad,Telangana,2025-01-26,1056,Moderate
+OUT-5138,Newcastle Disease,Thiruvananthapuram,Kerala,2025-08-24,1453,High
+OUT-5139,Bird Flu,Thiruvananthapuram,Kerala,2025-09-23,1564,High
+OUT-5140,African Swine Fever,Thrissur,Kerala,2025-03-14,1560,Low
+OUT-5141,Bird Flu,Erode,Tamil Nadu,2024-05-20,777,Moderate
+OUT-5142,African Swine Fever,Kochi,Kerala,2025-01-19,428,Moderate
+OUT-5143,Newcastle Disease,Thiruvananthapuram,Kerala,2025-03-30,1523,High
+OUT-5144,Foot and Mouth Disease,Madurai,Tamil Nadu,2024-11-21,1328,High
+OUT-5145,Newcastle Disease,Salem,Tamil Nadu,2025-02-28,1337,High
+OUT-5146,African Swine Fever,Coimbatore,Tamil Nadu,2024-12-05,711,Low
+OUT-5147,Bird Flu,Tirupati,Andhra Pradesh,2025-11-11,518,High
+OUT-5148,Newcastle Disease,Thiruvananthapuram,Kerala,2025-01-25,1077,Moderate
+OUT-5149,Bird Flu,Vijayawada,Andhra Pradesh,2024-03-07,1791,Moderate
+OUT-5150,Bird Flu,Kochi,Kerala,2025-10-11,299,High
+OUT-5151,Bird Flu,Madurai,Tamil Nadu,2024-06-26,1223,Moderate
+OUT-5152,African Swine Fever,Kochi,Kerala,2025-06-03,170,Moderate
+OUT-5153,Foot and Mouth Disease,Vijayawada,Andhra Pradesh,2024-06-17,1487,Low
+OUT-5154,African Swine Fever,Mangaluru,Karnataka,2025-09-12,519,Moderate
+OUT-5155,Swine Influenza,Hyderabad,Telangana,2025-10-12,422,Low
+OUT-5156,Bird Flu,Visakhapatnam,Andhra Pradesh,2025-01-03,825,Moderate
+OUT-5157,Swine Influenza,Visakhapatnam,Andhra Pradesh,2025-03-08,1044,Moderate
+OUT-5158,African Swine Fever,Mangaluru,Karnataka,2025-05-08,50,High
+OUT-5159,Bird Flu,Mangaluru,Karnataka,2024-11-03,1228,Moderate
+OUT-5160,African Swine Fever,Tirupati,Andhra Pradesh,2024-09-20,789,Moderate
+OUT-5161,Foot and Mouth Disease,Vijayawada,Andhra Pradesh,2025-01-19,1161,Moderate
+OUT-5162,Foot and Mouth Disease,Erode,Tamil Nadu,2024-05-19,1474,Moderate
+OUT-5163,African Swine Fever,Madurai,Tamil Nadu,2024-01-05,36,High
+OUT-5164,Swine Influenza,Mysuru,Karnataka,2025-02-18,1905,Moderate
+OUT-5165,Foot and Mouth Disease,Hubli,Karnataka,2025-01-28,1012,Moderate
+OUT-5166,Bird Flu,Hyderabad,Telangana,2025-02-22,1822,Low
+OUT-5167,Swine Influenza,Chennai,Tamil Nadu,2025-08-02,342,Low
+OUT-5168,Foot and Mouth Disease,Mangaluru,Karnataka,2024-12-22,1053,High
+OUT-5169,Foot and Mouth Disease,Nizamabad,Telangana,2025-12-14,128,Moderate
+OUT-5170,African Swine Fever,Mangaluru,Karnataka,2024-09-05,988,Low
+OUT-5171,Bird Flu,Mysuru,Karnataka,2025-12-15,1373,Moderate
+OUT-5172,Newcastle Disease,Kozhikode,Kerala,2025-04-11,1943,Moderate
+OUT-5173,African Swine Fever,Kozhikode,Kerala,2025-09-08,1194,High
+OUT-5174,Bird Flu,Trichy,Tamil Nadu,2024-04-29,1588,Low
+OUT-5175,Swine Influenza,Hubli,Karnataka,2025-12-24,1210,High
+OUT-5176,Newcastle Disease,Erode,Tamil Nadu,2024-07-12,1804,Moderate
+OUT-5177,Foot and Mouth Disease,Mangaluru,Karnataka,2025-12-09,628,Moderate
+OUT-5178,Swine Influenza,Tirupati,Andhra Pradesh,2025-08-23,640,High
+OUT-5179,Bird Flu,Erode,Tamil Nadu,2025-10-13,1182,High
+OUT-5180,African Swine Fever,Mysuru,Karnataka,2024-10-02,1543,Low
+OUT-5181,Foot and Mouth Disease,Hubli,Karnataka,2024-01-07,354,High
+OUT-5182,Bird Flu,Coimbatore,Tamil Nadu,2024-03-12,1594,Moderate
+OUT-5183,Swine Influenza,Guntur,Andhra Pradesh,2025-11-01,600,High
+OUT-5184,African Swine Fever,Trichy,Tamil Nadu,2025-01-18,391,High
+OUT-5185,Swine Influenza,Kochi,Kerala,2024-07-05,1039,High
+OUT-5186,Newcastle Disease,Vijayawada,Andhra Pradesh,2024-08-05,390,Low
+OUT-5187,African Swine Fever,Trichy,Tamil Nadu,2024-09-22,1857,High
+OUT-5188,Newcastle Disease,Vijayawada,Andhra Pradesh,2024-04-21,1788,Moderate
+OUT-5189,Foot and Mouth Disease,Erode,Tamil Nadu,2024-03-28,783,Low
+OUT-5190,Foot and Mouth Disease,Erode,Tamil Nadu,2024-01-31,1209,Low
+OUT-5191,Bird Flu,Visakhapatnam,Andhra Pradesh,2024-01-10,135,Low
+OUT-5192,Newcastle Disease,Coimbatore,Tamil Nadu,2024-02-12,208,Low
+OUT-5193,Swine Influenza,Coimbatore,Tamil Nadu,2025-09-09,1075,High
+OUT-5194,Swine Influenza,Kozhikode,Kerala,2025-04-29,1560,Moderate
+OUT-5195,Foot and Mouth Disease,Mangaluru,Karnataka,2025-01-14,1406,High
+OUT-5196,African Swine Fever,Bengaluru,Karnataka,2025-01-04,1372,Moderate
+OUT-5197,Bird Flu,Warangal,Telangana,2024-12-30,1798,Moderate
+OUT-5198,Bird Flu,Chennai,Tamil Nadu,2025-04-12,1792,Moderate
+OUT-5199,Bird Flu,Madurai,Tamil Nadu,2025-09-08,261,High

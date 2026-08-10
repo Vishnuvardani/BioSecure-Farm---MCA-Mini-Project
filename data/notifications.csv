@@ -1,0 +1,201 @@
+﻿notificationId,userId,title,message,sentAt,isRead
+NOT-10000,USR-1057,Compliance Certificate Issued,Your farm registration has been approved. Welcome to BioSecure Farm.,2024-07-26T00:00:00Z,False
+NOT-10001,USR-1024,Disease Alert in Your District,A new government advisory has been issued for your district. Please review immediately.,2025-03-09T00:00:00Z,True
+NOT-10002,USR-1087,Government Advisory Issued,Your compliance certificate has been issued for this quarter.,2025-10-25T00:00:00Z,True
+NOT-10003,USR-1018,New Veterinarian Assigned,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2024-04-22T00:00:00Z,True
+NOT-10004,USR-1002,New Veterinarian Assigned,Your farm biosecurity score has been updated. Check the latest assessment.,2024-09-30T00:00:00Z,True
+NOT-10005,USR-1060,Emergency Alert,Your farm registration has been approved. Welcome to BioSecure Farm.,2025-04-08T00:00:00Z,False
+NOT-10006,USR-1033,Disease Alert in Your District,Your farm registration has been approved. Welcome to BioSecure Farm.,2024-03-27T00:00:00Z,False
+NOT-10007,USR-1055,Inspection Scheduled,Your farm biosecurity score has been updated. Check the latest assessment.,2025-02-10T00:00:00Z,False
+NOT-10008,USR-1065,AI Health Alert,Your vaccination for Newcastle Disease is due in 7 days. Please contact your assigned veterinarian.,2025-03-27T00:00:00Z,False
+NOT-10009,USR-1047,Disease Alert in Your District,Your vaccination for Newcastle Disease is due in 7 days. Please contact your assigned veterinarian.,2025-10-26T00:00:00Z,False
+NOT-10010,USR-1093,Report Ready for Download,A farm inspection has been scheduled for next week. Please ensure all records are ready.,2024-10-28T00:00:00Z,True
+NOT-10011,USR-1051,Biosecurity Score Updated,Your compliance certificate has been issued for this quarter.,2024-10-09T00:00:00Z,False
+NOT-10012,USR-1066,Report Ready for Download,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2025-11-28T00:00:00Z,True
+NOT-10013,USR-1082,Inspection Scheduled,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2024-08-12T00:00:00Z,True
+NOT-10014,USR-1006,Vaccination Due Reminder,Your compliance certificate has been issued for this quarter.,2024-09-29T00:00:00Z,True
+NOT-10015,USR-1008,Farm Registration Approved,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2024-10-09T00:00:00Z,True
+NOT-10016,USR-1079,Vaccination Completed,Vaccination campaign completed successfully. Records updated.,2025-02-18T00:00:00Z,False
+NOT-10017,USR-1050,Disease Alert in Your District,A farm inspection has been scheduled for next week. Please ensure all records are ready.,2025-12-09T00:00:00Z,False
+NOT-10018,USR-1063,Inspection Scheduled,Your farm biosecurity score has been updated. Check the latest assessment.,2024-07-27T00:00:00Z,False
+NOT-10019,USR-1081,Government Advisory Issued,Vaccination campaign completed successfully. Records updated.,2025-09-02T00:00:00Z,False
+NOT-10020,USR-1093,Vaccination Due Reminder,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2024-07-08T00:00:00Z,False
+NOT-10021,USR-1094,Government Advisory Issued,Vaccination campaign completed successfully. Records updated.,2024-09-01T00:00:00Z,True
+NOT-10022,USR-1040,Emergency Alert,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2024-06-19T00:00:00Z,True
+NOT-10023,USR-1042,New Veterinarian Assigned,Your farm biosecurity score has been updated. Check the latest assessment.,2024-01-14T00:00:00Z,False
+NOT-10024,USR-1054,AI Health Alert,Your vaccination for Newcastle Disease is due in 7 days. Please contact your assigned veterinarian.,2024-06-30T00:00:00Z,False
+NOT-10025,USR-1009,Biosecurity Score Updated,Emergency alert: Disease outbreak confirmed nearby. Implement quarantine immediately.,2024-01-10T00:00:00Z,False
+NOT-10026,USR-1060,Compliance Certificate Issued,Your vaccination for Newcastle Disease is due in 7 days. Please contact your assigned veterinarian.,2025-05-15T00:00:00Z,True
+NOT-10027,USR-1060,Disease Alert in Your District,Your vaccination for Newcastle Disease is due in 7 days. Please contact your assigned veterinarian.,2024-01-18T00:00:00Z,False
+NOT-10028,USR-1029,Farm Registration Approved,Your farm registration has been approved. Welcome to BioSecure Farm.,2024-06-20T00:00:00Z,True
+NOT-10029,USR-1099,Disease Alert in Your District,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2024-11-07T00:00:00Z,False
+NOT-10030,USR-1057,New Veterinarian Assigned,Vaccination campaign completed successfully. Records updated.,2024-12-25T00:00:00Z,False
+NOT-10031,USR-1084,New Veterinarian Assigned,A new government advisory has been issued for your district. Please review immediately.,2025-01-08T00:00:00Z,False
+NOT-10032,USR-1001,AI Health Alert,A new government advisory has been issued for your district. Please review immediately.,2025-12-28T00:00:00Z,False
+NOT-10033,USR-1066,Emergency Alert,Your compliance certificate has been issued for this quarter.,2025-05-10T00:00:00Z,True
+NOT-10034,USR-1034,Emergency Alert,Your farm registration has been approved. Welcome to BioSecure Farm.,2025-10-17T00:00:00Z,True
+NOT-10035,USR-1018,Report Ready for Download,A farm inspection has been scheduled for next week. Please ensure all records are ready.,2025-11-06T00:00:00Z,True
+NOT-10036,USR-1045,New Veterinarian Assigned,Your vaccination for Newcastle Disease is due in 7 days. Please contact your assigned veterinarian.,2024-09-07T00:00:00Z,False
+NOT-10037,USR-1046,Inspection Scheduled,Vaccination campaign completed successfully. Records updated.,2024-04-01T00:00:00Z,True
+NOT-10038,USR-1048,Emergency Alert,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2024-10-07T00:00:00Z,False
+NOT-10039,USR-1067,Biosecurity Score Updated,A new government advisory has been issued for your district. Please review immediately.,2025-11-26T00:00:00Z,False
+NOT-10040,USR-1042,Report Ready for Download,Your compliance certificate has been issued for this quarter.,2025-03-03T00:00:00Z,False
+NOT-10041,USR-1039,Inspection Scheduled,Your vaccination for Newcastle Disease is due in 7 days. Please contact your assigned veterinarian.,2025-08-16T00:00:00Z,False
+NOT-10042,USR-1078,Disease Alert in Your District,Your monthly health report is ready for download.,2025-04-10T00:00:00Z,False
+NOT-10043,USR-1036,Disease Alert in Your District,Your vaccination for Newcastle Disease is due in 7 days. Please contact your assigned veterinarian.,2025-05-25T00:00:00Z,True
+NOT-10044,USR-1059,Emergency Alert,Your farm biosecurity score has been updated. Check the latest assessment.,2025-06-19T00:00:00Z,False
+NOT-10045,USR-1079,Farm Registration Approved,Emergency alert: Disease outbreak confirmed nearby. Implement quarantine immediately.,2024-06-15T00:00:00Z,False
+NOT-10046,USR-1062,Government Advisory Issued,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2024-10-28T00:00:00Z,True
+NOT-10047,USR-1058,Vaccination Due Reminder,A farm inspection has been scheduled for next week. Please ensure all records are ready.,2024-10-16T00:00:00Z,True
+NOT-10048,USR-1006,New Veterinarian Assigned,A new government advisory has been issued for your district. Please review immediately.,2024-01-06T00:00:00Z,False
+NOT-10049,USR-1045,Emergency Alert,Your vaccination for Newcastle Disease is due in 7 days. Please contact your assigned veterinarian.,2024-02-21T00:00:00Z,False
+NOT-10050,USR-1017,AI Health Alert,A new government advisory has been issued for your district. Please review immediately.,2025-05-29T00:00:00Z,True
+NOT-10051,USR-1011,Vaccination Completed,A new government advisory has been issued for your district. Please review immediately.,2024-05-26T00:00:00Z,True
+NOT-10052,USR-1055,Compliance Certificate Issued,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2024-10-24T00:00:00Z,True
+NOT-10053,USR-1004,New Veterinarian Assigned,AI analysis detected potential health risk in your livestock. Immediate attention required.,2024-09-11T00:00:00Z,False
+NOT-10054,USR-1054,Report Ready for Download,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2024-09-24T00:00:00Z,False
+NOT-10055,USR-1076,Government Advisory Issued,Your farm biosecurity score has been updated. Check the latest assessment.,2025-07-31T00:00:00Z,False
+NOT-10056,USR-1086,AI Health Alert,Your compliance certificate has been issued for this quarter.,2024-05-22T00:00:00Z,True
+NOT-10057,USR-1032,Biosecurity Score Updated,Your monthly health report is ready for download.,2025-07-21T00:00:00Z,True
+NOT-10058,USR-1038,Government Advisory Issued,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2024-10-31T00:00:00Z,False
+NOT-10059,USR-1069,Biosecurity Score Updated,Your monthly health report is ready for download.,2025-03-23T00:00:00Z,True
+NOT-10060,USR-1017,Farm Registration Approved,A new veterinarian has been assigned to your farm. Contact details shared.,2025-12-11T00:00:00Z,False
+NOT-10061,USR-1064,Emergency Alert,Vaccination campaign completed successfully. Records updated.,2025-01-01T00:00:00Z,False
+NOT-10062,USR-1045,Report Ready for Download,A new veterinarian has been assigned to your farm. Contact details shared.,2025-03-06T00:00:00Z,False
+NOT-10063,USR-1059,Vaccination Due Reminder,Your farm registration has been approved. Welcome to BioSecure Farm.,2024-01-28T00:00:00Z,False
+NOT-10064,USR-1011,Biosecurity Score Updated,Your compliance certificate has been issued for this quarter.,2024-11-05T00:00:00Z,True
+NOT-10065,USR-1074,Farm Registration Approved,AI analysis detected potential health risk in your livestock. Immediate attention required.,2024-05-10T00:00:00Z,False
+NOT-10066,USR-1006,Report Ready for Download,Your farm biosecurity score has been updated. Check the latest assessment.,2025-02-16T00:00:00Z,True
+NOT-10067,USR-1059,Farm Registration Approved,A new veterinarian has been assigned to your farm. Contact details shared.,2024-02-25T00:00:00Z,True
+NOT-10068,USR-1007,Government Advisory Issued,Emergency alert: Disease outbreak confirmed nearby. Implement quarantine immediately.,2024-04-19T00:00:00Z,False
+NOT-10069,USR-1076,Disease Alert in Your District,A new government advisory has been issued for your district. Please review immediately.,2025-08-02T00:00:00Z,False
+NOT-10070,USR-1088,AI Health Alert,Your vaccination for Newcastle Disease is due in 7 days. Please contact your assigned veterinarian.,2024-05-04T00:00:00Z,True
+NOT-10071,USR-1089,Inspection Scheduled,Your farm registration has been approved. Welcome to BioSecure Farm.,2024-05-27T00:00:00Z,False
+NOT-10072,USR-1017,Inspection Scheduled,Emergency alert: Disease outbreak confirmed nearby. Implement quarantine immediately.,2025-10-17T00:00:00Z,True
+NOT-10073,USR-1038,Emergency Alert,A new government advisory has been issued for your district. Please review immediately.,2024-01-07T00:00:00Z,False
+NOT-10074,USR-1079,Vaccination Completed,A farm inspection has been scheduled for next week. Please ensure all records are ready.,2024-04-27T00:00:00Z,True
+NOT-10075,USR-1000,Biosecurity Score Updated,Your compliance certificate has been issued for this quarter.,2024-05-03T00:00:00Z,True
+NOT-10076,USR-1031,Inspection Scheduled,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2025-04-30T00:00:00Z,True
+NOT-10077,USR-1064,New Veterinarian Assigned,Your monthly health report is ready for download.,2024-02-26T00:00:00Z,True
+NOT-10078,USR-1038,Report Ready for Download,A new veterinarian has been assigned to your farm. Contact details shared.,2024-07-07T00:00:00Z,True
+NOT-10079,USR-1069,Government Advisory Issued,Your compliance certificate has been issued for this quarter.,2025-11-28T00:00:00Z,False
+NOT-10080,USR-1084,Compliance Certificate Issued,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2025-03-18T00:00:00Z,True
+NOT-10081,USR-1081,Vaccination Due Reminder,Your farm biosecurity score has been updated. Check the latest assessment.,2024-05-25T00:00:00Z,True
+NOT-10082,USR-1021,Farm Registration Approved,Vaccination campaign completed successfully. Records updated.,2025-12-17T00:00:00Z,True
+NOT-10083,USR-1060,New Veterinarian Assigned,A new government advisory has been issued for your district. Please review immediately.,2024-10-23T00:00:00Z,True
+NOT-10084,USR-1075,New Veterinarian Assigned,AI analysis detected potential health risk in your livestock. Immediate attention required.,2025-11-14T00:00:00Z,False
+NOT-10085,USR-1050,Report Ready for Download,Vaccination campaign completed successfully. Records updated.,2024-04-19T00:00:00Z,False
+NOT-10086,USR-1053,Report Ready for Download,Your farm biosecurity score has been updated. Check the latest assessment.,2024-01-29T00:00:00Z,False
+NOT-10087,USR-1058,Disease Alert in Your District,Your compliance certificate has been issued for this quarter.,2025-02-02T00:00:00Z,True
+NOT-10088,USR-1074,Government Advisory Issued,Your vaccination for Newcastle Disease is due in 7 days. Please contact your assigned veterinarian.,2025-10-22T00:00:00Z,False
+NOT-10089,USR-1005,AI Health Alert,Your farm biosecurity score has been updated. Check the latest assessment.,2025-04-24T00:00:00Z,False
+NOT-10090,USR-1035,Vaccination Due Reminder,Your farm biosecurity score has been updated. Check the latest assessment.,2025-01-01T00:00:00Z,True
+NOT-10091,USR-1044,Vaccination Completed,Your farm registration has been approved. Welcome to BioSecure Farm.,2025-02-03T00:00:00Z,True
+NOT-10092,USR-1022,Emergency Alert,Your farm biosecurity score has been updated. Check the latest assessment.,2024-12-26T00:00:00Z,False
+NOT-10093,USR-1058,Vaccination Completed,Your farm biosecurity score has been updated. Check the latest assessment.,2024-10-12T00:00:00Z,False
+NOT-10094,USR-1050,Disease Alert in Your District,Emergency alert: Disease outbreak confirmed nearby. Implement quarantine immediately.,2025-05-10T00:00:00Z,False
+NOT-10095,USR-1060,Compliance Certificate Issued,Emergency alert: Disease outbreak confirmed nearby. Implement quarantine immediately.,2024-07-03T00:00:00Z,False
+NOT-10096,USR-1016,Vaccination Completed,AI analysis detected potential health risk in your livestock. Immediate attention required.,2025-08-25T00:00:00Z,False
+NOT-10097,USR-1074,Compliance Certificate Issued,Your monthly health report is ready for download.,2024-03-10T00:00:00Z,True
+NOT-10098,USR-1003,Vaccination Completed,Your farm biosecurity score has been updated. Check the latest assessment.,2024-08-25T00:00:00Z,True
+NOT-10099,USR-1085,Disease Alert in Your District,A new veterinarian has been assigned to your farm. Contact details shared.,2025-11-26T00:00:00Z,False
+NOT-10100,USR-1041,Inspection Scheduled,Vaccination campaign completed successfully. Records updated.,2024-08-30T00:00:00Z,True
+NOT-10101,USR-1022,Vaccination Completed,Your monthly health report is ready for download.,2025-03-06T00:00:00Z,True
+NOT-10102,USR-1007,Compliance Certificate Issued,A new government advisory has been issued for your district. Please review immediately.,2024-04-27T00:00:00Z,True
+NOT-10103,USR-1095,Disease Alert in Your District,A new veterinarian has been assigned to your farm. Contact details shared.,2025-01-18T00:00:00Z,True
+NOT-10104,USR-1022,AI Health Alert,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2025-12-16T00:00:00Z,False
+NOT-10105,USR-1048,Biosecurity Score Updated,Emergency alert: Disease outbreak confirmed nearby. Implement quarantine immediately.,2025-08-10T00:00:00Z,True
+NOT-10106,USR-1025,Government Advisory Issued,A new veterinarian has been assigned to your farm. Contact details shared.,2025-03-24T00:00:00Z,False
+NOT-10107,USR-1028,Inspection Scheduled,Vaccination campaign completed successfully. Records updated.,2024-06-14T00:00:00Z,False
+NOT-10108,USR-1067,Inspection Scheduled,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2025-08-19T00:00:00Z,True
+NOT-10109,USR-1080,Emergency Alert,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2024-07-27T00:00:00Z,True
+NOT-10110,USR-1017,Vaccination Due Reminder,AI analysis detected potential health risk in your livestock. Immediate attention required.,2025-02-21T00:00:00Z,True
+NOT-10111,USR-1043,Biosecurity Score Updated,Emergency alert: Disease outbreak confirmed nearby. Implement quarantine immediately.,2025-10-19T00:00:00Z,False
+NOT-10112,USR-1024,Inspection Scheduled,Your compliance certificate has been issued for this quarter.,2025-04-30T00:00:00Z,False
+NOT-10113,USR-1045,Compliance Certificate Issued,Your farm registration has been approved. Welcome to BioSecure Farm.,2024-05-21T00:00:00Z,True
+NOT-10114,USR-1056,Report Ready for Download,Emergency alert: Disease outbreak confirmed nearby. Implement quarantine immediately.,2025-01-20T00:00:00Z,True
+NOT-10115,USR-1072,Disease Alert in Your District,Your farm biosecurity score has been updated. Check the latest assessment.,2025-06-13T00:00:00Z,False
+NOT-10116,USR-1012,Disease Alert in Your District,A new veterinarian has been assigned to your farm. Contact details shared.,2024-08-24T00:00:00Z,True
+NOT-10117,USR-1076,Farm Registration Approved,AI analysis detected potential health risk in your livestock. Immediate attention required.,2024-01-24T00:00:00Z,True
+NOT-10118,USR-1037,Government Advisory Issued,Your monthly health report is ready for download.,2025-12-21T00:00:00Z,False
+NOT-10119,USR-1008,Biosecurity Score Updated,A new government advisory has been issued for your district. Please review immediately.,2024-03-17T00:00:00Z,True
+NOT-10120,USR-1066,Compliance Certificate Issued,Your farm registration has been approved. Welcome to BioSecure Farm.,2024-11-15T00:00:00Z,False
+NOT-10121,USR-1079,Vaccination Due Reminder,Your farm registration has been approved. Welcome to BioSecure Farm.,2025-12-15T00:00:00Z,True
+NOT-10122,USR-1074,New Veterinarian Assigned,A new government advisory has been issued for your district. Please review immediately.,2025-10-30T00:00:00Z,True
+NOT-10123,USR-1004,AI Health Alert,Your monthly health report is ready for download.,2024-09-24T00:00:00Z,True
+NOT-10124,USR-1042,Vaccination Due Reminder,Your farm biosecurity score has been updated. Check the latest assessment.,2024-07-28T00:00:00Z,False
+NOT-10125,USR-1096,Emergency Alert,Your vaccination for Newcastle Disease is due in 7 days. Please contact your assigned veterinarian.,2024-08-29T00:00:00Z,False
+NOT-10126,USR-1009,Compliance Certificate Issued,Your compliance certificate has been issued for this quarter.,2025-12-20T00:00:00Z,True
+NOT-10127,USR-1044,Disease Alert in Your District,Your monthly health report is ready for download.,2025-09-04T00:00:00Z,True
+NOT-10128,USR-1070,New Veterinarian Assigned,Your farm biosecurity score has been updated. Check the latest assessment.,2024-10-04T00:00:00Z,True
+NOT-10129,USR-1013,Vaccination Due Reminder,A new veterinarian has been assigned to your farm. Contact details shared.,2025-06-03T00:00:00Z,True
+NOT-10130,USR-1083,AI Health Alert,Your monthly health report is ready for download.,2025-05-04T00:00:00Z,False
+NOT-10131,USR-1029,Vaccination Due Reminder,Your vaccination for Newcastle Disease is due in 7 days. Please contact your assigned veterinarian.,2024-01-27T00:00:00Z,True
+NOT-10132,USR-1068,Compliance Certificate Issued,Your monthly health report is ready for download.,2025-11-29T00:00:00Z,True
+NOT-10133,USR-1070,New Veterinarian Assigned,Your vaccination for Newcastle Disease is due in 7 days. Please contact your assigned veterinarian.,2025-01-31T00:00:00Z,False
+NOT-10134,USR-1089,Biosecurity Score Updated,Your monthly health report is ready for download.,2025-12-19T00:00:00Z,False
+NOT-10135,USR-1070,Biosecurity Score Updated,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2025-03-24T00:00:00Z,True
+NOT-10136,USR-1078,AI Health Alert,AI analysis detected potential health risk in your livestock. Immediate attention required.,2024-07-17T00:00:00Z,False
+NOT-10137,USR-1055,Vaccination Due Reminder,A farm inspection has been scheduled for next week. Please ensure all records are ready.,2024-08-25T00:00:00Z,True
+NOT-10138,USR-1075,Vaccination Due Reminder,A farm inspection has been scheduled for next week. Please ensure all records are ready.,2025-02-26T00:00:00Z,True
+NOT-10139,USR-1001,Vaccination Completed,A farm inspection has been scheduled for next week. Please ensure all records are ready.,2024-02-28T00:00:00Z,True
+NOT-10140,USR-1007,Biosecurity Score Updated,A new veterinarian has been assigned to your farm. Contact details shared.,2024-07-03T00:00:00Z,False
+NOT-10141,USR-1005,AI Health Alert,AI analysis detected potential health risk in your livestock. Immediate attention required.,2025-09-08T00:00:00Z,True
+NOT-10142,USR-1037,Biosecurity Score Updated,Your compliance certificate has been issued for this quarter.,2025-02-11T00:00:00Z,False
+NOT-10143,USR-1084,Disease Alert in Your District,Emergency alert: Disease outbreak confirmed nearby. Implement quarantine immediately.,2024-03-19T00:00:00Z,True
+NOT-10144,USR-1032,Farm Registration Approved,A farm inspection has been scheduled for next week. Please ensure all records are ready.,2025-05-21T00:00:00Z,False
+NOT-10145,USR-1028,New Veterinarian Assigned,Vaccination campaign completed successfully. Records updated.,2024-11-05T00:00:00Z,False
+NOT-10146,USR-1099,Farm Registration Approved,A new government advisory has been issued for your district. Please review immediately.,2025-10-31T00:00:00Z,True
+NOT-10147,USR-1067,Government Advisory Issued,AI analysis detected potential health risk in your livestock. Immediate attention required.,2025-12-15T00:00:00Z,True
+NOT-10148,USR-1006,AI Health Alert,Your monthly health report is ready for download.,2025-12-23T00:00:00Z,False
+NOT-10149,USR-1035,Disease Alert in Your District,A farm inspection has been scheduled for next week. Please ensure all records are ready.,2024-05-20T00:00:00Z,True
+NOT-10150,USR-1039,Vaccination Completed,Your farm registration has been approved. Welcome to BioSecure Farm.,2024-08-03T00:00:00Z,True
+NOT-10151,USR-1047,Vaccination Completed,Your farm biosecurity score has been updated. Check the latest assessment.,2024-02-06T00:00:00Z,True
+NOT-10152,USR-1089,New Veterinarian Assigned,Emergency alert: Disease outbreak confirmed nearby. Implement quarantine immediately.,2025-04-09T00:00:00Z,True
+NOT-10153,USR-1002,New Veterinarian Assigned,Your vaccination for Newcastle Disease is due in 7 days. Please contact your assigned veterinarian.,2024-10-03T00:00:00Z,False
+NOT-10154,USR-1075,Report Ready for Download,A new government advisory has been issued for your district. Please review immediately.,2024-03-27T00:00:00Z,True
+NOT-10155,USR-1035,Compliance Certificate Issued,Your monthly health report is ready for download.,2025-05-22T00:00:00Z,True
+NOT-10156,USR-1048,Report Ready for Download,A new veterinarian has been assigned to your farm. Contact details shared.,2024-02-15T00:00:00Z,True
+NOT-10157,USR-1026,Report Ready for Download,Your farm biosecurity score has been updated. Check the latest assessment.,2025-11-06T00:00:00Z,False
+NOT-10158,USR-1068,Vaccination Due Reminder,Emergency alert: Disease outbreak confirmed nearby. Implement quarantine immediately.,2024-11-08T00:00:00Z,True
+NOT-10159,USR-1069,AI Health Alert,Your vaccination for Newcastle Disease is due in 7 days. Please contact your assigned veterinarian.,2025-09-15T00:00:00Z,False
+NOT-10160,USR-1033,Compliance Certificate Issued,A farm inspection has been scheduled for next week. Please ensure all records are ready.,2024-01-29T00:00:00Z,False
+NOT-10161,USR-1092,Compliance Certificate Issued,Your monthly health report is ready for download.,2025-03-13T00:00:00Z,True
+NOT-10162,USR-1013,Farm Registration Approved,Your monthly health report is ready for download.,2025-11-25T00:00:00Z,False
+NOT-10163,USR-1068,New Veterinarian Assigned,Your monthly health report is ready for download.,2025-08-09T00:00:00Z,False
+NOT-10164,USR-1020,Report Ready for Download,A new veterinarian has been assigned to your farm. Contact details shared.,2024-08-31T00:00:00Z,True
+NOT-10165,USR-1001,Government Advisory Issued,Emergency alert: Disease outbreak confirmed nearby. Implement quarantine immediately.,2024-10-07T00:00:00Z,True
+NOT-10166,USR-1031,Farm Registration Approved,A new government advisory has been issued for your district. Please review immediately.,2024-12-11T00:00:00Z,False
+NOT-10167,USR-1004,Compliance Certificate Issued,A new government advisory has been issued for your district. Please review immediately.,2025-01-05T00:00:00Z,False
+NOT-10168,USR-1084,Government Advisory Issued,Emergency alert: Disease outbreak confirmed nearby. Implement quarantine immediately.,2025-09-14T00:00:00Z,True
+NOT-10169,USR-1015,Government Advisory Issued,Your compliance certificate has been issued for this quarter.,2025-11-07T00:00:00Z,False
+NOT-10170,USR-1033,Biosecurity Score Updated,A new veterinarian has been assigned to your farm. Contact details shared.,2025-04-18T00:00:00Z,True
+NOT-10171,USR-1056,Vaccination Due Reminder,A new veterinarian has been assigned to your farm. Contact details shared.,2024-02-07T00:00:00Z,False
+NOT-10172,USR-1061,Emergency Alert,Your farm registration has been approved. Welcome to BioSecure Farm.,2024-08-11T00:00:00Z,False
+NOT-10173,USR-1007,Compliance Certificate Issued,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2024-10-10T00:00:00Z,False
+NOT-10174,USR-1008,New Veterinarian Assigned,Your farm biosecurity score has been updated. Check the latest assessment.,2024-09-21T00:00:00Z,False
+NOT-10175,USR-1033,New Veterinarian Assigned,Your farm biosecurity score has been updated. Check the latest assessment.,2024-08-20T00:00:00Z,True
+NOT-10176,USR-1018,Compliance Certificate Issued,Emergency alert: Disease outbreak confirmed nearby. Implement quarantine immediately.,2024-02-20T00:00:00Z,True
+NOT-10177,USR-1014,Emergency Alert,Your vaccination for Newcastle Disease is due in 7 days. Please contact your assigned veterinarian.,2024-07-07T00:00:00Z,False
+NOT-10178,USR-1074,AI Health Alert,Your vaccination for Newcastle Disease is due in 7 days. Please contact your assigned veterinarian.,2025-07-20T00:00:00Z,True
+NOT-10179,USR-1007,Vaccination Completed,A new government advisory has been issued for your district. Please review immediately.,2024-09-20T00:00:00Z,True
+NOT-10180,USR-1086,AI Health Alert,Your farm registration has been approved. Welcome to BioSecure Farm.,2024-02-15T00:00:00Z,True
+NOT-10181,USR-1044,Disease Alert in Your District,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2025-06-03T00:00:00Z,False
+NOT-10182,USR-1014,Farm Registration Approved,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2024-08-30T00:00:00Z,True
+NOT-10183,USR-1041,Compliance Certificate Issued,AI analysis detected potential health risk in your livestock. Immediate attention required.,2025-11-28T00:00:00Z,False
+NOT-10184,USR-1009,Emergency Alert,Your monthly health report is ready for download.,2024-10-16T00:00:00Z,True
+NOT-10185,USR-1003,AI Health Alert,Your compliance certificate has been issued for this quarter.,2025-01-03T00:00:00Z,False
+NOT-10186,USR-1052,Emergency Alert,AI analysis detected potential health risk in your livestock. Immediate attention required.,2025-04-26T00:00:00Z,False
+NOT-10187,USR-1079,Vaccination Due Reminder,Your farm biosecurity score has been updated. Check the latest assessment.,2025-01-12T00:00:00Z,True
+NOT-10188,USR-1037,Biosecurity Score Updated,Your compliance certificate has been issued for this quarter.,2024-01-27T00:00:00Z,True
+NOT-10189,USR-1077,Inspection Scheduled,AI analysis detected potential health risk in your livestock. Immediate attention required.,2025-06-07T00:00:00Z,False
+NOT-10190,USR-1027,Report Ready for Download,Your compliance certificate has been issued for this quarter.,2024-02-03T00:00:00Z,True
+NOT-10191,USR-1048,Emergency Alert,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2024-03-20T00:00:00Z,True
+NOT-10192,USR-1072,Farm Registration Approved,Your compliance certificate has been issued for this quarter.,2025-10-07T00:00:00Z,False
+NOT-10193,USR-1068,Vaccination Completed,A disease outbreak has been reported in your district. Please follow biosecurity protocols.,2025-06-24T00:00:00Z,True
+NOT-10194,USR-1077,New Veterinarian Assigned,Emergency alert: Disease outbreak confirmed nearby. Implement quarantine immediately.,2025-06-21T00:00:00Z,False
+NOT-10195,USR-1040,Government Advisory Issued,A farm inspection has been scheduled for next week. Please ensure all records are ready.,2025-08-12T00:00:00Z,False
+NOT-10196,USR-1031,AI Health Alert,A farm inspection has been scheduled for next week. Please ensure all records are ready.,2025-01-05T00:00:00Z,True
+NOT-10197,USR-1058,AI Health Alert,Vaccination campaign completed successfully. Records updated.,2024-04-28T00:00:00Z,True
+NOT-10198,USR-1056,Vaccination Completed,Your monthly health report is ready for download.,2025-01-05T00:00:00Z,True
+NOT-10199,USR-1045,Farm Registration Approved,Your farm registration has been approved. Welcome to BioSecure Farm.,2024-03-19T00:00:00Z,False

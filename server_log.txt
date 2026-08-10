@@ -1,0 +1,2 @@
+[OK] Connected to MongoDB: biosecure_db
+[OK] API Server running on http://localhost:5000/api

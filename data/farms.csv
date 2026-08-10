@@ -1,0 +1,101 @@
+﻿farmId,farmName,ownerName,ownerId,farmType,district,state,latitude,longitude,animalCount,establishedYear
+FARM-2000,Durai Pig Farm,Kamala Thangavel,USR-1000,Pig,Hyderabad,Telangana,17.374402,78.493139,272,2011
+FARM-2001,Lakshmi Poultry,Thenmozhi Murugan,USR-1001,Poultry,Nizamabad,Telangana,18.709185,78.062273,2181,2016
+FARM-2002,Ravi Broiler Farm,Sunil Marimuthu,USR-1003,Poultry,Hyderabad,Telangana,17.38047,78.47045,3155,2014
+FARM-2003,Murugan Layer Farm,Nithya Arumugam,USR-1004,Poultry,Visakhapatnam,Andhra Pradesh,17.720291,83.215531,4468,2010
+FARM-2004,Annamalai Poultry,Ramesh Nair,USR-1005,Poultry,Nizamabad,Telangana,18.687514,78.122223,379,2022
+FARM-2005,Annamalai Pig Farm,Sunil Balakrishnan,USR-1006,Pig,Erode,Tamil Nadu,11.310936,77.669238,1298,2013
+FARM-2006,Selvi Pig Farm,Vennila Marimuthu,USR-1008,Pig,Tirupati,Andhra Pradesh,13.645746,79.425597,1835,2017
+FARM-2007,Mahesh Layer Farm,Durai Iyer,USR-1011,Poultry,Nizamabad,Telangana,18.65939,78.104689,988,2022
+FARM-2008,Kaveri Pig Farm,Rukmini Reddy,USR-1012,Pig,Tirupati,Andhra Pradesh,13.58961,79.371768,2605,2019
+FARM-2009,Vijay Layer Farm,Kiran Kumar,USR-1013,Poultry,Chennai,Tamil Nadu,13.126847,80.240533,4900,2021
+FARM-2010,Golden Hog Farm,Karthik Ramasamy,USR-1015,Pig,Tirupati,Andhra Pradesh,13.648519,79.399358,4968,2022
+FARM-2011,Naresh Pig Farm,Vivek Subramanian,USR-1016,Pig,Trichy,Tamil Nadu,10.838884,78.732964,2894,2018
+FARM-2012,Chitra Layer Farm,Vimala Pillai,USR-1019,Poultry,Thiruvananthapuram,Kerala,8.511157,76.937196,2845,2010
+FARM-2013,Prasad Broiler Farm,Priya Venkatesh,USR-1020,Poultry,Tirupati,Andhra Pradesh,13.62782,79.412552,3017,2020
+FARM-2014,Saravanan Broiler Farm,Ravi Devi,USR-1021,Poultry,Nizamabad,Telangana,18.637799,78.061714,4324,2020
+FARM-2015,Meena Poultry,Murugan Karuppasamy,USR-1022,Poultry,Bengaluru,Karnataka,13.00242,77.598417,4010,2017
+FARM-2016,Gopal Poultry 17,Vasumathi Selvam,USR-1025,Poultry,Kochi,Kerala,9.940447,76.24953,2061,2023
+FARM-2017,Murugan Swine Farm,Pandi Natarajan,USR-1027,Pig,Nizamabad,Telangana,18.710663,78.068486,3856,2019
+FARM-2018,Nandini Broiler Farm,Gopal Rajan,USR-1029,Poultry,Madurai,Tamil Nadu,9.87807,78.154895,1539,2017
+FARM-2019,Bharath Pig Farm,Saroja Patel,USR-1030,Pig,Erode,Tamil Nadu,11.370783,77.701234,4933,2021
+FARM-2020,Deepa Poultry,Anand Raj,USR-1031,Poultry,Nizamabad,Telangana,18.623515,78.138906,751,2013
+FARM-2021,Selvi Poultry,Radha Selvam,USR-1032,Poultry,Visakhapatnam,Andhra Pradesh,17.692318,83.192532,3950,2020
+FARM-2022,Arjun Broiler Farm,Deepa Reddy,USR-1033,Poultry,Hubli,Karnataka,15.393993,75.083305,1865,2016
+FARM-2023,Chitra Swine Farm 24,Mangai Govindasamy,USR-1035,Pig,Tirupati,Andhra Pradesh,13.636956,79.416526,4399,2015
+FARM-2024,Gopal Poultry,Deepa Raj,USR-1037,Poultry,Hyderabad,Telangana,17.390039,78.471881,3767,2014
+FARM-2025,Annamalai Poultry 26,Srinivas Devi,USR-1039,Poultry,Karimnagar,Telangana,18.400666,79.098058,1029,2021
+FARM-2026,Ravi Pig Farm,Naresh Patel,USR-1040,Pig,Hyderabad,Telangana,17.356638,78.48512,4879,2022
+FARM-2027,Golden Egg Farm,Savitha Sundaram,USR-1041,Poultry,Hyderabad,Telangana,17.418263,78.466325,3006,2012
+FARM-2028,Sunrise Poultry,Saraswathi Annamalai,USR-1042,Poultry,Bengaluru,Karnataka,12.992402,77.557258,422,2010
+FARM-2029,Lakshmi Poultry 30,Kumar Sundaram,USR-1043,Poultry,Nizamabad,Telangana,18.686287,78.119379,890,2023
+FARM-2030,Suresh Pig Farm,Shankar Thangavel,USR-1044,Pig,Erode,Tamil Nadu,11.319434,77.715071,2841,2012
+FARM-2031,Srinivas Swine Farm 32,Naresh Pillai,USR-1045,Pig,Erode,Tamil Nadu,11.338773,77.749412,3332,2017
+FARM-2032,Balaji Pig Farm 33,Kumar Thangavel,USR-1046,Pig,Mysuru,Karnataka,12.314445,76.604573,4660,2014
+FARM-2033,Golden Hog Farm 34,Mohan Reddy,USR-1047,Pig,Vijayawada,Andhra Pradesh,16.512007,80.639617,4933,2022
+FARM-2034,Mahesh Swine Farm,Anitha Kumar,USR-1048,Pig,Karimnagar,Telangana,18.440857,79.123851,3676,2014
+FARM-2035,Kaveri Poultry,Nithya Naidu,USR-1049,Poultry,Chennai,Tamil Nadu,13.089563,80.226723,862,2022
+FARM-2036,Balaji Pig Farm,Senthil Sundaram,USR-1051,Pig,Nizamabad,Telangana,18.643603,78.110143,1336,2013
+FARM-2037,Deepa Pig Farm,Rajesh Marimuthu,USR-1052,Pig,Salem,Tamil Nadu,11.621806,78.096268,3740,2021
+FARM-2038,Green Feather Farm 39,Padma Raj,USR-1053,Poultry,Coimbatore,Tamil Nadu,10.989948,76.976496,3769,2011
+FARM-2039,Murugan Swine Farm 40,Rajeswari Naidu,USR-1054,Pig,Trichy,Tamil Nadu,10.819283,78.717206,1670,2016
+FARM-2040,Annamalai Pig Farm 41,Sunil Subramanian,USR-1055,Pig,Coimbatore,Tamil Nadu,11.031563,76.996641,1215,2011
+FARM-2041,Sai Swine Farm,Vani Subramanian,USR-1056,Pig,Salem,Tamil Nadu,11.693563,78.155504,4712,2014
+FARM-2042,Arjun Broiler Farm 43,Bala Selvam,USR-1057,Poultry,Madurai,Tamil Nadu,9.944068,78.139773,2280,2018
+FARM-2043,Heritage Broiler Farm 44,Sarala Karuppasamy,USR-1058,Poultry,Salem,Tamil Nadu,11.674104,78.184942,2690,2019
+FARM-2044,Heritage Broiler Farm 45,Sumathi Sundaram,USR-1059,Poultry,Chennai,Tamil Nadu,13.055592,80.28813,4762,2019
+FARM-2045,Chitra Swine Farm 46,Vinod Balakrishnan,USR-1060,Pig,Madurai,Tamil Nadu,9.957342,78.127425,1485,2017
+FARM-2046,Durai Poultry,Vinod Kumar,USR-1061,Poultry,Trichy,Tamil Nadu,10.768316,78.754395,3620,2020
+FARM-2047,Heritage Broiler Farm,Sundaram Sundaram,USR-1062,Poultry,Thiruvananthapuram,Kerala,8.521101,76.927435,2680,2020
+FARM-2048,Srinivas Swine Farm,Geetha Murugan,USR-1063,Pig,Salem,Tamil Nadu,11.630382,78.137165,4108,2014
+FARM-2049,Mahesh Layer Farm 50,Muthu Sharma,USR-1065,Poultry,Hubli,Karnataka,15.36971,75.119483,2626,2014
+FARM-2050,Mahesh Layer Farm 51,Sathish Kumar,USR-1067,Poultry,Chennai,Tamil Nadu,13.073118,80.27216,59,2020
+FARM-2051,Priya Poultry,Hema Balakrishnan,USR-1069,Poultry,Guntur,Andhra Pradesh,16.26212,80.438344,4133,2020
+FARM-2052,Green Feather Farm 53,Ganesh Naidu,USR-1070,Poultry,Salem,Tamil Nadu,11.634656,78.150922,2409,2017
+FARM-2053,Sunrise Poultry 54,Karthik Sundaram,USR-1072,Poultry,Bengaluru,Karnataka,13.018915,77.605487,2010,2021
+FARM-2054,Deepa Pig Farm 55,Jaya Murugan,USR-1074,Pig,Thrissur,Kerala,10.478967,76.205199,1890,2023
+FARM-2055,Arjun Pig Farm,Harish Murugan,USR-1076,Pig,Tirupati,Andhra Pradesh,13.673506,79.433971,1311,2017
+FARM-2056,Karthik Layer Farm,Pandi Iyer,USR-1080,Poultry,Thiruvananthapuram,Kerala,8.544641,76.928149,4002,2017
+FARM-2057,Deepa Pig Farm 58,Lakshmi Patel,USR-1081,Pig,Visakhapatnam,Andhra Pradesh,17.651264,83.187561,4960,2018
+FARM-2058,Heritage Pork Farm 59,Durai Venkatesh,USR-1082,Pig,Kochi,Kerala,9.908825,76.296301,3449,2015
+FARM-2059,Sunrise Poultry 60,Saravanan Rajan,USR-1085,Poultry,Salem,Tamil Nadu,11.642584,78.125856,4858,2019
+FARM-2060,Srinivas Poultry,Nithya Govindasamy,USR-1086,Poultry,Vijayawada,Andhra Pradesh,16.47106,80.651858,2877,2015
+FARM-2061,Durai Poultry 62,Vimala Marimuthu,USR-1088,Poultry,Trichy,Tamil Nadu,10.772678,78.673565,2006,2019
+FARM-2062,Srinivas Poultry 63,Shankar Patel,USR-1089,Poultry,Nizamabad,Telangana,18.700054,78.048465,3924,2021
+FARM-2063,Chitra Layer Farm 64,Ponni Iyer,USR-1091,Poultry,Thiruvananthapuram,Kerala,8.553339,76.951802,1296,2017
+FARM-2064,Lakshmi Pig Farm,Nirmala Devi,USR-1092,Pig,Madurai,Tamil Nadu,9.925429,78.128818,872,2023
+FARM-2065,Karthik Layer Farm 66,Sekar Nair,USR-1093,Poultry,Kochi,Kerala,9.972244,76.218835,1230,2016
+FARM-2066,Heritage Pork Farm,Sathish Subramanian,USR-1094,Pig,Vijayawada,Andhra Pradesh,16.503149,80.69492,2823,2019
+FARM-2067,Balaji Poultry,Savitha Murugan,USR-1095,Poultry,Hyderabad,Telangana,17.343032,78.469557,4421,2016
+FARM-2068,Saravanan Broiler Farm 69,Savitha Subramanian,USR-1097,Poultry,Tirupati,Andhra Pradesh,13.667544,79.417995,4482,2010
+FARM-2069,Balaji Pig Farm 70,Venkat Selvam,USR-1098,Pig,Visakhapatnam,Andhra Pradesh,17.70524,83.197238,1913,2021
+FARM-2070,Priya Pig Farm,Vimala Pillai,USR-1019,Pig,Nizamabad,Telangana,18.692889,78.054151,1412,2021
+FARM-2071,Chandran Layer Farm,Nithya Arumugam,USR-1004,Poultry,Salem,Tamil Nadu,11.646737,78.101612,2986,2015
+FARM-2072,Annamalai Poultry 73,Savitha Murugan,USR-1095,Poultry,Mangaluru,Karnataka,12.920693,74.885252,1442,2012
+FARM-2073,Meena Pig Farm,Geetha Murugan,USR-1063,Pig,Warangal,Telangana,17.996713,79.593867,4827,2012
+FARM-2074,Balaji Pig Farm 75,Kumar Thangavel,USR-1046,Pig,Vijayawada,Andhra Pradesh,16.481733,80.59894,3861,2014
+FARM-2075,Arjun Pig Farm 76,Sumathi Sundaram,USR-1059,Pig,Hyderabad,Telangana,17.364915,78.532903,2098,2017
+FARM-2076,Vijay Layer Farm 77,Vimala Marimuthu,USR-1088,Poultry,Chennai,Tamil Nadu,13.056421,80.277892,4758,2014
+FARM-2077,Prasad Broiler Farm 78,Sathish Kumar,USR-1067,Poultry,Kozhikode,Kerala,11.20961,75.816907,451,2019
+FARM-2078,Chandran Layer Farm 79,Senthil Sundaram,USR-1051,Poultry,Thiruvananthapuram,Kerala,8.534806,76.921832,1607,2019
+FARM-2079,Mahesh Layer Farm 80,Pandi Natarajan,USR-1027,Poultry,Nizamabad,Telangana,18.632216,78.106846,372,2014
+FARM-2080,Green Feather Farm,Vinod Kumar,USR-1061,Poultry,Madurai,Tamil Nadu,9.884213,78.099311,3453,2012
+FARM-2081,Naresh Pig Farm 82,Venkat Selvam,USR-1098,Pig,Mysuru,Karnataka,12.298885,76.680749,1397,2014
+FARM-2082,Naresh Poultry,Rajesh Marimuthu,USR-1052,Poultry,Bengaluru,Karnataka,13.002023,77.591433,666,2012
+FARM-2083,Chitra Swine Farm 84,Sathish Kumar,USR-1067,Pig,Tirupati,Andhra Pradesh,13.615378,79.448268,164,2014
+FARM-2084,Bharath Pig Farm 85,Mohan Reddy,USR-1047,Pig,Hyderabad,Telangana,17.373103,78.500555,3093,2011
+FARM-2085,Sunrise Pig Farm 86,Vani Subramanian,USR-1056,Pig,Warangal,Telangana,17.950537,79.550422,3853,2021
+FARM-2086,Priya Poultry 87,Ravi Devi,USR-1021,Poultry,Madurai,Tamil Nadu,9.879735,78.073521,4085,2011
+FARM-2087,Chandran Pig Farm 88,Savitha Subramanian,USR-1097,Pig,Madurai,Tamil Nadu,9.914065,78.106901,4475,2016
+FARM-2088,Chandran Pig Farm,Karthik Sundaram,USR-1072,Pig,Nizamabad,Telangana,18.632402,78.093035,3393,2014
+FARM-2089,Saravanan Pig Farm,Sundaram Sundaram,USR-1062,Pig,Kochi,Kerala,9.925538,76.312356,3021,2011
+FARM-2090,Chandran Layer Farm 91,Vinod Balakrishnan,USR-1060,Poultry,Salem,Tamil Nadu,11.654114,78.114981,1050,2023
+FARM-2091,Chitra Layer Farm 92,Savitha Sundaram,USR-1041,Poultry,Nizamabad,Telangana,18.686449,78.141209,464,2022
+FARM-2092,Lakshmi Poultry 93,Naresh Patel,USR-1040,Poultry,Erode,Tamil Nadu,11.373982,77.722621,4853,2013
+FARM-2093,Nandini Pig Farm,Gopal Rajan,USR-1029,Pig,Warangal,Telangana,17.928684,79.629941,1235,2012
+FARM-2094,Sai Layer Farm 95,Ravi Devi,USR-1021,Poultry,Karimnagar,Telangana,18.475245,79.09198,2984,2022
+FARM-2095,Nandini Pig Farm 96,Sunil Marimuthu,USR-1003,Pig,Trichy,Tamil Nadu,10.767037,78.667376,3498,2018
+FARM-2096,Gopal Pig Farm,Rukmini Reddy,USR-1012,Pig,Visakhapatnam,Andhra Pradesh,17.681628,83.204704,4913,2011
+FARM-2097,Annamalai Poultry 98,Sunil Balakrishnan,USR-1006,Poultry,Karimnagar,Telangana,18.440745,79.124604,305,2010
+FARM-2098,Vijay Layer Farm 99,Jaya Murugan,USR-1074,Poultry,Karimnagar,Telangana,18.399396,79.15004,3683,2011
+FARM-2099,Meena Pig Farm 100,Gopal Rajan,USR-1029,Pig,Erode,Tamil Nadu,11.303619,77.729632,4845,2018
