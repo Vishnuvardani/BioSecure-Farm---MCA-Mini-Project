@@ -1,0 +1,208 @@
+{
+  "info": {
+    "name": "BioSecure Farm API",
+    "description": "Complete API collection for BioSecure Farm application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api" },
+    { "key": "token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/auth/register",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"fullName\":\"Test Farmer\",\"email\":\"test@biosecure.com\",\"password\":\"Password@123\",\"mobile\":\"+919876543210\",\"role\":\"farmer\"}"
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/auth/login",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"farmer@biosecure.com\",\"password\":\"Password@123\"}"
+            }
+          }
+        },
+        {
+          "name": "Get Me",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/auth/me",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Farms",
+      "item": [
+        {
+          "name": "Get All Farms",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/farms",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "Create Farm",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/farms",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"farmName\":\"Green Valley Farm\",\"farmType\":\"poultry\",\"totalArea\":10,\"capacity\":500,\"address\":{\"city\":\"Coimbatore\",\"district\":\"Coimbatore\",\"state\":\"Tamil Nadu\",\"pincode\":\"641001\"}}"
+            }
+          }
+        },
+        {
+          "name": "Farm Stats",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/farms/stats",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Livestock",
+      "item": [
+        {
+          "name": "Get All Livestock",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/livestock",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "Livestock Stats",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/livestock/stats",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Biosecurity & AI",
+      "item": [
+        {
+          "name": "Submit Assessment",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/biosecurity",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"farm\":\"<FARM_ID>\",\"parameters\":{\"farmHygiene\":{\"score\":15},\"waterQuality\":{\"score\":12},\"feedManagement\":{\"score\":10},\"visitorControl\":{\"score\":12},\"wasteDisposal\":{\"score\":10},\"vaccinationCompliance\":{\"score\":18}}}"
+            }
+          }
+        },
+        {
+          "name": "AI Disease Prediction",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/biosecurity/predict",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"species\":\"chicken\",\"symptoms\":[\"respiratory_distress\",\"sudden_death\"],\"biosecurityScore\":45,\"vaccinationRate\":60,\"nearbyOutbreaks\":2,\"season\":\"winter\"}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analytics",
+      "item": [
+        {
+          "name": "Disease Analytics",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/analytics/disease",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "Vaccination Analytics",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/analytics/vaccination",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "Biosecurity Analytics",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/analytics/biosecurity",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "Dashboard Stats",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/analytics/dashboard",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        }
+      ]
+    },
+    {
+      "name": "GIS",
+      "item": [
+        {
+          "name": "Get All Locations",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/gis",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "Nearby Outbreaks",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/gis/nearby?lat=11.0168&lng=76.9558&radius=50000",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "Heatmap Data",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/gis/heatmap",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        }
+      ]
+    }
+  ]
+}
