@@ -5,6 +5,7 @@
  */
 const express    = require("express");
 const cors       = require("cors");
+const bcrypt     = require("bcryptjs");
 const { MongoClient, ObjectId } = require("mongodb");
 
 const app      = express();
@@ -69,32 +70,148 @@ function makeRouter(collectionName) {
   return router;
 }
 
-// ── Special login route ───────────────────────────────────────────────────
+// ── Auth: Register ────────────────────────────────────────────────────────
+app.post("/api/auth/register", async (req, res) => {
+  try {
+    const { firstName, lastName, email, phone, password, role, extra, location } = req.body;
+    if (!email || !password || !firstName || !lastName)
+      return res.status(400).json({ error: "firstName, lastName, email and password are required" });
+    const existing = await db.collection("users").findOne({ email });
+    if (existing) return res.status(409).json({ error: "Email already registered" });
+    const hash = await bcrypt.hash(password, 10);
+    const userId = "U-" + Date.now();
+    const ROLE_MAP = { farmer: "Farmer", veterinarian: "Veterinarian", government: "Government Officer", admin: "Admin" };
+    const doc = {
+      userId, name: `${firstName} ${lastName}`, firstName, lastName,
+      email, phone: phone || "", passwordHash: hash,
+      role: ROLE_MAP[role] || "Farmer",
+      extra: extra || {}, location: location || null, provider: "local",
+      status: "Active", createdAt: new Date()
+    };
+    await db.collection("users").insertOne(doc);
+    if (doc.role === "Farmer" && extra?.["Farm Name"]) {
+      const farmLocation = location || {};
+      await db.collection("farms").insertOne({
+        farmId: "FARM-" + Date.now(), farmName: extra["Farm Name"],
+        ownerName: doc.name, ownerId: doc.userId,
+        farmType: extra["Farm Type"] || "Mixed",
+        registrationNo: extra["Farm Registration No."] || "",
+        district: extra.District || "", village: extra["Village / Address"] || "",
+        state: extra.State || "", animalCount: Number(extra["Total Animals (approx.)"]) || 0,
+        latitude: Number(farmLocation.latitude) || null,
+        longitude: Number(farmLocation.longitude) || null,
+        createdAt: new Date()
+      });
+    }
+    const { passwordHash: _, ...safeUser } = doc;
+    res.status(201).json({ success: true, user: safeUser });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+app.put("/api/users/:id", async (req, res) => {
+  try {
+    const allowed = ["name", "firstName", "lastName", "phone", "extra", "location"];
+    const updates = Object.fromEntries(Object.entries(req.body).filter(([key]) => allowed.includes(key)));
+    if (updates.name) {
+      const names = updates.name.trim().split(/\s+/);
+      updates.firstName = names.shift() || "";
+      updates.lastName = names.join(" ");
+    }
+    if (!Object.keys(updates).length) return res.status(400).json({ error: "No profile fields supplied" });
+    const result = await db.collection("users").findOneAndUpdate(
+      { userId: req.params.id }, { $set: { ...updates, updatedAt: new Date() } }, { returnDocument: "after" }
+    );
+    if (!result) return res.status(404).json({ error: "User not found" });
+    if (result.role === "Farmer" && (updates.extra || updates.location)) {
+      const farmUpdates = {};
+      const farmFields = { "Farm Name": "farmName", "Farm Type": "farmType", "Farm Registration No.": "registrationNo", District: "district", State: "state", "Village / Address": "village" };
+      for (const [source, target] of Object.entries(farmFields)) {
+        if (updates.extra?.[source] !== undefined) farmUpdates[target] = updates.extra[source];
+      }
+      if (updates.extra?.["Total Animals (approx.)"] !== undefined) farmUpdates.animalCount = Number(updates.extra["Total Animals (approx.)"]) || 0;
+      if (updates.location) {
+        farmUpdates.latitude = Number(updates.location.latitude) || null;
+        farmUpdates.longitude = Number(updates.location.longitude) || null;
+      }
+      if (Object.keys(farmUpdates).length) {
+        await db.collection("farms").updateOne(
+          { ownerId: result.userId },
+          {
+            $set: farmUpdates,
+            $setOnInsert: {
+              farmId: "FARM-" + Date.now(), ownerId: result.userId,
+              ownerName: result.name, createdAt: new Date()
+            }
+          },
+          { upsert: true }
+        );
+      }
+    }
+    const { passwordHash: _, ...safeUser } = result;
+    res.json({ success: true, user: safeUser });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+// ── Auth: Login (email + password) ────────────────────────────────────────
+app.post("/api/auth/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) return res.status(400).json({ error: "email and password required" });
+    const user = await db.collection("users").findOne({ email });
+    if (!user) return res.status(401).json({ error: "Invalid email or password" });
+    // Support both hashed passwords (new users) and legacy users without hash
+    if (user.passwordHash) {
+      const ok = await bcrypt.compare(password, user.passwordHash);
+      if (!ok) return res.status(401).json({ error: "Invalid email or password" });
+    }
+    const { passwordHash: _, ...safeUser } = user;
+    res.json({ success: true, user: safeUser });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+// ── Auth: Google Sign-In (upsert by email) ────────────────────────────────
+app.post("/api/auth/google", async (req, res) => {
+  try {
+    const { email, name, googleId, picture } = req.body;
+    if (!email) return res.status(400).json({ error: "email required" });
+    let user = await db.collection("users").findOne({ email });
+    if (!user) {
+      const userId = "U-G-" + Date.now();
+      user = {
+        userId, name: name || email, email,
+        googleId: googleId || null, picture: picture || null,
+        role: "Farmer", provider: "google",
+        status: "Active", createdAt: new Date()
+      };
+      await db.collection("users").insertOne(user);
+    } else if (!user.googleId && googleId) {
+      await db.collection("users").updateOne({ email }, { $set: { googleId, picture, provider: "google" } });
+      user = { ...user, googleId, picture, provider: "google" };
+    }
+    const { passwordHash: _, ...safeUser } = user;
+    res.json({ success: true, user: safeUser });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+// ── Special login route (legacy / role-based demo) ────────────────────────
 app.post("/api/users/login", async (req, res) => {
   try {
     const { email, role } = req.body;
-
-    // Email login: find exact user
     if (email) {
       const user = await db.collection("users").findOne({ email });
       if (!user) return res.status(404).json({ error: "User not found" });
-      return res.json(user);
+      const { passwordHash: _, ...safeUser } = user;
+      return res.json(safeUser);
     }
-
-    // Role login (demo mode): for Farmer, find one who actually owns a farm
     if (role === "Farmer") {
       const farmOwnerIds = await db.collection("farms").distinct("ownerId");
-      const user = await db.collection("users").findOne({
-        role: "Farmer",
-        userId: { $in: farmOwnerIds },
-      });
-      if (user) return res.json(user);
+      const user = await db.collection("users").findOne({ role: "Farmer", userId: { $in: farmOwnerIds } });
+      if (user) { const { passwordHash: _, ...s } = user; return res.json(s); }
     }
-
-    // For other roles, just return first matching user
     const user = await db.collection("users").findOne({ role: role || "Farmer" });
     if (!user) return res.status(404).json({ error: "User not found for role: " + role });
-    res.json(user);
+    const { passwordHash: _, ...safeUser } = user;
+    res.json(safeUser);
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 

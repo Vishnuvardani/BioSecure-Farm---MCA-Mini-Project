@@ -3,8 +3,8 @@ import { useBioSecureData } from "../api/useBioSecureData";
 
 const DataContext = createContext(null);
 
-export function DataProvider({ role, children }) {
-  const data = useBioSecureData(role);
+export function DataProvider({ role, user = null, children }) {
+  const data = useBioSecureData(role, user);
   return <DataContext.Provider value={data}>{children}</DataContext.Provider>;
 }
 

@@ -465,7 +465,7 @@ function SplashScreen({ onDone }) {
               {
                 className: "w-24 h-24 rounded-2xl flex items-center justify-center shadow-2xl",
                 style: { background: "rgba(255,255,255,0.12)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.2)" },
-                children: /* @__PURE__ */ jsx(Shield, { className: "w-12 h-12", style: { color: P.lavender } })
+                children: /* @__PURE__ */ jsx("img", { src: "/picsvg_download.png", alt: "BioSecure Farm", className: "w-16 h-16 rounded-2xl" })
               }
             ),
             /* @__PURE__ */ jsx("div", { className: "absolute -top-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center", style: { background: P.success }, children: /* @__PURE__ */ jsx(Leaf, { className: "w-3 h-3 text-white" }) })
@@ -526,11 +526,58 @@ function LoginScreen({ onLogin, onRegister }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [selectedRole, setSelectedRole] = useState("farmer");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const roles = [{ id: "farmer", label: "Farmer", icon: Leaf }, { id: "veterinarian", label: "Vet", icon: Heart }, { id: "government", label: "Gov't", icon: Building2 }, { id: "admin", label: "Admin", icon: Settings }];
+
+  const handleLogin = async () => {
+    if (!email || !password) { setError("Email and password are required"); return; }
+    setLoading(true); setError("");
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      if (!res.ok) { setError(data.error || "Login failed"); return; }
+      const ROLE_MAP = { "Farmer": "farmer", "Veterinarian": "veterinarian", "Government Officer": "government", "Admin": "admin" };
+      onLogin(ROLE_MAP[data.user.role] || "farmer", data.user);
+    } catch (e) { setError("Cannot connect to server"); }
+    finally { setLoading(false); }
+  };
+
+  const handleGoogle = async () => {
+    setError("");
+    try {
+      const { initializeApp, getApps } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js");
+      const { getAuth, GoogleAuthProvider, signInWithPopup } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
+      const firebaseConfig = window.__FIREBASE_CONFIG__ || {
+        apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+        authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+        projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+        storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+        messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+        appId: import.meta.env.VITE_FIREBASE_APP_ID,
+      };
+      if (!firebaseConfig) { setError("Google Sign-In not configured. See setup instructions."); return; }
+      const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const result = await signInWithPopup(auth, new GoogleAuthProvider());
+      const { displayName, email: gEmail, uid, photoURL } = result.user;
+      const res = await fetch("http://localhost:5000/api/auth/google", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: gEmail, name: displayName, googleId: uid, picture: photoURL })
+      });
+      const data = await res.json();
+      if (!res.ok) { setError(data.error || "Google login failed"); return; }
+      const ROLE_MAP = { "Farmer": "farmer", "Veterinarian": "veterinarian", "Government Officer": "government", "Admin": "admin" };
+      onLogin(ROLE_MAP[data.user.role] || "farmer", data.user);
+    } catch (e) { setError(e.message || "Google Sign-In failed"); }
+  };
   return /* @__PURE__ */ jsxs("div", { className: "min-h-screen flex", style: { background: P.ivory, fontFamily: "Inter" }, children: [
     /* @__PURE__ */ jsxs("div", { className: "hidden lg:flex flex-col justify-between p-12 flex-1", style: { background: "linear-gradient(160deg, #1a2010 0%, #2d3d1a 50%, #808034 100%)" }, children: [
       /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
-        /* @__PURE__ */ jsx("div", { className: "w-10 h-10 rounded-xl flex items-center justify-center", style: { background: "rgba(219,212,255,0.2)" }, children: /* @__PURE__ */ jsx(Shield, { className: "w-5 h-5 text-white" }) }),
+        /* @__PURE__ */ jsx("img", { src: "/picsvg_download.png", alt: "BioSecure Farm", className: "w-10 h-10 rounded-xl" }),
         /* @__PURE__ */ jsx("span", { className: "text-white font-bold text-lg", style: { fontFamily: "Poppins" }, children: "BioSecure Farm" })
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
@@ -549,7 +596,7 @@ function LoginScreen({ onLogin, onRegister }) {
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "flex flex-col justify-center p-8 lg:p-16 w-full lg:w-[480px]", children: [
       /* @__PURE__ */ jsxs("div", { className: "lg:hidden flex items-center gap-2 mb-8", children: [
-        /* @__PURE__ */ jsx(Shield, { className: "w-6 h-6", style: { color: P.olive } }),
+        /* @__PURE__ */ jsx("img", { src: "/picsvg_download.png", alt: "BioSecure Farm", className: "w-6 h-6 rounded-md" }),
         /* @__PURE__ */ jsx("span", { className: "font-bold text-lg", style: { color: P.olive, fontFamily: "Poppins" }, children: "BioSecure Farm" })
       ] }),
       /* @__PURE__ */ jsx("h1", { className: "text-2xl font-bold mb-1", style: { fontFamily: "Poppins", color: P.dark }, children: "Welcome back" }),
@@ -594,13 +641,22 @@ function LoginScreen({ onLogin, onRegister }) {
           ] }),
           /* @__PURE__ */ jsx("button", { className: "font-medium", style: { color: P.olive }, children: "Forgot password?" })
         ] }),
-        /* @__PURE__ */ jsx("button", { onClick: () => onLogin(selectedRole), className: "w-full py-3.5 rounded-xl font-semibold text-white text-sm mt-2", style: { background: `linear-gradient(135deg, ${P.olive}, ${P.oliveDark})` }, children: "Sign In" }),
+        error && /* @__PURE__ */ jsx("p", { className: "text-xs text-center font-medium", style: { color: P.danger }, children: error }),
+        /* @__PURE__ */ jsx("button", { onClick: handleLogin, disabled: loading, className: "w-full py-3.5 rounded-xl font-semibold text-white text-sm mt-2", style: { background: `linear-gradient(135deg, ${P.olive}, ${P.oliveDark})`, opacity: loading ? 0.7 : 1 }, children: loading ? "Signing in…" : "Sign In" }),
         /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
           /* @__PURE__ */ jsx("div", { className: "flex-1 h-px", style: { background: "#e0e0c0" } }),
           /* @__PURE__ */ jsx("span", { className: "text-xs", style: { color: "#a0a080" }, children: "or" }),
           /* @__PURE__ */ jsx("div", { className: "flex-1 h-px", style: { background: "#e0e0c0" } })
         ] }),
-        /* @__PURE__ */ jsx("div", { className: "grid grid-cols-2 gap-3", children: ["Google Sign-In", "OTP Login"].map((m) => /* @__PURE__ */ jsx("button", { className: "py-3 rounded-xl text-sm font-medium border", style: { borderColor: "#c8c8a0", color: P.dark }, children: m }, m)) }),
+        /* @__PURE__ */ jsx("button", { onClick: handleGoogle, className: "w-full py-3 rounded-xl text-sm font-medium border flex items-center justify-center gap-2", style: { borderColor: "#c8c8a0", color: P.dark }, children: [
+          /* @__PURE__ */ jsx("svg", { width: "16", height: "16", viewBox: "0 0 48 48", children: [
+            /* @__PURE__ */ jsx("path", { fill: "#EA4335", d: "M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" }),
+            /* @__PURE__ */ jsx("path", { fill: "#4285F4", d: "M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" }),
+            /* @__PURE__ */ jsx("path", { fill: "#FBBC05", d: "M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" }),
+            /* @__PURE__ */ jsx("path", { fill: "#34A853", d: "M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" })
+          ] }),
+          "Sign in with Google"
+        ] }),
         /* @__PURE__ */ jsxs("p", { className: "text-center text-sm", style: { color: P.mid }, children: [
           "Don't have an account? ",
           /* @__PURE__ */ jsx("button", { onClick: onRegister, className: "font-semibold", style: { color: P.olive }, children: "Create account" })
@@ -633,21 +689,57 @@ const REG_ROLES = [
     icon: Building2,
     color: P.info,
     fields: ["Employee ID", "Department / Ministry", "Designation", "District / Division", "Official Email Domain"]
+  },
+  {
+    id: "admin",
+    label: "Admin",
+    subtitle: "BioSecure Farm System Administrator",
+    icon: Settings,
+    color: P.olive,
+    fields: ["Department", "Designation", "Access Level", "Office Location"]
   }
 ];
 function RegisterScreen({ onBack, onSuccess }) {
   const [selectedRole, setSelectedRole] = useState("farmer");
   const [step, setStep] = useState(1);
   const [form, setForm] = useState({ firstName: "", lastName: "", email: "", phone: "", password: "", confirm: "", extra: {} });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [locating, setLocating] = useState(false);
   const role = REG_ROLES.find((r) => r.id === selectedRole);
   const RoleIcon = role.icon;
   const setField = (k, v) => setForm((f) => ({ ...f, [k]: v }));
   const setExtra = (k, v) => setForm((f) => ({ ...f, extra: { ...f.extra, [k]: v } }));
+  const captureLocation = () => {
+    if (!navigator.geolocation) { setError("Location is not supported by this browser"); return; }
+    setLocating(true); setError("");
+    navigator.geolocation.getCurrentPosition(
+      (position) => { setForm((f) => ({ ...f, location: { latitude: position.coords.latitude, longitude: position.coords.longitude } })); setLocating(false); },
+      () => { setError("Location permission was not granted"); setLocating(false); },
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+  };
   const steps = ["Account Details", "Role Selection", "Role Details"];
+
+  const handleRegister = async () => {
+    if (form.password !== form.confirm) { setError("Passwords do not match"); return; }
+    if (form.password.length < 8) { setError("Password must be at least 8 characters"); return; }
+    setLoading(true); setError("");
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ firstName: form.firstName, lastName: form.lastName, email: form.email, phone: form.phone, password: form.password, role: selectedRole, extra: form.extra, location: form.location || null })
+      });
+      const data = await res.json();
+      if (!res.ok) { setError(data.error || "Registration failed"); return; }
+      onSuccess(data.user);
+    } catch (e) { setError("Cannot connect to server"); }
+    finally { setLoading(false); }
+  };
   return /* @__PURE__ */ jsxs("div", { className: "min-h-screen flex", style: { background: P.ivory, fontFamily: "Inter" }, children: [
     /* @__PURE__ */ jsxs("div", { className: "hidden lg:flex flex-col justify-between p-12 w-[420px] flex-shrink-0", style: { background: "linear-gradient(160deg, #1a2010 0%, #2d3d1a 50%, #808034 100%)" }, children: [
       /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
-        /* @__PURE__ */ jsx("div", { className: "w-10 h-10 rounded-xl flex items-center justify-center", style: { background: "rgba(219,212,255,0.2)" }, children: /* @__PURE__ */ jsx(Shield, { className: "w-5 h-5 text-white" }) }),
+        /* @__PURE__ */ jsx("img", { src: "/picsvg_download.png", alt: "BioSecure Farm", className: "w-10 h-10 rounded-xl" }),
         /* @__PURE__ */ jsx("span", { className: "text-white font-bold text-lg", style: { fontFamily: "Poppins" }, children: "BioSecure Farm" })
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
@@ -708,7 +800,7 @@ function RegisterScreen({ onBack, onSuccess }) {
           ] }),
           /* @__PURE__ */ jsxs("div", { className: "lg:hidden", children: [
             /* @__PURE__ */ jsx("p", { className: "text-xs font-semibold mb-2", style: { color: P.mid }, children: "Register as" }),
-            /* @__PURE__ */ jsx("div", { className: "grid grid-cols-3 gap-2 p-1.5 rounded-xl", style: { background: P.ivoryDark }, children: REG_ROLES.map((r) => {
+            /* @__PURE__ */ jsx("div", { className: "grid grid-cols-4 gap-2 p-1.5 rounded-xl", style: { background: P.ivoryDark }, children: REG_ROLES.map((r) => {
               const Icon = r.icon;
               return /* @__PURE__ */ jsxs(
                 "button",
@@ -825,7 +917,10 @@ function RegisterScreen({ onBack, onSuccess }) {
             /* @__PURE__ */ jsx("h1", { className: "text-2xl font-bold mb-1", style: { fontFamily: "Poppins", color: P.dark }, children: "Professional Details" }),
             /* @__PURE__ */ jsx("p", { className: "text-sm", style: { color: P.mid }, children: "Required for verification by the system administrator." })
           ] }),
-          /* @__PURE__ */ jsx("div", { className: "space-y-4", children: role.fields.map((field) => /* @__PURE__ */ jsxs("div", { children: [
+          /* @__PURE__ */ jsx("div", { className: "space-y-4", children: [/* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: "Current Location" }),
+            /* @__PURE__ */ jsxs("button", { type: "button", onClick: captureLocation, className: "w-full px-4 py-3 rounded-xl text-sm text-left", style: { background: P.ivoryDark, color: P.dark, border: "1.5px solid transparent" }, children: [locating ? "Getting location…" : form.location ? `${form.location.latitude.toFixed(6)}, ${form.location.longitude.toFixed(6)}` : "Use my current location"] })
+          ] }), role.fields.map((field) => /* @__PURE__ */ jsxs("div", { children: [
             /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: field }),
             /* @__PURE__ */ jsx(
               "input",
@@ -839,7 +934,7 @@ function RegisterScreen({ onBack, onSuccess }) {
                 onBlur: (e) => e.target.style.borderColor = "transparent"
               }
             )
-          ] }, field)) }),
+          ] }, field))] }),
           /* @__PURE__ */ jsxs("label", { className: "flex items-start gap-3 cursor-pointer", children: [
             /* @__PURE__ */ jsx("input", { type: "checkbox", className: "mt-0.5", style: { accentColor: role.color } }),
             /* @__PURE__ */ jsxs("span", { className: "text-xs", style: { color: P.mid }, children: [
@@ -852,17 +947,18 @@ function RegisterScreen({ onBack, onSuccess }) {
           ] }),
           /* @__PURE__ */ jsxs("div", { className: "flex gap-3", children: [
             /* @__PURE__ */ jsx("button", { onClick: () => setStep(2), className: "flex-1 py-3.5 rounded-xl font-semibold text-sm border", style: { borderColor: "#c8c8a0", color: P.dark }, children: "Back" }),
-            /* @__PURE__ */ jsxs("button", { onClick: onSuccess, className: "flex-1 py-3.5 rounded-xl font-semibold text-white text-sm flex items-center justify-center gap-2", style: { background: `linear-gradient(135deg, ${role.color}, ${role.color}cc)` }, children: [
+            /* @__PURE__ */ jsxs("button", { onClick: handleRegister, disabled: loading, className: "flex-1 py-3.5 rounded-xl font-semibold text-white text-sm flex items-center justify-center gap-2", style: { background: `linear-gradient(135deg, ${role.color}, ${role.color}cc)`, opacity: loading ? 0.7 : 1 }, children: [
               /* @__PURE__ */ jsx(CheckCircle, { className: "w-4 h-4" }),
-              " Register"
+              loading ? " Registering…" : " Register"
             ] })
-          ] })
+          ] }),
+          error && /* @__PURE__ */ jsx("p", { className: "text-xs text-center font-medium", style: { color: P.danger }, children: error })
         ] })
       ] }) })
     ] })
   ] });
 }
-function FarmerDashboardPage() {
+function FarmerDashboardPage({ user, farms = [], livestock = [], vaccinations = [], alerts = [], biosecurity = [] }) {
   const vaccineData = [{ name: "CSF", coverage: 88, color: P.olive }, { name: "PRRS", coverage: 72, color: P.purple }, { name: "Newcastle", coverage: 95, color: P.success }, { name: "IBD", coverage: 61, color: P.warning }];
   const recentActivity = [
     { action: "AI Alert: Respiratory symptoms detected in Finisher Pen \u2013 PRRS suspected", time: "10:24 AM", type: "ai" },
@@ -872,12 +968,14 @@ function FarmerDashboardPage() {
     { action: "Biosecurity assessment score updated to 78/100", time: "3 days ago", type: "check" }
   ];
   const typeColors = { ai: P.purple, vaccine: P.olive, gis: P.info, visit: P.success, check: P.warning };
+  const totalAnimals = farms.reduce((total, farm) => total + (Number(farm.animalCount) || 0), 0) || livestock.length;
+  const latestScore = biosecurity[0]?.overallScore ?? biosecurity[0]?.score ?? "-";
   return /* @__PURE__ */ jsxs("div", { className: "space-y-6", children: [
     /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-2 lg:grid-cols-4 gap-4", children: [
-      /* @__PURE__ */ jsx(KPICard, { label: "Total Animals", value: "58,180", sub: "+240 this week", icon: Activity, color: P.olive, trend: "up" }),
-      /* @__PURE__ */ jsx(KPICard, { label: "Health Alerts", value: "3", sub: "-2 vs yesterday", icon: AlertTriangle, color: P.danger, trend: "down" }),
-      /* @__PURE__ */ jsx(KPICard, { label: "Biosecurity Score", value: "78/100", sub: "Good standing", icon: Shield, color: P.success, trend: "up" }),
-      /* @__PURE__ */ jsx(KPICard, { label: "Vaccinations Due", value: "47", sub: "Next 14 days", icon: Syringe, color: P.warning, trend: "neutral" })
+      /* @__PURE__ */ jsx(KPICard, { label: "Total Animals", value: totalAnimals.toLocaleString(), sub: `${farms.length} registered farm${farms.length === 1 ? "" : "s"}`, icon: Activity, color: P.olive, trend: "up" }),
+      /* @__PURE__ */ jsx(KPICard, { label: "Health Alerts", value: alerts.length.toLocaleString(), sub: "From MongoDB", icon: AlertTriangle, color: P.danger, trend: alerts.length ? "down" : "neutral" }),
+      /* @__PURE__ */ jsx(KPICard, { label: "Biosecurity Score", value: latestScore === "-" ? "-" : `${latestScore}/100`, sub: latestScore === "-" ? "No assessment yet" : "Latest assessment", icon: Shield, color: P.success, trend: "up" }),
+      /* @__PURE__ */ jsx(KPICard, { label: "Vaccinations", value: vaccinations.length.toLocaleString(), sub: "Records in MongoDB", icon: Syringe, color: P.warning, trend: "neutral" })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-3 gap-6", children: [
       /* @__PURE__ */ jsxs(Card, { className: "lg:col-span-2 p-5", children: [
@@ -904,26 +1002,6 @@ function FarmerDashboardPage() {
       ] })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-2 gap-6", children: [
-      /* @__PURE__ */ jsx(GISMap, { height: 260 }),
-      /* @__PURE__ */ jsxs(Card, { className: "p-5", children: [
-        /* @__PURE__ */ jsx("div", { className: "flex items-center justify-between mb-4", children: /* @__PURE__ */ jsx("h3", { className: "font-semibold text-sm", style: { fontFamily: "Poppins", color: P.dark }, children: "Vaccination Coverage" }) }),
-        /* @__PURE__ */ jsx("div", { className: "flex flex-col gap-3", children: vaccineData.map((v) => /* @__PURE__ */ jsxs("div", { children: [
-          /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between text-xs mb-1.5", children: [
-            /* @__PURE__ */ jsxs("span", { className: "font-medium", style: { color: P.dark }, children: [
-              v.name,
-              " Vaccine"
-            ] }),
-            /* @__PURE__ */ jsxs("span", { className: "font-semibold", style: { color: v.color }, children: [
-              v.coverage,
-              "%"
-            ] })
-          ] }),
-          /* @__PURE__ */ jsx("div", { className: "h-2 rounded-full", style: { background: P.ivoryDark }, children: /* @__PURE__ */ jsx("div", { className: "h-full rounded-full", style: { width: `${v.coverage}%`, background: v.color } }) })
-        ] }, v.name)) })
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-2 gap-6", children: [
-      /* @__PURE__ */ jsx(AIRecommendationCard, {}),
       /* @__PURE__ */ jsxs(Card, { className: "overflow-hidden", children: [
         /* @__PURE__ */ jsx("div", { className: "flex items-center justify-between p-5 pb-3", style: { borderBottom: `1px solid ${P.ivoryDark}` }, children: /* @__PURE__ */ jsx("h3", { className: "font-semibold text-sm", style: { fontFamily: "Poppins", color: P.dark }, children: "Recent Activity" }) }),
         /* @__PURE__ */ jsx("div", { className: "p-5 flex flex-col gap-0", children: recentActivity.map((a, i) => /* @__PURE__ */ jsxs("div", { className: "flex gap-4 pb-4", children: [
@@ -1518,6 +1596,83 @@ function NotificationsPage() {
         n.id
       );
     }) }) })
+  ] });
+}
+function LiveProfilePage({ role, user }) {
+  const [form, setForm] = useState({
+    name: user?.name || user?.fullName || "",
+    phone: user?.phone || user?.mobile || "",
+    extra: user?.extra || {},
+    location: user?.location || null,
+  });
+  const [editing, setEditing] = useState(false);
+  const [status, setStatus] = useState("");
+  const roleFields = {
+    farmer: ["Farm Name", "Farm Registration No.", "Farm Type", "Total Animals (approx.)", "District", "Village / Address"],
+    veterinarian: ["Vet Licence No.", "Specialisation", "Employer / Clinic Name", "Service District(s)", "Years of Experience"],
+    government: ["Employee ID", "Department / Ministry", "Designation", "District / Division", "Official Email Domain"],
+    admin: ["Department", "Designation", "Access Level", "Office Location"],
+  };
+  const fields = roleFields[role] || roleFields.farmer;
+  const initials = form.name.split(/\s+/).filter(Boolean).map((part) => part[0]).join("").slice(0, 2).toUpperCase() || "U";
+  const setExtra = (key, value) => setForm((current) => ({ ...current, extra: { ...current.extra, [key]: value } }));
+  const refreshLocation = () => navigator.geolocation?.getCurrentPosition((position) => setForm((current) => ({ ...current, location: { latitude: position.coords.latitude, longitude: position.coords.longitude } })));
+  const save = async () => {
+    setStatus("");
+    try {
+      const response = await fetch(`http://localhost:5000/api/users/${user.userId}`, {
+        method: "PUT", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Could not save profile");
+      setEditing(false); setStatus("Profile saved");
+    } catch (error) { setStatus(error.message); }
+  };
+  return /* @__PURE__ */ jsxs("div", { className: "space-y-6", children: [
+    /* @__PURE__ */ jsxs(Card, { className: "p-6", children: [
+      /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-4", children: [
+        /* @__PURE__ */ jsx("div", { className: "w-20 h-20 rounded-2xl flex items-center justify-center text-2xl font-bold", style: { background: `${P.olive}18`, color: P.olive, fontFamily: "Poppins" }, children: initials }),
+        /* @__PURE__ */ jsxs("div", { children: [
+          /* @__PURE__ */ jsx("h2", { className: "font-bold text-lg", style: { fontFamily: "Poppins", color: P.dark }, children: form.name || "User" }),
+          /* @__PURE__ */ jsx("p", { className: "text-sm mt-1", style: { color: P.mid }, children: `${user?.role || role} · ID: ${user?.userId || "Not assigned"}` }),
+          /* @__PURE__ */ jsx("p", { className: "text-xs mt-1", style: { color: P.light }, children: user?.email || "" }),
+          /* @__PURE__ */ jsx("p", { className: "text-xs mt-1", style: { color: P.light }, children: `Member since ${user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : "Not recorded"}` })
+        ] }),
+        /* @__PURE__ */ jsx("button", { onClick: () => setEditing((value) => !value), className: "ml-auto flex items-center gap-2 text-xs font-medium px-4 py-2 rounded-lg", style: { background: `${P.olive}14`, color: P.olive }, children: [/* @__PURE__ */ jsx(Edit2, { className: "w-3.5 h-3.5" }), editing ? "Cancel" : "Edit Profile"] })
+      ] }),
+      /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4 mt-6", children: [
+        ["Full Name", "name", User], ["Email Address", "email", Mail], ["Phone Number", "phone", Phone]
+      ].map(([label, key, Icon]) => /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: label }),
+        editing && key !== "email" ? /* @__PURE__ */ jsx("input", { value: form[key], onChange: (event) => setForm((current) => ({ ...current, [key]: event.target.value })), className: "w-full px-4 py-3 rounded-xl text-sm outline-none", style: { background: P.ivoryDark, color: P.dark } }) : /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3 px-4 py-3 rounded-xl", style: { background: P.ivoryDark }, children: [/* @__PURE__ */ jsx(Icon, { className: "w-4 h-4", style: { color: P.mid } }), /* @__PURE__ */ jsx("span", { className: "text-sm", style: { color: P.dark }, children: key === "email" ? user?.email || "" : form[key] })] })
+      ] }, label)) }),
+      /* @__PURE__ */ jsx("h3", { className: "font-semibold text-sm mt-6 mb-4", style: { fontFamily: "Poppins", color: P.dark }, children: "Role Details" }),
+      /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: fields.map((field) => /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: field }),
+        editing ? /* @__PURE__ */ jsx("input", { value: form.extra[field] || "", onChange: (event) => setExtra(field, event.target.value), className: "w-full px-4 py-3 rounded-xl text-sm outline-none", style: { background: P.ivoryDark, color: P.dark } }) : /* @__PURE__ */ jsx("div", { className: "px-4 py-3 rounded-xl text-sm", style: { background: P.ivoryDark, color: P.dark }, children: form.extra[field] || "Not provided" })
+      ] }, field)) }),
+      /* @__PURE__ */ jsxs("div", { className: "mt-4", children: [
+        /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: "Location" }),
+        editing ? /* @__PURE__ */ jsxs("div", { className: "flex gap-2", children: [
+          /* @__PURE__ */ jsx("input", { type: "number", step: "any", value: form.location?.latitude ?? "", onChange: (event) => setForm((current) => ({ ...current, location: { ...(current.location || {}), latitude: event.target.value } })), placeholder: "Latitude", className: "min-w-0 flex-1 px-3 py-3 rounded-xl text-sm outline-none", style: { background: P.ivoryDark, color: P.dark } }),
+          /* @__PURE__ */ jsx("input", { type: "number", step: "any", value: form.location?.longitude ?? "", onChange: (event) => setForm((current) => ({ ...current, location: { ...(current.location || {}), longitude: event.target.value } })), placeholder: "Longitude", className: "min-w-0 flex-1 px-3 py-3 rounded-xl text-sm outline-none", style: { background: P.ivoryDark, color: P.dark } }),
+          /* @__PURE__ */ jsx("button", { type: "button", onClick: refreshLocation, title: "Detect current location", className: "px-3 rounded-xl", style: { background: P.olive, color: "#fff" }, children: /* @__PURE__ */ jsx(MapPin, { className: "w-4 h-4" }) })
+        ] }) : /* @__PURE__ */ jsx("div", { className: "px-4 py-3 rounded-xl text-sm", style: { background: P.ivoryDark, color: P.dark }, children: form.location ? `${form.location.latitude}, ${form.location.longitude}` : "Not provided" })
+      ] }),
+      editing && /* @__PURE__ */ jsxs("button", { onClick: save, className: "mt-5 w-full py-3 rounded-xl font-semibold text-white text-sm", style: { background: `linear-gradient(135deg, ${P.olive}, ${P.oliveDark})` }, children: ["Save Changes"] }),
+      status && /* @__PURE__ */ jsx("p", { className: "text-xs mt-3 text-center", style: { color: status === "Profile saved" ? P.success : P.danger }, children: status })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-2 gap-6", children: [
+      /* @__PURE__ */ jsxs(Card, { className: "p-6", children: [
+        /* @__PURE__ */ jsx("h3", { className: "font-semibold text-sm mb-4", style: { fontFamily: "Poppins", color: P.dark }, children: "Security" }),
+        [["Change Password", Lock], ["Two-Factor Authentication", Shield], ["Login Activity", Eye]].map(([label, Icon]) => /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between py-3", style: { borderBottom: `1px solid ${P.ivoryDark}` }, children: [/* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [/* @__PURE__ */ jsx(Icon, { className: "w-4 h-4", style: { color: P.mid } }), /* @__PURE__ */ jsx("span", { className: "text-sm", style: { color: P.dark }, children: label })] }), /* @__PURE__ */ jsx(ChevronRight, { className: "w-4 h-4", style: { color: P.light } })] }, label))
+      ] }),
+      /* @__PURE__ */ jsxs(Card, { className: "p-6", children: [
+        /* @__PURE__ */ jsx("h3", { className: "font-semibold text-sm mb-4", style: { fontFamily: "Poppins", color: P.dark }, children: "Notifications Settings" }),
+        [["Disease Alerts", true], ["Vaccination Reminders", true], ["GIS Updates", false], ["Government Advisories", true], ["AI Recommendations", true]].map(([label, enabled]) => /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between py-3", style: { borderBottom: `1px solid ${P.ivoryDark}` }, children: [/* @__PURE__ */ jsx("span", { className: "text-sm", style: { color: P.dark }, children: label }), /* @__PURE__ */ jsx("div", { className: "w-10 h-5.5 rounded-full flex items-center", style: { background: enabled ? P.olive : "#c8c8a0", padding: "2px" }, children: /* @__PURE__ */ jsx("div", { className: "w-4 h-4 rounded-full bg-white", style: { transform: enabled ? "translateX(18px)" : "translateX(0)" } }) })] }, label))
+      ] })
+    ] })
   ] });
 }
 function ProfilePage({ role }) {
@@ -2666,11 +2821,11 @@ const navConfig = {
     items: [{ label: "Dashboard", icon: Home }, { label: "User Management", icon: Users }, { label: "Farm Management", icon: Leaf }, { label: "Disease Database", icon: Database }, { label: "Notifications", icon: Bell }, { label: "Analytics", icon: BarChart2 }, { label: "System Settings", icon: Settings }, { label: "Profile", icon: User }]
   }
 };
-function renderPage(role, module) {
+function renderPage(role, module, user, data = {}) {
   if (role === "farmer") {
     switch (module) {
       case "Dashboard":
-        return /* @__PURE__ */ jsx(FarmerDashboardPage, {});
+        return /* @__PURE__ */ jsx(FarmerDashboardPage, { user, farms: data.farms, livestock: data.livestock, vaccinations: data.vaccinations, alerts: data.alerts, biosecurity: data.biosecurity });
       case "Farm Management":
         return /* @__PURE__ */ jsx(FarmManagementPage, {});
       case "Animals":
@@ -2690,7 +2845,7 @@ function renderPage(role, module) {
       case "Notifications":
         return /* @__PURE__ */ jsx(NotificationsPage, {});
       case "Profile":
-        return /* @__PURE__ */ jsx(ProfilePage, { role });
+        return /* @__PURE__ */ jsx(LiveProfilePage, { role, user });
     }
   }
   if (role === "veterinarian") {
@@ -2712,7 +2867,7 @@ function renderPage(role, module) {
       case "Reports":
         return /* @__PURE__ */ jsx(ReportsPage, {});
       case "Profile":
-        return /* @__PURE__ */ jsx(ProfilePage, { role });
+        return /* @__PURE__ */ jsx(LiveProfilePage, { role, user });
     }
   }
   if (role === "government") {
@@ -2734,7 +2889,7 @@ function renderPage(role, module) {
       case "Advisories":
         return /* @__PURE__ */ jsx(AdvisoriesPage, {});
       case "Profile":
-        return /* @__PURE__ */ jsx(ProfilePage, { role });
+        return /* @__PURE__ */ jsx(LiveProfilePage, { role, user });
     }
   }
   if (role === "admin") {
@@ -2754,22 +2909,22 @@ function renderPage(role, module) {
       case "System Settings":
         return /* @__PURE__ */ jsx(SystemSettingsPage, {});
       case "Profile":
-        return /* @__PURE__ */ jsx(ProfilePage, { role });
+        return /* @__PURE__ */ jsx(LiveProfilePage, { role, user });
     }
   }
   return /* @__PURE__ */ jsx("div", { className: "p-6 text-sm", style: { color: P.mid }, children: "Page coming soon\u2026" });
 }
-function DashboardShell({ role, onLogout }) {
+function DashboardShell({ role, onLogout, user, data = {} }) {
   const [activeModule, setActiveModule] = useState("Dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const cfg = navConfig[role];
-  const profileInitials = { farmer: "NK", veterinarian: "NW", government: "SR", admin: "AD" };
-  const profileNames = { farmer: "Nimal Kumari", veterinarian: "Dr. Nimal W.", government: "S. Rathnayake", admin: "Admin" };
-  const roleLabel = { farmer: "Farmer \xB7 ID 4821", veterinarian: "Veterinarian", government: "Senior Officer", admin: "System Admin" };
+  const profileName = user?.name || user?.fullName || "User";
+  const profileInitials = profileName.split(/\s+/).filter(Boolean).map((part) => part[0]).join("").slice(0, 2).toUpperCase();
+  const roleLabel = user?.role || role;
   return /* @__PURE__ */ jsxs("div", { className: "flex h-screen overflow-hidden", style: { background: P.ivory, fontFamily: "Inter" }, children: [
     /* @__PURE__ */ jsxs("div", { className: `flex flex-col transition-all duration-300 flex-shrink-0 ${sidebarOpen ? "w-56" : "w-14"}`, style: { background: cfg.color }, children: [
       /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3 p-4 mb-2", children: [
-        /* @__PURE__ */ jsx("div", { className: "w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0", style: { background: `${cfg.accent}30` }, children: /* @__PURE__ */ jsx(Shield, { className: "w-4 h-4 text-white" }) }),
+        /* @__PURE__ */ jsx("img", { src: "/picsvg_download.png", alt: "BioSecure Farm", className: "w-8 h-8 rounded-xl flex-shrink-0" }),
         sidebarOpen && /* @__PURE__ */ jsxs("div", { children: [
           /* @__PURE__ */ jsx("p", { className: "text-white text-sm font-bold leading-none", style: { fontFamily: "Poppins" }, children: "BioSecure" }),
           /* @__PURE__ */ jsx("p", { className: "text-xs", style: { color: "rgba(255,255,255,0.45)" }, children: cfg.title })
@@ -2777,12 +2932,12 @@ function DashboardShell({ role, onLogout }) {
         /* @__PURE__ */ jsx("button", { onClick: () => setSidebarOpen((o) => !o), className: "ml-auto flex-shrink-0", style: { color: "rgba(255,255,255,0.4)" }, children: /* @__PURE__ */ jsx(Menu, { className: "w-4 h-4" }) })
       ] }),
       sidebarOpen && role === "farmer" && /* @__PURE__ */ jsxs("div", { className: "mx-3 mb-3 p-3 rounded-xl", style: { background: `${cfg.accent}22` }, children: [
-        /* @__PURE__ */ jsx("p", { className: "text-white text-xs font-semibold truncate", children: "Kumari Pig Farm" }),
-        /* @__PURE__ */ jsx("p", { className: "text-xs mt-0.5", style: { color: "rgba(255,255,255,0.5)" }, children: "480 animals \xB7 Anuradhapura" })
+        /* @__PURE__ */ jsx("p", { className: "text-white text-xs font-semibold truncate", children: user?.extra?.["Farm Name"] || "My Farm" }),
+        /* @__PURE__ */ jsx("p", { className: "text-xs mt-0.5", style: { color: "rgba(255,255,255,0.5)" }, children: `${user?.extra?.["Total Animals (approx.)"] || 0} animals \xB7 ${user?.extra?.District || "Location not set"}` })
       ] }),
       sidebarOpen && role === "government" && /* @__PURE__ */ jsxs("div", { className: "mx-3 mb-3 p-3 rounded-xl", style: { background: `${cfg.accent}22` }, children: [
-        /* @__PURE__ */ jsx("p", { className: "text-white text-xs font-semibold truncate", children: "Ministry of Agriculture" }),
-        /* @__PURE__ */ jsx("p", { className: "text-xs mt-0.5", style: { color: "rgba(255,255,255,0.5)" }, children: "Sri Lanka \xB7 Command Center" })
+        /* @__PURE__ */ jsx("p", { className: "text-white text-xs font-semibold truncate", children: user?.extra?.["Department / Ministry"] || "Government Office" }),
+        /* @__PURE__ */ jsx("p", { className: "text-xs mt-0.5", style: { color: "rgba(255,255,255,0.5)" }, children: user?.extra?.["District / Division"] || "Command Center" })
       ] }),
       /* @__PURE__ */ jsx("nav", { className: "flex-1 px-2 overflow-y-auto", children: cfg.items.map((item) => {
         const Icon = item.icon;
@@ -2804,11 +2959,11 @@ function DashboardShell({ role, onLogout }) {
         );
       }) }),
       /* @__PURE__ */ jsx("div", { className: "p-3 m-2 rounded-xl", style: { background: "rgba(255,255,255,0.06)" }, children: /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
-        /* @__PURE__ */ jsx("div", { className: "w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0", style: { background: cfg.accent, color: "#fff" }, children: profileInitials[role] }),
+        /* @__PURE__ */ jsx("div", { className: "w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0", style: { background: cfg.accent, color: "#fff" }, children: profileInitials }),
         sidebarOpen && /* @__PURE__ */ jsxs(Fragment, { children: [
           /* @__PURE__ */ jsxs("div", { className: "flex-1 min-w-0", children: [
-            /* @__PURE__ */ jsx("p", { className: "text-white text-xs font-medium truncate", children: profileNames[role] }),
-            /* @__PURE__ */ jsx("p", { className: "text-xs truncate", style: { color: "rgba(255,255,255,0.45)" }, children: roleLabel[role] })
+            /* @__PURE__ */ jsx("p", { className: "text-white text-xs font-medium truncate", children: profileName }),
+            /* @__PURE__ */ jsx("p", { className: "text-xs truncate", style: { color: "rgba(255,255,255,0.45)" }, children: roleLabel })
           ] }),
           /* @__PURE__ */ jsx("button", { onClick: onLogout, style: { color: "rgba(255,255,255,0.4)" }, children: /* @__PURE__ */ jsx(LogOut, { className: "w-3.5 h-3.5" }) })
         ] })
@@ -2841,7 +2996,9 @@ function DashboardShell({ role, onLogout }) {
           ]
         }
       ),
-      /* @__PURE__ */ jsx("div", { className: "p-6", children: renderPage(role, activeModule) })
+      /* @__PURE__ */ jsxs("div", { className: "p-6", children: [
+        renderPage(role, activeModule, user, data)
+      ] })
     ] })
   ] });
 }
@@ -2854,12 +3011,15 @@ function App({
 } = {}) {
   const [screen, setScreen] = useState("splash");
   const [role, setRole] = useState("farmer");
+  const [registrationNotice, setRegistrationNotice] = useState("");
 
   // If MongoDB data is already loaded (passed from AppWithData), go straight to dashboard
   if (mongoRole && mongoUser) {
     return /* @__PURE__ */ jsx(DashboardShell, {
       role: mongoRole.toLowerCase().replace(" officer", "").replace("veterinarian", "veterinarian"),
       onLogout: mongoLogout || (() => {}),
+      user: mongoUser,
+      data: { farms: mongoFarms, livestock: mongoLivestock, vaccinations: mongoVaccinations, alerts: mongoAlerts, biosecurity: mongoBiosecurity },
       mongoFarms, mongoLivestock, mongoVaccinations, mongoDiseases,
       mongoBiosecurity, mongoVetReports, mongoAlerts, mongoGIS,
       mongoNotifications, mongoAnalytics, mongoAllUsers, mongoUser,
@@ -2868,16 +3028,20 @@ function App({
 
   if (screen === "splash") return /* @__PURE__ */ jsx(SplashScreen, { onDone: () => setScreen("onboarding") });
   if (screen === "onboarding") return /* @__PURE__ */ jsx(OnboardingScreen, { onDone: () => setScreen("login") });
-  if (screen === "login") return /* @__PURE__ */ jsx(LoginScreen, { onLogin: (r) => {
+  if (screen === "login") return /* @__PURE__ */ jsxs(Fragment, { children: [/* @__PURE__ */ jsx(LoginScreen, { onLogin: (r, user) => {
     setRole(r);
     if (onMongoLogin) {
-      onMongoLogin(r);
+      onMongoLogin(r, user);
     } else {
       setScreen("dashboard");
     }
-  }, onRegister: () => setScreen("register") });
-  if (screen === "register") return /* @__PURE__ */ jsx(RegisterScreen, { onBack: () => setScreen("login"), onSuccess: () => setScreen("login") });
-  return /* @__PURE__ */ jsx(DashboardShell, { role, onLogout: () => setScreen("login") });
+  }, onRegister: () => setScreen("register") }), registrationNotice && /* @__PURE__ */ jsx("div", { className: "fixed top-5 right-5 z-50 px-5 py-4 rounded-xl text-sm font-semibold text-white shadow-lg", style: { background: P.success }, children: registrationNotice })] });
+  if (screen === "register") return /* @__PURE__ */ jsx(RegisterScreen, { onBack: () => setScreen("login"), onSuccess: () => {
+    setRegistrationNotice("Account created successfully");
+    setScreen("login");
+    window.setTimeout(() => setRegistrationNotice(""), 5000);
+  } });
+  return /* @__PURE__ */ jsx(DashboardShell, { role, user: null, onLogout: () => setScreen("login") });
 }
 export {
   App as default

@@ -183,20 +183,27 @@ function DataConsumer({ mongoRole, onLogout }) {
 // ── Root ──────────────────────────────────────────────────────────────────
 function Root() {
   const [activeRole, setActiveRole] = useState(null);
+  const [activeUser, setActiveUser] = useState(null);
 
   if (!activeRole) {
     return (
       <App
-        onMongoLogin={(role) => setActiveRole(ROLE_MAP[role] || "Farmer")}
+        onMongoLogin={(role, user) => {
+          setActiveRole(ROLE_MAP[role] || "Farmer");
+          setActiveUser(user || null);
+        }}
       />
     );
   }
 
   return (
-    <DataProvider role={activeRole}>
+    <DataProvider role={activeRole} user={activeUser}>
       <DataConsumer
         mongoRole={activeRole}
-        onLogout={() => setActiveRole(null)}
+        onLogout={() => {
+          setActiveRole(null);
+          setActiveUser(null);
+        }}
       />
     </DataProvider>
   );

@@ -18,7 +18,7 @@ import {
   getUsers,
 } from "./mongoService";
 
-export function useBioSecureData(role) {
+export function useBioSecureData(role, authenticatedUser = null) {
   const [user,          setUser]          = useState(null);
   const [farms,         setFarms]         = useState([]);
   const [livestock,     setLivestock]     = useState([]);
@@ -40,7 +40,7 @@ export function useBioSecureData(role) {
     setLoading(true);
     setError(null);
     try {
-      const loggedUser = await loginUser(role);
+      const loggedUser = authenticatedUser || await loginUser(role);
       if (!loggedUser) throw new Error("No user found for role: " + role);
       setUser(loggedUser);
 
@@ -139,7 +139,7 @@ export function useBioSecureData(role) {
     } finally {
       setLoading(false);
     }
-  }, [role]);
+  }, [role, authenticatedUser]);
 
   useEffect(() => { load(); }, [load]);
 
