@@ -23,9 +23,7 @@ const ROLE_REVERSE = {
 function LoadingScreen() {
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "linear-gradient(145deg,#1a2010,#2d3d1a,#808034)" }}>
-      <div style={{ width: 56, height: 56, borderRadius: 14, background: "rgba(255,255,255,0.12)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#DBD4FF" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      </div>
+      <img src="/picsvg_download.png" alt="BioSecure Farm" style={{ width: 56, height: 56, borderRadius: 14, objectFit: "cover", marginBottom: 20 }} />
       <p style={{ color: "#DBD4FF", fontFamily: "Poppins", fontSize: 16, fontWeight: 700, marginBottom: 6 }}>BioSecure Farm</p>
       <p style={{ color: "rgba(219,212,255,0.6)", fontSize: 12, marginBottom: 28 }}>Loading data from MongoDB...</p>
       <div style={{ width: 180, height: 3, background: "rgba(255,255,255,0.15)", borderRadius: 4, overflow: "hidden" }}>

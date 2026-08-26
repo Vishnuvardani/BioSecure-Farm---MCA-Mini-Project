@@ -11,7 +11,7 @@
  */
 import { useState } from "react";
 import {
-  Home, Leaf, Activity, Shield, Map, AlertTriangle, Syringe,
+  Home, Leaf, Activity, Shield, Map, AlertTriangle, Syringe, LogOut,
   Zap, FileText, Bell, User, ClipboardList, BarChart2, Eye,
   CheckCircle, Flag, Database, Settings, Users, Stethoscope, MapPin, CalendarDays
 } from "lucide-react";
@@ -142,20 +142,15 @@ function Sidebar({ role, activeModule, onNavigate, onLogout, user, sidebarOpen, 
   return (
     <div style={{ display: "flex", flexDirection: "column", width: sidebarOpen ? 220 : 56, flexShrink: 0, background: cfg.color, transition: "width 0.25s", height: "100vh", overflow: "hidden" }}>
       {/* Logo */}
-      <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "16px 12px", marginBottom: 4 }}>
-        <div style={{ width: 32, height: 32, borderRadius: 10, background: `${cfg.accent}30`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-          <Shield size={16} color="#fff" />
-        </div>
+      <button onClick={() => setSidebarOpen(o => !o)} title={sidebarOpen ? "Minimize sidebar" : "Expand sidebar"} style={{ display: "flex", alignItems: "center", gap: 10, padding: "16px 12px", marginBottom: 4, background: "none", border: "none", cursor: "pointer", textAlign: "left", width: "100%" }}>
+        <img src="/picsvg_download.png" alt="BioSecure Farm" style={{ width: 32, height: 32, borderRadius: 10, objectFit: "cover", flexShrink: 0 }} />
         {sidebarOpen && (
           <div style={{ flex: 1, minWidth: 0 }}>
             <p style={{ color: "#fff", fontSize: 13, fontWeight: 700, fontFamily: "Poppins", margin: 0, lineHeight: 1 }}>BioSecure</p>
             <p style={{ color: "rgba(255,255,255,0.45)", fontSize: 10, margin: "2px 0 0" }}>{cfg.title}</p>
           </div>
         )}
-        <button onClick={() => setSidebarOpen(o => !o)} style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.4)", marginLeft: "auto", flexShrink: 0 }}>
-          <Users size={14} />
-        </button>
-      </div>
+      </button>
 
       {/* Nav items */}
       <nav style={{ flex: 1, padding: "0 8px", overflowY: "auto" }}>
@@ -168,9 +163,6 @@ function Sidebar({ role, activeModule, onNavigate, onLogout, user, sidebarOpen, 
               <Icon size={15} style={{ flexShrink: 0 }} />
               {sidebarOpen && (
                 <span style={{ fontSize: 12, fontWeight: active ? 700 : 400, flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{item.label}</span>
-              )}
-              {sidebarOpen && item.isNew && (
-                <span style={{ fontSize: 9, fontWeight: 700, background: cfg.accent, color: "#fff", padding: "1px 5px", borderRadius: 6, flexShrink: 0 }}>NEW</span>
               )}
             </button>
           );
@@ -190,7 +182,7 @@ function Sidebar({ role, activeModule, onNavigate, onLogout, user, sidebarOpen, 
                 <p style={{ color: "rgba(255,255,255,0.45)", fontSize: 10, margin: 0 }}>{ROLE_LABELS[role]}</p>
               </div>
               <button onClick={onLogout} style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.4)" }}>
-                <AlertTriangle size={13} />
+                <LogOut size={13} />
               </button>
             </>
           )}
@@ -201,18 +193,20 @@ function Sidebar({ role, activeModule, onNavigate, onLogout, user, sidebarOpen, 
 }
 
 // ── Topbar ────────────────────────────────────────────────────────────────
-function Topbar({ activeModule, role }) {
-  const cfg = NAV_CONFIG[role];
-  const isNew = NEW_MODULES.has(activeModule);
+function Topbar({ activeModule, onLogout }) {
   return (
     <div style={{ position: "sticky", top: 0, zIndex: 10, display: "flex", alignItems: "center", gap: 16, padding: "10px 24px", background: "rgba(255,255,227,0.92)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(128,128,52,0.1)" }}>
       <div>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <h1 style={{ fontFamily: "Poppins", fontSize: 16, fontWeight: 700, color: P.dark, margin: 0 }}>{activeModule}</h1>
-          {isNew && <span style={{ fontSize: 9, fontWeight: 700, background: cfg.accent, color: "#fff", padding: "2px 7px", borderRadius: 8 }}>LIVE</span>}
         </div>
         <p style={{ fontSize: 11, color: P.mid, margin: 0 }}>{new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</p>
       </div>
+      <div style={{ flex: 1 }} />
+      <button onClick={onLogout} title="Log out" style={{ display: "flex", alignItems: "center", gap: 7, padding: "8px 12px", border: "1px solid rgba(128,128,52,0.2)", borderRadius: 10, background: P.ivoryDark, color: P.mid, cursor: "pointer", fontSize: 12, fontWeight: 600 }}>
+        <LogOut size={14} />
+        Logout
+      </button>
     </div>
   );
 }
@@ -232,7 +226,7 @@ export function IntegratedDashboard({ role, user, farms, onLogout, renderLegacyP
         user={user} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}
       />
       <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-        <Topbar activeModule={activeModule} role={role} />
+        <Topbar activeModule={activeModule} onLogout={onLogout} />
         <div style={{ flex: 1, overflowY: "auto", padding: 24 }}>
           {isNewModule
             ? renderNewModule(activeModule, farms || [], user, role)
