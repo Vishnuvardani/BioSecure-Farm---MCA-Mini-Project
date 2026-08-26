@@ -526,12 +526,25 @@ function LoginScreen({ onLogin, onRegister }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [selectedRole, setSelectedRole] = useState("farmer");
+  const [fieldErrs, setFieldErrs] = useState({});
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPwd, setShowPwd] = useState(false);
   const roles = [{ id: "farmer", label: "Farmer", icon: Leaf }, { id: "veterinarian", label: "Vet", icon: Heart }, { id: "government", label: "Gov't", icon: Building2 }, { id: "admin", label: "Admin", icon: Settings }];
 
+  const validateLogin = () => {
+    const e = {};
+    if (!email.trim()) e.email = "Email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) e.email = "Enter a valid email address";
+    if (!password) e.password = "Password is required";
+    else if (password.length < 6) e.password = "Password must be at least 6 characters";
+    return e;
+  };
+
   const handleLogin = async () => {
-    if (!email || !password) { setError("Email and password are required"); return; }
+    const e = validateLogin();
+    setFieldErrs(e);
+    if (Object.keys(e).length) return;
     setLoading(true); setError("");
     try {
       const res = await fetch("http://localhost:5000/api/auth/login", {
@@ -618,30 +631,42 @@ function LoginScreen({ onLogin, onRegister }) {
         );
       }) }),
       /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-4", children: [
-        [["Email Address", email, setEmail, "text", "farmer@biosecure.gov.lk"], ["Password", password, setPassword, "password", "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"]].map(([label, val, setter, type, ph]) => /* @__PURE__ */ jsxs("div", { children: [
-          /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: String(label) }),
-          /* @__PURE__ */ jsx(
-            "input",
-            {
-              value: String(val),
-              onChange: (e) => setter(e.target.value),
-              placeholder: String(ph),
-              type: String(type),
+        /* Email field */
+        jsxs("div", { children: [
+          jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: "Email Address" }),
+          jsx("input", {
+            value: email, onChange: (e) => { setEmail(e.target.value); setFieldErrs(fe => ({ ...fe, email: "" })); },
+            placeholder: "farmer@biosecure.gov.lk", type: "email",
+            className: "w-full px-4 py-3 rounded-xl text-sm outline-none",
+            style: { background: P.ivoryDark, border: `1.5px solid ${fieldErrs.email ? P.danger : "transparent"}`, color: P.dark },
+            onBlur: () => { const e = validateLogin(); setFieldErrs(fe => ({ ...fe, email: e.email || "" })); }
+          }),
+          fieldErrs.email && jsx("p", { style: { color: P.danger, fontSize: 11, marginTop: 4 }, children: fieldErrs.email })
+        ] }),
+        /* Password field */
+        jsxs("div", { children: [
+          jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: "Password" }),
+          jsxs("div", { style: { position: "relative" }, children: [
+            jsx("input", {
+              value: password, onChange: (e) => { setPassword(e.target.value); setFieldErrs(fe => ({ ...fe, password: "" })); },
+              placeholder: "Min. 6 characters", type: showPwd ? "text" : "password",
               className: "w-full px-4 py-3 rounded-xl text-sm outline-none",
-              style: { background: P.ivoryDark, border: "1.5px solid transparent", color: P.dark },
-              onFocus: (e) => e.target.style.borderColor = P.olive,
-              onBlur: (e) => e.target.style.borderColor = "transparent"
-            }
-          )
-        ] }, String(label))),
-        /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between text-xs", children: [
-          /* @__PURE__ */ jsxs("label", { className: "flex items-center gap-2 cursor-pointer", style: { color: P.mid }, children: [
-            /* @__PURE__ */ jsx("input", { type: "checkbox", style: { accentColor: P.olive } }),
+              style: { background: P.ivoryDark, border: `1.5px solid ${fieldErrs.password ? P.danger : "transparent"}`, color: P.dark, paddingRight: 44 },
+              onBlur: () => { const e = validateLogin(); setFieldErrs(fe => ({ ...fe, password: e.password || "" })); }
+            }),
+            jsx("button", { type: "button", onClick: () => setShowPwd(s => !s), style: { position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: P.mid, fontSize: 11, fontWeight: 600 }, children: showPwd ? "Hide" : "Show" })
+          ] }),
+          fieldErrs.password && jsx("p", { style: { color: P.danger, fontSize: 11, marginTop: 4 }, children: fieldErrs.password })
+        ] }),
+        /* Remember me + forgot */
+        jsxs("div", { className: "flex items-center justify-between text-xs", children: [
+          jsxs("label", { className: "flex items-center gap-2 cursor-pointer", style: { color: P.mid }, children: [
+            jsx("input", { type: "checkbox", style: { accentColor: P.olive } }),
             "Remember me"
           ] }),
-          /* @__PURE__ */ jsx("button", { className: "font-medium", style: { color: P.olive }, children: "Forgot password?" })
+          jsx("button", { className: "font-medium", style: { color: P.olive }, children: "Forgot password?" })
         ] }),
-        error && /* @__PURE__ */ jsx("p", { className: "text-xs text-center font-medium", style: { color: P.danger }, children: error }),
+        error && jsx("p", { className: "text-xs text-center font-medium", style: { color: P.danger }, children: error }),
         /* @__PURE__ */ jsx("button", { onClick: handleLogin, disabled: loading, className: "w-full py-3.5 rounded-xl font-semibold text-white text-sm mt-2", style: { background: `linear-gradient(135deg, ${P.olive}, ${P.oliveDark})`, opacity: loading ? 0.7 : 1 }, children: loading ? "Signing in…" : "Sign In" }),
         /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
           /* @__PURE__ */ jsx("div", { className: "flex-1 h-px", style: { background: "#e0e0c0" } }),
@@ -703,13 +728,18 @@ function RegisterScreen({ onBack, onSuccess }) {
   const [selectedRole, setSelectedRole] = useState("farmer");
   const [step, setStep] = useState(1);
   const [form, setForm] = useState({ firstName: "", lastName: "", email: "", phone: "", password: "", confirm: "", extra: {} });
+  const [fieldErrs, setFieldErrs] = useState({});
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [locating, setLocating] = useState(false);
+  const [showPwd, setShowPwd] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [agreedTerms, setAgreedTerms] = useState(false);
   const role = REG_ROLES.find((r) => r.id === selectedRole);
   const RoleIcon = role.icon;
-  const setField = (k, v) => setForm((f) => ({ ...f, [k]: v }));
+  const setField = (k, v) => { setForm((f) => ({ ...f, [k]: v })); setFieldErrs(e => ({ ...e, [k]: "" })); };
   const setExtra = (k, v) => setForm((f) => ({ ...f, extra: { ...f.extra, [k]: v } }));
+
   const captureLocation = () => {
     if (!navigator.geolocation) { setError("Location is not supported by this browser"); return; }
     setLocating(true); setError("");
@@ -719,11 +749,36 @@ function RegisterScreen({ onBack, onSuccess }) {
       { enableHighAccuracy: true, timeout: 10000 }
     );
   };
+
+  const validateStep1 = () => {
+    const e = {};
+    if (!form.firstName.trim()) e.firstName = "First name is required";
+    else if (form.firstName.trim().length < 2) e.firstName = "Min 2 characters";
+    if (!form.lastName.trim()) e.lastName = "Last name is required";
+    else if (form.lastName.trim().length < 2) e.lastName = "Min 2 characters";
+    if (!form.email.trim()) e.email = "Email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) e.email = "Enter a valid email address";
+    if (form.phone && !/^[\d\s\+\-\(\)]{7,20}$/.test(form.phone)) e.phone = "Enter a valid phone number";
+    if (!form.password) e.password = "Password is required";
+    else if (form.password.length < 8) e.password = "Min 8 characters";
+    else if (!/[A-Z]/.test(form.password)) e.password = "Include at least one uppercase letter";
+    else if (!/[0-9]/.test(form.password)) e.password = "Include at least one number";
+    if (!form.confirm) e.confirm = "Please confirm your password";
+    else if (form.password !== form.confirm) e.confirm = "Passwords do not match";
+    return e;
+  };
+
   const steps = ["Account Details", "Role Selection", "Role Details"];
 
+  const handleStep1Continue = () => {
+    const e = validateStep1();
+    setFieldErrs(e);
+    if (Object.keys(e).length) return;
+    setError(""); setStep(2);
+  };
+
   const handleRegister = async () => {
-    if (form.password !== form.confirm) { setError("Passwords do not match"); return; }
-    if (form.password.length < 8) { setError("Password must be at least 8 characters"); return; }
+    if (!agreedTerms) { setError("Please agree to the Terms of Service to continue"); return; }
     setLoading(true); setError("");
     try {
       const res = await fetch("http://localhost:5000/api/auth/register", {
@@ -827,13 +882,14 @@ function RegisterScreen({ onBack, onSuccess }) {
                 placeholder: ph,
                 type,
                 className: "w-full px-4 py-3 rounded-xl text-sm outline-none",
-                style: { background: P.ivoryDark, border: "1.5px solid transparent", color: P.dark },
+                style: { background: P.ivoryDark, border: `1.5px solid ${fieldErrs[key] ? P.danger : "transparent"}`, color: P.dark },
                 onFocus: (e) => e.target.style.borderColor = role.color,
-                onBlur: (e) => e.target.style.borderColor = "transparent"
+                onBlur: (e) => { e.target.style.borderColor = fieldErrs[key] ? P.danger : "transparent"; }
               }
-            )
+            ),
+            fieldErrs[key] && /* @__PURE__ */ jsx("p", { style: { color: P.danger, fontSize: 11, marginTop: 4 }, children: fieldErrs[key] })
           ] }, key)) }),
-          [["Email Address", "email", "email", "you@example.com"], ["Phone Number", "phone", "tel", "+94 71 000 0000"], ["Password", "password", "password", "Min. 8 characters"], ["Confirm Password", "confirm", "password", "Repeat password"]].map(([lbl, key, type, ph]) => /* @__PURE__ */ jsxs("div", { children: [
+          [["Email Address", "email", "email", "you@example.com"], ["Phone Number", "phone", "tel", "+91 98765 43210"]].map(([lbl, key, type, ph]) => /* @__PURE__ */ jsxs("div", { children: [
             /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: lbl }),
             /* @__PURE__ */ jsx(
               "input",
@@ -843,13 +899,38 @@ function RegisterScreen({ onBack, onSuccess }) {
                 placeholder: ph,
                 type,
                 className: "w-full px-4 py-3 rounded-xl text-sm outline-none",
-                style: { background: P.ivoryDark, border: "1.5px solid transparent", color: P.dark },
+                style: { background: P.ivoryDark, border: `1.5px solid ${fieldErrs[key] ? P.danger : "transparent"}`, color: P.dark },
                 onFocus: (e) => e.target.style.borderColor = role.color,
-                onBlur: (e) => e.target.style.borderColor = "transparent"
+                onBlur: (e) => { e.target.style.borderColor = fieldErrs[key] ? P.danger : "transparent"; }
               }
-            )
+            ),
+            fieldErrs[key] && /* @__PURE__ */ jsx("p", { style: { color: P.danger, fontSize: 11, marginTop: 4 }, children: fieldErrs[key] })
           ] }, key)),
-          /* @__PURE__ */ jsxs("button", { onClick: () => setStep(2), className: "w-full py-3.5 rounded-xl font-semibold text-white text-sm flex items-center justify-center gap-2", style: { background: `linear-gradient(135deg, ${role.color}, ${role.color}cc)` }, children: [
+          /* Password */
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: "Password" }),
+            /* @__PURE__ */ jsxs("div", { style: { position: "relative" }, children: [
+              /* @__PURE__ */ jsx("input", { value: form.password, onChange: (e) => setField("password", e.target.value), placeholder: "Min 8 chars, 1 uppercase, 1 number", type: showPwd ? "text" : "password", className: "w-full px-4 py-3 rounded-xl text-sm outline-none", style: { background: P.ivoryDark, border: `1.5px solid ${fieldErrs.password ? P.danger : "transparent"}`, color: P.dark, paddingRight: 52 } }),
+              /* @__PURE__ */ jsx("button", { type: "button", onClick: () => setShowPwd(s => !s), style: { position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: P.mid, fontSize: 11, fontWeight: 600 }, children: showPwd ? "Hide" : "Show" })
+            ] }),
+            fieldErrs.password && /* @__PURE__ */ jsx("p", { style: { color: P.danger, fontSize: 11, marginTop: 4 }, children: fieldErrs.password }),
+            form.password && !fieldErrs.password && /* @__PURE__ */ jsxs("div", { style: { display: "flex", gap: 4, marginTop: 6 }, children: [
+              [form.password.length >= 8, form.password.length >= 12, /[A-Z]/.test(form.password) && /[0-9]/.test(form.password)].map((ok, i) =>
+                /* @__PURE__ */ jsx("div", { style: { flex: 1, height: 3, borderRadius: 4, background: ok ? P.success : P.ivoryDark } }, i)
+              )
+            ] })
+          ] }),
+          /* Confirm Password */
+          /* @__PURE__ */ jsxs("div", { children: [
+            /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: "Confirm Password" }),
+            /* @__PURE__ */ jsxs("div", { style: { position: "relative" }, children: [
+              /* @__PURE__ */ jsx("input", { value: form.confirm, onChange: (e) => setField("confirm", e.target.value), placeholder: "Repeat password", type: showConfirm ? "text" : "password", className: "w-full px-4 py-3 rounded-xl text-sm outline-none", style: { background: P.ivoryDark, border: `1.5px solid ${fieldErrs.confirm ? P.danger : "transparent"}`, color: P.dark, paddingRight: 52 } }),
+              /* @__PURE__ */ jsx("button", { type: "button", onClick: () => setShowConfirm(s => !s), style: { position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: P.mid, fontSize: 11, fontWeight: 600 }, children: showConfirm ? "Hide" : "Show" })
+            ] }),
+            fieldErrs.confirm && /* @__PURE__ */ jsx("p", { style: { color: P.danger, fontSize: 11, marginTop: 4 }, children: fieldErrs.confirm }),
+            form.confirm && form.password === form.confirm && /* @__PURE__ */ jsx("p", { style: { color: P.success, fontSize: 11, marginTop: 4 }, children: "✓ Passwords match" })
+          ] }),
+          /* @__PURE__ */ jsxs("button", { onClick: handleStep1Continue, className: "w-full py-3.5 rounded-xl font-semibold text-white text-sm flex items-center justify-center gap-2", style: { background: `linear-gradient(135deg, ${role.color}, ${role.color}cc)` }, children: [
             "Continue ",
             /* @__PURE__ */ jsx(ArrowRight, { className: "w-4 h-4" })
           ] })
@@ -936,13 +1017,13 @@ function RegisterScreen({ onBack, onSuccess }) {
             )
           ] }, field))] }),
           /* @__PURE__ */ jsxs("label", { className: "flex items-start gap-3 cursor-pointer", children: [
-            /* @__PURE__ */ jsx("input", { type: "checkbox", className: "mt-0.5", style: { accentColor: role.color } }),
+            /* @__PURE__ */ jsx("input", { type: "checkbox", checked: agreedTerms, onChange: e => setAgreedTerms(e.target.checked), className: "mt-0.5", style: { accentColor: role.color } }),
             /* @__PURE__ */ jsxs("span", { className: "text-xs", style: { color: P.mid }, children: [
               "I agree to the ",
               /* @__PURE__ */ jsx("span", { className: "font-semibold", style: { color: role.color }, children: "Terms of Service" }),
               " and ",
               /* @__PURE__ */ jsx("span", { className: "font-semibold", style: { color: role.color }, children: "Privacy Policy" }),
-              " of BioSecure Farm and the Ministry of Agriculture, Sri Lanka."
+              " of BioSecure Farm and the Ministry of Agriculture."
             ] })
           ] }),
           /* @__PURE__ */ jsxs("div", { className: "flex gap-3", children: [
@@ -3044,5 +3125,6 @@ function App({
   return /* @__PURE__ */ jsx(DashboardShell, { role, user: null, onLogout: () => setScreen("login") });
 }
 export {
-  App as default
+  App as default,
+  renderPage
 };

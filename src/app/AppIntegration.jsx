@@ -13,7 +13,7 @@ import { useState } from "react";
 import {
   Home, Leaf, Activity, Shield, Map, AlertTriangle, Syringe,
   Zap, FileText, Bell, User, ClipboardList, BarChart2, Eye,
-  CheckCircle, Flag, Database, Settings, Users, Stethoscope, MapPin
+  CheckCircle, Flag, Database, Settings, Users, Stethoscope, MapPin, CalendarDays
 } from "lucide-react";
 
 import BiosecurityAssessmentModule from "./modules/BiosecurityAssessmentModule";
@@ -21,6 +21,8 @@ import DiseaseReportModule         from "./modules/DiseaseReportModule";
 import GISOutbreakMapModule        from "./modules/GISOutbreakMapModule";
 import NotificationSystemModule    from "./modules/NotificationSystemModule";
 import VetInspectionModule         from "./modules/VetInspectionModule";
+import VetAssignedFarmsModule      from "./modules/VetAssignedFarmsModule";
+import VeterinaryAppointmentsModule from "./modules/VeterinaryAppointmentsModule";
 
 // ── Palette (matches App.jsx) ─────────────────────────────────────────────
 const P = {
@@ -36,20 +38,18 @@ export const NAV_CONFIG = {
   farmer: {
     color: "#1a2010", accent: P.olive, title: "BioSecure Farm",
     items: [
-      { label: "Dashboard",           icon: Home },
-      { label: "Farm Management",     icon: Leaf },
-      { label: "Animals",             icon: Activity },
-      { label: "Biosecurity",         icon: Shield },
+      { label: "Dashboard",              icon: Home },
+      { label: "Farm Management",        icon: Leaf },
+      { label: "Animals",                icon: Activity },
+      { label: "Biosecurity",            icon: Shield },
       { label: "Biosecurity Assessment", icon: Shield, isNew: true },
-      { label: "Disease Report",      icon: AlertTriangle, isNew: true },
-      { label: "Outbreak Map",        icon: MapPin, isNew: true },
-      { label: "GIS Map",             icon: Map },
-      { label: "Disease Alerts",      icon: AlertTriangle },
-      { label: "Vaccination",         icon: Syringe },
-      { label: "AI Assistant",        icon: Zap },
-      { label: "Reports",             icon: FileText },
-      { label: "Notifications",       icon: Bell, isNew: true },
-      { label: "Profile",             icon: User },
+      { label: "Disease Report",         icon: AlertTriangle, isNew: true },
+      { label: "Outbreak Map",           icon: MapPin, isNew: true },
+      { label: "Find Veterinarian",      icon: Stethoscope, isNew: true },
+      { label: "Vaccination",            icon: Syringe },
+      { label: "AI Assistant",           icon: Zap },
+      { label: "Notifications",          icon: Bell, isNew: true },
+      { label: "Profile",                icon: User },
     ],
   },
   veterinarian: {
@@ -59,13 +59,13 @@ export const NAV_CONFIG = {
       { label: "Assigned Farms",      icon: Leaf },
       { label: "Inspection",          icon: ClipboardList },
       { label: "Vet Inspection",      icon: Stethoscope, isNew: true },
+      { label: "Appointment Requests", icon: CalendarDays, isNew: true },
       { label: "Health Records",      icon: FileText },
       { label: "Vaccination",         icon: Syringe },
-      { label: "Disease Report",      icon: AlertTriangle },
+      { label: "Disease Report",      icon: AlertTriangle, isNew: true },
       { label: "Outbreak Map",        icon: MapPin, isNew: true },
       { label: "AI Recommendation",   icon: Zap },
       { label: "Notifications",       icon: Bell, isNew: true },
-      { label: "Reports",             icon: BarChart2 },
       { label: "Profile",             icon: User },
     ],
   },
@@ -75,11 +75,9 @@ export const NAV_CONFIG = {
       { label: "Dashboard",           icon: Home },
       { label: "Farm Monitoring",     icon: Eye },
       { label: "Disease Surveillance",icon: Activity },
-      { label: "GIS Dashboard",       icon: Map },
       { label: "Outbreak Map",        icon: MapPin, isNew: true },
       { label: "Compliance",          icon: CheckCircle },
       { label: "Analytics",           icon: BarChart2 },
-      { label: "Reports",             icon: FileText },
       { label: "Advisories",          icon: Flag },
       { label: "Notifications",       icon: Bell, isNew: true },
       { label: "Profile",             icon: User },
@@ -111,6 +109,11 @@ const ROLE_LABELS = {
 // ── Render new module pages ───────────────────────────────────────────────
 function renderNewModule(module, farms, user, role) {
   switch (module) {
+    case "Assigned Farms":
+      return <VetAssignedFarmsModule farms={farms} user={user} />;
+    case "Find Veterinarian":
+    case "Appointment Requests":
+      return <VeterinaryAppointmentsModule farms={farms} user={user} role={role} />;
     case "Biosecurity Assessment":
       return <BiosecurityAssessmentModule farms={farms} user={user} />;
     case "Disease Report":
@@ -127,7 +130,7 @@ function renderNewModule(module, farms, user, role) {
 }
 
 const NEW_MODULES = new Set([
-  "Biosecurity Assessment", "Disease Report", "Outbreak Map",
+  "Biosecurity Assessment", "Disease Report", "Outbreak Map", "Assigned Farms", "Find Veterinarian", "Appointment Requests",
   "Notifications", "Vet Inspection"
 ]);
 

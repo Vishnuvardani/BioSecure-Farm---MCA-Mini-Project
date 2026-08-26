@@ -225,6 +225,112 @@ for (const col of COLLECTIONS) {
   app.use(`/api/${col}`, makeRouter(col));
 }
 
+// Appointment requests are the assignment workflow between a farmer and a veterinarian.
+app.get("/api/veterinarians/available", async (req, res) => {
+  try {
+    const farm = await db.collection("farms").findOne({ farmId: req.query.farmId });
+    if (!farm) return res.status(404).json({ error: "Farm not found" });
+
+    const vets = await db.collection("users").find({ role: "Veterinarian" }).toArray();
+    const appointments = await db.collection("appointments").find({ status: { $in: ["PENDING", "CONFIRMED"] } }).toArray();
+    const suitable = vets
+      .filter(vet => vet.status !== "Inactive")
+      .map(vet => {
+        const specializations = vet.specializations || vet.extra?.specializations || vet.extra?.Specialisation || [];
+        const normalizedSpecializations = (Array.isArray(specializations) ? specializations : [specializations]).map(value => String(value).toLowerCase());
+        const matchesAnimalType = !normalizedSpecializations.length || normalizedSpecializations.some(value => value.includes(String(farm.farmType || "").toLowerCase()) || value.includes("mixed"));
+        const workload = appointments.filter(appointment => appointment.veterinarianId === vet.userId).length;
+        const capacity = Number(vet.appointmentCapacity || vet.extra?.appointmentCapacity) || 15;
+        const serviceDistricts = vet.serviceDistricts || vet.extra?.serviceDistricts || vet.extra?.["Service District(s)"] || vet.district;
+        const areas = (Array.isArray(serviceDistricts) ? serviceDistricts : String(serviceDistricts || "").split(",")).map(value => value.trim().toLowerCase());
+        const farmDistrict = String(farm.district || "").toLowerCase();
+        const farmState = String(farm.state || "").toLowerCase();
+        const servesFarm = !areas.filter(Boolean).length || areas.includes(farmDistrict);
+        const sameDistrict = String(vet.district || "").toLowerCase() === farmDistrict || servesFarm;
+        const sameState = String(vet.state || "").toLowerCase() === farmState;
+        const proximityRank = sameDistrict ? 0 : sameState ? 1 : 2;
+        return {
+          userId: vet.userId, name: vet.name || vet.fullName, email: vet.email, phone: vet.phone || vet.mobile || "",
+          picture: vet.picture || null, district: vet.district || "", state: vet.state || "",
+          specializations: normalizedSpecializations.length ? normalizedSpecializations : [farm.farmType || "General livestock"],
+          experienceYears: Number(vet.experienceYears || vet.extra?.["Years of Experience"]) || null,
+          workload, capacity, availability: workload >= capacity ? "UNAVAILABLE" : workload >= capacity - 3 ? "LIMITED" : "AVAILABLE",
+          matchesAnimalType, servesFarm, proximityRank,
+          proximityLabel: sameDistrict ? "Same district" : sameState ? "Nearby state" : "Other service area",
+        };
+      })
+      // Legacy profiles do not all have service-area data. Keep them bookable,
+      // while always placing local veterinarians ahead of wider-area choices.
+      .filter(vet => vet.matchesAnimalType && vet.availability !== "UNAVAILABLE")
+      .sort((a, b) => a.proximityRank - b.proximityRank || a.workload - b.workload);
+    res.json(suitable);
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+app.post("/api/appointments", async (req, res) => {
+  try {
+    const { farmId, farmerId, veterinarianId, appointmentDate, appointmentTime, visitType, reason } = req.body;
+    if (![farmId, farmerId, veterinarianId, appointmentDate, appointmentTime, visitType].every(Boolean)) {
+      return res.status(400).json({ error: "farmId, farmerId, veterinarianId, appointmentDate, appointmentTime and visitType are required" });
+    }
+    const [farm, farmer, veterinarian] = await Promise.all([
+      db.collection("farms").findOne({ farmId, ownerId: farmerId }),
+      db.collection("users").findOne({ userId: farmerId }),
+      db.collection("users").findOne({ userId: veterinarianId, role: "Veterinarian" }),
+    ]);
+    if (!farm) return res.status(403).json({ error: "You can only book a visit for your own farm" });
+    if (!veterinarian) return res.status(400).json({ error: "Veterinarian not found" });
+    const appointmentId = `APT-${Date.now()}`;
+    const appointment = {
+      appointmentId, farmId, farmName: farm.farmName, farmType: farm.farmType, district: farm.district || "",
+      farmerId, farmerName: farmer?.name || farmer?.fullName || "Farmer",
+      veterinarianId, veterinarianName: veterinarian.name || veterinarian.fullName,
+      appointmentDate, appointmentTime, visitType, reason: reason || "Routine consultation",
+      status: "PENDING", createdAt: new Date(), updatedAt: new Date(),
+    };
+    await db.collection("appointments").insertOne(appointment);
+    await db.collection("notifications").insertOne({
+      notificationId: `N-${Date.now()}-appointment`, targetUserId: veterinarianId, targetRole: "Veterinarian",
+      type: "APPOINTMENT_REQUEST", title: "New Veterinary Appointment Request",
+      message: `${appointment.farmerName} requested a ${visitType.toLowerCase()} for ${farm.farmName} on ${appointmentDate} at ${appointmentTime}.`,
+      appointmentId, isRead: false, createdAt: new Date(),
+    });
+    res.status(201).json({ success: true, appointment });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+app.get("/api/appointments", async (req, res) => {
+  try {
+    const filter = {};
+    if (req.query.farmerId) filter.farmerId = req.query.farmerId;
+    if (req.query.veterinarianId) filter.veterinarianId = req.query.veterinarianId;
+    if (req.query.farmId) filter.farmId = req.query.farmId;
+    const appointments = await db.collection("appointments").find(filter).sort({ createdAt: -1 }).toArray();
+    res.json(appointments);
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+app.put("/api/appointments/:id/status", async (req, res) => {
+  try {
+    const { status, veterinarianId } = req.body;
+    if (!["CONFIRMED", "REJECTED"].includes(status) || !veterinarianId) return res.status(400).json({ error: "A valid status and veterinarianId are required" });
+    const appointment = await db.collection("appointments").findOne({ appointmentId: req.params.id, veterinarianId });
+    if (!appointment) return res.status(404).json({ error: "Appointment request not found" });
+    if (appointment.status !== "PENDING") return res.status(409).json({ error: "This appointment has already been processed" });
+    await db.collection("appointments").updateOne({ appointmentId: appointment.appointmentId }, { $set: { status, updatedAt: new Date() } });
+    if (status === "CONFIRMED") {
+      await db.collection("farms").updateOne({ farmId: appointment.farmId }, { $set: { assignedVeterinarianId: veterinarianId, assignedVeterinarianName: appointment.veterinarianName, assignedAt: new Date() } });
+    }
+    await db.collection("notifications").insertOne({
+      notificationId: `N-${Date.now()}-appointment-status`, targetUserId: appointment.farmerId, targetRole: "Farmer",
+      type: "APPOINTMENT_UPDATE", title: status === "CONFIRMED" ? "Veterinary Appointment Confirmed" : "Veterinary Appointment Declined",
+      message: status === "CONFIRMED" ? `Your appointment with ${appointment.veterinarianName} has been confirmed. ${appointment.farmName} is now assigned to this veterinarian.` : `${appointment.veterinarianName} declined the appointment request for ${appointment.farmName}.`,
+      appointmentId: appointment.appointmentId, isRead: false, createdAt: new Date(),
+    });
+    res.json({ success: true, status, assignmentUpdated: status === "CONFIRMED" });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
 // ── Analytics summary route ───────────────────────────────────────────────
 app.get("/api/analytics/summary", async (req, res) => {
   try {
@@ -263,6 +369,214 @@ app.get("/api/analytics/summary", async (req, res) => {
 });
 
 app.get("/api/health", (req, res) => res.json({ status: "ok", db: DB_NAME }));
+
+// ═══════════════════════════════════════════════════════════════════════════
+// FARM MANAGEMENT MODULE
+// ═══════════════════════════════════════════════════════════════════════════
+
+function validateFarmFields(body, requireAll = false) {
+  const errors = [];
+  const name = (body.farmName || "").trim();
+  if (requireAll && !name) errors.push("farmName is required");
+  if (name && name.length > 120) errors.push("farmName too long (max 120)");
+
+  const owner = (body.ownerName || "").trim();
+  if (requireAll && !owner) errors.push("ownerName is required");
+  if (owner && owner.length > 100) errors.push("ownerName too long (max 100)");
+
+  if (body.phone !== undefined && body.phone !== "") {
+    if (!/^[\d\s\+\-\(\)]{7,20}$/.test(body.phone))
+      errors.push("phone format invalid");
+  }
+  if (body.email !== undefined && body.email !== "") {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.email))
+      errors.push("email format invalid");
+  }
+  if (body.pincode !== undefined && body.pincode !== "") {
+    if (!/^\d{6}$/.test(body.pincode))
+      errors.push("pincode must be 6 digits");
+  }
+  if (body.farmArea !== undefined && body.farmArea !== "") {
+    const a = Number(body.farmArea);
+    if (isNaN(a) || a <= 0) errors.push("farmArea must be a positive number");
+  }
+  if (body.animalCapacity !== undefined && body.animalCapacity !== "") {
+    const c = Number(body.animalCapacity);
+    if (!Number.isInteger(c) || c <= 0) errors.push("animalCapacity must be a positive integer");
+  }
+  if (body.animalCount !== undefined && body.animalCount !== "") {
+    const n = Number(body.animalCount);
+    if (!Number.isInteger(n) || n < 0) errors.push("animalCount must be a non-negative integer");
+  }
+  if (body.latitude !== undefined && body.latitude !== null && body.latitude !== "") {
+    const lat = Number(body.latitude);
+    if (isNaN(lat) || lat < -90 || lat > 90) errors.push("latitude must be between -90 and 90");
+  }
+  if (body.longitude !== undefined && body.longitude !== null && body.longitude !== "") {
+    const lon = Number(body.longitude);
+    if (isNaN(lon) || lon < -180 || lon > 180) errors.push("longitude must be between -180 and 180");
+  }
+  if (body.status !== undefined) {
+    if (!["Active", "Inactive"].includes(body.status))
+      errors.push("status must be Active or Inactive");
+  }
+  return errors;
+}
+
+// POST /api/farms/create  — create a new farm with full validation
+app.post("/api/farms/create", async (req, res) => {
+  try {
+    const body = req.body;
+    const errors = validateFarmFields(body, true);
+    if (errors.length) return res.status(400).json({ error: errors.join("; ") });
+
+    const farmName = body.farmName.trim();
+    const ownerId  = (body.ownerId || "").trim();
+    if (!ownerId) return res.status(400).json({ error: "ownerId is required" });
+
+    // Prevent duplicate farm name for same owner
+    const dup = await db.collection("farms").findOne({ ownerId, farmName });
+    if (dup) return res.status(409).json({ error: "A farm with this name already exists for this owner" });
+
+    const farmId = "FARM-" + Date.now();
+    const doc = {
+      farmId,
+      farmName,
+      ownerName:      (body.ownerName || "").trim(),
+      ownerId,
+      farmType:       body.farmType       || "Mixed",
+      status:         body.status         || "Active",
+      registrationNo: (body.registrationNo || "").trim(),
+      phone:          (body.phone          || "").trim(),
+      email:          (body.email          || "").trim(),
+      address:        (body.address        || "").trim(),
+      village:        (body.village        || "").trim(),
+      district:       (body.district       || "").trim(),
+      state:          (body.state          || "").trim(),
+      pincode:        (body.pincode        || "").trim(),
+      farmArea:       body.farmArea        ? Number(body.farmArea)        : null,
+      animalCapacity: body.animalCapacity  ? Number(body.animalCapacity)  : null,
+      animalCount:    body.animalCount     ? Number(body.animalCount)     : 0,
+      numberOfSheds:  body.numberOfSheds   ? Number(body.numberOfSheds)   : null,
+      establishedYear:body.establishedYear ? Number(body.establishedYear) : null,
+      latitude:       body.latitude        ? Number(body.latitude)        : null,
+      longitude:      body.longitude       ? Number(body.longitude)       : null,
+      infrastructure: body.infrastructure  || {},
+      personnel:      body.personnel       || [],
+      createdAt:      new Date(),
+      updatedAt:      new Date(),
+    };
+    await db.collection("farms").insertOne(doc);
+    res.status(201).json({ success: true, farmId, farm: doc });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+// PUT /api/farms/:farmId  — update farm with full validation
+app.put("/api/farms/:farmId", async (req, res) => {
+  try {
+    const { farmId } = req.params;
+    const body = req.body;
+    const errors = validateFarmFields(body, false);
+    if (errors.length) return res.status(400).json({ error: errors.join("; ") });
+
+    const existing = await db.collection("farms").findOne({ farmId });
+    if (!existing) return res.status(404).json({ error: "Farm not found" });
+
+    // Prevent duplicate name for same owner (excluding self)
+    if (body.farmName) {
+      const dup = await db.collection("farms").findOne({
+        ownerId: existing.ownerId,
+        farmName: body.farmName.trim(),
+        farmId: { $ne: farmId }
+      });
+      if (dup) return res.status(409).json({ error: "Another farm with this name already exists" });
+    }
+
+    const ALLOWED = [
+      "farmName","ownerName","farmType","status","registrationNo",
+      "phone","email","address","village","district","state","pincode",
+      "farmArea","animalCapacity","animalCount","numberOfSheds",
+      "establishedYear","latitude","longitude","infrastructure","personnel"
+    ];
+    const updates = {};
+    for (const key of ALLOWED) {
+      if (body[key] !== undefined) {
+        if (["farmArea","animalCapacity","animalCount","numberOfSheds","establishedYear"].includes(key))
+          updates[key] = body[key] === "" ? null : Number(body[key]);
+        else if (["latitude","longitude"].includes(key))
+          updates[key] = body[key] === "" || body[key] === null ? null : Number(body[key]);
+        else if (typeof body[key] === "string")
+          updates[key] = body[key].trim();
+        else
+          updates[key] = body[key];
+      }
+    }
+    updates.updatedAt = new Date();
+    await db.collection("farms").updateOne({ farmId }, { $set: updates });
+    const updated = await db.collection("farms").findOne({ farmId });
+    res.json({ success: true, farm: updated });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+// GET /api/farms/:farmId/summary  — full farm summary with related data
+app.get("/api/farms/:farmId/summary", async (req, res) => {
+  try {
+    const { farmId } = req.params;
+    const farm = await db.collection("farms").findOne({ farmId });
+    if (!farm) return res.status(404).json({ error: "Farm not found" });
+
+    const [livestock, vaccinations, diseaseReports, latestAssessment] = await Promise.all([
+      db.collection("livestock").find({ farmId }).toArray(),
+      db.collection("vaccinations").find({ farmId }).sort({ createdAt: -1 }).limit(10).toArray(),
+      db.collection("disease_reports").find({ farmId }).sort({ createdAt: -1 }).limit(5).toArray(),
+      db.collection("biosecurity_assessments").findOne({ farmId }, { sort: { createdAt: -1 } }),
+    ]);
+
+    const sickCount       = livestock.filter(l => l.healthStatus === "Sick").length;
+    const vaccinatedCount = livestock.filter(l => l.vaccinated === true).length;
+    const poultryCount    = livestock.filter(l => ["Poultry","Broiler","Layer","Breeder"].includes(l.species)).length;
+    const pigCount        = livestock.filter(l => l.species === "Pig").length;
+
+    const now = new Date();
+    const upcomingVax = vaccinations.filter(v => v.status !== "Completed" && v.vaccinationDate && new Date(v.vaccinationDate) >= now);
+    const overdueVax  = vaccinations.filter(v => v.status !== "Completed" && v.vaccinationDate && new Date(v.vaccinationDate) < now);
+
+    const activeReports = diseaseReports.filter(r => !["RESOLVED","RULED_OUT"].includes(r.status));
+
+    res.json({
+      farm,
+      livestock: { total: livestock.length, poultry: poultryCount, pigs: pigCount, sick: sickCount, vaccinated: vaccinatedCount },
+      vaccination: { total: vaccinations.length, upcoming: upcomingVax.length, overdue: overdueVax.length, recent: vaccinations.slice(0,3) },
+      diseaseReports: { total: diseaseReports.length, active: activeReports.length, recent: diseaseReports.slice(0,3) },
+      biosecurity: latestAssessment ? {
+        score: latestAssessment.overallScore,
+        riskLevel: latestAssessment.riskLevel,
+        assessmentDate: latestAssessment.assessmentDate,
+        weakAreas: latestAssessment.weakAreas || [],
+        assessmentId: latestAssessment.assessmentId,
+      } : null,
+    });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+// GET /api/farms/:farmId/activity  — recent activity log
+app.get("/api/farms/:farmId/activity", async (req, res) => {
+  try {
+    const { farmId } = req.params;
+    const [reports, vaccinations, assessments] = await Promise.all([
+      db.collection("disease_reports").find({ farmId }).sort({ createdAt: -1 }).limit(5).toArray(),
+      db.collection("vaccinations").find({ farmId }).sort({ createdAt: -1 }).limit(5).toArray(),
+      db.collection("biosecurity_assessments").find({ farmId }).sort({ createdAt: -1 }).limit(5).toArray(),
+    ]);
+    const events = [
+      ...reports.map(r => ({ type: "disease_report", label: `Disease report submitted — Suspected ${r.suspectedDisease}`, date: r.createdAt, id: r.reportId })),
+      ...vaccinations.map(v => ({ type: "vaccination", label: `Vaccination recorded — ${v.disease || v.vaccineName || "vaccine"}`, date: v.createdAt || v.vaccinationDate, id: v.vaccinationId })),
+      ...assessments.map(a => ({ type: "biosecurity", label: `Biosecurity assessment completed — Score: ${a.overallScore}/100`, date: a.createdAt, id: a.assessmentId })),
+    ];
+    events.sort((a, b) => new Date(b.date) - new Date(a.date));
+    res.json(events.slice(0, 15));
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
 
 // ═══════════════════════════════════════════════════════════════════════════
 // BIOSECURITY ASSESSMENT MODULE

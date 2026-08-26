@@ -1,6 +1,6 @@
 # BioSecure Farm - Work Summary
 
-Date: 2026-08-22
+Date: 2026-08-26
 
 ## Authentication
 
@@ -57,6 +57,34 @@ Farmer dashboard headline values now use available MongoDB data for animal total
 - Added the PNG to splash, login, registration, and dashboard branding.
 - The logo is a 512 x 512 PNG and can be replaced with another image using the same filename.
 
+## Veterinarian Booking and Farm Assignment
+
+- Added `Find Veterinarian` to the Farmer Dashboard.
+- Farmers can select one of their farms, view suitable available veterinarians, choose a date, time, visit type, and consultation reason, then send a booking request.
+- Added `Appointment Requests` to the Veterinarian Dashboard.
+- Veterinarians can accept or reject pending requests.
+- Accepting a request confirms the appointment and writes `assignedVeterinarianId`, `assignedVeterinarianName`, and `assignedAt` to the farm record.
+- Confirmed farms appear in the accepting veterinarian's `Assigned Farms` map and list.
+- Added farmer and veterinarian appointment notifications for new requests and accepted or rejected outcomes.
+- Added live appointment API routes: `GET /api/veterinarians/available`, `POST /api/appointments`, `GET /api/appointments`, and `PUT /api/appointments/:id/status`.
+- Appointment records are stored in the MongoDB `appointments` collection.
+
+## Assigned Farms and Outbreak Map
+
+- Replaced the static veterinarian Assigned Farms page with a live, veterinarian-scoped view.
+- The map shows only the current doctor's assigned farms, with disease outbreak markers for context.
+- The assigned-farms list supports search and shows each farm's risk level.
+- The Visit action focuses the selected farm and opens its GPS coordinates in Google Maps.
+- Inspection submissions now save the signed-in veterinarian ID instead of a placeholder, preserving the doctor-to-farm relationship.
+- The Assigned Farms module refreshes farm data when opened so newly accepted appointments appear without a new login.
+
+## Nearby Veterinarian Matching
+
+- Available veterinarians are filtered by animal type/specialization and availability/workload.
+- Results are ranked by proximity: same district first, then same state, then other available service areas.
+- Legacy profiles without specialization or service-area data remain usable and are ranked after local options.
+- Normalized veterinarian specialization data so both text and list formats render safely on the Find Veterinarian page.
+
 ## Documentation and Setup
 
 - Expanded `README.md` with frontend and backend startup instructions.
@@ -72,6 +100,9 @@ Farmer dashboard headline values now use available MongoDB data for animal total
 - Tested registration, valid login, invalid password rejection, and cleanup.
 - Tested Google-style account creation, first profile save, farm creation, and later farm edits.
 - Tested synchronization of farm name, district, animal count, and coordinates.
+- Parsed the updated Express server and veterinary JSX modules successfully.
+- Verified the live nearby-veterinarian API returns ranked available veterinarians from MongoDB.
+- Restarted the local API server after the veterinary appointment and matching updates.
 
 ## Run Commands
 
