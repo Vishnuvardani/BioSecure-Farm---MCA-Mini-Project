@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { CalendarDays, CheckCircle2, Clock3, MapPin, Stethoscope, Users, XCircle } from "lucide-react";
 import { createAppointment, getAppointments, getAvailableVeterinarians, updateAppointmentStatus } from "../../api/mongoService";
+import { formatDate, getLocalDateInputValue } from "../../utils/dateTime";
 
 const P = { green: "#2f855a", greenBg: "#ecfdf3", blue: "#1565c0", blueBg: "#eff6ff", yellow: "#b7791f", yellowBg: "#fffbeb", red: "#c62828", redBg: "#fef2f2", purple: "#6d28d9", purpleBg: "#f5f3ff", dark: "#1a1a2e", gray: "#64748b", white: "#fff" };
 const SLOTS = ["09:00", "10:30", "13:30", "15:30"];
-const today = new Date().toISOString().slice(0, 10);
+const today = getLocalDateInputValue();
 
-const displayDate = (date) => date ? new Date(`${date}T00:00:00`).toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" }) : "-";
+const displayDate = (date) => date ? formatDate(date, { day: "numeric", month: "short" }) : "-";
 const input = { width: "100%", boxSizing: "border-box", border: "1px solid #dbe2ea", borderRadius: 6, padding: "9px 10px", color: P.dark, background: P.white, fontSize: 12 };
 
 function StatusBadge({ status }) {

@@ -149,9 +149,9 @@ NOTIF_MESSAGES = [
     "Vaccination campaign completed successfully. Records updated.",
 ]
 
-def rand_date(start_year=2024, end_year=2025):
+def rand_date(start_year=2026, end_year=2026):
     start = datetime(start_year, 1, 1)
-    end   = datetime(end_year, 12, 31)
+    end   = datetime(2026, 8, 27) if end_year == 2026 else datetime(end_year, 12, 31)
     return start + timedelta(days=random.randint(0, (end - start).days))
 
 def fmt(dt):  return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -359,7 +359,7 @@ def gen_notifications(users, n=200):
             "userId":         user["userId"],
             "title":          random.choice(NOTIF_TITLES),
             "message":        random.choice(NOTIF_MESSAGES),
-            "sentAt":         fmt(rand_date()),
+            "sentAt":         fmt(datetime(2026, 8, 27) - timedelta(days=random.randint(0, 30))),
             "isRead":         random.choice([True, False]),
         })
     return records
@@ -411,6 +411,12 @@ if __name__ == "__main__":
     print("\nBioSecure Farm - Generating Synthetic Dataset...\n")
 
     users         = gen_users(100)
+    users.extend([
+        {"userId": "USR-1100", "fullName": "Dr. Karthik Subramanian", "email": "karthik.subramanian1100@biosecure.in", "mobile": "+91 9876543210", "role": "Veterinarian", "district": "Coimbatore", "state": "Tamil Nadu", "createdAt": "2026-03-15T00:00:00Z"},
+        {"userId": "USR-1101", "fullName": "Dr. Meena Krishnamurthy", "email": "meena.krishnamurthy1101@biosecure.in", "mobile": "+91 9876543211", "role": "Veterinarian", "district": "Tiruppur", "state": "Tamil Nadu", "createdAt": "2026-04-22T00:00:00Z"},
+        {"userId": "USR-1102", "fullName": "Dr. Arun Kumaravel", "email": "arun.kumaravel1102@biosecure.in", "mobile": "+91 9876543212", "role": "Veterinarian", "district": "Erode", "state": "Tamil Nadu", "createdAt": "2026-05-18T00:00:00Z"},
+        {"userId": "USR-1103", "fullName": "Dr. Priyanka Balaji", "email": "priyanka.balaji1103@biosecure.in", "mobile": "+91 9876543213", "role": "Veterinarian", "district": "Salem", "state": "Tamil Nadu", "createdAt": "2026-06-11T00:00:00Z"},
+    ])
     farms         = gen_farms(users, 100)
     livestock     = gen_livestock(farms, 1000)
     vaccinations  = gen_vaccinations(farms, 500)

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Shield, CheckCircle, AlertTriangle, Clock, TrendingUp, Award, AlertCircle, ChevronDown, ChevronUp } from "lucide-react";
 import { submitBiosecurityAssessment, getBiosecurityHistory } from "../../api/mongoService";
+import { formatDate } from "../../utils/dateTime";
 
 const P = {
   green: "#2E7D32", greenLight: "#4CAF50", greenBg: "#f0fdf4",
@@ -192,7 +193,7 @@ function HistoryPanel({ history }) {
                   <span style={{ fontSize: 13, fontWeight: 700, color: risk.color }}>{h.overallScore}</span>
                 </div>
                 <div style={{ flex: 1 }}>
-                  <p style={{ fontSize: 12, fontWeight: 600, color: P.dark, margin: 0 }}>{new Date(h.assessmentDate).toLocaleDateString()}</p>
+                  <p style={{ fontSize: 12, fontWeight: 600, color: P.dark, margin: 0 }}>{formatDate(h.assessmentDate)}</p>
                   <p style={{ fontSize: 11, color: P.gray, margin: 0 }}>{h.assessmentId}</p>
                 </div>
                 <span style={{ fontSize: 11, fontWeight: 700, color: risk.color, background: risk.bg, padding: "2px 10px", borderRadius: 10 }}>{risk.level}</span>

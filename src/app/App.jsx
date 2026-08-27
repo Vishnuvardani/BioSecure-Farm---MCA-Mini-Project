@@ -1,5 +1,6 @@
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { useState, useRef, useEffect } from "react";
+import { formatDate, formatTime } from "../utils/dateTime";
 import {
   AreaChart,
   Area,
@@ -352,7 +353,7 @@ function GISMap({ height = 280, showControls = true, title = "" }) {
       l
     ] }, l)) }),
     title && /* @__PURE__ */ jsx("div", { className: "absolute top-3 left-1/2 -translate-x-1/2 text-xs font-semibold px-3 py-1 rounded-full", style: { background: "rgba(0,0,0,0.4)", color: "#fff" }, children: title }),
-    /* @__PURE__ */ jsx("div", { className: "absolute bottom-3 left-3 text-xs", style: { color: "rgba(255,255,255,0.35)" }, children: "WGS84 \xB7 Sri Lanka" })
+    /* @__PURE__ */ jsx("div", { className: "absolute bottom-3 left-3 text-xs", style: { color: "rgba(255,255,255,0.35)" }, children: "WGS84 \xB7 India" })
   ] });
 }
 function BiosecurityGauge({ score }) {
@@ -605,7 +606,7 @@ function LoginScreen({ onLogin, onRegister }) {
           /* @__PURE__ */ jsx("div", { className: "text-xs", style: { color: "rgba(219,212,255,0.7)" }, children: lab })
         ] }, lab)) })
       ] }),
-      /* @__PURE__ */ jsx("p", { className: "text-xs", style: { color: "rgba(255,255,255,0.3)" }, children: "\xA9 2025 BioSecure Farm \xB7 Ministry of Agriculture, Sri Lanka" })
+      /* @__PURE__ */ jsx("p", { className: "text-xs", style: { color: "rgba(255,255,255,0.3)" }, children: "\xA9 2025 BioSecure Farm \xB7 Ministry of Agriculture, India" })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "flex flex-col justify-center p-8 lg:p-16 w-full lg:w-[480px]", children: [
       /* @__PURE__ */ jsxs("div", { className: "lg:hidden flex items-center gap-2 mb-8", children: [
@@ -824,7 +825,7 @@ function RegisterScreen({ onBack, onSuccess }) {
           );
         }) })
       ] }),
-      /* @__PURE__ */ jsx("p", { className: "text-xs", style: { color: "rgba(255,255,255,0.3)" }, children: "\xA9 2025 BioSecure Farm \xB7 Ministry of Agriculture, Sri Lanka" })
+      /* @__PURE__ */ jsx("p", { className: "text-xs", style: { color: "rgba(255,255,255,0.3)" }, children: "\xA9 2025 BioSecure Farm \xB7 Ministry of Agriculture, India" })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "flex-1 flex flex-col overflow-y-auto", children: [
       /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between px-8 py-5 border-b", style: { borderColor: "rgba(128,128,52,0.1)" }, children: [
@@ -1519,11 +1520,11 @@ function AIAssistantPage() {
   const quickPrompts = ["Check disease risk for my farm", "Plan next vaccination schedule", "Analyse biosecurity gaps", "Nearest outbreak status", "AI health report summary"];
   const send = (text) => {
     if (!text.trim()) return;
-    setMessages((m) => [...m, { role: "user", text, time: (/* @__PURE__ */ new Date()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) }]);
+    setMessages((m) => [...m, { role: "user", text, time: formatTime(new Date()) }]);
     setInput("");
     setLoading(true);
     setTimeout(() => {
-      setMessages((m) => [...m, { role: "ai", text: "Based on current farm data and GIS analysis, I'm continuously monitoring your pig and poultry operations. Your Finisher Pen shows elevated PRRS risk factors, and Broiler House 2 is in an active HPAI surveillance zone. I recommend scheduling a veterinary inspection within the next 48 hours and applying strict biosecurity (all-in all-out, no wild bird contact). Shall I draft an inspection request to Dr. Nimal Wickramasinghe?", time: (/* @__PURE__ */ new Date()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) }]);
+      setMessages((m) => [...m, { role: "ai", text: "Based on current farm data and GIS analysis, I'm continuously monitoring your pig and poultry operations. Your Finisher Pen shows elevated PRRS risk factors, and Broiler House 2 is in an active HPAI surveillance zone. I recommend scheduling a veterinary inspection within the next 48 hours and applying strict biosecurity (all-in all-out, no wild bird contact). Shall I draft an inspection request to Dr. Nimal Wickramasinghe?", time: formatTime(new Date()) }]);
       setLoading(false);
     }, 1200);
   };
@@ -1718,7 +1719,7 @@ function LiveProfilePage({ role, user }) {
           /* @__PURE__ */ jsx("h2", { className: "font-bold text-lg", style: { fontFamily: "Poppins", color: P.dark }, children: form.name || "User" }),
           /* @__PURE__ */ jsx("p", { className: "text-sm mt-1", style: { color: P.mid }, children: `${user?.role || role} · ID: ${user?.userId || "Not assigned"}` }),
           /* @__PURE__ */ jsx("p", { className: "text-xs mt-1", style: { color: P.light }, children: user?.email || "" }),
-          /* @__PURE__ */ jsx("p", { className: "text-xs mt-1", style: { color: P.light }, children: `Member since ${user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : "Not recorded"}` })
+          /* @__PURE__ */ jsx("p", { className: "text-xs mt-1", style: { color: P.light }, children: `Member since ${user?.createdAt ? formatDate(user.createdAt) : "Not recorded"}` })
         ] }),
         /* @__PURE__ */ jsx("button", { onClick: () => setEditing((value) => !value), className: "ml-auto flex items-center gap-2 text-xs font-medium px-4 py-2 rounded-lg", style: { background: `${P.olive}14`, color: P.olive }, children: [/* @__PURE__ */ jsx(Edit2, { className: "w-3.5 h-3.5" }), editing ? "Cancel" : "Edit Profile"] })
       ] }),
@@ -2857,7 +2858,7 @@ function SystemSettingsPage() {
       ] }),
       /* @__PURE__ */ jsxs(Card, { className: "p-6", children: [
         /* @__PURE__ */ jsx("h3", { className: "font-semibold text-sm mb-4", style: { fontFamily: "Poppins", color: P.dark }, children: "AI Model Configuration" }),
-        [["Model Version", "BioAI v2.2 (Pig & Poultry)"], ["Training Data", "Sri Lanka 2019\u20132025"], ["Prediction Accuracy", "94.3%"], ["Update Frequency", "Weekly"], ["Disease Models", "ASF, CSF, PRRS, PED, HPAI, ND, IBD, Marek's, IB, PCV2"]].map(([k, v]) => /* @__PURE__ */ jsxs("div", { className: "flex justify-between py-3", style: { borderBottom: `1px solid ${P.ivoryDark}` }, children: [
+        [["Model Version", "BioAI v2.2 (Pig & Poultry)"], ["Training Data", "India 2019\u20132025"], ["Prediction Accuracy", "94.3%"], ["Update Frequency", "Weekly"], ["Disease Models", "ASF, CSF, PRRS, PED, HPAI, ND, IBD, Marek's, IB, PCV2"]].map(([k, v]) => /* @__PURE__ */ jsxs("div", { className: "flex justify-between py-3", style: { borderBottom: `1px solid ${P.ivoryDark}` }, children: [
           /* @__PURE__ */ jsx("span", { className: "text-xs", style: { color: P.mid }, children: String(k) }),
           /* @__PURE__ */ jsx("span", { className: "text-xs font-semibold", style: { color: P.dark }, children: String(v) })
         ] }, String(k))),

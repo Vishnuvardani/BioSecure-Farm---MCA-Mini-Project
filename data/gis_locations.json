@@ -2,701 +2,701 @@
   {
     "locationId": "GIS-9000",
     "farmId": "FARM-2000",
-    "latitude": 17.389586,
-    "longitude": 78.483719,
-    "hotspotStatus": "Monitoring"
+    "latitude": 17.398912,
+    "longitude": 78.46285,
+    "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9001",
     "farmId": "FARM-2001",
-    "latitude": 18.720991,
-    "longitude": 78.058862,
-    "hotspotStatus": "Inactive"
+    "latitude": 18.714787,
+    "longitude": 78.120449,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9002",
     "farmId": "FARM-2002",
-    "latitude": 17.396477,
-    "longitude": 78.467032,
-    "hotspotStatus": "Active"
+    "latitude": 17.324129,
+    "longitude": 78.474604,
+    "hotspotStatus": "Monitoring"
   },
   {
     "locationId": "GIS-9003",
     "farmId": "FARM-2003",
-    "latitude": 17.706426,
-    "longitude": 83.210507,
+    "latitude": 17.72252,
+    "longitude": 83.205609,
     "hotspotStatus": "Monitoring"
   },
   {
     "locationId": "GIS-9004",
     "farmId": "FARM-2004",
-    "latitude": 18.700315,
-    "longitude": 78.126221,
+    "latitude": 18.661376,
+    "longitude": 78.111806,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9005",
     "farmId": "FARM-2005",
-    "latitude": 11.329302,
-    "longitude": 77.688951,
+    "latitude": 11.295964,
+    "longitude": 77.694857,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9006",
     "farmId": "FARM-2006",
-    "latitude": 13.664686,
-    "longitude": 79.413303,
-    "hotspotStatus": "Inactive"
+    "latitude": 13.615119,
+    "longitude": 79.415722,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9007",
     "farmId": "FARM-2007",
-    "latitude": 18.672532,
-    "longitude": 78.116742,
-    "hotspotStatus": "Inactive"
+    "latitude": 18.694855,
+    "longitude": 78.053229,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9008",
     "farmId": "FARM-2008",
-    "latitude": 13.574765,
-    "longitude": 79.377219,
-    "hotspotStatus": "Monitoring"
+    "latitude": 9.935621,
+    "longitude": 78.101607,
+    "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9009",
     "farmId": "FARM-2009",
-    "latitude": 13.113796,
-    "longitude": 80.2567,
-    "hotspotStatus": "Inactive"
+    "latitude": 16.328755,
+    "longitude": 80.449254,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9010",
     "farmId": "FARM-2010",
-    "latitude": 13.646015,
-    "longitude": 79.383341,
-    "hotspotStatus": "Monitoring"
+    "latitude": 11.603312,
+    "longitude": 78.207527,
+    "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9011",
     "farmId": "FARM-2011",
-    "latitude": 10.839054,
-    "longitude": 78.738222,
-    "hotspotStatus": "Inactive"
+    "latitude": 17.675271,
+    "longitude": 83.162414,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9012",
     "farmId": "FARM-2012",
-    "latitude": 8.524878,
-    "longitude": 76.942289,
+    "latitude": 9.965824,
+    "longitude": 76.272962,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9013",
     "farmId": "FARM-2013",
-    "latitude": 13.629936,
-    "longitude": 79.4305,
+    "latitude": 16.504444,
+    "longitude": 80.677213,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9014",
     "farmId": "FARM-2014",
-    "latitude": 18.62153,
-    "longitude": 78.059211,
-    "hotspotStatus": "Inactive"
+    "latitude": 12.948914,
+    "longitude": 77.549981,
+    "hotspotStatus": "Monitoring"
   },
   {
     "locationId": "GIS-9015",
     "farmId": "FARM-2015",
-    "latitude": 13.006152,
-    "longitude": 77.57953,
-    "hotspotStatus": "Inactive"
+    "latitude": 8.496369,
+    "longitude": 76.961561,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9016",
     "farmId": "FARM-2016",
-    "latitude": 9.957271,
-    "longitude": 76.232681,
-    "hotspotStatus": "Inactive"
+    "latitude": 13.656135,
+    "longitude": 79.452893,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9017",
     "farmId": "FARM-2017",
-    "latitude": 18.720357,
-    "longitude": 78.053708,
+    "latitude": 9.941038,
+    "longitude": 76.296392,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9018",
     "farmId": "FARM-2018",
-    "latitude": 9.88333,
-    "longitude": 78.14922,
-    "hotspotStatus": "Inactive"
+    "latitude": 18.486567,
+    "longitude": 79.170358,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9019",
     "farmId": "FARM-2019",
-    "latitude": 11.386699,
-    "longitude": 77.693111,
+    "latitude": 13.137718,
+    "longitude": 80.284027,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9020",
     "farmId": "FARM-2020",
-    "latitude": 18.613325,
-    "longitude": 78.150107,
+    "latitude": 9.920031,
+    "longitude": 78.146527,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9021",
     "farmId": "FARM-2021",
-    "latitude": 17.703134,
-    "longitude": 83.198902,
-    "hotspotStatus": "Inactive"
+    "latitude": 11.325069,
+    "longitude": 77.749194,
+    "hotspotStatus": "Monitoring"
   },
   {
     "locationId": "GIS-9022",
     "farmId": "FARM-2022",
-    "latitude": 15.411392,
-    "longitude": 75.088403,
+    "latitude": 11.725495,
+    "longitude": 78.138184,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9023",
     "farmId": "FARM-2023",
-    "latitude": 13.64013,
-    "longitude": 79.400663,
-    "hotspotStatus": "Inactive"
+    "latitude": 15.38129,
+    "longitude": 75.115034,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9024",
     "farmId": "FARM-2024",
-    "latitude": 17.393875,
-    "longitude": 78.456164,
+    "latitude": 13.637383,
+    "longitude": 79.392188,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9025",
     "farmId": "FARM-2025",
-    "latitude": 18.41645,
-    "longitude": 79.081769,
+    "latitude": 17.405591,
+    "longitude": 78.528749,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9026",
     "farmId": "FARM-2026",
-    "latitude": 17.351094,
-    "longitude": 78.498653,
+    "latitude": 11.626827,
+    "longitude": 78.124289,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9027",
     "farmId": "FARM-2027",
-    "latitude": 17.417904,
-    "longitude": 78.447203,
-    "hotspotStatus": "Active"
+    "latitude": 18.454413,
+    "longitude": 79.144794,
+    "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9028",
     "farmId": "FARM-2028",
-    "latitude": 13.010771,
-    "longitude": 77.540311,
-    "hotspotStatus": "Inactive"
+    "latitude": 17.349238,
+    "longitude": 78.498158,
+    "hotspotStatus": "Monitoring"
   },
   {
     "locationId": "GIS-9029",
     "farmId": "FARM-2029",
-    "latitude": 18.681297,
-    "longitude": 78.111922,
+    "latitude": 17.373082,
+    "longitude": 78.479215,
     "hotspotStatus": "Monitoring"
   },
   {
     "locationId": "GIS-9030",
     "farmId": "FARM-2030",
-    "latitude": 11.331776,
-    "longitude": 77.702263,
-    "hotspotStatus": "Active"
+    "latitude": 12.963537,
+    "longitude": 77.569331,
+    "hotspotStatus": "Monitoring"
   },
   {
     "locationId": "GIS-9031",
     "farmId": "FARM-2031",
-    "latitude": 11.32592,
-    "longitude": 77.752104,
+    "latitude": 18.631489,
+    "longitude": 78.116649,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9032",
     "farmId": "FARM-2032",
-    "latitude": 12.295703,
-    "longitude": 76.62361,
-    "hotspotStatus": "Monitoring"
+    "latitude": 11.335704,
+    "longitude": 77.724512,
+    "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9033",
     "farmId": "FARM-2033",
-    "latitude": 16.511363,
-    "longitude": 80.644177,
+    "latitude": 11.376373,
+    "longitude": 77.683331,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9034",
     "farmId": "FARM-2034",
-    "latitude": 18.427193,
-    "longitude": 79.133519,
-    "hotspotStatus": "Monitoring"
+    "latitude": 12.290615,
+    "longitude": 76.623215,
+    "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9035",
     "farmId": "FARM-2035",
-    "latitude": 13.077277,
-    "longitude": 80.207905,
-    "hotspotStatus": "Active"
+    "latitude": 16.525351,
+    "longitude": 80.681363,
+    "hotspotStatus": "Monitoring"
   },
   {
     "locationId": "GIS-9036",
     "farmId": "FARM-2036",
-    "latitude": 18.644073,
-    "longitude": 78.096237,
-    "hotspotStatus": "Monitoring"
+    "latitude": 13.077369,
+    "longitude": 80.25254,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9037",
     "farmId": "FARM-2037",
-    "latitude": 11.606398,
-    "longitude": 78.084946,
-    "hotspotStatus": "Inactive"
+    "latitude": 10.585195,
+    "longitude": 76.195759,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9038",
     "farmId": "FARM-2038",
-    "latitude": 10.978738,
-    "longitude": 76.985606,
-    "hotspotStatus": "Monitoring"
+    "latitude": 18.697502,
+    "longitude": 78.096892,
+    "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9039",
     "farmId": "FARM-2039",
-    "latitude": 10.809987,
-    "longitude": 78.716469,
-    "hotspotStatus": "Monitoring"
+    "latitude": 11.631098,
+    "longitude": 78.174233,
+    "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9040",
     "farmId": "FARM-2040",
-    "latitude": 11.025505,
-    "longitude": 76.998701,
+    "latitude": 11.019191,
+    "longitude": 76.963086,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9041",
     "farmId": "FARM-2041",
-    "latitude": 11.703371,
-    "longitude": 78.155336,
+    "latitude": 10.811431,
+    "longitude": 78.649198,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9042",
     "farmId": "FARM-2042",
-    "latitude": 9.940066,
-    "longitude": 78.127495,
-    "hotspotStatus": "Active"
+    "latitude": 10.989967,
+    "longitude": 76.956423,
+    "hotspotStatus": "Monitoring"
   },
   {
     "locationId": "GIS-9043",
     "farmId": "FARM-2043",
-    "latitude": 11.681586,
-    "longitude": 78.200435,
+    "latitude": 9.900728,
+    "longitude": 78.064093,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9044",
     "farmId": "FARM-2044",
-    "latitude": 13.051305,
-    "longitude": 80.291476,
+    "latitude": 9.896906,
+    "longitude": 78.156816,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9045",
     "farmId": "FARM-2045",
-    "latitude": 9.949805,
-    "longitude": 78.139189,
+    "latitude": 11.704468,
+    "longitude": 78.154338,
     "hotspotStatus": "Monitoring"
   },
   {
     "locationId": "GIS-9046",
     "farmId": "FARM-2046",
-    "latitude": 10.767829,
-    "longitude": 78.769709,
+    "latitude": 13.108751,
+    "longitude": 80.311843,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9047",
     "farmId": "FARM-2047",
-    "latitude": 8.530984,
-    "longitude": 76.940071,
-    "hotspotStatus": "Inactive"
+    "latitude": 9.96081,
+    "longitude": 78.1216,
+    "hotspotStatus": "Monitoring"
   },
   {
     "locationId": "GIS-9048",
     "farmId": "FARM-2048",
-    "latitude": 11.634674,
-    "longitude": 78.134338,
-    "hotspotStatus": "Inactive"
+    "latitude": 12.949342,
+    "longitude": 74.882905,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9049",
     "farmId": "FARM-2049",
-    "latitude": 15.364668,
-    "longitude": 75.124791,
+    "latitude": 13.108866,
+    "longitude": 80.290949,
     "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9050",
     "farmId": "FARM-2050",
-    "latitude": 13.059808,
-    "longitude": 80.25351,
+    "latitude": 8.508612,
+    "longitude": 76.967661,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9051",
     "farmId": "FARM-2051",
-    "latitude": 16.265595,
-    "longitude": 80.430083,
-    "hotspotStatus": "Monitoring"
+    "latitude": 18.714292,
+    "longitude": 78.094424,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9052",
     "farmId": "FARM-2052",
-    "latitude": 11.64046,
-    "longitude": 78.169528,
+    "latitude": 10.997503,
+    "longitude": 77.002696,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9053",
     "farmId": "FARM-2053",
-    "latitude": 13.000113,
-    "longitude": 77.592683,
+    "latitude": 12.95205,
+    "longitude": 77.582582,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9054",
     "farmId": "FARM-2054",
-    "latitude": 10.490603,
-    "longitude": 76.199509,
-    "hotspotStatus": "Active"
+    "latitude": 11.01823,
+    "longitude": 76.9519,
+    "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9055",
     "farmId": "FARM-2055",
-    "latitude": 13.679784,
-    "longitude": 79.42885,
+    "latitude": 10.503982,
+    "longitude": 76.185256,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9056",
     "farmId": "FARM-2056",
-    "latitude": 8.529533,
-    "longitude": 76.920893,
+    "latitude": 17.413618,
+    "longitude": 78.42954,
     "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9057",
     "farmId": "FARM-2057",
-    "latitude": 17.644419,
-    "longitude": 83.186176,
-    "hotspotStatus": "Inactive"
+    "latitude": 9.889197,
+    "longitude": 76.261879,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9058",
     "farmId": "FARM-2058",
-    "latitude": 9.924775,
-    "longitude": 76.298767,
+    "latitude": 10.745591,
+    "longitude": 78.712699,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9059",
     "farmId": "FARM-2059",
-    "latitude": 11.646656,
-    "longitude": 78.126946,
-    "hotspotStatus": "Active"
+    "latitude": 11.074602,
+    "longitude": 76.983354,
+    "hotspotStatus": "Monitoring"
   },
   {
     "locationId": "GIS-9060",
     "farmId": "FARM-2060",
-    "latitude": 16.462182,
-    "longitude": 80.656174,
-    "hotspotStatus": "Monitoring"
+    "latitude": 11.278729,
+    "longitude": 77.700895,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9061",
     "farmId": "FARM-2061",
-    "latitude": 10.787075,
-    "longitude": 78.656558,
-    "hotspotStatus": "Monitoring"
+    "latitude": 18.668297,
+    "longitude": 78.039959,
+    "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9062",
     "farmId": "FARM-2062",
-    "latitude": 18.696924,
-    "longitude": 78.058713,
+    "latitude": 13.102294,
+    "longitude": 80.323448,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9063",
     "farmId": "FARM-2063",
-    "latitude": 8.546144,
-    "longitude": 76.939687,
-    "hotspotStatus": "Monitoring"
+    "latitude": 13.070657,
+    "longitude": 80.28351,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9064",
     "farmId": "FARM-2064",
-    "latitude": 9.925375,
-    "longitude": 78.148428,
+    "latitude": 16.345068,
+    "longitude": 80.447331,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9065",
     "farmId": "FARM-2065",
-    "latitude": 9.957208,
-    "longitude": 76.205681,
+    "latitude": 16.29766,
+    "longitude": 80.432656,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9066",
     "farmId": "FARM-2066",
-    "latitude": 16.498463,
-    "longitude": 80.697977,
-    "hotspotStatus": "Inactive"
+    "latitude": 10.777804,
+    "longitude": 78.675697,
+    "hotspotStatus": "Monitoring"
   },
   {
     "locationId": "GIS-9067",
     "farmId": "FARM-2067",
-    "latitude": 17.348779,
-    "longitude": 78.483801,
-    "hotspotStatus": "Monitoring"
+    "latitude": 18.718513,
+    "longitude": 78.154461,
+    "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9068",
     "farmId": "FARM-2068",
-    "latitude": 13.68401,
-    "longitude": 79.40937,
-    "hotspotStatus": "Monitoring"
+    "latitude": 10.545573,
+    "longitude": 76.150835,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9069",
     "farmId": "FARM-2069",
-    "latitude": 17.701352,
-    "longitude": 83.213071,
+    "latitude": 13.64379,
+    "longitude": 79.415328,
     "hotspotStatus": "Monitoring"
   },
   {
     "locationId": "GIS-9070",
     "farmId": "FARM-2070",
-    "latitude": 18.674454,
-    "longitude": 78.059942,
-    "hotspotStatus": "Active"
+    "latitude": 17.382877,
+    "longitude": 78.431173,
+    "hotspotStatus": "Monitoring"
   },
   {
     "locationId": "GIS-9071",
     "farmId": "FARM-2071",
-    "latitude": 11.630542,
-    "longitude": 78.113713,
+    "latitude": 12.9361,
+    "longitude": 74.888669,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9072",
     "farmId": "FARM-2072",
-    "latitude": 12.91168,
-    "longitude": 74.8954,
-    "hotspotStatus": "Inactive"
+    "latitude": 18.617757,
+    "longitude": 78.060052,
+    "hotspotStatus": "Monitoring"
   },
   {
     "locationId": "GIS-9073",
     "farmId": "FARM-2073",
-    "latitude": 17.998971,
-    "longitude": 79.586394,
-    "hotspotStatus": "Inactive"
+    "latitude": 13.598899,
+    "longitude": 79.364361,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9074",
     "farmId": "FARM-2074",
-    "latitude": 16.477466,
-    "longitude": 80.606798,
+    "latitude": 18.704707,
+    "longitude": 78.050701,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9075",
     "farmId": "FARM-2075",
-    "latitude": 17.378862,
-    "longitude": 78.551589,
-    "hotspotStatus": "Active"
+    "latitude": 13.006241,
+    "longitude": 77.562349,
+    "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9076",
     "farmId": "FARM-2076",
-    "latitude": 13.051377,
-    "longitude": 80.282611,
-    "hotspotStatus": "Active"
+    "latitude": 17.418769,
+    "longitude": 78.460048,
+    "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9077",
     "farmId": "FARM-2077",
-    "latitude": 11.191523,
-    "longitude": 75.797323,
-    "hotspotStatus": "Active"
+    "latitude": 17.714527,
+    "longitude": 83.174762,
+    "hotspotStatus": "Monitoring"
   },
   {
     "locationId": "GIS-9078",
     "farmId": "FARM-2078",
-    "latitude": 8.52772,
-    "longitude": 76.929336,
-    "hotspotStatus": "Inactive"
+    "latitude": 16.552708,
+    "longitude": 80.67101,
+    "hotspotStatus": "Monitoring"
   },
   {
     "locationId": "GIS-9079",
     "farmId": "FARM-2079",
-    "latitude": 18.619024,
-    "longitude": 78.094492,
-    "hotspotStatus": "Monitoring"
+    "latitude": 18.703391,
+    "longitude": 78.106843,
+    "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9080",
     "farmId": "FARM-2080",
-    "latitude": 9.878968,
-    "longitude": 78.115426,
-    "hotspotStatus": "Monitoring"
+    "latitude": 13.076218,
+    "longitude": 80.281892,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9081",
     "farmId": "FARM-2081",
-    "latitude": 12.316249,
-    "longitude": 76.69547,
-    "hotspotStatus": "Inactive"
+    "latitude": 11.21048,
+    "longitude": 75.807087,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9082",
     "farmId": "FARM-2082",
-    "latitude": 13.013421,
-    "longitude": 77.575865,
-    "hotspotStatus": "Monitoring"
+    "latitude": 8.53905,
+    "longitude": 76.92327,
+    "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9083",
     "farmId": "FARM-2083",
-    "latitude": 13.59838,
-    "longitude": 79.441441,
+    "latitude": 18.642654,
+    "longitude": 78.095498,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9084",
     "farmId": "FARM-2084",
-    "latitude": 17.385602,
-    "longitude": 78.491351,
+    "latitude": 9.900156,
+    "longitude": 78.080491,
     "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9085",
     "farmId": "FARM-2085",
-    "latitude": 17.936048,
-    "longitude": 79.54885,
+    "latitude": 12.282223,
+    "longitude": 76.688413,
     "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9086",
     "farmId": "FARM-2086",
-    "latitude": 9.894211,
-    "longitude": 78.083642,
-    "hotspotStatus": "Monitoring"
+    "latitude": 12.99297,
+    "longitude": 77.579403,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9087",
     "farmId": "FARM-2087",
-    "latitude": 9.932698,
-    "longitude": 78.103433,
+    "latitude": 13.623701,
+    "longitude": 79.454345,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9088",
     "farmId": "FARM-2088",
-    "latitude": 18.617297,
-    "longitude": 78.094139,
-    "hotspotStatus": "Inactive"
+    "latitude": 17.385463,
+    "longitude": 78.497997,
+    "hotspotStatus": "Monitoring"
   },
   {
     "locationId": "GIS-9089",
     "farmId": "FARM-2089",
-    "latitude": 9.931989,
-    "longitude": 76.33141,
-    "hotspotStatus": "Inactive"
+    "latitude": 17.967431,
+    "longitude": 79.540426,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9090",
     "farmId": "FARM-2090",
-    "latitude": 11.663349,
-    "longitude": 78.104014,
-    "hotspotStatus": "Inactive"
+    "latitude": 9.893576,
+    "longitude": 78.082217,
+    "hotspotStatus": "Monitoring"
   },
   {
     "locationId": "GIS-9091",
     "farmId": "FARM-2091",
-    "latitude": 18.678298,
-    "longitude": 78.124521,
+    "latitude": 9.898181,
+    "longitude": 78.118627,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9092",
     "farmId": "FARM-2092",
-    "latitude": 11.388897,
-    "longitude": 77.729,
+    "latitude": 18.619028,
+    "longitude": 78.081268,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9093",
     "farmId": "FARM-2093",
-    "latitude": 17.91692,
-    "longitude": 79.613062,
-    "hotspotStatus": "Monitoring"
+    "latitude": 16.498009,
+    "longitude": 80.619457,
+    "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9094",
     "farmId": "FARM-2094",
-    "latitude": 18.457656,
-    "longitude": 79.072505,
-    "hotspotStatus": "Inactive"
+    "latitude": 11.644981,
+    "longitude": 78.107731,
+    "hotspotStatus": "Active"
   },
   {
     "locationId": "GIS-9095",
     "farmId": "FARM-2095",
-    "latitude": 10.779777,
-    "longitude": 78.654893,
-    "hotspotStatus": "Active"
+    "latitude": 18.681771,
+    "longitude": 78.129198,
+    "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9096",
     "farmId": "FARM-2096",
-    "latitude": 17.669974,
-    "longitude": 83.208325,
+    "latitude": 11.389898,
+    "longitude": 77.735395,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9097",
     "farmId": "FARM-2097",
-    "latitude": 18.455083,
-    "longitude": 79.135024,
+    "latitude": 17.944262,
+    "longitude": 79.648265,
     "hotspotStatus": "Inactive"
   },
   {
     "locationId": "GIS-9098",
     "farmId": "FARM-2098",
-    "latitude": 18.397557,
-    "longitude": 79.1362,
-    "hotspotStatus": "Inactive"
+    "latitude": 18.471637,
+    "longitude": 79.096135,
+    "hotspotStatus": "Monitoring"
   },
   {
     "locationId": "GIS-9099",
     "farmId": "FARM-2099",
-    "latitude": 11.320184,
-    "longitude": 77.718383,
+    "latitude": 10.785052,
+    "longitude": 78.668596,
     "hotspotStatus": "Inactive"
   }
 ]

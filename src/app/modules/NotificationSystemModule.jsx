@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Bell, AlertTriangle, CheckCircle, Info, RefreshCw, Send, MapPin, Shield, Syringe, Flag } from "lucide-react";
 import { getMyNotifications, markNotificationRead, sendNotification } from "../../api/mongoService";
+import { formatDateTime } from "../../utils/dateTime";
 
 const P = {
   red: "#C62828", redBg: "#fef2f2",
@@ -29,7 +30,9 @@ function getTypeConfig(type) {
 }
 
 function timeAgo(date) {
-  const diff = Date.now() - new Date(date).getTime();
+  const timestamp = date instanceof Date ? date.getTime() : new Date(date || 0).getTime();
+  if (!Number.isFinite(timestamp) || timestamp <= 0) return "Date unavailable";
+  const diff = Math.max(0, Date.now() - timestamp);
   const mins = Math.floor(diff / 60000);
   if (mins < 1)  return "Just now";
   if (mins < 60) return `${mins}m ago`;
@@ -41,6 +44,7 @@ function timeAgo(date) {
 function NotificationItem({ notif, onRead }) {
   const cfg = getTypeConfig(notif.type);
   const Icon = cfg.icon;
+  const notificationDate = notif.sentAt || notif.createdAt;
   return (
     <div onClick={() => !notif.isRead && onRead(notif.notificationId)}
       style={{ display: "flex", gap: 12, padding: "14px 18px", borderBottom: "1px solid #f3f4f6", background: notif.isRead ? P.white : cfg.bg + "80", cursor: notif.isRead ? "default" : "pointer", transition: "background 0.2s" }}>
@@ -51,7 +55,7 @@ function NotificationItem({ notif, onRead }) {
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 8, marginBottom: 3 }}>
           <p style={{ fontSize: 13, fontWeight: notif.isRead ? 500 : 700, color: P.dark, margin: 0, lineHeight: 1.3 }}>{notif.title}</p>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4, flexShrink: 0 }}>
-            <span style={{ fontSize: 10, color: P.gray, whiteSpace: "nowrap" }}>{timeAgo(notif.createdAt)}</span>
+            <span style={{ fontSize: 10, color: P.gray, whiteSpace: "nowrap" }} title={formatDateTime(notificationDate)}>{timeAgo(notificationDate)}</span>
             {!notif.isRead && <div style={{ width: 8, height: 8, borderRadius: "50%", background: cfg.color }} />}
           </div>
         </div>

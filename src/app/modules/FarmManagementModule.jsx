@@ -10,6 +10,7 @@ import {
   getFarmSummary, getFarmActivity,
   getBiosecurityByFarmId,
 } from "../../api/mongoService";
+import { formatDate } from "../../utils/dateTime";
 
 const P = {
   olive: "#808034", oliveDark: "#5c5c24", oliveLight: "#c8c860",
@@ -563,7 +564,7 @@ function BiosecuritySummary({ data, onNavigate }) {
         <div>
           <RiskBadge level={data.riskLevel} />
           <p style={{ fontSize: 11, color: P.mid, margin: "6px 0 0" }}>
-            Last: {data.assessmentDate ? new Date(data.assessmentDate).toLocaleDateString() : "—"}
+            Last: {data.assessmentDate ? formatDate(data.assessmentDate) : "—"}
           </p>
         </div>
       </div>
@@ -627,7 +628,7 @@ function DiseaseSummary({ data, onNavigate }) {
       {data?.recent?.slice(0, 2).map((r, i) => (
         <div key={i} style={{ fontSize: 11, color: P.mid, padding: "4px 0", borderBottom: `1px solid ${P.ivoryDark}` }}>
           <span style={{ fontWeight: 600, color: P.danger }}>Suspected {r.suspectedDisease}</span>
-          <span style={{ marginLeft: 6 }}>{r.reportedDate ? new Date(r.reportedDate).toLocaleDateString() : ""}</span>
+          <span style={{ marginLeft: 6 }}>{r.reportedDate ? formatDate(r.reportedDate) : ""}</span>
         </div>
       ))}
       <button onClick={() => onNavigate("Disease Report")}
@@ -771,7 +772,7 @@ function ActivityFeed({ farmId }) {
                 <div style={{ flex: 1, paddingBottom: 4 }}>
                   <p style={{ fontSize: 12, color: P.dark, margin: 0 }}>{ev.label}</p>
                   <p style={{ fontSize: 10, color: P.light, margin: "2px 0 0" }}>
-                    {ev.date ? new Date(ev.date).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) : ""}
+                    {ev.date ? formatDate(ev.date, { day: "numeric", month: "short" }) : ""}
                   </p>
                 </div>
               </div>

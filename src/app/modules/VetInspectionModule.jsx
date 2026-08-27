@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Stethoscope, ClipboardList, CheckCircle, AlertTriangle, MapPin, FlaskConical, RefreshCw, Map, ExternalLink } from "lucide-react";
 import { getDiseaseReports, updateDiseaseStatus, updateDiseaseInspection, getFarms } from "../../api/mongoService";
+import { formatDate, getLocalDateInputValue } from "../../utils/dateTime";
 
 const POWERBI_URL = "https://app.powerbi.com/reportEmbed";
 
@@ -161,7 +162,7 @@ function StatusBadge({ status }) {
 // -- InspectionForm ---------------------------------------------------------
 function InspectionForm({ report, user, onSubmit, onCancel }) {
   const [form, setForm] = useState({
-    inspectionDate: new Date().toISOString().split("T")[0],
+    inspectionDate: getLocalDateInputValue(),
     symptomsObserved: report.symptoms?.join(", ") || "",
     clinicalFindings: "",
     samplesCollected: [],
@@ -423,7 +424,7 @@ export default function VetInspectionModule({ user }) {
                       Farm: {r.farmId} &middot; {r.animalType} &middot; Affected: {r.affectedAnimals} &middot; Deaths: {r.deaths}
                     </p>
                     <p style={{ fontSize:11, color:P.gray, margin:"3px 0 0" }}>
-                      Reported: {new Date(r.reportedDate).toLocaleDateString()} &middot; Severity: {r.severity}
+                      Reported: {formatDate(r.reportedDate)} &middot; Severity: {r.severity}
                     </p>
                     {r.latitude && r.longitude && (
                       <p style={{ fontSize:11, color:P.blue, margin:"3px 0 0", display:"flex", alignItems:"center", gap:4 }}>

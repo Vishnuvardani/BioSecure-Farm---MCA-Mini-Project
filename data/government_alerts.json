@@ -1,402 +1,402 @@
 [
   {
     "alertId": "ALT-8000",
-    "title": "Emergency Vaccination Campaign - Poultry Farms",
-    "district": "Vijayawada",
-    "state": "Andhra Pradesh",
-    "alertMessage": "Annual disease-free zone certification renewal process initiated. Submit required documents.",
-    "issuedDate": "2025-04-21"
+    "title": "HPAI Heightened Surveillance Zone Declared",
+    "district": "Bengaluru",
+    "state": "Karnataka",
+    "alertMessage": "Movement of poultry and poultry products restricted until further notice.",
+    "issuedDate": "2026-02-12"
   },
   {
     "alertId": "ALT-8001",
-    "title": "African Swine Fever Movement Restriction Advisory",
-    "district": "Chennai",
+    "title": "Mandatory Biosecurity Inspection - All Farms",
+    "district": "Salem",
     "state": "Tamil Nadu",
-    "alertMessage": "Mandatory vaccination drive initiated. All poultry farms must complete vaccination within 30 days.",
-    "issuedDate": "2024-04-20"
+    "alertMessage": "Movement of poultry and poultry products restricted until further notice.",
+    "issuedDate": "2026-02-19"
   },
   {
     "alertId": "ALT-8002",
-    "title": "HPAI Heightened Surveillance Zone Declared",
-    "district": "Hubli",
-    "state": "Karnataka",
-    "alertMessage": "Heightened surveillance required. Report any unusual mortality or symptoms to the district veterinary office.",
-    "issuedDate": "2025-02-15"
+    "title": "African Swine Fever Movement Restriction Advisory",
+    "district": "Kozhikode",
+    "state": "Kerala",
+    "alertMessage": "All pig farms in the district must implement enhanced biosecurity measures. No movement of animals without prior approval.",
+    "issuedDate": "2026-01-20"
   },
   {
     "alertId": "ALT-8003",
-    "title": "African Swine Fever Movement Restriction Advisory",
-    "district": "Bengaluru",
+    "title": "Livestock Movement Restriction - District Level",
+    "district": "Mysuru",
     "state": "Karnataka",
     "alertMessage": "All registered farms must undergo mandatory biosecurity inspection by end of month.",
-    "issuedDate": "2024-12-16"
+    "issuedDate": "2026-01-08"
   },
   {
     "alertId": "ALT-8004",
-    "title": "Emergency Vaccination Campaign - Poultry Farms",
-    "district": "Warangal",
-    "state": "Telangana",
-    "alertMessage": "Heightened surveillance required. Report any unusual mortality or symptoms to the district veterinary office.",
-    "issuedDate": "2025-12-20"
+    "title": "Foot and Mouth Disease Containment Protocol",
+    "district": "Thiruvananthapuram",
+    "state": "Kerala",
+    "alertMessage": "Mandatory vaccination drive initiated. All poultry farms must complete vaccination within 30 days.",
+    "issuedDate": "2026-05-19"
   },
   {
     "alertId": "ALT-8005",
     "title": "African Swine Fever Movement Restriction Advisory",
-    "district": "Visakhapatnam",
-    "state": "Andhra Pradesh",
-    "alertMessage": "Containment protocol activated. Affected farms under quarantine. Compensation scheme available for affected farmers.",
-    "issuedDate": "2025-04-10"
+    "district": "Chennai",
+    "state": "Tamil Nadu",
+    "alertMessage": "Heightened surveillance required. Report any unusual mortality or symptoms to the district veterinary office.",
+    "issuedDate": "2026-06-02"
   },
   {
     "alertId": "ALT-8006",
-    "title": "Disease-Free Zone Certification Renewal",
-    "district": "Salem",
+    "title": "Foot and Mouth Disease Containment Protocol",
+    "district": "Coimbatore",
     "state": "Tamil Nadu",
-    "alertMessage": "Mandatory vaccination drive initiated. All poultry farms must complete vaccination within 30 days.",
-    "issuedDate": "2025-04-26"
+    "alertMessage": "Heightened surveillance required. Report any unusual mortality or symptoms to the district veterinary office.",
+    "issuedDate": "2026-05-22"
   },
   {
     "alertId": "ALT-8007",
-    "title": "Swine Influenza Surveillance Notice",
-    "district": "Madurai",
-    "state": "Tamil Nadu",
-    "alertMessage": "All registered farms must undergo mandatory biosecurity inspection by end of month.",
-    "issuedDate": "2025-08-04"
+    "title": "Bird Flu Outbreak Alert - Immediate Action Required",
+    "district": "Kochi",
+    "state": "Kerala",
+    "alertMessage": "Heightened surveillance required. Report any unusual mortality or symptoms to the district veterinary office.",
+    "issuedDate": "2026-03-10"
   },
   {
     "alertId": "ALT-8008",
     "title": "Livestock Movement Restriction - District Level",
-    "district": "Salem",
+    "district": "Erode",
     "state": "Tamil Nadu",
-    "alertMessage": "Movement of poultry and poultry products restricted until further notice.",
-    "issuedDate": "2024-03-04"
+    "alertMessage": "Livestock movement restricted within and between affected districts. Permits required for all movements.",
+    "issuedDate": "2026-01-12"
   },
   {
     "alertId": "ALT-8009",
-    "title": "HPAI Heightened Surveillance Zone Declared",
-    "district": "Mysuru",
-    "state": "Karnataka",
-    "alertMessage": "Emergency vaccination teams deployed. Contact district office for scheduling.",
-    "issuedDate": "2024-08-06"
+    "title": "Emergency Vaccination Campaign - Poultry Farms",
+    "district": "Hyderabad",
+    "state": "Telangana",
+    "alertMessage": "Immediate quarantine and movement restriction imposed. All farms must report suspicious symptoms within 24 hours.",
+    "issuedDate": "2026-01-13"
   },
   {
     "alertId": "ALT-8010",
-    "title": "Swine Influenza Surveillance Notice",
-    "district": "Salem",
-    "state": "Tamil Nadu",
-    "alertMessage": "Immediate quarantine and movement restriction imposed. All farms must report suspicious symptoms within 24 hours.",
-    "issuedDate": "2025-12-01"
+    "title": "African Swine Fever Movement Restriction Advisory",
+    "district": "Bengaluru",
+    "state": "Karnataka",
+    "alertMessage": "Containment protocol activated. Affected farms under quarantine. Compensation scheme available for affected farmers.",
+    "issuedDate": "2026-01-03"
   },
   {
     "alertId": "ALT-8011",
     "title": "Foot and Mouth Disease Containment Protocol",
-    "district": "Mangaluru",
+    "district": "Mysuru",
     "state": "Karnataka",
-    "alertMessage": "Containment protocol activated. Affected farms under quarantine. Compensation scheme available for affected farmers.",
-    "issuedDate": "2025-10-12"
+    "alertMessage": "Movement of poultry and poultry products restricted until further notice.",
+    "issuedDate": "2026-05-09"
   },
   {
     "alertId": "ALT-8012",
-    "title": "African Swine Fever Movement Restriction Advisory",
-    "district": "Trichy",
-    "state": "Tamil Nadu",
-    "alertMessage": "Mandatory vaccination drive initiated. All poultry farms must complete vaccination within 30 days.",
-    "issuedDate": "2024-03-11"
+    "title": "Mandatory Biosecurity Inspection - All Farms",
+    "district": "Kochi",
+    "state": "Kerala",
+    "alertMessage": "Movement of poultry and poultry products restricted until further notice.",
+    "issuedDate": "2026-07-05"
   },
   {
     "alertId": "ALT-8013",
-    "title": "HPAI Heightened Surveillance Zone Declared",
-    "district": "Kozhikode",
-    "state": "Kerala",
+    "title": "Newcastle Disease Vaccination Drive - Q3 2025",
+    "district": "Mysuru",
+    "state": "Karnataka",
     "alertMessage": "All pig farms in the district must implement enhanced biosecurity measures. No movement of animals without prior approval.",
-    "issuedDate": "2024-11-01"
+    "issuedDate": "2026-03-26"
   },
   {
     "alertId": "ALT-8014",
-    "title": "HPAI Heightened Surveillance Zone Declared",
-    "district": "Vijayawada",
-    "state": "Andhra Pradesh",
-    "alertMessage": "Annual disease-free zone certification renewal process initiated. Submit required documents.",
-    "issuedDate": "2024-08-07"
+    "title": "Disease-Free Zone Certification Renewal",
+    "district": "Mangaluru",
+    "state": "Karnataka",
+    "alertMessage": "All pig farms in the district must implement enhanced biosecurity measures. No movement of animals without prior approval.",
+    "issuedDate": "2026-05-09"
   },
   {
     "alertId": "ALT-8015",
-    "title": "Foot and Mouth Disease Containment Protocol",
-    "district": "Karimnagar",
-    "state": "Telangana",
-    "alertMessage": "Mandatory vaccination drive initiated. All poultry farms must complete vaccination within 30 days.",
-    "issuedDate": "2024-02-25"
+    "title": "Bird Flu Outbreak Alert - Immediate Action Required",
+    "district": "Madurai",
+    "state": "Tamil Nadu",
+    "alertMessage": "Livestock movement restricted within and between affected districts. Permits required for all movements.",
+    "issuedDate": "2026-07-23"
   },
   {
     "alertId": "ALT-8016",
-    "title": "HPAI Heightened Surveillance Zone Declared",
-    "district": "Erode",
-    "state": "Tamil Nadu",
-    "alertMessage": "All registered farms must undergo mandatory biosecurity inspection by end of month.",
-    "issuedDate": "2024-10-31"
+    "title": "Emergency Vaccination Campaign - Poultry Farms",
+    "district": "Hubli",
+    "state": "Karnataka",
+    "alertMessage": "Livestock movement restricted within and between affected districts. Permits required for all movements.",
+    "issuedDate": "2026-08-11"
   },
   {
     "alertId": "ALT-8017",
-    "title": "Swine Influenza Surveillance Notice",
-    "district": "Trichy",
+    "title": "Foot and Mouth Disease Containment Protocol",
+    "district": "Salem",
     "state": "Tamil Nadu",
-    "alertMessage": "All registered farms must undergo mandatory biosecurity inspection by end of month.",
-    "issuedDate": "2025-03-05"
+    "alertMessage": "Mandatory vaccination drive initiated. All poultry farms must complete vaccination within 30 days.",
+    "issuedDate": "2026-02-08"
   },
   {
     "alertId": "ALT-8018",
     "title": "Emergency Vaccination Campaign - Poultry Farms",
-    "district": "Visakhapatnam",
-    "state": "Andhra Pradesh",
-    "alertMessage": "Annual disease-free zone certification renewal process initiated. Submit required documents.",
-    "issuedDate": "2025-12-06"
+    "district": "Karimnagar",
+    "state": "Telangana",
+    "alertMessage": "All pig farms in the district must implement enhanced biosecurity measures. No movement of animals without prior approval.",
+    "issuedDate": "2026-08-15"
   },
   {
     "alertId": "ALT-8019",
-    "title": "HPAI Heightened Surveillance Zone Declared",
-    "district": "Trichy",
-    "state": "Tamil Nadu",
-    "alertMessage": "All registered farms must undergo mandatory biosecurity inspection by end of month.",
-    "issuedDate": "2025-12-10"
+    "title": "African Swine Fever Movement Restriction Advisory",
+    "district": "Nizamabad",
+    "state": "Telangana",
+    "alertMessage": "Heightened surveillance required. Report any unusual mortality or symptoms to the district veterinary office.",
+    "issuedDate": "2026-08-15"
   },
   {
     "alertId": "ALT-8020",
-    "title": "HPAI Heightened Surveillance Zone Declared",
-    "district": "Hyderabad",
-    "state": "Telangana",
-    "alertMessage": "Immediate quarantine and movement restriction imposed. All farms must report suspicious symptoms within 24 hours.",
-    "issuedDate": "2025-07-28"
+    "title": "Newcastle Disease Vaccination Drive - Q3 2025",
+    "district": "Kochi",
+    "state": "Kerala",
+    "alertMessage": "Mandatory vaccination drive initiated. All poultry farms must complete vaccination within 30 days.",
+    "issuedDate": "2026-05-09"
   },
   {
     "alertId": "ALT-8021",
-    "title": "Swine Influenza Surveillance Notice",
-    "district": "Warangal",
-    "state": "Telangana",
-    "alertMessage": "All pig farms in the district must implement enhanced biosecurity measures. No movement of animals without prior approval.",
-    "issuedDate": "2025-11-14"
+    "title": "Livestock Movement Restriction - District Level",
+    "district": "Guntur",
+    "state": "Andhra Pradesh",
+    "alertMessage": "Annual disease-free zone certification renewal process initiated. Submit required documents.",
+    "issuedDate": "2026-08-27"
   },
   {
     "alertId": "ALT-8022",
-    "title": "Livestock Movement Restriction - District Level",
-    "district": "Hyderabad",
-    "state": "Telangana",
+    "title": "Emergency Vaccination Campaign - Poultry Farms",
+    "district": "Bengaluru",
+    "state": "Karnataka",
     "alertMessage": "Mandatory vaccination drive initiated. All poultry farms must complete vaccination within 30 days.",
-    "issuedDate": "2024-11-27"
+    "issuedDate": "2026-03-28"
   },
   {
     "alertId": "ALT-8023",
     "title": "Mandatory Biosecurity Inspection - All Farms",
-    "district": "Karimnagar",
-    "state": "Telangana",
-    "alertMessage": "Immediate quarantine and movement restriction imposed. All farms must report suspicious symptoms within 24 hours.",
-    "issuedDate": "2024-06-03"
+    "district": "Thrissur",
+    "state": "Kerala",
+    "alertMessage": "Livestock movement restricted within and between affected districts. Permits required for all movements.",
+    "issuedDate": "2026-08-08"
   },
   {
     "alertId": "ALT-8024",
-    "title": "Newcastle Disease Vaccination Drive - Q3 2025",
-    "district": "Vijayawada",
-    "state": "Andhra Pradesh",
-    "alertMessage": "Emergency vaccination teams deployed. Contact district office for scheduling.",
-    "issuedDate": "2024-11-20"
+    "title": "Bird Flu Outbreak Alert - Immediate Action Required",
+    "district": "Mangaluru",
+    "state": "Karnataka",
+    "alertMessage": "Movement of poultry and poultry products restricted until further notice.",
+    "issuedDate": "2026-03-03"
   },
   {
     "alertId": "ALT-8025",
-    "title": "HPAI Heightened Surveillance Zone Declared",
-    "district": "Chennai",
-    "state": "Tamil Nadu",
-    "alertMessage": "Containment protocol activated. Affected farms under quarantine. Compensation scheme available for affected farmers.",
-    "issuedDate": "2025-06-17"
+    "title": "Livestock Movement Restriction - District Level",
+    "district": "Kochi",
+    "state": "Kerala",
+    "alertMessage": "Livestock movement restricted within and between affected districts. Permits required for all movements.",
+    "issuedDate": "2026-01-20"
   },
   {
     "alertId": "ALT-8026",
-    "title": "Emergency Vaccination Campaign - Poultry Farms",
-    "district": "Coimbatore",
+    "title": "Livestock Movement Restriction - District Level",
+    "district": "Madurai",
     "state": "Tamil Nadu",
-    "alertMessage": "Mandatory vaccination drive initiated. All poultry farms must complete vaccination within 30 days.",
-    "issuedDate": "2025-10-11"
+    "alertMessage": "Emergency vaccination teams deployed. Contact district office for scheduling.",
+    "issuedDate": "2026-01-25"
   },
   {
     "alertId": "ALT-8027",
-    "title": "Livestock Movement Restriction - District Level",
-    "district": "Vijayawada",
-    "state": "Andhra Pradesh",
-    "alertMessage": "All pig farms in the district must implement enhanced biosecurity measures. No movement of animals without prior approval.",
-    "issuedDate": "2024-02-07"
+    "title": "Newcastle Disease Vaccination Drive - Q3 2025",
+    "district": "Coimbatore",
+    "state": "Tamil Nadu",
+    "alertMessage": "Containment protocol activated. Affected farms under quarantine. Compensation scheme available for affected farmers.",
+    "issuedDate": "2026-05-21"
   },
   {
     "alertId": "ALT-8028",
-    "title": "Swine Influenza Surveillance Notice",
-    "district": "Kochi",
-    "state": "Kerala",
-    "alertMessage": "Movement of poultry and poultry products restricted until further notice.",
-    "issuedDate": "2025-12-14"
+    "title": "Emergency Vaccination Campaign - Poultry Farms",
+    "district": "Erode",
+    "state": "Tamil Nadu",
+    "alertMessage": "All pig farms in the district must implement enhanced biosecurity measures. No movement of animals without prior approval.",
+    "issuedDate": "2026-04-27"
   },
   {
     "alertId": "ALT-8029",
     "title": "Newcastle Disease Vaccination Drive - Q3 2025",
-    "district": "Tirupati",
-    "state": "Andhra Pradesh",
-    "alertMessage": "Livestock movement restricted within and between affected districts. Permits required for all movements.",
-    "issuedDate": "2025-01-21"
+    "district": "Bengaluru",
+    "state": "Karnataka",
+    "alertMessage": "Containment protocol activated. Affected farms under quarantine. Compensation scheme available for affected farmers.",
+    "issuedDate": "2026-02-11"
   },
   {
     "alertId": "ALT-8030",
-    "title": "Mandatory Biosecurity Inspection - All Farms",
-    "district": "Kochi",
-    "state": "Kerala",
-    "alertMessage": "Heightened surveillance required. Report any unusual mortality or symptoms to the district veterinary office.",
-    "issuedDate": "2024-07-14"
+    "title": "Foot and Mouth Disease Containment Protocol",
+    "district": "Erode",
+    "state": "Tamil Nadu",
+    "alertMessage": "Livestock movement restricted within and between affected districts. Permits required for all movements.",
+    "issuedDate": "2026-04-04"
   },
   {
     "alertId": "ALT-8031",
-    "title": "Livestock Movement Restriction - District Level",
-    "district": "Karimnagar",
-    "state": "Telangana",
-    "alertMessage": "Immediate quarantine and movement restriction imposed. All farms must report suspicious symptoms within 24 hours.",
-    "issuedDate": "2025-01-14"
+    "title": "African Swine Fever Movement Restriction Advisory",
+    "district": "Mysuru",
+    "state": "Karnataka",
+    "alertMessage": "All pig farms in the district must implement enhanced biosecurity measures. No movement of animals without prior approval.",
+    "issuedDate": "2026-02-15"
   },
   {
     "alertId": "ALT-8032",
-    "title": "Bird Flu Outbreak Alert - Immediate Action Required",
-    "district": "Mysuru",
-    "state": "Karnataka",
-    "alertMessage": "Containment protocol activated. Affected farms under quarantine. Compensation scheme available for affected farmers.",
-    "issuedDate": "2024-11-10"
+    "title": "Foot and Mouth Disease Containment Protocol",
+    "district": "Vijayawada",
+    "state": "Andhra Pradesh",
+    "alertMessage": "Emergency vaccination teams deployed. Contact district office for scheduling.",
+    "issuedDate": "2026-03-07"
   },
   {
     "alertId": "ALT-8033",
-    "title": "African Swine Fever Movement Restriction Advisory",
-    "district": "Guntur",
+    "title": "Newcastle Disease Vaccination Drive - Q3 2025",
+    "district": "Vijayawada",
     "state": "Andhra Pradesh",
-    "alertMessage": "Emergency vaccination teams deployed. Contact district office for scheduling.",
-    "issuedDate": "2025-10-26"
+    "alertMessage": "All pig farms in the district must implement enhanced biosecurity measures. No movement of animals without prior approval.",
+    "issuedDate": "2026-05-26"
   },
   {
     "alertId": "ALT-8034",
-    "title": "HPAI Heightened Surveillance Zone Declared",
-    "district": "Vijayawada",
+    "title": "Bird Flu Outbreak Alert - Immediate Action Required",
+    "district": "Visakhapatnam",
     "state": "Andhra Pradesh",
-    "alertMessage": "Movement of poultry and poultry products restricted until further notice.",
-    "issuedDate": "2024-12-26"
+    "alertMessage": "All registered farms must undergo mandatory biosecurity inspection by end of month.",
+    "issuedDate": "2026-08-08"
   },
   {
     "alertId": "ALT-8035",
-    "title": "Disease-Free Zone Certification Renewal",
-    "district": "Mysuru",
-    "state": "Karnataka",
+    "title": "HPAI Heightened Surveillance Zone Declared",
+    "district": "Thrissur",
+    "state": "Kerala",
     "alertMessage": "Movement of poultry and poultry products restricted until further notice.",
-    "issuedDate": "2025-06-19"
+    "issuedDate": "2026-08-08"
   },
   {
     "alertId": "ALT-8036",
-    "title": "African Swine Fever Movement Restriction Advisory",
-    "district": "Bengaluru",
-    "state": "Karnataka",
-    "alertMessage": "Mandatory vaccination drive initiated. All poultry farms must complete vaccination within 30 days.",
-    "issuedDate": "2025-04-14"
-  },
-  {
-    "alertId": "ALT-8037",
-    "title": "Mandatory Biosecurity Inspection - All Farms",
-    "district": "Mangaluru",
-    "state": "Karnataka",
-    "alertMessage": "Mandatory vaccination drive initiated. All poultry farms must complete vaccination within 30 days.",
-    "issuedDate": "2025-07-20"
-  },
-  {
-    "alertId": "ALT-8038",
     "title": "Newcastle Disease Vaccination Drive - Q3 2025",
     "district": "Warangal",
     "state": "Telangana",
+    "alertMessage": "Emergency vaccination teams deployed. Contact district office for scheduling.",
+    "issuedDate": "2026-04-04"
+  },
+  {
+    "alertId": "ALT-8037",
+    "title": "Livestock Movement Restriction - District Level",
+    "district": "Guntur",
+    "state": "Andhra Pradesh",
+    "alertMessage": "All registered farms must undergo mandatory biosecurity inspection by end of month.",
+    "issuedDate": "2026-04-06"
+  },
+  {
+    "alertId": "ALT-8038",
+    "title": "HPAI Heightened Surveillance Zone Declared",
+    "district": "Erode",
+    "state": "Tamil Nadu",
     "alertMessage": "Annual disease-free zone certification renewal process initiated. Submit required documents.",
-    "issuedDate": "2025-03-22"
+    "issuedDate": "2026-04-26"
   },
   {
     "alertId": "ALT-8039",
-    "title": "Foot and Mouth Disease Containment Protocol",
-    "district": "Hubli",
-    "state": "Karnataka",
-    "alertMessage": "Movement of poultry and poultry products restricted until further notice.",
-    "issuedDate": "2025-10-11"
+    "title": "Bird Flu Outbreak Alert - Immediate Action Required",
+    "district": "Kozhikode",
+    "state": "Kerala",
+    "alertMessage": "Livestock movement restricted within and between affected districts. Permits required for all movements.",
+    "issuedDate": "2026-06-14"
   },
   {
     "alertId": "ALT-8040",
-    "title": "Livestock Movement Restriction - District Level",
-    "district": "Thrissur",
-    "state": "Kerala",
-    "alertMessage": "All pig farms in the district must implement enhanced biosecurity measures. No movement of animals without prior approval.",
-    "issuedDate": "2024-03-30"
+    "title": "Swine Influenza Surveillance Notice",
+    "district": "Salem",
+    "state": "Tamil Nadu",
+    "alertMessage": "Annual disease-free zone certification renewal process initiated. Submit required documents.",
+    "issuedDate": "2026-01-03"
   },
   {
     "alertId": "ALT-8041",
     "title": "African Swine Fever Movement Restriction Advisory",
-    "district": "Chennai",
+    "district": "Madurai",
     "state": "Tamil Nadu",
-    "alertMessage": "Immediate quarantine and movement restriction imposed. All farms must report suspicious symptoms within 24 hours.",
-    "issuedDate": "2025-09-23"
+    "alertMessage": "Containment protocol activated. Affected farms under quarantine. Compensation scheme available for affected farmers.",
+    "issuedDate": "2026-04-07"
   },
   {
     "alertId": "ALT-8042",
-    "title": "African Swine Fever Movement Restriction Advisory",
-    "district": "Mangaluru",
-    "state": "Karnataka",
-    "alertMessage": "Emergency vaccination teams deployed. Contact district office for scheduling.",
-    "issuedDate": "2025-09-30"
+    "title": "Livestock Movement Restriction - District Level",
+    "district": "Trichy",
+    "state": "Tamil Nadu",
+    "alertMessage": "Movement of poultry and poultry products restricted until further notice.",
+    "issuedDate": "2026-08-07"
   },
   {
     "alertId": "ALT-8043",
-    "title": "African Swine Fever Movement Restriction Advisory",
-    "district": "Tirupati",
-    "state": "Andhra Pradesh",
-    "alertMessage": "Emergency vaccination teams deployed. Contact district office for scheduling.",
-    "issuedDate": "2025-05-30"
+    "title": "Swine Influenza Surveillance Notice",
+    "district": "Erode",
+    "state": "Tamil Nadu",
+    "alertMessage": "Movement of poultry and poultry products restricted until further notice.",
+    "issuedDate": "2026-08-12"
   },
   {
     "alertId": "ALT-8044",
-    "title": "Bird Flu Outbreak Alert - Immediate Action Required",
-    "district": "Hyderabad",
-    "state": "Telangana",
-    "alertMessage": "Containment protocol activated. Affected farms under quarantine. Compensation scheme available for affected farmers.",
-    "issuedDate": "2025-03-06"
+    "title": "African Swine Fever Movement Restriction Advisory",
+    "district": "Vijayawada",
+    "state": "Andhra Pradesh",
+    "alertMessage": "All registered farms must undergo mandatory biosecurity inspection by end of month.",
+    "issuedDate": "2026-04-30"
   },
   {
     "alertId": "ALT-8045",
-    "title": "Swine Influenza Surveillance Notice",
-    "district": "Kochi",
-    "state": "Kerala",
+    "title": "Disease-Free Zone Certification Renewal",
+    "district": "Vijayawada",
+    "state": "Andhra Pradesh",
     "alertMessage": "Emergency vaccination teams deployed. Contact district office for scheduling.",
-    "issuedDate": "2025-07-18"
+    "issuedDate": "2026-01-28"
   },
   {
     "alertId": "ALT-8046",
-    "title": "African Swine Fever Movement Restriction Advisory",
-    "district": "Hubli",
-    "state": "Karnataka",
-    "alertMessage": "Heightened surveillance required. Report any unusual mortality or symptoms to the district veterinary office.",
-    "issuedDate": "2025-04-25"
+    "title": "Newcastle Disease Vaccination Drive - Q3 2025",
+    "district": "Erode",
+    "state": "Tamil Nadu",
+    "alertMessage": "All pig farms in the district must implement enhanced biosecurity measures. No movement of animals without prior approval.",
+    "issuedDate": "2026-08-23"
   },
   {
     "alertId": "ALT-8047",
-    "title": "Mandatory Biosecurity Inspection - All Farms",
-    "district": "Chennai",
-    "state": "Tamil Nadu",
-    "alertMessage": "Emergency vaccination teams deployed. Contact district office for scheduling.",
-    "issuedDate": "2025-02-26"
+    "title": "HPAI Heightened Surveillance Zone Declared",
+    "district": "Hubli",
+    "state": "Karnataka",
+    "alertMessage": "Heightened surveillance required. Report any unusual mortality or symptoms to the district veterinary office.",
+    "issuedDate": "2026-04-13"
   },
   {
     "alertId": "ALT-8048",
-    "title": "HPAI Heightened Surveillance Zone Declared",
-    "district": "Nizamabad",
-    "state": "Telangana",
-    "alertMessage": "Immediate quarantine and movement restriction imposed. All farms must report suspicious symptoms within 24 hours.",
-    "issuedDate": "2025-01-18"
+    "title": "African Swine Fever Movement Restriction Advisory",
+    "district": "Bengaluru",
+    "state": "Karnataka",
+    "alertMessage": "All registered farms must undergo mandatory biosecurity inspection by end of month.",
+    "issuedDate": "2026-03-29"
   },
   {
     "alertId": "ALT-8049",
-    "title": "Disease-Free Zone Certification Renewal",
-    "district": "Thiruvananthapuram",
-    "state": "Kerala",
-    "alertMessage": "Containment protocol activated. Affected farms under quarantine. Compensation scheme available for affected farmers.",
-    "issuedDate": "2024-10-01"
+    "title": "Emergency Vaccination Campaign - Poultry Farms",
+    "district": "Warangal",
+    "state": "Telangana",
+    "alertMessage": "Heightened surveillance required. Report any unusual mortality or symptoms to the district veterinary office.",
+    "issuedDate": "2026-06-29"
   }
 ]

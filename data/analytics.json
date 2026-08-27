@@ -2,19 +2,19 @@
   {
     "districtWiseDiseaseCount": [
       {
-        "district": "Chennai",
-        "count": 17
+        "district": "Visakhapatnam",
+        "count": 15
       },
       {
-        "district": "Erode",
-        "count": 15
+        "district": "Thrissur",
+        "count": 14
       },
       {
         "district": "Thiruvananthapuram",
         "count": 12
       },
       {
-        "district": "Trichy",
+        "district": "Bengaluru",
         "count": 12
       },
       {
@@ -22,55 +22,51 @@
         "count": 12
       },
       {
-        "district": "Hyderabad",
-        "count": 11
-      },
-      {
-        "district": "Mysuru",
-        "count": 11
-      },
-      {
-        "district": "Mangaluru",
-        "count": 11
-      },
-      {
-        "district": "Madurai",
-        "count": 10
-      },
-      {
         "district": "Vijayawada",
-        "count": 9
+        "count": 11
       },
       {
-        "district": "Thrissur",
-        "count": 9
-      },
-      {
-        "district": "Visakhapatnam",
-        "count": 9
-      },
-      {
-        "district": "Hubli",
-        "count": 8
-      },
-      {
-        "district": "Coimbatore",
-        "count": 7
+        "district": "Erode",
+        "count": 11
       },
       {
         "district": "Nizamabad",
-        "count": 7
+        "count": 10
+      },
+      {
+        "district": "Hyderabad",
+        "count": 10
+      },
+      {
+        "district": "Trichy",
+        "count": 10
+      },
+      {
+        "district": "Mysuru",
+        "count": 10
+      },
+      {
+        "district": "Mangaluru",
+        "count": 9
       },
       {
         "district": "Karimnagar",
+        "count": 8
+      },
+      {
+        "district": "Chennai",
+        "count": 8
+      },
+      {
+        "district": "Warangal",
         "count": 7
       },
       {
-        "district": "Tirupati",
+        "district": "Madurai",
         "count": 7
       },
       {
-        "district": "Bengaluru",
+        "district": "Hubli",
         "count": 7
       },
       {
@@ -78,136 +74,76 @@
         "count": 6
       },
       {
-        "district": "Warangal",
+        "district": "Salem",
         "count": 6
       },
       {
-        "district": "Salem",
+        "district": "Coimbatore",
+        "count": 6
+      },
+      {
+        "district": "Tirupati",
         "count": 5
       },
       {
         "district": "Guntur",
-        "count": 2
+        "count": 4
       }
     ],
     "stateWiseFarmCount": [
       {
         "state": "Tamil Nadu",
-        "count": 33
+        "count": 36
       },
       {
         "state": "Telangana",
-        "count": 29
+        "count": 28
       },
       {
         "state": "Andhra Pradesh",
-        "count": 18
+        "count": 16
       },
       {
         "state": "Kerala",
-        "count": 11
+        "count": 10
       },
       {
         "state": "Karnataka",
-        "count": 9
+        "count": 10
       }
     ],
     "monthlyVaccinationTrends": [
       {
-        "month": "2024-01",
-        "count": 17
+        "month": "2026-01",
+        "count": 61
       },
       {
-        "month": "2024-02",
-        "count": 20
+        "month": "2026-02",
+        "count": 62
       },
       {
-        "month": "2024-03",
-        "count": 21
+        "month": "2026-03",
+        "count": 51
       },
       {
-        "month": "2024-04",
-        "count": 21
+        "month": "2026-04",
+        "count": 55
       },
       {
-        "month": "2024-05",
-        "count": 40
+        "month": "2026-05",
+        "count": 71
       },
       {
-        "month": "2024-06",
-        "count": 15
+        "month": "2026-06",
+        "count": 63
       },
       {
-        "month": "2024-07",
-        "count": 12
+        "month": "2026-07",
+        "count": 74
       },
       {
-        "month": "2024-08",
-        "count": 22
-      },
-      {
-        "month": "2024-09",
-        "count": 21
-      },
-      {
-        "month": "2024-10",
-        "count": 17
-      },
-      {
-        "month": "2024-11",
-        "count": 22
-      },
-      {
-        "month": "2024-12",
-        "count": 13
-      },
-      {
-        "month": "2025-01",
-        "count": 23
-      },
-      {
-        "month": "2025-02",
-        "count": 33
-      },
-      {
-        "month": "2025-03",
-        "count": 18
-      },
-      {
-        "month": "2025-04",
-        "count": 23
-      },
-      {
-        "month": "2025-05",
-        "count": 34
-      },
-      {
-        "month": "2025-06",
-        "count": 12
-      },
-      {
-        "month": "2025-07",
-        "count": 23
-      },
-      {
-        "month": "2025-08",
-        "count": 24
-      },
-      {
-        "month": "2025-09",
-        "count": 14
-      },
-      {
-        "month": "2025-10",
-        "count": 18
-      },
-      {
-        "month": "2025-11",
-        "count": 21
-      },
-      {
-        "month": "2025-12",
-        "count": 16
+        "month": "2026-08",
+        "count": 63
       }
     ],
     "biosecurityScoreDistribution": [

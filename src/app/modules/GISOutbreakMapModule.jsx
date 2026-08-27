@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { MapPin, AlertTriangle, RefreshCw, Layers, ZoomIn, ZoomOut, Info } from "lucide-react";
 import { getGISFarms, getGISOutbreaks, getNearbyFarms } from "../../api/mongoService";
+import { formatDate } from "../../utils/dateTime";
 
 const P = {
   red: "#C62828", redBg: "#fef2f2",
@@ -57,7 +58,7 @@ function PopupCard({ item, type, onClose }) {
               ["Risk", item.riskLevel],
               ["Affected Animals", item.affectedAnimals],
               ["Deaths", item.deaths],
-              ["Reported", new Date(item.reportedDate).toLocaleDateString()],
+              ["Reported", formatDate(item.reportedDate)],
               ["Status", item.status?.replace(/_/g, " ")],
             ].map(([k, v]) => (
               <div key={k} style={{ display: "flex", justifyContent: "space-between", fontSize: 11, padding: "3px 0", borderBottom: "1px solid #f3f4f6" }}>
@@ -324,7 +325,7 @@ export default function GISOutbreakMapModule() {
               <div style={{ width: 10, height: 10, borderRadius: "50%", background: P.red, flexShrink: 0 }} />
               <div style={{ flex: 1 }}>
                 <p style={{ fontSize: 13, fontWeight: 600, color: P.dark, margin: 0 }}>Suspected {o.suspectedDisease}</p>
-                <p style={{ fontSize: 11, color: P.gray, margin: "2px 0 0" }}>{o.farmName} · {new Date(o.reportedDate).toLocaleDateString()}</p>
+                <p style={{ fontSize: 11, color: P.gray, margin: "2px 0 0" }}>{o.farmName} · {formatDate(o.reportedDate)}</p>
               </div>
               <span style={{ fontSize: 11, fontWeight: 700, color: P.red, background: P.redBg, padding: "3px 10px", borderRadius: 10 }}>{o.riskLevel}</span>
             </div>

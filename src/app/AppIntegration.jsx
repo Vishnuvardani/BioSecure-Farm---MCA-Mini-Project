@@ -10,6 +10,7 @@
  * Also adds new nav items for each role.
  */
 import { useState } from "react";
+import { formatDate } from "../utils/dateTime";
 import {
   Home, Leaf, Activity, Shield, Map, AlertTriangle, Syringe, LogOut,
   Zap, FileText, Bell, User, ClipboardList, BarChart2, Eye,
@@ -200,7 +201,7 @@ function Topbar({ activeModule, onLogout }) {
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <h1 style={{ fontFamily: "Poppins", fontSize: 16, fontWeight: 700, color: P.dark, margin: 0 }}>{activeModule}</h1>
         </div>
-        <p style={{ fontSize: 11, color: P.mid, margin: 0 }}>{new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</p>
+        <p style={{ fontSize: 11, color: P.mid, margin: 0 }}>{formatDate(new Date(), { weekday: "long", month: "long", day: "numeric" })}</p>
       </div>
       <div style={{ flex: 1 }} />
       <button onClick={onLogout} title="Log out" style={{ display: "flex", alignItems: "center", gap: 7, padding: "8px 12px", border: "1px solid rgba(128,128,52,0.2)", borderRadius: 10, background: P.ivoryDark, color: P.mid, cursor: "pointer", fontSize: 12, fontWeight: 600 }}>

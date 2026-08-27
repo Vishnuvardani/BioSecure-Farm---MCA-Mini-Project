@@ -231,6 +231,12 @@ app.get("/api/veterinarians/available", async (req, res) => {
     const farm = await db.collection("farms").findOne({ farmId: req.query.farmId });
     if (!farm) return res.status(404).json({ error: "Farm not found" });
 
+    const nearbyDistricts = {
+      coimbatore: ["coimbatore", "tiruppur", "erode", "salem"],
+      tiruppur: ["tiruppur", "coimbatore", "erode", "salem"],
+      erode: ["erode", "coimbatore", "tiruppur", "salem"],
+      salem: ["salem", "erode", "tiruppur", "coimbatore"],
+    };
     const vets = await db.collection("users").find({ role: "Veterinarian" }).toArray();
     const appointments = await db.collection("appointments").find({ status: { $in: ["PENDING", "CONFIRMED"] } }).toArray();
     const suitable = vets
@@ -245,10 +251,12 @@ app.get("/api/veterinarians/available", async (req, res) => {
         const areas = (Array.isArray(serviceDistricts) ? serviceDistricts : String(serviceDistricts || "").split(",")).map(value => value.trim().toLowerCase());
         const farmDistrict = String(farm.district || "").toLowerCase();
         const farmState = String(farm.state || "").toLowerCase();
-        const servesFarm = !areas.filter(Boolean).length || areas.includes(farmDistrict);
-        const sameDistrict = String(vet.district || "").toLowerCase() === farmDistrict || servesFarm;
+        const vetDistrict = String(vet.district || "").toLowerCase();
+        const servesFarm = areas.includes(farmDistrict);
+        const sameDistrict = vetDistrict === farmDistrict;
+        const nearby = (nearbyDistricts[farmDistrict] || [farmDistrict]).includes(vetDistrict);
         const sameState = String(vet.state || "").toLowerCase() === farmState;
-        const proximityRank = sameDistrict ? 0 : sameState ? 1 : 2;
+        const proximityRank = sameDistrict ? 0 : nearby && sameState ? 1 : 2;
         return {
           userId: vet.userId, name: vet.name || vet.fullName, email: vet.email, phone: vet.phone || vet.mobile || "",
           picture: vet.picture || null, district: vet.district || "", state: vet.state || "",
@@ -256,12 +264,12 @@ app.get("/api/veterinarians/available", async (req, res) => {
           experienceYears: Number(vet.experienceYears || vet.extra?.["Years of Experience"]) || null,
           workload, capacity, availability: workload >= capacity ? "UNAVAILABLE" : workload >= capacity - 3 ? "LIMITED" : "AVAILABLE",
           matchesAnimalType, servesFarm, proximityRank,
-          proximityLabel: sameDistrict ? "Same district" : sameState ? "Nearby state" : "Other service area",
+          proximityLabel: sameDistrict ? "Same district" : nearby && sameState ? "Nearby district" : "Outside nearby area",
         };
       })
       // Legacy profiles do not all have service-area data. Keep them bookable,
       // while always placing local veterinarians ahead of wider-area choices.
-      .filter(vet => vet.matchesAnimalType && vet.availability !== "UNAVAILABLE")
+      .filter(vet => vet.matchesAnimalType && vet.availability !== "UNAVAILABLE" && vet.proximityRank < 2)
       .sort((a, b) => a.proximityRank - b.proximityRank || a.workload - b.workload);
     res.json(suitable);
   } catch (e) { res.status(500).json({ error: e.message }); }

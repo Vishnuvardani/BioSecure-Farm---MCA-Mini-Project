@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { AlertTriangle, FileText, MapPin, CheckCircle, Clock, Eye, RefreshCw } from "lucide-react";
 import { submitDiseaseReport, getDiseaseReports, updateDiseaseStatus } from "../../api/mongoService";
+import { formatDate, formatDateTime } from "../../utils/dateTime";
 
 const P = {
   red: "#C62828", redBg: "#fef2f2", redLight: "#ef4444",
@@ -52,7 +53,7 @@ function ReportCard({ report, onView }) {
             <span style={{ fontSize: 13, fontWeight: 700, color: P.dark }}>Suspected {report.suspectedDisease}</span>
           </div>
           <p style={{ fontSize: 11, color: P.gray, margin: 0 }}>
-            Farm: {report.farmId} · {report.animalType} · {new Date(report.reportedDate).toLocaleDateString()}
+            Farm: {report.farmId} · {report.animalType} · {formatDate(report.reportedDate)}
           </p>
           <p style={{ fontSize: 11, color: P.gray, margin: "2px 0 0" }}>
             Affected: {report.affectedAnimals} animals · Deaths: {report.deaths}
@@ -101,7 +102,7 @@ function ReportDetailModal({ report, onClose }) {
           ["Symptom Start Date", report.symptomStartDate],
           ["Risk Level", report.riskLevel],
           ["Status", report.status],
-          ["Reported Date", new Date(report.reportedDate).toLocaleString()],
+          ["Reported Date", formatDateTime(report.reportedDate)],
           ["Location", `${report.latitude}, ${report.longitude}`],
         ].map(([k, v]) => (
           <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "8px 0", borderBottom: "1px solid #f3f4f6" }}>
