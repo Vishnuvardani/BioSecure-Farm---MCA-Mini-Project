@@ -5,6 +5,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthProvider } from './src/context/AuthContext';
 import { ThemeProvider } from './src/context/ThemeContext';
+import { LanguageProvider } from './src/context/LanguageContext';
 import RootNavigator from './src/navigation/RootNavigator';
 
 export default function App() {
@@ -12,12 +13,14 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
         <ThemeProvider>
-          <AuthProvider>
-            <NavigationContainer>
-              <StatusBar style="auto" />
-              <RootNavigator />
-            </NavigationContainer>
-          </AuthProvider>
+          <LanguageProvider>
+            <AuthProvider>
+              <NavigationContainer>
+                <StatusBar style="auto" />
+                <RootNavigator />
+              </NavigationContainer>
+            </AuthProvider>
+          </LanguageProvider>
         </ThemeProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>

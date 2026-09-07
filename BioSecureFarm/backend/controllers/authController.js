@@ -63,6 +63,36 @@ exports.login = async (req, res, next) => {
   } catch (err) { next(err); }
 };
 
+exports.googleLogin = async (req, res, next) => {
+  try {
+    const firebaseAdmin = require('../config/firebase');
+    const decoded = await firebaseAdmin.auth().verifyIdToken(req.body.idToken);
+    let user = await User.findOne({ email: decoded.email });
+
+    if (!user) {
+      user = await User.create({
+        fullName: decoded.name || decoded.email.split('@')[0],
+        email: decoded.email,
+        password: crypto.randomBytes(32).toString('hex'),
+        mobile: '0000000000',
+        role: 'farmer',
+        profilePicture: decoded.picture || '',
+        isVerified: true
+      });
+    } else if (!user.isActive) {
+      return res.status(401).json({ success: false, message: 'Account deactivated' });
+    }
+
+    user.lastLogin = new Date();
+    await user.save();
+    res.json({
+      success: true,
+      token: signToken(user._id),
+      user: { id: user._id, fullName: user.fullName, email: user.email, role: user.role, profilePicture: user.profilePicture }
+    });
+  } catch (err) { next(err); }
+};
+
 exports.forgotPassword = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });

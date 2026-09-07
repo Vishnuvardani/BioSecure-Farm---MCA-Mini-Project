@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { authAPI } from '../services/api';
+import { firebaseAuth, googleProvider } from '../services/firebase';
+import { signInWithPopup, signOut } from 'firebase/auth';
 
 const AuthContext = createContext(null);
 
@@ -36,8 +38,19 @@ export const AuthProvider = ({ children }) => {
     return res.user;
   };
 
+  const loginWithGoogle = async () => {
+    const result = await signInWithPopup(firebaseAuth, googleProvider);
+    const response = await authAPI.googleLogin(await result.user.getIdToken());
+    await AsyncStorage.setItem('token', response.token);
+    await AsyncStorage.setItem('user', JSON.stringify(response.user));
+    setToken(response.token);
+    setUser(response.user);
+    return response.user;
+  };
+
   const logout = async () => {
     await AsyncStorage.multiRemove(['token', 'user']);
+    await signOut(firebaseAuth).catch(() => {});
     setToken(null);
     setUser(null);
   };
@@ -48,7 +61,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, login, logout, updateUser }}>
+    <AuthContext.Provider value={{ user, token, loading, login, loginWithGoogle, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

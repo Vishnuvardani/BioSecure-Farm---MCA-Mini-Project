@@ -108,6 +108,30 @@ const P = {
   adminBg: "#1a2010",
   white: "#ffffff"
 };
+const UI_TEXT = {
+  en: {
+    language: "Language", tamil: "தமிழ்", english: "English", welcome: "Welcome back", loginSub: "Sign in to your account to continue",
+    email: "Email Address", password: "Password", remember: "Remember me", forgot: "Forgot password?", signIn: "Sign In", or: "or",
+    google: "Sign in with Google", noAccount: "Don't have an account?", createAccount: "Create account", registerTitle: "Create your account",
+    registerSub: "Enter your personal and login details below.", backLogin: "Back to Login", continue: "Continue", register: "Register"
+  },
+  ta: {
+    language: "மொழி", tamil: "தமிழ்", english: "English", welcome: "மீண்டும் வரவேற்கிறோம்", loginSub: "தொடர உங்கள் கணக்கில் உள்நுழைக",
+    email: "மின்னஞ்சல் முகவரி", password: "கடவுச்சொல்", remember: "என்னை நினைவில் கொள்க", forgot: "கடவுச்சொல் மறந்துவிட்டதா?", signIn: "உள்நுழைக", or: "அல்லது",
+    google: "Google மூலம் உள்நுழைக", noAccount: "கணக்கு இல்லையா?", createAccount: "கணக்கை உருவாக்கு", registerTitle: "உங்கள் கணக்கை உருவாக்குங்கள்",
+    registerSub: "உங்கள் தனிப்பட்ட மற்றும் உள்நுழைவு விவரங்களை உள்ளிடவும்.", backLogin: "உள்நுழைவுக்குத் திரும்பு", continue: "தொடர்க", register: "பதிவு செய்க"
+  }
+};
+function LanguageToggle({ language, onChange }) {
+  const text = UI_TEXT[language];
+  return /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 text-xs", children: [
+    /* @__PURE__ */ jsx("span", { style: { color: P.mid }, children: text.language }),
+    /* @__PURE__ */ jsxs("div", { className: "flex items-center rounded-lg p-1", style: { background: P.ivoryDark }, children: [
+      /* @__PURE__ */ jsx("button", { type: "button", onClick: () => onChange("en"), className: "px-3 py-1.5 rounded-md font-semibold transition-all", style: { background: language === "en" ? P.olive : "transparent", color: language === "en" ? "#fff" : P.mid }, children: text.english }),
+      /* @__PURE__ */ jsx("button", { type: "button", onClick: () => onChange("ta"), className: "px-3 py-1.5 rounded-md font-semibold transition-all", style: { background: language === "ta" ? P.olive : "transparent", color: language === "ta" ? "#fff" : P.mid }, children: text.tamil })
+    ] })
+  ] });
+}
 const healthTrend = [
   { month: "Jan", healthy: 420, sick: 18, at_risk: 32 },
   { month: "Feb", healthy: 435, sick: 12, at_risk: 28 },
@@ -499,12 +523,15 @@ const slides = [
   { title: "GIS Disease Monitoring", sub: "Geospatial Intelligence", body: "Visualise outbreak heatmaps, farm boundaries, and disease spread across districts on an interactive GIS-linked map.", icon: Map, color: P.info },
   { title: "Biosecurity & Compliance", sub: "Government-Ready Platform", body: "Automated pig and poultry biosecurity scoring, HPAI/ASF surveillance checklists, vaccination tracking, and compliance reporting aligned with national veterinary standards.", icon: CheckCircle, color: P.success }
 ];
-function OnboardingScreen({ onDone }) {
+function OnboardingScreen({ onDone, language, onLanguageChange }) {
   const [slide, setSlide] = useState(0);
   const s = slides[slide];
   const Icon = s.icon;
   return /* @__PURE__ */ jsxs("div", { className: "min-h-screen flex flex-col items-center justify-between p-8", style: { background: P.ivory, fontFamily: "Inter" }, children: [
-    /* @__PURE__ */ jsx("button", { onClick: onDone, className: "self-end text-sm font-medium px-4 py-2 rounded-lg", style: { color: P.olive, background: `${P.olive}12` }, children: "Skip" }),
+    /* @__PURE__ */ jsxs("div", { className: "w-full flex justify-between items-center", children: [
+      /* @__PURE__ */ jsx(LanguageToggle, { language, onChange: onLanguageChange }),
+      /* @__PURE__ */ jsx("button", { onClick: onDone, className: "self-end text-sm font-medium px-4 py-2 rounded-lg", style: { color: P.olive, background: `${P.olive}12` }, children: "Skip" })
+    ] }),
     /* @__PURE__ */ jsxs("div", { className: "flex flex-col items-center gap-8 flex-1 justify-center max-w-sm text-center", children: [
       /* @__PURE__ */ jsx("div", { className: "w-40 h-40 rounded-3xl flex items-center justify-center shadow-xl", style: { background: `linear-gradient(135deg, ${s.color}22, ${s.color}44)`, border: `1.5px solid ${s.color}33` }, children: /* @__PURE__ */ jsx(Icon, { className: "w-20 h-20", style: { color: s.color }, strokeWidth: 1.5 }) }),
       /* @__PURE__ */ jsxs("div", { children: [
@@ -523,7 +550,7 @@ function OnboardingScreen({ onDone }) {
     ] })
   ] });
 }
-function LoginScreen({ onLogin, onRegister }) {
+function LoginScreen({ onLogin, onRegister, language, onLanguageChange }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [selectedRole, setSelectedRole] = useState("farmer");
@@ -608,13 +635,14 @@ function LoginScreen({ onLogin, onRegister }) {
       ] }),
       /* @__PURE__ */ jsx("p", { className: "text-xs", style: { color: "rgba(255,255,255,0.3)" }, children: "\xA9 2025 BioSecure Farm \xB7 Ministry of Agriculture, India" })
     ] }),
-    /* @__PURE__ */ jsxs("div", { className: "flex flex-col justify-center p-8 lg:p-16 w-full lg:w-[480px]", children: [
+    /* @__PURE__ */ jsxs("div", { className: "relative flex flex-col justify-center p-8 lg:p-16 w-full lg:w-[480px]", children: [
+      /* @__PURE__ */ jsx("div", { className: "absolute top-6 right-8", children: /* @__PURE__ */ jsx(LanguageToggle, { language, onChange: onLanguageChange }) }),
       /* @__PURE__ */ jsxs("div", { className: "lg:hidden flex items-center gap-2 mb-8", children: [
         /* @__PURE__ */ jsx("img", { src: "/picsvg_download.png", alt: "BioSecure Farm", className: "w-6 h-6 rounded-md" }),
         /* @__PURE__ */ jsx("span", { className: "font-bold text-lg", style: { color: P.olive, fontFamily: "Poppins" }, children: "BioSecure Farm" })
       ] }),
-      /* @__PURE__ */ jsx("h1", { className: "text-2xl font-bold mb-1", style: { fontFamily: "Poppins", color: P.dark }, children: "Welcome back" }),
-      /* @__PURE__ */ jsx("p", { className: "text-sm mb-8", style: { color: P.mid }, children: "Sign in to your account to continue" }),
+      /* @__PURE__ */ jsx("h1", { className: "text-2xl font-bold mb-1", style: { fontFamily: "Poppins", color: P.dark }, children: UI_TEXT[language].welcome }),
+      /* @__PURE__ */ jsx("p", { className: "text-sm mb-8", style: { color: P.mid }, children: UI_TEXT[language].loginSub }),
       /* @__PURE__ */ jsx("div", { className: "grid grid-cols-4 gap-2 mb-6 p-1.5 rounded-xl", style: { background: P.ivoryDark }, children: roles.map((r) => {
         const Icon = r.icon;
         return /* @__PURE__ */ jsxs(
@@ -634,7 +662,7 @@ function LoginScreen({ onLogin, onRegister }) {
       /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-4", children: [
         /* Email field */
         jsxs("div", { children: [
-          jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: "Email Address" }),
+          jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: UI_TEXT[language].email }),
           jsx("input", {
             value: email, onChange: (e) => { setEmail(e.target.value); setFieldErrs(fe => ({ ...fe, email: "" })); },
             placeholder: "farmer@biosecure.gov.lk", type: "email",
@@ -646,7 +674,7 @@ function LoginScreen({ onLogin, onRegister }) {
         ] }),
         /* Password field */
         jsxs("div", { children: [
-          jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: "Password" }),
+          jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: UI_TEXT[language].password }),
           jsxs("div", { style: { position: "relative" }, children: [
             jsx("input", {
               value: password, onChange: (e) => { setPassword(e.target.value); setFieldErrs(fe => ({ ...fe, password: "" })); },
@@ -663,15 +691,15 @@ function LoginScreen({ onLogin, onRegister }) {
         jsxs("div", { className: "flex items-center justify-between text-xs", children: [
           jsxs("label", { className: "flex items-center gap-2 cursor-pointer", style: { color: P.mid }, children: [
             jsx("input", { type: "checkbox", style: { accentColor: P.olive } }),
-            "Remember me"
+            UI_TEXT[language].remember
           ] }),
-          jsx("button", { className: "font-medium", style: { color: P.olive }, children: "Forgot password?" })
+          jsx("button", { className: "font-medium", style: { color: P.olive }, children: UI_TEXT[language].forgot })
         ] }),
         error && jsx("p", { className: "text-xs text-center font-medium", style: { color: P.danger }, children: error }),
-        /* @__PURE__ */ jsx("button", { onClick: handleLogin, disabled: loading, className: "w-full py-3.5 rounded-xl font-semibold text-white text-sm mt-2", style: { background: `linear-gradient(135deg, ${P.olive}, ${P.oliveDark})`, opacity: loading ? 0.7 : 1 }, children: loading ? "Signing in…" : "Sign In" }),
+        /* @__PURE__ */ jsx("button", { onClick: handleLogin, disabled: loading, className: "w-full py-3.5 rounded-xl font-semibold text-white text-sm mt-2", style: { background: `linear-gradient(135deg, ${P.olive}, ${P.oliveDark})`, opacity: loading ? 0.7 : 1 }, children: loading ? `${UI_TEXT[language].signIn}…` : UI_TEXT[language].signIn }),
         /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
           /* @__PURE__ */ jsx("div", { className: "flex-1 h-px", style: { background: "#e0e0c0" } }),
-          /* @__PURE__ */ jsx("span", { className: "text-xs", style: { color: "#a0a080" }, children: "or" }),
+          /* @__PURE__ */ jsx("span", { className: "text-xs", style: { color: "#a0a080" }, children: UI_TEXT[language].or }),
           /* @__PURE__ */ jsx("div", { className: "flex-1 h-px", style: { background: "#e0e0c0" } })
         ] }),
         /* @__PURE__ */ jsx("button", { onClick: handleGoogle, className: "w-full py-3 rounded-xl text-sm font-medium border flex items-center justify-center gap-2", style: { borderColor: "#c8c8a0", color: P.dark }, children: [
@@ -681,11 +709,11 @@ function LoginScreen({ onLogin, onRegister }) {
             /* @__PURE__ */ jsx("path", { fill: "#FBBC05", d: "M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" }),
             /* @__PURE__ */ jsx("path", { fill: "#34A853", d: "M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" })
           ] }),
-          "Sign in with Google"
+          UI_TEXT[language].google
         ] }),
         /* @__PURE__ */ jsxs("p", { className: "text-center text-sm", style: { color: P.mid }, children: [
-          "Don't have an account? ",
-          /* @__PURE__ */ jsx("button", { onClick: onRegister, className: "font-semibold", style: { color: P.olive }, children: "Create account" })
+          `${UI_TEXT[language].noAccount} `,
+          /* @__PURE__ */ jsx("button", { onClick: onRegister, className: "font-semibold", style: { color: P.olive }, children: UI_TEXT[language].createAccount })
         ] })
       ] })
     ] })
@@ -725,7 +753,7 @@ const REG_ROLES = [
     fields: ["Department", "Designation", "Access Level", "Office Location"]
   }
 ];
-function RegisterScreen({ onBack, onSuccess }) {
+function RegisterScreen({ onBack, onSuccess, language, onLanguageChange }) {
   const [selectedRole, setSelectedRole] = useState("farmer");
   const [step, setStep] = useState(1);
   const [form, setForm] = useState({ firstName: "", lastName: "", email: "", phone: "", password: "", confirm: "", extra: {} });
@@ -831,9 +859,11 @@ function RegisterScreen({ onBack, onSuccess }) {
       /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between px-8 py-5 border-b", style: { borderColor: "rgba(128,128,52,0.1)" }, children: [
         /* @__PURE__ */ jsxs("button", { onClick: onBack, className: "flex items-center gap-2 text-sm font-medium", style: { color: P.mid }, children: [
           /* @__PURE__ */ jsx(ArrowLeft, { className: "w-4 h-4" }),
-          " Back to Login"
+          ` ${UI_TEXT[language].backLogin}`
         ] }),
-        /* @__PURE__ */ jsx("div", { className: "flex items-center gap-2", children: steps.map((s, i) => /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
+        /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-4", children: [
+          /* @__PURE__ */ jsx(LanguageToggle, { language, onChange: onLanguageChange }),
+          /* @__PURE__ */ jsx("div", { className: "flex items-center gap-2", children: steps.map((s, i) => /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
           /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-1.5", children: [
             /* @__PURE__ */ jsx(
               "div",
@@ -846,13 +876,14 @@ function RegisterScreen({ onBack, onSuccess }) {
             /* @__PURE__ */ jsx("span", { className: "text-xs font-medium hidden sm:block", style: { color: step === i + 1 ? role.color : P.light }, children: s })
           ] }),
           i < steps.length - 1 && /* @__PURE__ */ jsx("div", { className: "w-8 h-px", style: { background: step > i + 1 ? P.success : P.ivoryDark } })
-        ] }, s)) })
+          ] }, s)) })
+        ] })
       ] }),
       /* @__PURE__ */ jsx("div", { className: "flex-1 flex items-start justify-center py-10 px-6", children: /* @__PURE__ */ jsxs("div", { className: "w-full max-w-lg", children: [
         step === 1 && /* @__PURE__ */ jsxs("div", { className: "space-y-6", children: [
           /* @__PURE__ */ jsxs("div", { children: [
-            /* @__PURE__ */ jsx("h1", { className: "text-2xl font-bold mb-1", style: { fontFamily: "Poppins", color: P.dark }, children: "Create your account" }),
-            /* @__PURE__ */ jsx("p", { className: "text-sm", style: { color: P.mid }, children: "Enter your personal and login details below." })
+            /* @__PURE__ */ jsx("h1", { className: "text-2xl font-bold mb-1", style: { fontFamily: "Poppins", color: P.dark }, children: UI_TEXT[language].registerTitle }),
+            /* @__PURE__ */ jsx("p", { className: "text-sm", style: { color: P.mid }, children: UI_TEXT[language].registerSub })
           ] }),
           /* @__PURE__ */ jsxs("div", { className: "lg:hidden", children: [
             /* @__PURE__ */ jsx("p", { className: "text-xs font-semibold mb-2", style: { color: P.mid }, children: "Register as" }),
@@ -3094,6 +3125,11 @@ function App({
   const [screen, setScreen] = useState("splash");
   const [role, setRole] = useState("farmer");
   const [registrationNotice, setRegistrationNotice] = useState("");
+  const [language, setLanguage] = useState(() => window.localStorage.getItem("biosecure-language") || "en");
+  const changeLanguage = (nextLanguage) => {
+    setLanguage(nextLanguage);
+    window.localStorage.setItem("biosecure-language", nextLanguage);
+  };
 
   // If MongoDB data is already loaded (passed from AppWithData), go straight to dashboard
   if (mongoRole && mongoUser) {
@@ -3109,8 +3145,8 @@ function App({
   }
 
   if (screen === "splash") return /* @__PURE__ */ jsx(SplashScreen, { onDone: () => setScreen("onboarding") });
-  if (screen === "onboarding") return /* @__PURE__ */ jsx(OnboardingScreen, { onDone: () => setScreen("login") });
-  if (screen === "login") return /* @__PURE__ */ jsxs(Fragment, { children: [/* @__PURE__ */ jsx(LoginScreen, { onLogin: (r, user) => {
+  if (screen === "onboarding") return /* @__PURE__ */ jsx(OnboardingScreen, { onDone: () => setScreen("login"), language, onLanguageChange: changeLanguage });
+  if (screen === "login") return /* @__PURE__ */ jsxs(Fragment, { children: [/* @__PURE__ */ jsx(LoginScreen, { language, onLanguageChange: changeLanguage, onLogin: (r, user) => {
     setRole(r);
     if (onMongoLogin) {
       onMongoLogin(r, user);
@@ -3118,7 +3154,7 @@ function App({
       setScreen("dashboard");
     }
   }, onRegister: () => setScreen("register") }), registrationNotice && /* @__PURE__ */ jsx("div", { className: "fixed top-5 right-5 z-50 px-5 py-4 rounded-xl text-sm font-semibold text-white shadow-lg", style: { background: P.success }, children: registrationNotice })] });
-  if (screen === "register") return /* @__PURE__ */ jsx(RegisterScreen, { onBack: () => setScreen("login"), onSuccess: () => {
+  if (screen === "register") return /* @__PURE__ */ jsx(RegisterScreen, { language, onLanguageChange: changeLanguage, onBack: () => setScreen("login"), onSuccess: () => {
     setRegistrationNotice("Account created successfully");
     setScreen("login");
     window.setTimeout(() => setRegistrationNotice(""), 5000);

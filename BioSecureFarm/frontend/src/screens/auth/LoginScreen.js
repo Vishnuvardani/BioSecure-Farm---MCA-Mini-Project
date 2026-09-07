@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, KeyboardAvoidingV
 import { LinearGradient } from 'expo-linear-gradient';
 import { useAuth } from '../../context/AuthContext';
 import { Input, Button } from '../../components/UIComponents';
+import LanguageSwitcher from '../../components/LanguageSwitcher';
+import { useLanguage } from '../../context/LanguageContext';
 import { Colors, Spacing, FontSize, BorderRadius, Shadow } from '../../theme';
 
 export default function LoginScreen({ navigation }) {
@@ -10,15 +12,29 @@ export default function LoginScreen({ navigation }) {
   const [password, setPassword] = useState('');
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, loginWithGoogle } = useAuth();
+  const { t } = useLanguage();
 
   const handleLogin = async () => {
-    if (!email || !password) return Alert.alert('Error', 'Please fill all fields');
+    if (!email || !password) return Alert.alert(t.error, t.fillRequired);
     setLoading(true);
     try {
       await login(email.trim().toLowerCase(), password);
     } catch (err) {
-      Alert.alert('Login Failed', err.message);
+      Alert.alert(t.loginFailed, err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setLoading(true);
+    try {
+      await loginWithGoogle();
+    } catch (err) {
+      if (err.code !== 'auth/popup-closed-by-user' && err.code !== 'auth/cancelled-popup-request') {
+        Alert.alert(t.loginFailed, err.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -26,50 +42,53 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <LinearGradient colors={['#0D6EFD', '#0A58CA', '#1a6b3a']} style={styles.gradient} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
+      <View style={styles.languageRow}><LanguageSwitcher light /></View>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
           <View style={styles.logoSection}>
             <Text style={styles.logoEmoji}>🛡️</Text>
             <Text style={styles.appName}>BioSecure Farm</Text>
-            <Text style={styles.tagline}>AI & GIS Powered Livestock Management</Text>
+            <Text style={styles.tagline}>{t.appTagline}</Text>
           </View>
 
           <View style={styles.card}>
-            <Text style={styles.title}>Welcome Back</Text>
-            <Text style={styles.subtitle}>Sign in to your account</Text>
+            <Text style={styles.title}>{t.welcomeBack}</Text>
+            <Text style={styles.subtitle}>{t.signInToAccount}</Text>
 
             <Input
-              label="Email Address"
+              label={t.emailAddress}
               icon="mail-outline"
               value={email}
               onChangeText={setEmail}
-              placeholder="Enter your email"
+              placeholder={t.enterEmail}
               keyboardType="email-address"
               autoCapitalize="none"
             />
             <Input
-              label="Password"
+              label={t.password}
               icon="lock-closed-outline"
               value={password}
               onChangeText={setPassword}
-              placeholder="Enter your password"
+              placeholder={t.enterPassword}
               secureTextEntry={!showPass}
             />
 
             <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')} style={styles.forgotBtn}>
-              <Text style={styles.forgotText}>Forgot Password?</Text>
+              <Text style={styles.forgotText}>{t.forgotPassword}</Text>
             </TouchableOpacity>
 
-            <Button title="Sign In" onPress={handleLogin} loading={loading} icon="log-in-outline" style={{ marginTop: Spacing.sm }} />
+            <Button title={t.signIn} onPress={handleLogin} loading={loading} icon="log-in-outline" style={{ marginTop: Spacing.sm }} />
 
             <View style={styles.dividerRow}>
               <View style={styles.dividerLine} />
-              <Text style={styles.dividerText}>OR</Text>
+              <Text style={styles.dividerText}>{t.or}</Text>
               <View style={styles.dividerLine} />
             </View>
 
+            <Button title="Continue with Google" onPress={handleGoogleLogin} loading={loading} icon="logo-google" style={styles.googleBtn} />
+
             <View style={styles.roleHints}>
-              {[{ role: 'Farmer', emoji: '👨‍🌾' }, { role: 'Veterinarian', emoji: '👨‍⚕️' }, { role: 'Gov Officer', emoji: '🏛️' }, { role: 'Admin', emoji: '⚙️' }].map(r => (
+              {[{ role: t.farmer, emoji: '👨‍🌾' }, { role: t.veterinarian, emoji: '👨‍⚕️' }, { role: t.govOfficer, emoji: '🏛️' }, { role: t.admin, emoji: '⚙️' }].map(r => (
                 <View key={r.role} style={styles.roleChip}>
                   <Text style={styles.roleEmoji}>{r.emoji}</Text>
                   <Text style={styles.roleLabel}>{r.role}</Text>
@@ -78,7 +97,7 @@ export default function LoginScreen({ navigation }) {
             </View>
 
             <TouchableOpacity onPress={() => navigation.navigate('Register')} style={styles.registerBtn}>
-              <Text style={styles.registerText}>Don't have an account? <Text style={styles.registerLink}>Register</Text></Text>
+              <Text style={styles.registerText}>{t.noAccount} <Text style={styles.registerLink}>{t.register}</Text></Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -90,6 +109,7 @@ export default function LoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   gradient: { flex: 1 },
   container: { flexGrow: 1, justifyContent: 'center', padding: Spacing.lg },
+  languageRow: { position: 'absolute', top: 48, right: Spacing.lg, zIndex: 2 },
   logoSection: { alignItems: 'center', marginBottom: Spacing.xl },
   logoEmoji: { fontSize: 56, marginBottom: Spacing.sm },
   appName: { fontSize: FontSize.xxxl, fontWeight: '900', color: '#fff', letterSpacing: 1 },
@@ -108,5 +128,6 @@ const styles = StyleSheet.create({
   roleLabel: { fontSize: 10, color: Colors.textSecondary, marginTop: 2 },
   registerBtn: { alignItems: 'center', marginTop: Spacing.sm },
   registerText: { fontSize: FontSize.sm, color: Colors.textSecondary },
-  registerLink: { color: Colors.primary, fontWeight: '700' }
+  registerLink: { color: Colors.primary, fontWeight: '700' },
+  googleBtn: { backgroundColor: '#DB4437', marginBottom: Spacing.md }
 });

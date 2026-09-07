@@ -4,35 +4,38 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { authAPI } from '../../services/api';
 import { Input, Button } from '../../components/UIComponents';
+import LanguageSwitcher from '../../components/LanguageSwitcher';
+import { useLanguage } from '../../context/LanguageContext';
 import { Colors, Spacing, FontSize, BorderRadius, Shadow } from '../../theme';
 
 const ROLES = [
-  { value: 'farmer', label: 'Farmer', icon: '👨🌾', desc: 'Manage your farms & livestock' },
-  { value: 'veterinarian', label: 'Veterinarian', icon: '👨⚕️', desc: 'Diagnose & treat animals' },
-  { value: 'government_officer', label: 'Gov. Officer', icon: '🏛️', desc: 'Monitor & regulate farms' },
-  { value: 'admin', label: 'Admin', icon: '⚙️', desc: 'System administration' }
+  { value: 'farmer', labelKey: 'farmer', descKey: 'manageFarms', icon: '👨🌾' },
+  { value: 'veterinarian', labelKey: 'veterinarian', descKey: 'diagnoseAnimals', icon: '👨⚕️' },
+  { value: 'government_officer', labelKey: 'govOfficer', descKey: 'monitorFarms', icon: '🏛️' },
+  { value: 'admin', labelKey: 'admin', descKey: 'systemAdministration', icon: '⚙️' }
 ];
 
 export default function RegisterScreen({ navigation }) {
   const [form, setForm] = useState({ fullName: '', email: '', password: '', confirmPassword: '', mobile: '', role: '' });
   const [loading, setLoading] = useState(false);
+  const { t } = useLanguage();
 
   const set = (key, val) => setForm(p => ({ ...p, [key]: val }));
 
   const handleRegister = async () => {
     if (!form.fullName || !form.email || !form.password || !form.mobile || !form.role)
-      return Alert.alert('Error', 'Please fill all required fields');
+      return Alert.alert(t.error, t.fillRequired);
     if (form.password !== form.confirmPassword)
-      return Alert.alert('Error', 'Passwords do not match');
+      return Alert.alert(t.error, t.passwordsMismatch);
     if (form.password.length < 6)
-      return Alert.alert('Error', 'Password must be at least 6 characters');
+      return Alert.alert(t.error, t.passwordLength);
 
     setLoading(true);
     try {
       const res = await authAPI.register(form);
       navigation.navigate('OTP', { userId: res.userId, email: form.email, isRegister: true });
     } catch (err) {
-      Alert.alert('Registration Failed', err.message);
+      Alert.alert(t.registrationFailed, err.message);
     } finally {
       setLoading(false);
     }
@@ -45,18 +48,19 @@ export default function RegisterScreen({ navigation }) {
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
             <Ionicons name="arrow-back" size={24} color="#fff" />
           </TouchableOpacity>
+          <View style={styles.languageRow}><LanguageSwitcher light /></View>
 
-          <Text style={styles.heading}>Create Account</Text>
-          <Text style={styles.subheading}>Join BioSecure Farm today</Text>
+          <Text style={styles.heading}>{t.createAccount}</Text>
+          <Text style={styles.subheading}>{t.joinToday}</Text>
 
           <View style={styles.card}>
-            <Input label="Full Name *" icon="person-outline" value={form.fullName} onChangeText={v => set('fullName', v)} placeholder="Enter your full name" />
-            <Input label="Email Address *" icon="mail-outline" value={form.email} onChangeText={v => set('email', v)} placeholder="Enter your email" keyboardType="email-address" autoCapitalize="none" />
-            <Input label="Mobile Number *" icon="call-outline" value={form.mobile} onChangeText={v => set('mobile', v)} placeholder="+91 XXXXX XXXXX" keyboardType="phone-pad" />
-            <Input label="Password *" icon="lock-closed-outline" value={form.password} onChangeText={v => set('password', v)} placeholder="Min 6 characters" secureTextEntry />
-            <Input label="Confirm Password *" icon="lock-closed-outline" value={form.confirmPassword} onChangeText={v => set('confirmPassword', v)} placeholder="Re-enter password" secureTextEntry />
+            <Input label={t.fullName} icon="person-outline" value={form.fullName} onChangeText={v => set('fullName', v)} placeholder={t.enterFullName} />
+            <Input label={`${t.emailAddress} *`} icon="mail-outline" value={form.email} onChangeText={v => set('email', v)} placeholder={t.enterEmail} keyboardType="email-address" autoCapitalize="none" />
+            <Input label={t.mobileNumber} icon="call-outline" value={form.mobile} onChangeText={v => set('mobile', v)} placeholder={t.mobilePlaceholder} keyboardType="phone-pad" />
+            <Input label={`${t.password} *`} icon="lock-closed-outline" value={form.password} onChangeText={v => set('password', v)} placeholder={t.minPassword} secureTextEntry />
+            <Input label={t.confirmPassword} icon="lock-closed-outline" value={form.confirmPassword} onChangeText={v => set('confirmPassword', v)} placeholder={t.reenterPassword} secureTextEntry />
 
-            <Text style={styles.roleLabel}>Select Role *</Text>
+            <Text style={styles.roleLabel}>{t.selectRole}</Text>
             <View style={styles.rolesGrid}>
               {ROLES.map(r => (
                 <TouchableOpacity
@@ -65,8 +69,8 @@ export default function RegisterScreen({ navigation }) {
                   onPress={() => set('role', r.value)}
                 >
                   <Text style={styles.roleIcon}>{r.icon}</Text>
-                  <Text style={[styles.roleName, form.role === r.value && styles.roleNameActive]}>{r.label}</Text>
-                  <Text style={styles.roleDesc}>{r.desc}</Text>
+                  <Text style={[styles.roleName, form.role === r.value && styles.roleNameActive]}>{t[r.labelKey]}</Text>
+                  <Text style={styles.roleDesc}>{t[r.descKey]}</Text>
                   {form.role === r.value && (
                     <View style={styles.checkmark}>
                       <Ionicons name="checkmark-circle" size={20} color={Colors.primary} />
@@ -76,10 +80,10 @@ export default function RegisterScreen({ navigation }) {
               ))}
             </View>
 
-            <Button title="Create Account" onPress={handleRegister} loading={loading} icon="person-add-outline" style={{ marginTop: Spacing.md }} />
+            <Button title={t.createAccount} onPress={handleRegister} loading={loading} icon="person-add-outline" style={{ marginTop: Spacing.md }} />
 
             <TouchableOpacity onPress={() => navigation.navigate('Login')} style={styles.loginBtn}>
-              <Text style={styles.loginText}>Already have an account? <Text style={styles.loginLink}>Sign In</Text></Text>
+              <Text style={styles.loginText}>{t.haveAccount} <Text style={styles.loginLink}>{t.signIn}</Text></Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -91,6 +95,7 @@ export default function RegisterScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: { flexGrow: 1, padding: Spacing.lg, paddingTop: 60 },
   backBtn: { marginBottom: Spacing.md },
+  languageRow: { position: 'absolute', top: 60, right: Spacing.lg },
   heading: { fontSize: FontSize.xxxl, fontWeight: '900', color: '#fff' },
   subheading: { fontSize: FontSize.sm, color: 'rgba(255,255,255,0.8)', marginBottom: Spacing.lg },
   card: { backgroundColor: 'rgba(255,255,255,0.97)', borderRadius: BorderRadius.xl, padding: Spacing.xl, ...Shadow.lg },
