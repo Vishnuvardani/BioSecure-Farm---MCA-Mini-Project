@@ -110,7 +110,7 @@ app.post("/api/auth/register", async (req, res) => {
 
 app.put("/api/users/:id", async (req, res) => {
   try {
-    const allowed = ["name", "firstName", "lastName", "phone", "extra", "location"];
+    const allowed = ["name", "email", "firstName", "lastName", "phone", "extra", "location"];
     const updates = Object.fromEntries(Object.entries(req.body).filter(([key]) => allowed.includes(key)));
     if (updates.name) {
       const names = updates.name.trim().split(/\s+/);
@@ -714,6 +714,7 @@ app.post("/api/disease/report", async (req, res) => {
     const doc = {
       reportId, farmId: body.farmId, farmerId: body.farmerId,
       animalType: body.animalType, suspectedDisease: body.suspectedDisease,
+      otherDisease: body.otherDisease || "",
       symptoms: body.symptoms || [], affectedAnimals: Number(body.affectedAnimals) || 0,
       deaths: Number(body.deaths) || 0, symptomStartDate: body.symptomStartDate,
       severity: body.severity, remarks: body.remarks || "",

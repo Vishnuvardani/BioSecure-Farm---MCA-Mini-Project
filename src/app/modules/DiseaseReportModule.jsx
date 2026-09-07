@@ -96,6 +96,7 @@ function ReportDetailModal({ report, onClose }) {
           ["Farm ID", report.farmId],
           ["Animal Type", report.animalType],
           ["Suspected Disease", report.suspectedDisease],
+          ...(report.suspectedDisease === "Other" && report.otherDisease ? [["If other, mention", report.otherDisease]] : []),
           ["Affected Animals", report.affectedAnimals],
           ["Deaths", report.deaths],
           ["Severity", report.severity],
@@ -141,7 +142,7 @@ function ReportDetailModal({ report, onClose }) {
 
 export default function DiseaseReportModule({ farms = [], user }) {
   const [tab, setTab] = useState("report");
-  const [form, setForm] = useState({ farmId: "", animalType: "", suspectedDisease: "", symptoms: [], affectedAnimals: "", deaths: "", symptomStartDate: "", severity: "", remarks: "", latitude: "", longitude: "" });
+  const [form, setForm] = useState({ farmId: "", animalType: "", suspectedDisease: "", otherDisease: "", symptoms: [], affectedAnimals: "", deaths: "", symptomStartDate: "", severity: "", remarks: "", latitude: "", longitude: "" });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(null);
   const [reports, setReports] = useState([]);
@@ -182,7 +183,7 @@ export default function DiseaseReportModule({ farms = [], user }) {
       const payload = { ...form, farmerId: user?.userId || "unknown", affectedAnimals: Number(form.affectedAnimals) || 0, deaths: Number(form.deaths) || 0, latitude: Number(form.latitude) || 0, longitude: Number(form.longitude) || 0 };
       const res = await submitDiseaseReport(payload);
       setSubmitted(res);
-      setForm({ farmId: "", animalType: "", suspectedDisease: "", symptoms: [], affectedAnimals: "", deaths: "", symptomStartDate: "", severity: "", remarks: "", latitude: "", longitude: "" });
+      setForm({ farmId: "", animalType: "", suspectedDisease: "", otherDisease: "", symptoms: [], affectedAnimals: "", deaths: "", symptomStartDate: "", severity: "", remarks: "", latitude: "", longitude: "" });
     } catch (e) {
       setError("Submission failed: " + e.message);
     } finally { setSubmitting(false); }
@@ -248,7 +249,7 @@ export default function DiseaseReportModule({ farms = [], user }) {
                 <label style={{ fontSize: 12, fontWeight: 600, color: P.gray, display: "block", marginBottom: 6 }}>Animal Type *</label>
                 <div style={{ display: "flex", gap: 8 }}>
                   {["Pig", "Poultry"].map(t => (
-                    <button key={t} onClick={() => setForm(f => ({ ...f, animalType: t, suspectedDisease: "", symptoms: [] }))}
+                    <button key={t} onClick={() => setForm(f => ({ ...f, animalType: t, suspectedDisease: "", otherDisease: "", symptoms: [] }))}
                       style={{ flex: 1, padding: "10px", borderRadius: 10, border: `2px solid ${form.animalType === t ? P.olive : "#e5e7eb"}`, background: form.animalType === t ? P.olive + "18" : P.white, cursor: "pointer", fontSize: 13, fontWeight: 600, color: form.animalType === t ? P.olive : P.gray }}>
                       {t === "Pig" ? "🐷 Pig" : "🐔 Poultry"}
                     </button>
@@ -259,12 +260,20 @@ export default function DiseaseReportModule({ farms = [], user }) {
               {/* Disease */}
               <div>
                 <label style={{ fontSize: 12, fontWeight: 600, color: P.gray, display: "block", marginBottom: 6 }}>Suspected Disease *</label>
-                <select value={form.suspectedDisease} onChange={e => setForm(f => ({ ...f, suspectedDisease: e.target.value }))}
+                <select value={form.suspectedDisease} onChange={e => setForm(f => ({ ...f, suspectedDisease: e.target.value, otherDisease: e.target.value === "Other" ? f.otherDisease : "" }))}
                   style={{ width: "100%", padding: "10px 12px", borderRadius: 10, border: `1.5px solid ${form.suspectedDisease ? P.red : "#e5e7eb"}`, fontSize: 13, color: P.dark, background: P.white, outline: "none" }}>
                   <option value="">Select disease...</option>
                   {diseases.map(d => <option key={d} value={d}>{d}</option>)}
                 </select>
               </div>
+
+              {form.suspectedDisease === "Other" && (
+                <div>
+                  <label style={{ fontSize: 12, fontWeight: 600, color: P.gray, display: "block", marginBottom: 6 }}>If other, mention:</label>
+                  <input value={form.otherDisease} onChange={e => setForm(f => ({ ...f, otherDisease: e.target.value }))}
+                    placeholder="Mention the suspected disease" style={{ width: "100%", padding: "10px 12px", borderRadius: 10, border: "1.5px solid #e5e7eb", fontSize: 13, color: P.dark, outline: "none", boxSizing: "border-box" }} />
+                </div>
+              )}
 
               {/* Severity */}
               <div>
@@ -300,19 +309,6 @@ export default function DiseaseReportModule({ farms = [], user }) {
                   style={{ width: "100%", padding: "10px 12px", borderRadius: 10, border: "1.5px solid #e5e7eb", fontSize: 13, color: P.dark, outline: "none", boxSizing: "border-box" }} />
               </div>
 
-              {/* Location */}
-              <div>
-                <label style={{ fontSize: 12, fontWeight: 600, color: P.gray, display: "block", marginBottom: 6 }}>Farm Location</label>
-                <div style={{ display: "flex", gap: 6 }}>
-                  <input value={form.latitude} onChange={e => setForm(f => ({ ...f, latitude: e.target.value }))} placeholder="Latitude"
-                    style={{ flex: 1, padding: "10px 10px", borderRadius: 10, border: "1.5px solid #e5e7eb", fontSize: 12, color: P.dark, outline: "none" }} />
-                  <input value={form.longitude} onChange={e => setForm(f => ({ ...f, longitude: e.target.value }))} placeholder="Longitude"
-                    style={{ flex: 1, padding: "10px 10px", borderRadius: 10, border: "1.5px solid #e5e7eb", fontSize: 12, color: P.dark, outline: "none" }} />
-                  <button onClick={getLocation} style={{ padding: "10px 12px", borderRadius: 10, background: P.blueBg, border: "none", cursor: "pointer" }} title="Get current location">
-                    <MapPin size={14} color={P.blue} />
-                  </button>
-                </div>
-              </div>
             </div>
 
             {/* Symptoms */}

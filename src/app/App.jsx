@@ -726,7 +726,7 @@ const REG_ROLES = [
     subtitle: "Pig & Poultry Farm Owner",
     icon: Leaf,
     color: P.olive,
-    fields: ["Farm Name", "Farm Registration No.", "Farm Type", "Total Animals (approx.)", "District", "Village / Address"]
+    fields: ["Farm Name", "Farm Type", "Number of Farms"]
   },
   {
     id: "veterinarian",
@@ -1714,6 +1714,7 @@ function NotificationsPage() {
 function LiveProfilePage({ role, user }) {
   const [form, setForm] = useState({
     name: user?.name || user?.fullName || "",
+    email: user?.email || "",
     phone: user?.phone || user?.mobile || "",
     extra: user?.extra || {},
     location: user?.location || null,
@@ -1721,12 +1722,14 @@ function LiveProfilePage({ role, user }) {
   const [editing, setEditing] = useState(false);
   const [status, setStatus] = useState("");
   const roleFields = {
-    farmer: ["Farm Name", "Farm Registration No.", "Farm Type", "Total Animals (approx.)", "District", "Village / Address"],
+    farmer: ["Farm Name", "Farm Registration No.", "Farm Type", "Total Animals (approx.)", "District", "Village / Address", "Number of Farms"],
     veterinarian: ["Vet Licence No.", "Specialisation", "Employer / Clinic Name", "Service District(s)", "Years of Experience"],
     government: ["Employee ID", "Department / Ministry", "Designation", "District / Division", "Official Email Domain"],
     admin: ["Department", "Designation", "Access Level", "Office Location"],
   };
   const fields = roleFields[role] || roleFields.farmer;
+  const isFarmer = role === "farmer";
+  const farmerEditableFields = new Set(["Farm Name", "Farm Type", "Number of Farms"]);
   const initials = form.name.split(/\s+/).filter(Boolean).map((part) => part[0]).join("").slice(0, 2).toUpperCase() || "U";
   const setExtra = (key, value) => setForm((current) => ({ ...current, extra: { ...current.extra, [key]: value } }));
   const refreshLocation = () => navigator.geolocation?.getCurrentPosition((position) => setForm((current) => ({ ...current, location: { latitude: position.coords.latitude, longitude: position.coords.longitude } })));
@@ -1758,16 +1761,16 @@ function LiveProfilePage({ role, user }) {
         ["Full Name", "name", User], ["Email Address", "email", Mail], ["Phone Number", "phone", Phone]
       ].map(([label, key, Icon]) => /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: label }),
-        editing && key !== "email" ? /* @__PURE__ */ jsx("input", { value: form[key], onChange: (event) => setForm((current) => ({ ...current, [key]: event.target.value })), className: "w-full px-4 py-3 rounded-xl text-sm outline-none", style: { background: P.ivoryDark, color: P.dark } }) : /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3 px-4 py-3 rounded-xl", style: { background: P.ivoryDark }, children: [/* @__PURE__ */ jsx(Icon, { className: "w-4 h-4", style: { color: P.mid } }), /* @__PURE__ */ jsx("span", { className: "text-sm", style: { color: P.dark }, children: key === "email" ? user?.email || "" : form[key] })] })
+        editing && (isFarmer || key !== "email") ? /* @__PURE__ */ jsx("input", { value: form[key], onChange: (event) => setForm((current) => ({ ...current, [key]: event.target.value })), className: "w-full px-4 py-3 rounded-xl text-sm outline-none", style: { background: P.ivoryDark, color: P.dark } }) : /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3 px-4 py-3 rounded-xl", style: { background: P.ivoryDark }, children: [/* @__PURE__ */ jsx(Icon, { className: "w-4 h-4", style: { color: P.mid } }), /* @__PURE__ */ jsx("span", { className: "text-sm", style: { color: P.dark }, children: form[key] || user?.email || "" })] })
       ] }, label)) }),
       /* @__PURE__ */ jsx("h3", { className: "font-semibold text-sm mt-6 mb-4", style: { fontFamily: "Poppins", color: P.dark }, children: "Role Details" }),
       /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: fields.map((field) => /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: field }),
-        editing ? /* @__PURE__ */ jsx("input", { value: form.extra[field] || "", onChange: (event) => setExtra(field, event.target.value), className: "w-full px-4 py-3 rounded-xl text-sm outline-none", style: { background: P.ivoryDark, color: P.dark } }) : /* @__PURE__ */ jsx("div", { className: "px-4 py-3 rounded-xl text-sm", style: { background: P.ivoryDark, color: P.dark }, children: form.extra[field] || "Not provided" })
+        editing && (!isFarmer || farmerEditableFields.has(field)) ? /* @__PURE__ */ jsx("input", { value: form.extra[field] || "", onChange: (event) => setExtra(field, event.target.value), className: "w-full px-4 py-3 rounded-xl text-sm outline-none", style: { background: P.ivoryDark, color: P.dark } }) : /* @__PURE__ */ jsx("div", { className: "px-4 py-3 rounded-xl text-sm", style: { background: P.ivoryDark, color: P.dark }, children: form.extra[field] || "Not provided" })
       ] }, field)) }),
       /* @__PURE__ */ jsxs("div", { className: "mt-4", children: [
         /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: "Location" }),
-        editing ? /* @__PURE__ */ jsxs("div", { className: "flex gap-2", children: [
+        editing && !isFarmer ? /* @__PURE__ */ jsxs("div", { className: "flex gap-2", children: [
           /* @__PURE__ */ jsx("input", { type: "number", step: "any", value: form.location?.latitude ?? "", onChange: (event) => setForm((current) => ({ ...current, location: { ...(current.location || {}), latitude: event.target.value } })), placeholder: "Latitude", className: "min-w-0 flex-1 px-3 py-3 rounded-xl text-sm outline-none", style: { background: P.ivoryDark, color: P.dark } }),
           /* @__PURE__ */ jsx("input", { type: "number", step: "any", value: form.location?.longitude ?? "", onChange: (event) => setForm((current) => ({ ...current, location: { ...(current.location || {}), longitude: event.target.value } })), placeholder: "Longitude", className: "min-w-0 flex-1 px-3 py-3 rounded-xl text-sm outline-none", style: { background: P.ivoryDark, color: P.dark } }),
           /* @__PURE__ */ jsx("button", { type: "button", onClick: refreshLocation, title: "Detect current location", className: "px-3 rounded-xl", style: { background: P.olive, color: "#fff" }, children: /* @__PURE__ */ jsx(MapPin, { className: "w-4 h-4" }) })
@@ -1779,12 +1782,8 @@ function LiveProfilePage({ role, user }) {
     /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-2 gap-6", children: [
       /* @__PURE__ */ jsxs(Card, { className: "p-6", children: [
         /* @__PURE__ */ jsx("h3", { className: "font-semibold text-sm mb-4", style: { fontFamily: "Poppins", color: P.dark }, children: "Security" }),
-        [["Change Password", Lock], ["Two-Factor Authentication", Shield], ["Login Activity", Eye]].map(([label, Icon]) => /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between py-3", style: { borderBottom: `1px solid ${P.ivoryDark}` }, children: [/* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [/* @__PURE__ */ jsx(Icon, { className: "w-4 h-4", style: { color: P.mid } }), /* @__PURE__ */ jsx("span", { className: "text-sm", style: { color: P.dark }, children: label })] }), /* @__PURE__ */ jsx(ChevronRight, { className: "w-4 h-4", style: { color: P.light } })] }, label))
+        [["Change Password", Lock]].map(([label, Icon]) => /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between py-3", style: { borderBottom: `1px solid ${P.ivoryDark}` }, children: [/* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [/* @__PURE__ */ jsx(Icon, { className: "w-4 h-4", style: { color: P.mid } }), /* @__PURE__ */ jsx("span", { className: "text-sm", style: { color: P.dark }, children: label })] }), /* @__PURE__ */ jsx(ChevronRight, { className: "w-4 h-4", style: { color: P.light } })] }, label))
       ] }),
-      /* @__PURE__ */ jsxs(Card, { className: "p-6", children: [
-        /* @__PURE__ */ jsx("h3", { className: "font-semibold text-sm mb-4", style: { fontFamily: "Poppins", color: P.dark }, children: "Notifications Settings" }),
-        [["Disease Alerts", true], ["Vaccination Reminders", true], ["GIS Updates", false], ["Government Advisories", true], ["AI Recommendations", true]].map(([label, enabled]) => /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between py-3", style: { borderBottom: `1px solid ${P.ivoryDark}` }, children: [/* @__PURE__ */ jsx("span", { className: "text-sm", style: { color: P.dark }, children: label }), /* @__PURE__ */ jsx("div", { className: "w-10 h-5.5 rounded-full flex items-center", style: { background: enabled ? P.olive : "#c8c8a0", padding: "2px" }, children: /* @__PURE__ */ jsx("div", { className: "w-4 h-4 rounded-full bg-white", style: { transform: enabled ? "translateX(18px)" : "translateX(0)" } }) })] }, label))
-      ] })
     ] })
   ] });
 }
