@@ -14,7 +14,7 @@ const MONGO_URI = "mongodb://127.0.0.1:27017";
 const DB_NAME   = "biosecure_db";
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));
 
 let db;
 
@@ -641,6 +641,7 @@ app.post("/api/biosecurity/assessment", async (req, res) => {
       assessmentId, farmId: body.farmId, farmerId: body.farmerId,
       assessmentDate: new Date().toISOString(), farmType: body.farmType || "Mixed",
       ...ASSESSMENT_PARAMS.reduce((o,k) => ({ ...o, [k]: Number(body[k]) || 0 }), {}),
+      evidence: body.evidence || {},
       overallScore, riskLevel, recommendations, strengths, weakAreas,
       createdAt: new Date(), updatedAt: new Date()
     };
@@ -658,7 +659,7 @@ app.post("/api/biosecurity/assessment", async (req, res) => {
         { ...notifBase, notificationId: "N-" + Date.now() + "-gov",  targetRole: "Government Officer" },
       ]);
     }
-    res.status(201).json({ success: true, assessmentId, overallScore, riskLevel, recommendations, strengths, weakAreas });
+    res.status(201).json({ success: true, assessmentId, overallScore, riskLevel, recommendations, strengths, weakAreas, evidence: body.evidence || {} });
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 

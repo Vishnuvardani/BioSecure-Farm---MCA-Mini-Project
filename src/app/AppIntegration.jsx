@@ -24,6 +24,7 @@ import NotificationSystemModule    from "./modules/NotificationSystemModule";
 import VetInspectionModule         from "./modules/VetInspectionModule";
 import VetAssignedFarmsModule      from "./modules/VetAssignedFarmsModule";
 import VeterinaryAppointmentsModule from "./modules/VeterinaryAppointmentsModule";
+import AIAssistantModule from "./modules/AIAssistantModule";
 
 // ── Palette (matches App.jsx) ─────────────────────────────────────────────
 const P = {
@@ -125,6 +126,9 @@ function renderNewModule(module, farms, user, role) {
       return <NotificationSystemModule user={user} role={ROLE_LABELS[role]} />;
     case "Vet Inspection":
       return <VetInspectionModule user={user} />;
+    case "AI Assistant":
+    case "AI Recommendation":
+      return <AIAssistantModule user={user} onNavigate={module => {}} />;
     default:
       return null;
   }
@@ -132,7 +136,7 @@ function renderNewModule(module, farms, user, role) {
 
 const NEW_MODULES = new Set([
   "Biosecurity Assessment", "Disease Report", "Outbreak Map", "Assigned Farms", "Find Veterinarian", "Appointment Requests",
-  "Notifications", "Vet Inspection"
+  "Notifications", "Vet Inspection", "AI Assistant", "AI Recommendation"
 ]);
 
 // ── Sidebar ───────────────────────────────────────────────────────────────

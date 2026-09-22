@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Shield, CheckCircle, AlertTriangle, Clock, TrendingUp, Award, AlertCircle, ChevronDown, ChevronUp } from "lucide-react";
+import { Shield, CheckCircle, AlertTriangle, Clock, TrendingUp, Award, AlertCircle, ChevronDown, ChevronUp, Upload, X } from "lucide-react";
 import { submitBiosecurityAssessment, getBiosecurityHistory } from "../../api/mongoService";
 import { formatDate } from "../../utils/dateTime";
 
@@ -70,8 +70,20 @@ function ScoreGauge({ score }) {
   );
 }
 
-function QuestionCard({ q, value, onChange, index }) {
+function QuestionCard({ q, value, evidence, onChange, onEvidenceChange, index }) {
   const selected = OPTIONS.find(o => o.value === value);
+
+  const handleEvidenceChange = event => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) return;
+    if (file.size > 500 * 1024) return;
+    const reader = new FileReader();
+    reader.onload = () => onEvidenceChange(q.key, { name: file.name, dataUrl: reader.result });
+    reader.readAsDataURL(file);
+    event.target.value = "";
+  };
+
   return (
     <div style={{ background: P.white, borderRadius: 14, border: `1.5px solid ${value !== undefined ? P.olive + "40" : "#e5e7eb"}`, padding: "14px 18px", marginBottom: 10 }}>
       <div style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 10 }}>
@@ -95,6 +107,24 @@ function QuestionCard({ q, value, onChange, index }) {
             {opt.label}
           </button>
         ))}
+      </div>
+      <div style={{ marginTop: 10, paddingTop: 10, borderTop: "1px solid #f3f4f6" }}>
+        <input id={`evidence-${q.key}`} type="file" accept="image/*" onChange={handleEvidenceChange} style={{ display: "none" }} />
+        {evidence ? (
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <img src={evidence.dataUrl} alt={`${q.label} evidence`} style={{ width: 44, height: 44, objectFit: "cover", borderRadius: 8, border: "1px solid #e5e7eb" }} />
+            <span style={{ flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontSize: 11, color: P.gray }}>{evidence.name}</span>
+            <button type="button" onClick={() => onEvidenceChange(q.key, null)} aria-label={`Remove evidence for ${q.label}`} style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 28, height: 28, border: "none", borderRadius: 8, background: P.redBg, color: P.red, cursor: "pointer" }}>
+              <X size={14} />
+            </button>
+          </div>
+        ) : (
+          <label htmlFor={`evidence-${q.key}`} style={{ display: "inline-flex", alignItems: "center", gap: 6, color: P.olive, fontSize: 11, fontWeight: 600, cursor: "pointer" }}>
+            <Upload size={14} />
+            Add image evidence
+          </label>
+        )}
+        <p style={{ fontSize: 10, color: P.gray, margin: "5px 0 0" }}>Optional image, up to 500 KB</p>
       </div>
     </div>
   );
@@ -127,6 +157,7 @@ function ResultCard({ result, onReset }) {
                 <div style={{ height: 6, borderRadius: 4, background: "#e5e7eb" }}>
                   <div style={{ height: "100%", borderRadius: 4, width: `${(s / 4) * 100}%`, background: col }} />
                 </div>
+                {result.evidence?.[q.key] && <a href={result.evidence[q.key].dataUrl} target="_blank" rel="noreferrer" style={{ fontSize: 10, color: P.blue }}>View evidence</a>}
               </div>
             );
           })}
@@ -209,6 +240,7 @@ function HistoryPanel({ history }) {
 export default function BiosecurityAssessmentModule({ farms = [], user }) {
   const [selectedFarm, setSelectedFarm] = useState("");
   const [scores, setScores] = useState({});
+  const [evidence, setEvidence] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState(null);
   const [history, setHistory] = useState([]);
@@ -233,10 +265,11 @@ export default function BiosecurityAssessmentModule({ farms = [], user }) {
         farmId: selectedFarm,
         farmerId: user?.userId || "unknown",
         farmType: farms.find(f => f.farmId === selectedFarm)?.farmType || "Mixed",
+        evidence,
         ...scores,
       };
       const res = await submitBiosecurityAssessment(payload);
-      setResult({ ...res, ...scores });
+      setResult({ ...res, ...scores, evidence });
     } catch (e) {
       setError("Submission failed: " + e.message);
     } finally {
@@ -244,7 +277,7 @@ export default function BiosecurityAssessmentModule({ farms = [], user }) {
     }
   };
 
-  if (result) return <div style={{ padding: "0 0 40px" }}><ResultCard result={result} onReset={() => { setResult(null); setScores({}); }} /></div>;
+  if (result) return <div style={{ padding: "0 0 40px" }}><ResultCard result={result} onReset={() => { setResult(null); setScores({}); setEvidence({}); }} /></div>;
 
   return (
     <div style={{ fontFamily: "Inter", maxWidth: 800, margin: "0 auto" }}>
@@ -289,7 +322,9 @@ export default function BiosecurityAssessmentModule({ farms = [], user }) {
 
       {/* Questions */}
       {QUESTIONS.map((q, i) => (
-        <QuestionCard key={q.key} q={q} value={scores[q.key]} onChange={(k, v) => setScores(s => ({ ...s, [k]: v }))} index={i} />
+        <QuestionCard key={q.key} q={q} value={scores[q.key]} evidence={evidence[q.key]}
+          onChange={(k, v) => setScores(s => ({ ...s, [k]: v }))}
+          onEvidenceChange={(k, v) => setEvidence(s => ({ ...s, [k]: v }))} index={i} />
       ))}
 
       {/* Risk Legend */}
