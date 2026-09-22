@@ -198,7 +198,12 @@ function Sidebar({ role, activeModule, onNavigate, onLogout, user, sidebarOpen, 
 }
 
 // ── Topbar ────────────────────────────────────────────────────────────────
-function Topbar({ activeModule, onLogout }) {
+function Topbar({ activeModule, onLogout, language = "en" }) {
+  const changeLanguage = nextLanguage => {
+    window.localStorage.setItem("biosecure-language", nextLanguage);
+    window.dispatchEvent(new CustomEvent("biosecure-language-change", { detail: nextLanguage }));
+  };
+
   return (
     <div style={{ position: "sticky", top: 0, zIndex: 10, display: "flex", alignItems: "center", gap: 16, padding: "10px 24px", background: "rgba(255,255,227,0.92)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(128,128,52,0.1)" }}>
       <div>
@@ -208,6 +213,10 @@ function Topbar({ activeModule, onLogout }) {
         <p style={{ fontSize: 11, color: P.mid, margin: 0 }}>{formatDate(new Date(), { weekday: "long", month: "long", day: "numeric" })}</p>
       </div>
       <div style={{ flex: 1 }} />
+      <div style={{ display: "flex", alignItems: "center", gap: 4, padding: 3, borderRadius: 8, background: P.ivoryDark }} aria-label="Language">
+        <button type="button" onClick={() => changeLanguage("en")} style={{ border: "none", borderRadius: 6, padding: "5px 8px", cursor: "pointer", fontSize: 11, fontWeight: 700, background: language === "en" ? P.olive : "transparent", color: language === "en" ? P.white : P.mid }}>English</button>
+        <button type="button" onClick={() => changeLanguage("ta")} style={{ border: "none", borderRadius: 6, padding: "5px 8px", cursor: "pointer", fontSize: 11, fontWeight: 700, background: language === "ta" ? P.olive : "transparent", color: language === "ta" ? P.white : P.mid }}>தமிழ்</button>
+      </div>
       <button onClick={onLogout} title="Log out" style={{ display: "flex", alignItems: "center", gap: 7, padding: "8px 12px", border: "1px solid rgba(128,128,52,0.2)", borderRadius: 10, background: P.ivoryDark, color: P.mid, cursor: "pointer", fontSize: 12, fontWeight: 600 }}>
         <LogOut size={14} />
         Logout
@@ -217,7 +226,7 @@ function Topbar({ activeModule, onLogout }) {
 }
 
 // ── Main IntegratedDashboard ──────────────────────────────────────────────
-export function IntegratedDashboard({ role, user, farms, onLogout, renderLegacyPage }) {
+export function IntegratedDashboard({ role, user, farms, onLogout, renderLegacyPage, language = "en" }) {
   const [activeModule, setActiveModule] = useState("Dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
@@ -231,7 +240,7 @@ export function IntegratedDashboard({ role, user, farms, onLogout, renderLegacyP
         user={user} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}
       />
       <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-        <Topbar activeModule={activeModule} onLogout={onLogout} />
+        <Topbar activeModule={activeModule} onLogout={onLogout} language={language} />
         <div style={{ flex: 1, overflowY: "auto", padding: 24 }}>
           {isNewModule
             ? renderNewModule(activeModule, farms || [], user, role)

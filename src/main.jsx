@@ -1,8 +1,9 @@
 import { createRoot } from "react-dom/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DataProvider, useData } from "./context/DataContext";
 import App, { renderPage } from "./app/App.jsx";
 import { IntegratedDashboard } from "./app/AppIntegration.jsx";
+import { installBilingualText } from "./utils/bilingualText";
 import "./styles/index.css";
 
 const ROLE_MAP = {
@@ -58,7 +59,10 @@ function ErrorScreen({ error, onRetry }) {
 }
 
 // ── DataConsumer ──────────────────────────────────────────────────────────
-function DataConsumer({ mongoRole, onLogout }) {
+const SESSION_KEY = "biosecure-session";
+const SESSION_TTL = 24 * 60 * 60 * 1000;
+
+function DataConsumer({ mongoRole, onLogout, language }) {
   const { user, farms, livestock, vaccinations, diseases, biosecurity,
           vetReports, alerts, gisLocations, notifications, analytics,
           allUsers, loading, error, reload } = useData();
@@ -70,7 +74,7 @@ function DataConsumer({ mongoRole, onLogout }) {
 
   // renderLegacyPage delegates to App's renderPage function
   const renderLegacyPage = (role, page) =>
-    renderPage(role, page, user, { farms, livestock, vaccinations, alerts, biosecurity });
+    renderPage(role, page, user, { farms, livestock, vaccinations, alerts, biosecurity }, language);
 
   return (
     <IntegratedDashboard
@@ -79,34 +83,66 @@ function DataConsumer({ mongoRole, onLogout }) {
       farms={farms}
       onLogout={onLogout}
       renderLegacyPage={renderLegacyPage}
+      language={language}
     />
   );
 }
 
 // ── Root ──────────────────────────────────────────────────────────────────
 function Root() {
-  const [activeRole, setActiveRole] = useState(null);
-  const [activeUser, setActiveUser] = useState(null);
+  const [session, setSession] = useState(() => {
+    try {
+      const stored = JSON.parse(window.localStorage.getItem(SESSION_KEY) || "null");
+      return stored && stored.expiresAt > Date.now() ? stored : null;
+    } catch { return null; }
+  });
+  const [language, setLanguage] = useState(() => window.localStorage.getItem("biosecure-language") || "en");
 
-  if (!activeRole) {
+  useEffect(() => {
+    const handleLanguageChange = event => setLanguage(event.detail === "ta" ? "ta" : "en");
+    window.addEventListener("biosecure-language-change", handleLanguageChange);
+    return () => window.removeEventListener("biosecure-language-change", handleLanguageChange);
+  }, []);
+
+  useEffect(() => installBilingualText(language), [language]);
+
+  useEffect(() => {
+    if (!session) return undefined;
+    const remaining = Math.max(0, session.expiresAt - Date.now());
+    const timer = window.setTimeout(() => {
+      window.localStorage.removeItem(SESSION_KEY);
+      setSession(null);
+    }, remaining);
+    return () => window.clearTimeout(timer);
+  }, [session]);
+
+  if (!session) {
     return (
       <App
         onMongoLogin={(role, user) => {
-          setActiveRole(ROLE_MAP[role] || "Farmer");
-          setActiveUser(user || null);
+          const nextSession = {
+            role: ROLE_MAP[role] || "Farmer",
+            user: user || null,
+            createdAt: Date.now(),
+            expiresAt: Date.now() + SESSION_TTL,
+          };
+          window.localStorage.setItem(SESSION_KEY, JSON.stringify(nextSession));
+          setSession(nextSession);
         }}
+        language={language}
       />
     );
   }
 
   return (
-    <DataProvider role={activeRole} user={activeUser}>
+    <DataProvider role={session.role} user={session.user}>
       <DataConsumer
-        mongoRole={activeRole}
+        mongoRole={session.role}
         onLogout={() => {
-          setActiveRole(null);
-          setActiveUser(null);
+          window.localStorage.removeItem(SESSION_KEY);
+          setSession(null);
         }}
+        language={language}
       />
     </DataProvider>
   );

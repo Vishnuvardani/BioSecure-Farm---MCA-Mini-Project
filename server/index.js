@@ -169,6 +169,23 @@ app.post("/api/auth/login", async (req, res) => {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+app.put("/api/users/:id/password", async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    if (!newPassword) return res.status(400).json({ error: "New password is required" });
+    if (newPassword.length < 8) return res.status(400).json({ error: "New password must be at least 8 characters" });
+    const user = await db.collection("users").findOne({ userId: req.params.id });
+    if (!user) return res.status(404).json({ error: "User not found" });
+    if (user.passwordHash) {
+      if (!currentPassword) return res.status(400).json({ error: "Current password is required" });
+      if (!await bcrypt.compare(currentPassword, user.passwordHash)) return res.status(401).json({ error: "Current password is incorrect" });
+    }
+    const passwordHash = await bcrypt.hash(newPassword, 10);
+    await db.collection("users").updateOne({ userId: req.params.id }, { $set: { passwordHash, updatedAt: new Date() } });
+    res.json({ success: true });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
 // ── Auth: Google Sign-In (upsert by email) ────────────────────────────────
 app.post("/api/auth/google", async (req, res) => {
   try {

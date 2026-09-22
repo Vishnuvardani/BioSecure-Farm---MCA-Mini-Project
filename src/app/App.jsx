@@ -110,17 +110,255 @@ const P = {
 };
 const UI_TEXT = {
   en: {
-    language: "Language", tamil: "தமிழ்", english: "English", welcome: "Welcome back", loginSub: "Sign in to your account to continue",
-    email: "Email Address", password: "Password", remember: "Remember me", forgot: "Forgot password?", signIn: "Sign In", or: "or",
-    google: "Sign in with Google", noAccount: "Don't have an account?", createAccount: "Create account", registerTitle: "Create your account",
-    registerSub: "Enter your personal and login details below.", backLogin: "Back to Login", continue: "Continue", register: "Register"
+    language: "Language",
+    tamil: "தமிழ்",
+    english: "English",
+    welcome: "Welcome back",
+    loginSub: "Sign in to your account to continue",
+    email: "Email Address",
+    password: "Password",
+    remember: "Remember me",
+    forgot: "Forgot password?",
+    signIn: "Sign In",
+    or: "or",
+    google: "Sign in with Google",
+    noAccount: "Don't have an account?",
+    createAccount: "Create account",
+    registerTitle: "Create your account",
+    registerSub: "Enter your personal and login details below.",
+    backLogin: "Back to Login",
+    continue: "Continue",
+    register: "Register",
+    skip: "Skip",
+    back: "Back",
+    next: "Next",
+    getStarted: "Get Started",
+    show: "Show",
+    hide: "Hide",
+    login: "Login",
+    dashboard: "Dashboard",
+    farmManagement: "Farm Management",
+    animals: "Animals",
+    biosecurity: "Biosecurity",
+    gisMap: "GIS Map",
+    diseaseAlerts: "Disease Alerts",
+    vaccination: "Vaccination",
+    aiAssistant: "AI Assistant",
+    reports: "Reports",
+    notifications: "Notifications",
+    profile: "Profile",
+    assignedFarms: "Assigned Farms",
+    inspection: "Inspection",
+    healthRecords: "Health Records",
+    diseaseReport: "Disease Report",
+    aiRecommendation: "AI Recommendation",
+    farmMonitoring: "Farm Monitoring",
+    diseaseSurveillance: "Disease Surveillance",
+    gisDashboard: "GIS Dashboard",
+    compliance: "Compliance",
+    analytics: "Analytics",
+    advisories: "Advisories",
+    userManagement: "User Management",
+    diseaseDatabase: "Disease Database",
+    systemSettings: "System Settings",
+    logout: "Logout",
+    search: "Search…",
+    profileText: "Profile",
+    roleDetails: "Role Details",
+    accountInformation: "Account Information",
+    saveChanges: "Save Changes",
+    security: "Security",
+    notificationsSettings: "Notification Settings",
+    currentLocation: "Current Location",
+    useLocation: "Use my current location",
+    professionalDetails: "Professional Details",
+    requiredDetails: "Required for verification by the system administrator.",
+    selectRole: "Select your role",
+    roleDescription: "Choose the role that best describes your position in the system.",
+    registerAs: "Register as",
+    roleSelection: "Role Selection",
+    accountDetails: "Account Details",
+    terms: "Terms of Service",
+    privacy: "Privacy Policy",
+    agree: "I agree to the",
+    and: "and",
+    confirmPassword: "Confirm Password",
+    passwordsMatch: "Passwords match",
+    passwordMin: "Min 8 chars, 1 uppercase, 1 number",
+    currentPassword: "Current password",
+    newPassword: "New password",
+    changePassword: "Change Password",
+    updatePassword: "Update Password",
+    setPassword: "Set Password",
+    passwordChanged: "Password changed successfully",
+    passwordSet: "Password set successfully",
+    passwordsMismatch: "Passwords do not match",
+    myFarm: "My Farm",
+    animalsCount: "animals",
+    locationNotSet: "Location not set",
+    governmentOffice: "Government Office",
+    commandCenter: "Command Center",
+    viewDetails: "View Details",
+    dismiss: "Dismiss",
+    newText: "New",
+    markAllRead: "Mark all read",
+    processing: "Processing…",
+    noData: "Page coming soon…",
+    nav: {
+      dashboard: "Dashboard",
+      farmManagement: "Farm Management",
+      animals: "Animals",
+      biosecurity: "Biosecurity",
+      gisMap: "GIS Map",
+      diseaseAlerts: "Disease Alerts",
+      vaccination: "Vaccination",
+      aiAssistant: "AI Assistant",
+      reports: "Reports",
+      notifications: "Notifications",
+      profile: "Profile",
+      assignedFarms: "Assigned Farms",
+      inspection: "Inspection",
+      healthRecords: "Health Records",
+      diseaseReport: "Disease Report",
+      aiRecommendation: "AI Recommendation",
+      farmMonitoring: "Farm Monitoring",
+      diseaseSurveillance: "Disease Surveillance",
+      gisDashboard: "GIS Dashboard",
+      compliance: "Compliance",
+      analytics: "Analytics",
+      advisories: "Advisories",
+      userManagement: "User Management",
+      diseaseDatabase: "Disease Database",
+      systemSettings: "System Settings"
+    }
   },
   ta: {
-    language: "மொழி", tamil: "தமிழ்", english: "English", welcome: "மீண்டும் வரவேற்கிறோம்", loginSub: "தொடர உங்கள் கணக்கில் உள்நுழைக",
-    email: "மின்னஞ்சல் முகவரி", password: "கடவுச்சொல்", remember: "என்னை நினைவில் கொள்க", forgot: "கடவுச்சொல் மறந்துவிட்டதா?", signIn: "உள்நுழைக", or: "அல்லது",
-    google: "Google மூலம் உள்நுழைக", noAccount: "கணக்கு இல்லையா?", createAccount: "கணக்கை உருவாக்கு", registerTitle: "உங்கள் கணக்கை உருவாக்குங்கள்",
-    registerSub: "உங்கள் தனிப்பட்ட மற்றும் உள்நுழைவு விவரங்களை உள்ளிடவும்.", backLogin: "உள்நுழைவுக்குத் திரும்பு", continue: "தொடர்க", register: "பதிவு செய்க"
+    language: "மொழி",
+    tamil: "தமிழ்",
+    english: "English",
+    welcome: "மீண்டும் வரவேற்கிறோம்",
+    loginSub: "தொடர உங்கள் கணக்கில் உள்நுழைக",
+    email: "மின்னஞ்சல் முகவரி",
+    password: "கடவுச்சொல்",
+    remember: "என்னை நினைவில் கொள்க",
+    forgot: "கடவுச்சொல் மறந்துவிட்டதா?",
+    signIn: "உள்நுழைக",
+    or: "அல்லது",
+    google: "Google மூலம் உள்நுழைக",
+    noAccount: "கணக்கு இல்லையா?",
+    createAccount: "கணக்கை உருவாக்கு",
+    registerTitle: "உங்கள் கணக்கை உருவாக்குங்கள்",
+    registerSub: "உங்கள் தனிப்பட்ட மற்றும் உள்நுழைவு விவரங்களை உள்ளிடவும்.",
+    backLogin: "உள்நுழைவுக்குத் திரும்பு",
+    continue: "தொடர்க",
+    register: "பதிவு செய்க",
+    skip: "தவிர்",
+    back: "பின்னால்",
+    next: "அடுத்து",
+    getStarted: "தொடங்கவும்",
+    show: "காட்டு",
+    hide: "மறை",
+    login: "உள்நுழை",
+    dashboard: "டாஷ்போர்டு",
+    farmManagement: "பண்ணை மேலாண்மை",
+    animals: "விலங்குகள்",
+    biosecurity: "உயிர்காப்பு",
+    gisMap: "GIS வரைபடம்",
+    diseaseAlerts: "நோய் எச்சரிக்கைகள்",
+    vaccination: "தடுப்பூசி",
+    aiAssistant: "AI உதவியாளர்",
+    reports: "அறிக்கைகள்",
+    notifications: "அறிவிப்புகள்",
+    profile: "சுயவிவரம்",
+    assignedFarms: "ஒதுக்கப்பட்ட பண்ணைகள்",
+    inspection: "சோதனை",
+    healthRecords: "சுகாதார பதிவுகள்",
+    diseaseReport: "நோய் அறிக்கை",
+    aiRecommendation: "AI பரிந்துரை",
+    farmMonitoring: "பண்ணை கண்காணிப்பு",
+    diseaseSurveillance: "நோய் கண்காணிப்பு",
+    gisDashboard: "GIS டாஷ்போர்டு",
+    compliance: "உறுப்பு கடமை",
+    analytics: "பகுப்பாய்வு",
+    advisories: "அறிவுரைகள்",
+    userManagement: "பயனர் மேலாண்மை",
+    diseaseDatabase: "நோய் தரவுத்தளம்",
+    systemSettings: "சிஸ்டம் அமைப்புகள்",
+    logout: "வெளியேறு",
+    search: "தேடு…",
+    profileText: "சுயவிவரம்",
+    roleDetails: "பங்கு விவரங்கள்",
+    accountInformation: "கணக்கு தகவல்",
+    saveChanges: "மாற்றங்களைச் சேமி",
+    security: "பாதுகாப்பு",
+    notificationsSettings: "அறிவிப்பு அமைப்புகள்",
+    currentLocation: "தற்போதைய இடம்",
+    useLocation: "என் தற்போதைய இடத்தைப் பயன்படுத்துக",
+    professionalDetails: "தொழில் விவரங்கள்",
+    requiredDetails: "சிஸ்டம் நிர்வாகியால் சரிபார்க்க வேண்டியவை.",
+    selectRole: "உங்கள் பங்கைத் தேர்ந்தெடுக்கவும்",
+    roleDescription: "சிஸ்டத்தில் உங்கள் நிலையை சிறந்த முறையில் விவரிக்கும் பாத்திரத்தைத் தேர்ந்தெடுக்கவும்.",
+    registerAs: "பதிவு செய்கிறேன்",
+    roleSelection: "பங்கு தேர்வு",
+    accountDetails: "கணக்கு விவரங்கள்",
+    terms: "சேவை விதிமுறைகள்",
+    privacy: "தனியுரிமைக் கொள்கை",
+    agree: "நான் ஒப்புக்கொள்கிறேன்",
+    and: "மற்றும்",
+    confirmPassword: "கடவுச்சொல்லை உறுதிப்படுத்துக",
+    passwordsMatch: "கடவுச்சொற்கள் பொருந்துகின்றன",
+    passwordMin: "குறைந்தபட்சம் 8 எழுத்துகள், 1 பெரிய எழுத்து, 1 எண்",
+    currentPassword: "தற்போதைய கடவுச்சொல்",
+    newPassword: "புதிய கடவுச்சொல்",
+    changePassword: "கடவுச்சொல்லை மாற்று",
+    updatePassword: "கடவுச்சொல்லைப் புதுப்பி",
+    setPassword: "கடவுச்சொல்லை அமைக்கவும்",
+    passwordChanged: "கடவுச்சொல் வெற்றிகரமாக மாற்றப்பட்டது",
+    passwordsMismatch: "கடவுச்சொற்கள் பொருந்தவில்லை",
+    passwordSet: "கடவுச்சொல் வெற்றிகரமாக அமைக்கப்பட்டது",
+    myFarm: "என் பண்ணை",
+    animalsCount: "விலங்குகள்",
+    locationNotSet: "இடம் அமைக்கப்படவில்லை",
+    governmentOffice: "அரசு அலுவலகம்",
+    commandCenter: "கட்டளை மையம்",
+    viewDetails: "விவரங்களைப் பார்க்க",
+    dismiss: "நிராகரி",
+    newText: "புதிய",
+    markAllRead: "எல்லாம் வாசித்ததாக குறி",
+    processing: "செயலாக்கப்படுகிறது…",
+    noData: "பக்கம் விரைவில் வரும்…",
+    nav: {
+      dashboard: "டாஷ்போர்டு",
+      farmManagement: "பண்ணை மேலாண்மை",
+      animals: "விலங்குகள்",
+      biosecurity: "உயிர்காப்பு",
+      gisMap: "GIS வரைபடம்",
+      diseaseAlerts: "நோய் எச்சரிக்கைகள்",
+      vaccination: "தடுப்பூசி",
+      aiAssistant: "AI உதவியாளர்",
+      reports: "அறிக்கைகள்",
+      notifications: "அறிவிப்புகள்",
+      profile: "சுயவிவரம்",
+      assignedFarms: "ஒதுக்கப்பட்ட பண்ணைகள்",
+      inspection: "சோதனை",
+      healthRecords: "சுகாதார பதிவுகள்",
+      diseaseReport: "நோய் அறிக்கை",
+      aiRecommendation: "AI பரிந்துரை",
+      farmMonitoring: "பண்ணை கண்காணிப்பு",
+      diseaseSurveillance: "நோய் கண்காணிப்பு",
+      gisDashboard: "GIS டாஷ்போர்டு",
+      compliance: "உறுப்பு கடமை",
+      analytics: "பகுப்பாய்வு",
+      advisories: "அறிவுரைகள்",
+      userManagement: "பயனர் மேலாண்மை",
+      diseaseDatabase: "நோய் தரவுத்தளம்",
+      systemSettings: "சிஸ்டம் அமைப்புகள்"
+    }
   }
+};
+const t = (language, key, fallback = "") => {
+  const value = UI_TEXT[language]?.[key] ?? UI_TEXT.en?.[key];
+  return value ?? fallback;
 };
 function LanguageToggle({ language, onChange }) {
   const text = UI_TEXT[language];
@@ -530,7 +768,7 @@ function OnboardingScreen({ onDone, language, onLanguageChange }) {
   return /* @__PURE__ */ jsxs("div", { className: "min-h-screen flex flex-col items-center justify-between p-8", style: { background: P.ivory, fontFamily: "Inter" }, children: [
     /* @__PURE__ */ jsxs("div", { className: "w-full flex justify-between items-center", children: [
       /* @__PURE__ */ jsx(LanguageToggle, { language, onChange: onLanguageChange }),
-      /* @__PURE__ */ jsx("button", { onClick: onDone, className: "self-end text-sm font-medium px-4 py-2 rounded-lg", style: { color: P.olive, background: `${P.olive}12` }, children: "Skip" })
+      /* @__PURE__ */ jsx("button", { onClick: onDone, className: "self-end text-sm font-medium px-4 py-2 rounded-lg", style: { color: P.olive, background: `${P.olive}12` }, children: t(language, "skip", "Skip") })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "flex flex-col items-center gap-8 flex-1 justify-center max-w-sm text-center", children: [
       /* @__PURE__ */ jsx("div", { className: "w-40 h-40 rounded-3xl flex items-center justify-center shadow-xl", style: { background: `linear-gradient(135deg, ${s.color}22, ${s.color}44)`, border: `1.5px solid ${s.color}33` }, children: /* @__PURE__ */ jsx(Icon, { className: "w-20 h-20", style: { color: s.color }, strokeWidth: 1.5 }) }),
@@ -542,9 +780,9 @@ function OnboardingScreen({ onDone, language, onLanguageChange }) {
       /* @__PURE__ */ jsx("div", { className: "flex gap-2", children: slides.map((_, i) => /* @__PURE__ */ jsx("div", { onClick: () => setSlide(i), className: "rounded-full cursor-pointer transition-all", style: { width: i === slide ? "24px" : "8px", height: "8px", background: i === slide ? P.olive : "#c8c8a0" } }, i)) })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "w-full max-w-sm flex gap-3", children: [
-      slide > 0 && /* @__PURE__ */ jsx("button", { onClick: () => setSlide((s2) => s2 - 1), className: "flex-1 py-3 rounded-xl font-medium border text-sm", style: { borderColor: P.olive, color: P.olive }, children: "Back" }),
+      slide > 0 && /* @__PURE__ */ jsx("button", { onClick: () => setSlide((s2) => s2 - 1), className: "flex-1 py-3 rounded-xl font-medium border text-sm", style: { borderColor: P.olive, color: P.olive }, children: t(language, "back", "Back") }),
       /* @__PURE__ */ jsxs("button", { onClick: () => slide < slides.length - 1 ? setSlide((s2) => s2 + 1) : onDone(), className: "flex-1 py-3 rounded-xl font-semibold text-sm text-white flex items-center justify-center gap-2", style: { background: `linear-gradient(135deg, ${P.olive}, ${P.oliveDark})` }, children: [
-        slide < slides.length - 1 ? "Next" : "Get Started",
+        slide < slides.length - 1 ? t(language, "next", "Next") : t(language, "getStarted", "Get Started"),
         /* @__PURE__ */ jsx(ArrowRight, { className: "w-4 h-4" })
       ] })
     ] })
@@ -683,7 +921,7 @@ function LoginScreen({ onLogin, onRegister, language, onLanguageChange }) {
               style: { background: P.ivoryDark, border: `1.5px solid ${fieldErrs.password ? P.danger : "transparent"}`, color: P.dark, paddingRight: 44 },
               onBlur: () => { const e = validateLogin(); setFieldErrs(fe => ({ ...fe, password: e.password || "" })); }
             }),
-            jsx("button", { type: "button", onClick: () => setShowPwd(s => !s), style: { position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: P.mid, fontSize: 11, fontWeight: 600 }, children: showPwd ? "Hide" : "Show" })
+            jsx("button", { type: "button", onClick: () => setShowPwd(s => !s), style: { position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: P.mid, fontSize: 11, fontWeight: 600 }, children: showPwd ? t(language, "hide", "Hide") : t(language, "show", "Show") })
           ] }),
           fieldErrs.password && jsx("p", { style: { color: P.danger, fontSize: 11, marginTop: 4 }, children: fieldErrs.password })
         ] }),
@@ -704,10 +942,10 @@ function LoginScreen({ onLogin, onRegister, language, onLanguageChange }) {
         ] }),
         /* @__PURE__ */ jsx("button", { onClick: handleGoogle, className: "w-full py-3 rounded-xl text-sm font-medium border flex items-center justify-center gap-2", style: { borderColor: "#c8c8a0", color: P.dark }, children: [
           /* @__PURE__ */ jsx("svg", { width: "16", height: "16", viewBox: "0 0 48 48", children: [
-            /* @__PURE__ */ jsx("path", { fill: "#EA4335", d: "M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" }),
-            /* @__PURE__ */ jsx("path", { fill: "#4285F4", d: "M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" }),
-            /* @__PURE__ */ jsx("path", { fill: "#FBBC05", d: "M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" }),
-            /* @__PURE__ */ jsx("path", { fill: "#34A853", d: "M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" })
+            /* @__PURE__ */ jsx("path", { fill: "#EA4335", d: "M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" }, "red"),
+            /* @__PURE__ */ jsx("path", { fill: "#4285F4", d: "M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" }, "blue"),
+            /* @__PURE__ */ jsx("path", { fill: "#FBBC05", d: "M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" }, "yellow"),
+            /* @__PURE__ */ jsx("path", { fill: "#34A853", d: "M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" }, "green")
           ] }),
           UI_TEXT[language].google
         ] }),
@@ -943,7 +1181,7 @@ function RegisterScreen({ onBack, onSuccess, language, onLanguageChange }) {
             /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: "Password" }),
             /* @__PURE__ */ jsxs("div", { style: { position: "relative" }, children: [
               /* @__PURE__ */ jsx("input", { value: form.password, onChange: (e) => setField("password", e.target.value), placeholder: "Min 8 chars, 1 uppercase, 1 number", type: showPwd ? "text" : "password", className: "w-full px-4 py-3 rounded-xl text-sm outline-none", style: { background: P.ivoryDark, border: `1.5px solid ${fieldErrs.password ? P.danger : "transparent"}`, color: P.dark, paddingRight: 52 } }),
-              /* @__PURE__ */ jsx("button", { type: "button", onClick: () => setShowPwd(s => !s), style: { position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: P.mid, fontSize: 11, fontWeight: 600 }, children: showPwd ? "Hide" : "Show" })
+              /* @__PURE__ */ jsx("button", { type: "button", onClick: () => setShowPwd(s => !s), style: { position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: P.mid, fontSize: 11, fontWeight: 600 }, children: showPwd ? t(language, "hide", "Hide") : t(language, "show", "Show") })
             ] }),
             fieldErrs.password && /* @__PURE__ */ jsx("p", { style: { color: P.danger, fontSize: 11, marginTop: 4 }, children: fieldErrs.password }),
             form.password && !fieldErrs.password && /* @__PURE__ */ jsxs("div", { style: { display: "flex", gap: 4, marginTop: 6 }, children: [
@@ -954,13 +1192,13 @@ function RegisterScreen({ onBack, onSuccess, language, onLanguageChange }) {
           ] }),
           /* Confirm Password */
           /* @__PURE__ */ jsxs("div", { children: [
-            /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: "Confirm Password" }),
+            /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: t(language, "confirmPassword", "Confirm Password") }),
             /* @__PURE__ */ jsxs("div", { style: { position: "relative" }, children: [
-              /* @__PURE__ */ jsx("input", { value: form.confirm, onChange: (e) => setField("confirm", e.target.value), placeholder: "Repeat password", type: showConfirm ? "text" : "password", className: "w-full px-4 py-3 rounded-xl text-sm outline-none", style: { background: P.ivoryDark, border: `1.5px solid ${fieldErrs.confirm ? P.danger : "transparent"}`, color: P.dark, paddingRight: 52 } }),
-              /* @__PURE__ */ jsx("button", { type: "button", onClick: () => setShowConfirm(s => !s), style: { position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: P.mid, fontSize: 11, fontWeight: 600 }, children: showConfirm ? "Hide" : "Show" })
+              /* @__PURE__ */ jsx("input", { value: form.confirm, onChange: (e) => setField("confirm", e.target.value), placeholder: t(language, "confirmPassword", "Confirm Password"), type: showConfirm ? "text" : "password", className: "w-full px-4 py-3 rounded-xl text-sm outline-none", style: { background: P.ivoryDark, border: `1.5px solid ${fieldErrs.confirm ? P.danger : "transparent"}`, color: P.dark, paddingRight: 52 } }),
+              /* @__PURE__ */ jsx("button", { type: "button", onClick: () => setShowConfirm(s => !s), style: { position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: P.mid, fontSize: 11, fontWeight: 600 }, children: showConfirm ? t(language, "hide", "Hide") : t(language, "show", "Show") })
             ] }),
             fieldErrs.confirm && /* @__PURE__ */ jsx("p", { style: { color: P.danger, fontSize: 11, marginTop: 4 }, children: fieldErrs.confirm }),
-            form.confirm && form.password === form.confirm && /* @__PURE__ */ jsx("p", { style: { color: P.success, fontSize: 11, marginTop: 4 }, children: "✓ Passwords match" })
+            form.confirm && form.password === form.confirm && /* @__PURE__ */ jsx("p", { style: { color: P.success, fontSize: 11, marginTop: 4 }, children: `✓ ${t(language, "passwordsMatch", "Passwords match")}` })
           ] }),
           /* @__PURE__ */ jsxs("button", { onClick: handleStep1Continue, className: "w-full py-3.5 rounded-xl font-semibold text-white text-sm flex items-center justify-center gap-2", style: { background: `linear-gradient(135deg, ${role.color}, ${role.color}cc)` }, children: [
             "Continue ",
@@ -1005,9 +1243,9 @@ function RegisterScreen({ onBack, onSuccess, language, onLanguageChange }) {
             );
           }) }),
           /* @__PURE__ */ jsxs("div", { className: "flex gap-3", children: [
-            /* @__PURE__ */ jsx("button", { onClick: () => setStep(1), className: "flex-1 py-3.5 rounded-xl font-semibold text-sm border", style: { borderColor: "#c8c8a0", color: P.dark }, children: "Back" }),
+            /* @__PURE__ */ jsx("button", { onClick: () => setStep(1), className: "flex-1 py-3.5 rounded-xl font-semibold text-sm border", style: { borderColor: "#c8c8a0", color: P.dark }, children: t(language, "back", "Back") }),
             /* @__PURE__ */ jsxs("button", { onClick: () => setStep(3), className: "flex-1 py-3.5 rounded-xl font-semibold text-white text-sm flex items-center justify-center gap-2", style: { background: `linear-gradient(135deg, ${role.color}, ${role.color}cc)` }, children: [
-              "Continue ",
+              `${t(language, "continue", "Continue")} `,
               /* @__PURE__ */ jsx(ArrowRight, { className: "w-4 h-4" })
             ] })
           ] })
@@ -1031,8 +1269,8 @@ function RegisterScreen({ onBack, onSuccess, language, onLanguageChange }) {
             /* @__PURE__ */ jsx("p", { className: "text-sm", style: { color: P.mid }, children: "Required for verification by the system administrator." })
           ] }),
           /* @__PURE__ */ jsx("div", { className: "space-y-4", children: [/* @__PURE__ */ jsxs("div", { children: [
-            /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: "Current Location" }),
-            /* @__PURE__ */ jsxs("button", { type: "button", onClick: captureLocation, className: "w-full px-4 py-3 rounded-xl text-sm text-left", style: { background: P.ivoryDark, color: P.dark, border: "1.5px solid transparent" }, children: [locating ? "Getting location…" : form.location ? `${form.location.latitude.toFixed(6)}, ${form.location.longitude.toFixed(6)}` : "Use my current location"] })
+            /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: t(language, "currentLocation", "Current Location") }),
+            /* @__PURE__ */ jsxs("button", { type: "button", onClick: captureLocation, className: "w-full px-4 py-3 rounded-xl text-sm text-left", style: { background: P.ivoryDark, color: P.dark, border: "1.5px solid transparent" }, children: [locating ? "Getting location…" : form.location ? `${form.location.latitude.toFixed(6)}, ${form.location.longitude.toFixed(6)}` : t(language, "useLocation", "Use my current location")] })
           ] }), role.fields.map((field) => /* @__PURE__ */ jsxs("div", { children: [
             /* @__PURE__ */ jsx("label", { className: "text-xs font-semibold mb-1.5 block", style: { color: P.mid }, children: field }),
             /* @__PURE__ */ jsx(
@@ -1059,10 +1297,10 @@ function RegisterScreen({ onBack, onSuccess, language, onLanguageChange }) {
             ] })
           ] }),
           /* @__PURE__ */ jsxs("div", { className: "flex gap-3", children: [
-            /* @__PURE__ */ jsx("button", { onClick: () => setStep(2), className: "flex-1 py-3.5 rounded-xl font-semibold text-sm border", style: { borderColor: "#c8c8a0", color: P.dark }, children: "Back" }),
+            /* @__PURE__ */ jsx("button", { onClick: () => setStep(2), className: "flex-1 py-3.5 rounded-xl font-semibold text-sm border", style: { borderColor: "#c8c8a0", color: P.dark }, children: t(language, "back", "Back") }),
             /* @__PURE__ */ jsxs("button", { onClick: handleRegister, disabled: loading, className: "flex-1 py-3.5 rounded-xl font-semibold text-white text-sm flex items-center justify-center gap-2", style: { background: `linear-gradient(135deg, ${role.color}, ${role.color}cc)`, opacity: loading ? 0.7 : 1 }, children: [
               /* @__PURE__ */ jsx(CheckCircle, { className: "w-4 h-4" }),
-              loading ? " Registering…" : " Register"
+              loading ? ` ${t(language, "register", "Register")}…` : ` ${t(language, "register", "Register")}`
             ] })
           ] }),
           error && /* @__PURE__ */ jsx("p", { className: "text-xs text-center font-medium", style: { color: P.danger }, children: error })
@@ -1711,7 +1949,7 @@ function NotificationsPage() {
     }) }) })
   ] });
 }
-function LiveProfilePage({ role, user }) {
+function LiveProfilePage({ role, user, language = "en" }) {
   const [form, setForm] = useState({
     name: user?.name || user?.fullName || "",
     email: user?.email || "",
@@ -1721,6 +1959,9 @@ function LiveProfilePage({ role, user }) {
   });
   const [editing, setEditing] = useState(false);
   const [status, setStatus] = useState("");
+  const [changingPassword, setChangingPassword] = useState(false);
+  const [passwordForm, setPasswordForm] = useState({ currentPassword: "", newPassword: "", confirmPassword: "" });
+  const hasLocalPassword = Boolean(user?.passwordHash || user?.provider === "local");
   const roleFields = {
     farmer: ["Farm Name", "Farm Registration No.", "Farm Type", "Total Animals (approx.)", "District", "Village / Address", "Number of Farms"],
     veterinarian: ["Vet Licence No.", "Specialisation", "Employer / Clinic Name", "Service District(s)", "Years of Experience"],
@@ -1743,6 +1984,20 @@ function LiveProfilePage({ role, user }) {
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Could not save profile");
       setEditing(false); setStatus("Profile saved");
+    } catch (error) { setStatus(error.message); }
+  };
+  const changePassword = async () => {
+    setStatus("");
+    if (passwordForm.newPassword.length < 8) return setStatus(t(language, "passwordMin", "Min 8 characters"));
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) return setStatus(t(language, "passwordsMismatch", "Passwords do not match"));
+    try {
+      const response = await fetch(`http://localhost:5000/api/users/${user.userId}/password`, {
+        method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(passwordForm),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Could not change password");
+      setPasswordForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
+      setChangingPassword(false); setStatus(t(language, hasLocalPassword ? "passwordChanged" : "passwordSet", hasLocalPassword ? "Password changed successfully" : "Password set successfully"));
     } catch (error) { setStatus(error.message); }
   };
   return /* @__PURE__ */ jsxs("div", { className: "space-y-6", children: [
@@ -1782,7 +2037,15 @@ function LiveProfilePage({ role, user }) {
     /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-2 gap-6", children: [
       /* @__PURE__ */ jsxs(Card, { className: "p-6", children: [
         /* @__PURE__ */ jsx("h3", { className: "font-semibold text-sm mb-4", style: { fontFamily: "Poppins", color: P.dark }, children: "Security" }),
-        [["Change Password", Lock]].map(([label, Icon]) => /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between py-3", style: { borderBottom: `1px solid ${P.ivoryDark}` }, children: [/* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [/* @__PURE__ */ jsx(Icon, { className: "w-4 h-4", style: { color: P.mid } }), /* @__PURE__ */ jsx("span", { className: "text-sm", style: { color: P.dark }, children: label })] }), /* @__PURE__ */ jsx(ChevronRight, { className: "w-4 h-4", style: { color: P.light } })] }, label))
+        /* @__PURE__ */ jsxs("div", { children: [
+          /* @__PURE__ */ jsxs("button", { type: "button", onClick: () => setChangingPassword(value => !value), className: "w-full flex items-center justify-between py-3", style: { border: "none", borderBottom: `1px solid ${P.ivoryDark}`, background: "transparent", cursor: "pointer" }, children: [/* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [/* @__PURE__ */ jsx(Lock, { className: "w-4 h-4", style: { color: P.mid } }), /* @__PURE__ */ jsx("span", { className: "text-sm", style: { color: P.dark }, children: t(language, "changePassword", "Change Password") })] }), /* @__PURE__ */ jsx(ChevronRight, { className: "w-4 h-4", style: { color: P.light } })] }),
+          changingPassword && /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-3 pt-4", children: [
+            hasLocalPassword && /* @__PURE__ */ jsx("input", { type: "password", value: passwordForm.currentPassword, onChange: event => setPasswordForm(current => ({ ...current, currentPassword: event.target.value })), placeholder: t(language, "currentPassword", "Current password"), className: "w-full px-4 py-3 rounded-xl text-sm outline-none", style: { background: P.ivoryDark, color: P.dark } }),
+            /* @__PURE__ */ jsx("input", { type: "password", value: passwordForm.newPassword, onChange: event => setPasswordForm(current => ({ ...current, newPassword: event.target.value })), placeholder: t(language, "newPassword", "New password"), className: "w-full px-4 py-3 rounded-xl text-sm outline-none", style: { background: P.ivoryDark, color: P.dark } }),
+            /* @__PURE__ */ jsx("input", { type: "password", value: passwordForm.confirmPassword, onChange: event => setPasswordForm(current => ({ ...current, confirmPassword: event.target.value })), placeholder: t(language, "confirmPassword", "Confirm Password"), className: "w-full px-4 py-3 rounded-xl text-sm outline-none", style: { background: P.ivoryDark, color: P.dark } }),
+            /* @__PURE__ */ jsx("button", { type: "button", onClick: changePassword, className: "w-full py-3 rounded-xl font-semibold text-white text-sm", style: { background: `linear-gradient(135deg, ${P.olive}, ${P.oliveDark})` }, children: t(language, hasLocalPassword ? "updatePassword" : "setPassword", hasLocalPassword ? "Update Password" : "Set Password") })
+          ] })
+        ] })
       ] }),
     ] })
   ] });
@@ -2912,28 +3175,28 @@ const navConfig = {
     color: "#1a2010",
     accent: P.olive,
     title: "BioSecure Farm",
-    items: [{ label: "Dashboard", icon: Home }, { label: "Farm Management", icon: Leaf }, { label: "Animals", icon: Activity }, { label: "Biosecurity", icon: Shield }, { label: "GIS Map", icon: Map }, { label: "Disease Alerts", icon: AlertTriangle }, { label: "Vaccination", icon: Syringe }, { label: "AI Assistant", icon: Zap }, { label: "Reports", icon: FileText }, { label: "Notifications", icon: Bell }, { label: "Profile", icon: User }]
+    items: [{ key: "Dashboard", labelKey: "dashboard", label: "Dashboard", icon: Home }, { key: "Farm Management", labelKey: "farmManagement", label: "Farm Management", icon: Leaf }, { key: "Animals", labelKey: "animals", label: "Animals", icon: Activity }, { key: "Biosecurity", labelKey: "biosecurity", label: "Biosecurity", icon: Shield }, { key: "GIS Map", labelKey: "gisMap", label: "GIS Map", icon: Map }, { key: "Disease Alerts", labelKey: "diseaseAlerts", label: "Disease Alerts", icon: AlertTriangle }, { key: "Vaccination", labelKey: "vaccination", label: "Vaccination", icon: Syringe }, { key: "AI Assistant", labelKey: "aiAssistant", label: "AI Assistant", icon: Zap }, { key: "Reports", labelKey: "reports", label: "Reports", icon: FileText }, { key: "Notifications", labelKey: "notifications", label: "Notifications", icon: Bell }, { key: "Profile", labelKey: "profile", label: "Profile", icon: User }]
   },
   veterinarian: {
     color: "#1e0838",
     accent: P.purple,
     title: "Vet Portal",
-    items: [{ label: "Dashboard", icon: Home }, { label: "Assigned Farms", icon: Leaf }, { label: "Inspection", icon: ClipboardList }, { label: "Health Records", icon: FileText }, { label: "Vaccination", icon: Syringe }, { label: "Disease Report", icon: AlertTriangle }, { label: "AI Recommendation", icon: Zap }, { label: "Reports", icon: BarChart2 }, { label: "Profile", icon: User }]
+    items: [{ key: "Dashboard", labelKey: "dashboard", label: "Dashboard", icon: Home }, { key: "Assigned Farms", labelKey: "assignedFarms", label: "Assigned Farms", icon: Leaf }, { key: "Inspection", labelKey: "inspection", label: "Inspection", icon: ClipboardList }, { key: "Health Records", labelKey: "healthRecords", label: "Health Records", icon: FileText }, { key: "Vaccination", labelKey: "vaccination", label: "Vaccination", icon: Syringe }, { key: "Disease Report", labelKey: "diseaseReport", label: "Disease Report", icon: AlertTriangle }, { key: "AI Recommendation", labelKey: "aiRecommendation", label: "AI Recommendation", icon: Zap }, { key: "Reports", labelKey: "reports", label: "Reports", icon: BarChart2 }, { key: "Profile", labelKey: "profile", label: "Profile", icon: User }]
   },
   government: {
     color: "#0d1a2d",
     accent: P.info,
     title: "Gov't Portal",
-    items: [{ label: "Dashboard", icon: Home }, { label: "Farm Monitoring", icon: Eye }, { label: "Disease Surveillance", icon: Activity }, { label: "GIS Dashboard", icon: Map }, { label: "Compliance", icon: CheckCircle }, { label: "Analytics", icon: BarChart2 }, { label: "Reports", icon: FileText }, { label: "Advisories", icon: Flag }, { label: "Profile", icon: User }]
+    items: [{ key: "Dashboard", labelKey: "dashboard", label: "Dashboard", icon: Home }, { key: "Farm Monitoring", labelKey: "farmMonitoring", label: "Farm Monitoring", icon: Eye }, { key: "Disease Surveillance", labelKey: "diseaseSurveillance", label: "Disease Surveillance", icon: Activity }, { key: "GIS Dashboard", labelKey: "gisDashboard", label: "GIS Dashboard", icon: Map }, { key: "Compliance", labelKey: "compliance", label: "Compliance", icon: CheckCircle }, { key: "Analytics", labelKey: "analytics", label: "Analytics", icon: BarChart2 }, { key: "Reports", labelKey: "reports", label: "Reports", icon: FileText }, { key: "Advisories", labelKey: "advisories", label: "Advisories", icon: Flag }, { key: "Profile", labelKey: "profile", label: "Profile", icon: User }]
   },
   admin: {
     color: "#1a2010",
     accent: P.olive,
     title: "Admin Panel",
-    items: [{ label: "Dashboard", icon: Home }, { label: "User Management", icon: Users }, { label: "Farm Management", icon: Leaf }, { label: "Disease Database", icon: Database }, { label: "Notifications", icon: Bell }, { label: "Analytics", icon: BarChart2 }, { label: "System Settings", icon: Settings }, { label: "Profile", icon: User }]
+    items: [{ key: "Dashboard", labelKey: "dashboard", label: "Dashboard", icon: Home }, { key: "User Management", labelKey: "userManagement", label: "User Management", icon: Users }, { key: "Farm Management", labelKey: "farmManagement", label: "Farm Management", icon: Leaf }, { key: "Disease Database", labelKey: "diseaseDatabase", label: "Disease Database", icon: Database }, { key: "Notifications", labelKey: "notifications", label: "Notifications", icon: Bell }, { key: "Analytics", labelKey: "analytics", label: "Analytics", icon: BarChart2 }, { key: "System Settings", labelKey: "systemSettings", label: "System Settings", icon: Settings }, { key: "Profile", labelKey: "profile", label: "Profile", icon: User }]
   }
 };
-function renderPage(role, module, user, data = {}) {
+function renderPage(role, module, user, data = {}, language = "en") {
   if (role === "farmer") {
     switch (module) {
       case "Dashboard":
@@ -2957,7 +3220,7 @@ function renderPage(role, module, user, data = {}) {
       case "Notifications":
         return /* @__PURE__ */ jsx(NotificationsPage, {});
       case "Profile":
-        return /* @__PURE__ */ jsx(LiveProfilePage, { role, user });
+        return /* @__PURE__ */ jsx(LiveProfilePage, { role, user, language });
     }
   }
   if (role === "veterinarian") {
@@ -2979,7 +3242,7 @@ function renderPage(role, module, user, data = {}) {
       case "Reports":
         return /* @__PURE__ */ jsx(ReportsPage, {});
       case "Profile":
-        return /* @__PURE__ */ jsx(LiveProfilePage, { role, user });
+        return /* @__PURE__ */ jsx(LiveProfilePage, { role, user, language });
     }
   }
   if (role === "government") {
@@ -3001,7 +3264,7 @@ function renderPage(role, module, user, data = {}) {
       case "Advisories":
         return /* @__PURE__ */ jsx(AdvisoriesPage, {});
       case "Profile":
-        return /* @__PURE__ */ jsx(LiveProfilePage, { role, user });
+        return /* @__PURE__ */ jsx(LiveProfilePage, { role, user, language });
     }
   }
   if (role === "admin") {
@@ -3021,18 +3284,47 @@ function renderPage(role, module, user, data = {}) {
       case "System Settings":
         return /* @__PURE__ */ jsx(SystemSettingsPage, {});
       case "Profile":
-        return /* @__PURE__ */ jsx(LiveProfilePage, { role, user });
+        return /* @__PURE__ */ jsx(LiveProfilePage, { role, user, language });
     }
   }
   return /* @__PURE__ */ jsx("div", { className: "p-6 text-sm", style: { color: P.mid }, children: "Page coming soon\u2026" });
 }
-function DashboardShell({ role, onLogout, user, data = {} }) {
+function DashboardShell({ role, onLogout, user, data = {}, language = "en" }) {
   const [activeModule, setActiveModule] = useState("Dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const cfg = navConfig[role];
   const profileName = user?.name || user?.fullName || "User";
   const profileInitials = profileName.split(/\s+/).filter(Boolean).map((part) => part[0]).join("").slice(0, 2).toUpperCase();
   const roleLabel = user?.role || role;
+  const moduleKeyMap = {
+    Dashboard: "dashboard",
+    "Farm Management": "farmManagement",
+    Animals: "animals",
+    Biosecurity: "biosecurity",
+    "GIS Map": "gisMap",
+    "Disease Alerts": "diseaseAlerts",
+    Vaccination: "vaccination",
+    "AI Assistant": "aiAssistant",
+    Reports: "reports",
+    Notifications: "notifications",
+    Profile: "profile",
+    "Assigned Farms": "assignedFarms",
+    Inspection: "inspection",
+    "Health Records": "healthRecords",
+    "Disease Report": "diseaseReport",
+    "AI Recommendation": "aiRecommendation",
+    "Farm Monitoring": "farmMonitoring",
+    "Disease Surveillance": "diseaseSurveillance",
+    "GIS Dashboard": "gisDashboard",
+    Compliance: "compliance",
+    Analytics: "analytics",
+    Advisories: "advisories",
+    "User Management": "userManagement",
+    "Disease Database": "diseaseDatabase",
+    "System Settings": "systemSettings"
+  };
+  const activeModuleLabel = t(language, moduleKeyMap[activeModule] || activeModule, activeModule);
+  const navItems = cfg.items.map((item) => ({ ...item, label: t(language, item.labelKey || moduleKeyMap[item.label] || item.label, item.label) }));
   return /* @__PURE__ */ jsxs("div", { className: "flex h-screen overflow-hidden", style: { background: P.ivory, fontFamily: "Inter" }, children: [
     /* @__PURE__ */ jsxs("div", { className: `flex flex-col transition-all duration-300 flex-shrink-0 ${sidebarOpen ? "w-56" : "w-14"}`, style: { background: cfg.color }, children: [
       /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3 p-4 mb-2", children: [
@@ -3051,13 +3343,13 @@ function DashboardShell({ role, onLogout, user, data = {} }) {
         /* @__PURE__ */ jsx("p", { className: "text-white text-xs font-semibold truncate", children: user?.extra?.["Department / Ministry"] || "Government Office" }),
         /* @__PURE__ */ jsx("p", { className: "text-xs mt-0.5", style: { color: "rgba(255,255,255,0.5)" }, children: user?.extra?.["District / Division"] || "Command Center" })
       ] }),
-      /* @__PURE__ */ jsx("nav", { className: "flex-1 px-2 overflow-y-auto", children: cfg.items.map((item) => {
+      /* @__PURE__ */ jsx("nav", { className: "flex-1 px-2 overflow-y-auto", children: navItems.map((item) => {
         const Icon = item.icon;
-        const active = activeModule === item.label;
+        const active = activeModule === item.key;
         return /* @__PURE__ */ jsxs(
           "button",
           {
-            onClick: () => setActiveModule(item.label),
+            onClick: () => setActiveModule(item.key),
             className: "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl mb-1 text-left transition-all",
             title: !sidebarOpen ? item.label : void 0,
             style: { background: active ? `${cfg.accent}35` : "transparent", color: active ? cfg.accent : "rgba(255,255,255,0.55)" },
@@ -3067,7 +3359,7 @@ function DashboardShell({ role, onLogout, user, data = {} }) {
               sidebarOpen && active && /* @__PURE__ */ jsx(ChevronRight, { className: "w-3 h-3 ml-auto opacity-60" })
             ]
           },
-          item.label
+          item.key
         );
       }) }),
       /* @__PURE__ */ jsx("div", { className: "p-3 m-2 rounded-xl", style: { background: "rgba(255,255,255,0.06)" }, children: /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
@@ -3089,7 +3381,7 @@ function DashboardShell({ role, onLogout, user, data = {} }) {
           style: { background: "rgba(255,255,227,0.9)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(128,128,52,0.1)" },
           children: [
             /* @__PURE__ */ jsxs("div", { children: [
-              /* @__PURE__ */ jsx("h1", { className: "text-lg font-bold", style: { fontFamily: "Poppins", color: P.dark }, children: activeModule }),
+              /* @__PURE__ */ jsx("h1", { className: "text-lg font-bold", style: { fontFamily: "Poppins", color: P.dark }, children: activeModuleLabel }),
               /* @__PURE__ */ jsx("p", { className: "text-xs", style: { color: P.mid }, children: "Saturday, 12 July 2025" })
             ] }),
             /* @__PURE__ */ jsx("div", { className: "flex-1" }),
@@ -3128,6 +3420,7 @@ function App({
   const changeLanguage = (nextLanguage) => {
     setLanguage(nextLanguage);
     window.localStorage.setItem("biosecure-language", nextLanguage);
+    window.dispatchEvent(new CustomEvent("biosecure-language-change", { detail: nextLanguage }));
   };
 
   // If MongoDB data is already loaded (passed from AppWithData), go straight to dashboard
@@ -3136,6 +3429,7 @@ function App({
       role: mongoRole.toLowerCase().replace(" officer", "").replace("veterinarian", "veterinarian"),
       onLogout: mongoLogout || (() => {}),
       user: mongoUser,
+      language,
       data: { farms: mongoFarms, livestock: mongoLivestock, vaccinations: mongoVaccinations, alerts: mongoAlerts, biosecurity: mongoBiosecurity },
       mongoFarms, mongoLivestock, mongoVaccinations, mongoDiseases,
       mongoBiosecurity, mongoVetReports, mongoAlerts, mongoGIS,
@@ -3158,7 +3452,7 @@ function App({
     setScreen("login");
     window.setTimeout(() => setRegistrationNotice(""), 5000);
   } });
-  return /* @__PURE__ */ jsx(DashboardShell, { role, user: null, onLogout: () => setScreen("login") });
+  return /* @__PURE__ */ jsx(DashboardShell, { role, user: null, onLogout: () => setScreen("login"), language });
 }
 export {
   App as default,
