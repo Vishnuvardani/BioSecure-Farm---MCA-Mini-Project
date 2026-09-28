@@ -41,6 +41,8 @@ import {
   Droplets,
   Wind,
   Sun,
+  CloudSun,
+  CloudRain,
   Map,
   FileText,
   Users,
@@ -370,14 +372,6 @@ function LanguageToggle({ language, onChange }) {
     ] })
   ] });
 }
-const healthTrend = [
-  { month: "Jan", healthy: 420, sick: 18, at_risk: 32 },
-  { month: "Feb", healthy: 435, sick: 12, at_risk: 28 },
-  { month: "Mar", healthy: 448, sick: 8, at_risk: 24 },
-  { month: "Apr", healthy: 441, sick: 15, at_risk: 19 },
-  { month: "May", healthy: 456, sick: 9, at_risk: 15 },
-  { month: "Jun", healthy: 463, sick: 6, at_risk: 11 }
-];
 const livestock = [
   { id: "AN-001", name: "Sow #12", species: "Pig", breed: "Large White Sow", age: "2y", weight: "210kg", health: "Healthy", tag: "EAR-4821", vaccinated: true, paddock: "Farrowing House" },
   { id: "AN-002", name: "Boar #3", species: "Pig", breed: "Duroc Boar", age: "3y", weight: "280kg", health: "At Risk", tag: "EAR-4822", vaccinated: false, paddock: "Boar Stall" },
@@ -641,25 +635,189 @@ function BiosecurityGauge({ score }) {
     /* @__PURE__ */ jsx("span", { className: "text-xs font-semibold px-3 py-1 rounded-full", style: { background: `${color}18`, color }, children: label })
   ] });
 }
-function WeatherWidget() {
+function WeatherWidget({ coordinates = null, locationName = "Current location", locationQuery = "" }) {
+  const [location, setLocation] = useState(coordinates);
+  const [weather, setWeather] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [loadingMessage, setLoadingMessage] = useState("Finding farm location…");
+  const [error, setError] = useState("");
+  useEffect(() => {
+    let cancelled = false;
+    if (coordinates) {
+      setLoading(true);
+      setLoadingMessage("Loading farm weather…");
+      setError("");
+      setLocation(coordinates);
+      return () => { cancelled = true; };
+    }
+    setLoading(true);
+    setError("");
+    setLocation(null);
+    let locationTimer;
+    const resolveBrowserLocation = () => {
+      if (!navigator.geolocation) {
+        if (!cancelled) {
+          setError("Add farm coordinates or a district in your profile to view local weather");
+          setLoading(false);
+        }
+        return;
+      }
+      setLoadingMessage("Finding your location…");
+      locationTimer = setTimeout(() => {
+        if (!cancelled) {
+          setError("Location lookup timed out. Add farm coordinates or allow browser location access.");
+          setLoading(false);
+        }
+      }, 12000);
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          clearTimeout(locationTimer);
+          if (!cancelled) setLocation({ latitude: position.coords.latitude, longitude: position.coords.longitude });
+        },
+        () => {
+          clearTimeout(locationTimer);
+          if (!cancelled) {
+            setError("Location permission was unavailable. Add farm coordinates or allow browser location access.");
+            setLoading(false);
+          }
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 300000 }
+      );
+    };
+    const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
+    if (apiKey && locationQuery.trim()) {
+      setLoadingMessage("Finding farm location…");
+      const controller = new AbortController();
+      const lookupTimer = setTimeout(() => controller.abort(), 8000);
+      const params = new URLSearchParams({ q: locationQuery, limit: "1", appid: apiKey });
+      fetch(`https://api.openweathermap.org/geo/1.0/direct?${params}`, { signal: controller.signal })
+        .then((response) => response.ok ? response.json() : [])
+        .then((matches) => {
+          clearTimeout(lookupTimer);
+          if (cancelled) return;
+          if (matches[0] && Number.isFinite(matches[0].lat) && Number.isFinite(matches[0].lon)) {
+            setLocation({ latitude: matches[0].lat, longitude: matches[0].lon });
+          } else {
+            resolveBrowserLocation();
+          }
+        })
+        .catch(() => {
+          clearTimeout(lookupTimer);
+          if (!cancelled) resolveBrowserLocation();
+        });
+    } else {
+      resolveBrowserLocation();
+    }
+    return () => { cancelled = true; };
+  }, [coordinates?.latitude, coordinates?.longitude, locationQuery]);
+  useEffect(() => {
+    if (!location) return;
+    const controller = new AbortController();
+    const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
+    if (!apiKey) {
+      setError("Add VITE_OPENWEATHER_API_KEY to the root .env.local file");
+      setLoading(false);
+      return () => controller.abort();
+    }
+    const params = new URLSearchParams({
+      lat: String(location.latitude),
+      lon: String(location.longitude),
+      appid: apiKey,
+      units: "metric"
+    });
+    setLoading(true);
+    setLoadingMessage("Loading local weather…");
+    setError("");
+    setWeather(null);
+    let cancelled = false;
+    let requestTimedOut = false;
+    const requestTimer = setTimeout(() => {
+      requestTimedOut = true;
+      controller.abort();
+    }, 12000);
+    const currentRequest = fetch(`https://api.openweathermap.org/data/2.5/weather?${params}`, { signal: controller.signal })
+      .then(async (response) => {
+        if (response.status === 401) throw new Error("OpenWeather rejected the API key; check that it is active");
+        if (!response.ok) throw new Error("Current weather could not be loaded");
+        return response.json();
+      })
+      .then((currentData) => {
+        if (cancelled) return;
+        setWeather({
+          current: {
+            temperature: currentData.main.temp,
+            humidity: currentData.main.humidity,
+            feelsLike: currentData.main.feels_like,
+            windSpeed: currentData.wind.speed,
+            description: currentData.weather?.[0]?.description || "Current conditions",
+            iconCode: currentData.weather?.[0]?.id
+          },
+          locationName: currentData.name,
+          forecast: []
+        });
+        setLoading(false);
+      })
+      .catch((fetchError) => {
+        if (cancelled || controller.signal.aborted) return;
+        setError(fetchError.message || "Current weather could not be loaded");
+        setLoading(false);
+      });
+    const forecastRequest = fetch(`https://api.openweathermap.org/data/2.5/forecast?${params}`, { signal: controller.signal })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Forecast unavailable");
+        return response.json();
+      })
+      .then((forecastData) => {
+        if (cancelled) return;
+        const dailyForecast = Object.values((forecastData.list || []).reduce((days, entry) => {
+          const date = entry.dt_txt.split(" ")[0];
+          if (!days[date]) days[date] = { date, high: entry.main.temp_max, low: entry.main.temp_min };
+          else {
+            days[date].high = Math.max(days[date].high, entry.main.temp_max);
+            days[date].low = Math.min(days[date].low, entry.main.temp_min);
+          }
+          return days;
+        }, {})).slice(0, 4);
+        setWeather((previous) => previous ? { ...previous, forecast: dailyForecast } : previous);
+      })
+      .catch(() => {});
+    Promise.allSettled([currentRequest, forecastRequest]).finally(() => {
+      clearTimeout(requestTimer);
+      if (requestTimedOut && !cancelled) {
+        setError((previous) => previous || "Weather request timed out. Please try again.");
+        setLoading(false);
+      }
+    });
+    return () => {
+      cancelled = true;
+      clearTimeout(requestTimer);
+      controller.abort();
+    };
+  }, [location]);
+  const current = weather?.current;
+  const iconGroup = Math.floor((current?.iconCode || 0) / 100);
+  const WeatherIcon = iconGroup === 8 ? (current?.iconCode === 800 ? Sun : CloudSun) : CloudRain;
+  const forecast = weather?.forecast || [];
   return /* @__PURE__ */ jsxs(Card, { className: "p-4", style: { background: "linear-gradient(135deg, #1a5276 0%, #2980b9 100%)", border: "none" }, children: [
     /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between mb-3", children: [
-      /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx("p", { className: "text-white text-xs opacity-70", children: "Anuradhapura" }),
-        /* @__PURE__ */ jsx("p", { className: "text-white font-bold text-2xl", style: { fontFamily: "Poppins" }, children: "28\xB0C" }),
-        /* @__PURE__ */ jsx("p", { className: "text-white text-xs opacity-80 mt-0.5", children: "Partly Cloudy \xB7 High UV" })
+      /* @__PURE__ */ jsxs("div", { className: "min-w-0", children: [
+        /* @__PURE__ */ jsx("p", { className: "text-white text-xs opacity-70 truncate", children: weather?.locationName || locationName }),
+        current ? /* @__PURE__ */ jsx("p", { className: "text-white font-bold text-2xl", style: { fontFamily: "Poppins" }, children: `${Math.round(current.temperature)}°C` }) : /* @__PURE__ */ jsx("p", { className: "text-white text-sm font-medium mt-1", children: loading ? loadingMessage : "Weather unavailable" }),
+        current && /* @__PURE__ */ jsx("p", { className: "text-white text-xs opacity-80 mt-0.5 capitalize", children: current.description })
       ] }),
-      /* @__PURE__ */ jsx(Sun, { className: "w-12 h-12 text-yellow-300 opacity-90" })
+      /* @__PURE__ */ jsx(WeatherIcon, { className: "w-12 h-12 text-yellow-300 opacity-90 flex-shrink-0" })
     ] }),
-    /* @__PURE__ */ jsx("div", { className: "grid grid-cols-3 gap-2 pt-2", style: { borderTop: "1px solid rgba(255,255,255,0.2)" }, children: [[Droplets, "Humidity", "68%"], [Wind, "Wind", "12 km/h"], [Thermometer, "Feels", "31\xB0C"]].map(([Icon, label, val]) => /* @__PURE__ */ jsxs("div", { className: "flex flex-col items-center gap-1", children: [
+    current && /* @__PURE__ */ jsx("div", { className: "grid grid-cols-3 gap-2 pt-2", style: { borderTop: "1px solid rgba(255,255,255,0.2)" }, children: [[Droplets, "Humidity", `${current.humidity}%`], [Wind, "Wind", `${Math.round(current.windSpeed * 3.6)} km/h`], [Thermometer, "Feels", `${Math.round(current.feelsLike)}°C`]].map(([Icon, label, value]) => /* @__PURE__ */ jsxs("div", { className: "flex flex-col items-center gap-1", children: [
       /* @__PURE__ */ jsx(Icon, { className: "w-3.5 h-3.5 text-white opacity-70" }),
-      /* @__PURE__ */ jsx("p", { className: "text-white opacity-60", style: { fontSize: "10px" }, children: String(label) }),
-      /* @__PURE__ */ jsx("p", { className: "text-white text-xs font-medium", children: String(val) })
-    ] }, String(label))) }),
-    /* @__PURE__ */ jsx("div", { className: "flex justify-between mt-3 pt-2", style: { borderTop: "1px solid rgba(255,255,255,0.15)" }, children: [["Mon", "31\xB0"], ["Tue", "29\xB0"], ["Wed", "27\xB0"], ["Thu", "30\xB0"]].map(([d, t]) => /* @__PURE__ */ jsxs("div", { className: "flex flex-col items-center gap-0.5", children: [
-      /* @__PURE__ */ jsx("span", { className: "text-white opacity-60", style: { fontSize: "10px" }, children: d }),
-      /* @__PURE__ */ jsx("span", { className: "text-white text-xs font-semibold", children: t })
-    ] }, d)) })
+      /* @__PURE__ */ jsx("p", { className: "text-white opacity-60", style: { fontSize: "10px" }, children: label }),
+      /* @__PURE__ */ jsx("p", { className: "text-white text-xs font-medium", children: value })
+    ] }, label)) }),
+    error && /* @__PURE__ */ jsx("p", { className: "text-white text-xs mt-2", children: error }),
+    forecast.length > 0 && /* @__PURE__ */ jsx("div", { className: "grid grid-cols-4 gap-1 mt-3 pt-2", style: { borderTop: "1px solid rgba(255,255,255,0.15)" }, children: forecast.map((day) => /* @__PURE__ */ jsxs("div", { className: "flex flex-col items-center gap-0.5", children: [
+      /* @__PURE__ */ jsx("span", { className: "text-white opacity-60", style: { fontSize: "10px" }, children: new Intl.DateTimeFormat(undefined, { weekday: "short" }).format(new Date(`${day.date}T12:00:00`)) }),
+      /* @__PURE__ */ jsx("span", { className: "text-white text-xs font-semibold", children: `${Math.round(day.high)}°` }),
+      /* @__PURE__ */ jsx("span", { className: "text-white text-xs opacity-60", children: `${Math.round(day.low)}°` })
+    ] }, day.date)) })
   ] });
 }
 function AIRecommendationCard() {
@@ -1319,6 +1477,11 @@ function FarmerDashboardPage({ user, farms = [], livestock = [], vaccinations = 
     { action: "Biosecurity assessment score updated to 78/100", time: "3 days ago", type: "check" }
   ];
   const typeColors = { ai: P.purple, vaccine: P.olive, gis: P.info, visit: P.success, check: P.warning };
+  const locatedFarm = farms.find((farm) => farm.latitude !== undefined && farm.latitude !== null && farm.latitude !== "" && farm.longitude !== undefined && farm.longitude !== null && farm.longitude !== "" && Number.isFinite(Number(farm.latitude)) && Number.isFinite(Number(farm.longitude)) && Number(farm.latitude) >= -90 && Number(farm.latitude) <= 90 && Number(farm.longitude) >= -180 && Number(farm.longitude) <= 180);
+  const farmCoordinates = locatedFarm ? { latitude: Number(locatedFarm.latitude), longitude: Number(locatedFarm.longitude) } : null;
+  const weatherDistrict = locatedFarm?.district || user?.extra?.District || "";
+  const weatherLocationName = weatherDistrict || "District not set";
+  const weatherLocationQuery = [weatherDistrict, user?.extra?.State, user?.extra?.Country || "Sri Lanka"].filter(Boolean).join(", ");
   const totalAnimals = farms.reduce((total, farm) => total + (Number(farm.animalCount) || 0), 0) || livestock.length;
   const latestScore = biosecurity[0]?.overallScore ?? biosecurity[0]?.score ?? "-";
   return /* @__PURE__ */ jsxs("div", { className: "space-y-6", children: [
@@ -1329,31 +1492,7 @@ function FarmerDashboardPage({ user, farms = [], livestock = [], vaccinations = 
       /* @__PURE__ */ jsx(KPICard, { label: "Vaccinations", value: vaccinations.length.toLocaleString(), sub: "Records in MongoDB", icon: Syringe, color: P.warning, trend: "neutral" })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-3 gap-6", children: [
-      /* @__PURE__ */ jsxs(Card, { className: "lg:col-span-2 p-5", children: [
-        /* @__PURE__ */ jsx("div", { className: "flex items-center justify-between mb-4", children: /* @__PURE__ */ jsxs("div", { children: [
-          /* @__PURE__ */ jsx("h3", { className: "font-semibold text-sm", style: { fontFamily: "Poppins", color: P.dark }, children: "Animal Health Trend" }),
-          /* @__PURE__ */ jsx("p", { className: "text-xs mt-0.5", style: { color: P.mid }, children: "Jan \u2013 Jun 2025" })
-        ] }) }),
-        /* @__PURE__ */ jsx(ResponsiveContainer, { width: "100%", height: 180, children: /* @__PURE__ */ jsxs(AreaChart, { data: healthTrend, children: [
-          /* @__PURE__ */ jsx(CartesianGrid, { strokeDasharray: "3 3", stroke: P.ivoryDark }),
-          /* @__PURE__ */ jsx(XAxis, { dataKey: "month", tick: { fontSize: 11, fill: P.mid }, axisLine: false, tickLine: false }),
-          /* @__PURE__ */ jsx(YAxis, { tick: { fontSize: 11, fill: P.mid }, axisLine: false, tickLine: false }),
-          /* @__PURE__ */ jsx(Tooltip, { contentStyle: { borderRadius: "12px", border: `1px solid #e0e0c0`, fontSize: 12 } }),
-          /* @__PURE__ */ jsx(Area, { type: "monotone", dataKey: "healthy", stroke: P.success, fill: P.success, fillOpacity: 0.12, strokeWidth: 2, name: "Healthy" }),
-          /* @__PURE__ */ jsx(Area, { type: "monotone", dataKey: "at_risk", stroke: P.warning, fill: "none", fillOpacity: 0, strokeWidth: 2, strokeDasharray: "4 2", name: "At Risk" }),
-          /* @__PURE__ */ jsx(Area, { type: "monotone", dataKey: "sick", stroke: P.danger, fill: "none", fillOpacity: 0, strokeWidth: 2, name: "Sick" })
-        ] }) })
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-4", children: [
-        /* @__PURE__ */ jsxs(Card, { className: "p-5", children: [
-          /* @__PURE__ */ jsx("h3", { className: "font-semibold text-sm mb-3", style: { fontFamily: "Poppins", color: P.dark }, children: "Biosecurity Score" }),
-          /* @__PURE__ */ jsx(BiosecurityGauge, { score: 78 })
-        ] }),
-        /* @__PURE__ */ jsx(WeatherWidget, {})
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-2 gap-6", children: [
-      /* @__PURE__ */ jsxs(Card, { className: "overflow-hidden", children: [
+      /* @__PURE__ */ jsxs(Card, { className: "lg:col-span-2 overflow-hidden", children: [
         /* @__PURE__ */ jsx("div", { className: "flex items-center justify-between p-5 pb-3", style: { borderBottom: `1px solid ${P.ivoryDark}` }, children: /* @__PURE__ */ jsx("h3", { className: "font-semibold text-sm", style: { fontFamily: "Poppins", color: P.dark }, children: "Recent Activity" }) }),
         /* @__PURE__ */ jsx("div", { className: "p-5 flex flex-col gap-0", children: recentActivity.map((a, i) => /* @__PURE__ */ jsxs("div", { className: "flex gap-4 pb-4", children: [
           /* @__PURE__ */ jsxs("div", { className: "flex flex-col items-center", children: [
@@ -1365,6 +1504,13 @@ function FarmerDashboardPage({ user, farms = [], livestock = [], vaccinations = 
             /* @__PURE__ */ jsx("p", { className: "text-xs mt-0.5", style: { color: P.light }, children: a.time })
           ] })
         ] }, i)) })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-4", children: [
+        /* @__PURE__ */ jsxs(Card, { className: "p-5", children: [
+          /* @__PURE__ */ jsx("h3", { className: "font-semibold text-sm mb-3", style: { fontFamily: "Poppins", color: P.dark }, children: "Biosecurity Score" }),
+          /* @__PURE__ */ jsx(BiosecurityGauge, { score: 78 })
+        ] }),
+        /* @__PURE__ */ jsx(WeatherWidget, { coordinates: farmCoordinates, locationName: weatherLocationName, locationQuery: weatherLocationQuery })
       ] })
     ] })
   ] });

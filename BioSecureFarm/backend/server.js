@@ -20,6 +20,9 @@ const gisRoutes = require('./routes/gis');
 const notificationRoutes = require('./routes/notifications');
 const analyticsRoutes = require('./routes/analytics');
 const reportRoutes = require('./routes/reports');
+const healthRoutes = require('./routes/health');
+const inventoryRoutes = require('./routes/inventory');
+const farmActivityRoutes = require('./routes/farmActivities');
 
 const app = express();
 
@@ -46,6 +49,9 @@ app.use('/api/gis', gisRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/reports', reportRoutes);
+app.use('/api/health-records', healthRoutes);
+app.use('/api/inventory', inventoryRoutes);
+app.use('/api/farm-activities', farmActivityRoutes);
 
 app.get('/health', (req, res) => res.json({ status: 'OK', timestamp: new Date() }));
 

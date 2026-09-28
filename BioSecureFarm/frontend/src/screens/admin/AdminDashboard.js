@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../context/AuthContext';
-import { analyticsAPI, userAPI } from '../../services/api';
+import { analyticsAPI, userAPI, notificationAPI } from '../../services/api';
 import { Card, StatCard, Loader } from '../../components/UIComponents';
 import { Colors, Spacing, FontSize, BorderRadius } from '../../theme';
 
@@ -13,14 +13,16 @@ export default function AdminDashboard() {
   const { user } = useAuth();
   const [stats, setStats] = useState(null);
   const [userStats, setUserStats] = useState(null);
+  const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
   const fetchData = async () => {
     try {
-      const [dashRes, userRes] = await Promise.all([analyticsAPI.dashboard(), userAPI.getStats()]);
+      const [dashRes, userRes, notifRes] = await Promise.all([analyticsAPI.dashboard(), userAPI.getStats(), notificationAPI.getAll()]);
       setStats(dashRes.data);
       setUserStats(userRes.data);
+      setActivities(notifRes.data?.slice(0, 5) || []);
     } catch { }
     setLoading(false);
     setRefreshing(false);
@@ -93,6 +95,29 @@ export default function AdminDashboard() {
             </TouchableOpacity>
           ))}
         </View>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>Recent Activities</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
+            <Text style={styles.seeAll}>See All</Text>
+          </TouchableOpacity>
+        </View>
+        {activities.length > 0 ? activities.map((n, i) => (
+          <Card key={n._id || i} style={styles.activityCard}>
+            <View style={styles.activityRow}>
+              <View style={[styles.activityDot, { backgroundColor: n.type === 'alert' ? Colors.danger : Colors.primary }]} />
+              <View style={{ flex: 1 }}>
+                <Text style={styles.activityTitle}>{n.title}</Text>
+                <Text style={styles.activityMsg} numberOfLines={2}>{n.message}</Text>
+                {n.createdAt && <Text style={styles.activityTime}>{new Date(n.createdAt).toLocaleDateString()}</Text>}
+              </View>
+            </View>
+          </Card>
+        )) : (
+          <Card style={styles.activityCard}>
+            <Text style={styles.activityMsg}>No recent activities</Text>
+          </Card>
+        )}
+
         <View style={{ height: 80 }} />
       </ScrollView>
     </View>
@@ -121,5 +146,13 @@ const styles = StyleSheet.create({
   actionsGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.sm },
   actionCard: { width: '30%', alignItems: 'center', backgroundColor: '#fff', borderRadius: BorderRadius.md, padding: Spacing.md },
   actionIcon: { width: 52, height: 52, borderRadius: 26, alignItems: 'center', justifyContent: 'center', marginBottom: Spacing.xs },
-  actionLabel: { fontSize: FontSize.xs, fontWeight: '600', color: Colors.text, textAlign: 'center' }
+  actionLabel: { fontSize: FontSize.xs, fontWeight: '600', color: Colors.text, textAlign: 'center' },
+  sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  seeAll: { color: Colors.primary, fontSize: FontSize.sm, fontWeight: '600' },
+  activityCard: { marginBottom: Spacing.xs },
+  activityRow: { flexDirection: 'row', alignItems: 'flex-start' },
+  activityDot: { width: 10, height: 10, borderRadius: 5, marginTop: 4, marginRight: Spacing.sm },
+  activityTitle: { fontSize: FontSize.sm, fontWeight: '700', color: Colors.text },
+  activityMsg: { fontSize: FontSize.xs, color: Colors.textSecondary, marginTop: 2 },
+  activityTime: { fontSize: 10, color: Colors.textSecondary, marginTop: 2 }
 });

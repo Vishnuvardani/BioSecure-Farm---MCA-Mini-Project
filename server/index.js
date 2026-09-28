@@ -236,11 +236,54 @@ app.post("/api/users/login", async (req, res) => {
 const COLLECTIONS = [
   "users", "farms", "livestock", "vaccinations", "diseases",
   "biosecurity", "veterinarian_reports", "government_alerts",
-  "gis_locations", "notifications", "analytics",
+  "gis_locations", "notifications", "analytics", "inventory",
 ];
 for (const col of COLLECTIONS) {
   app.use(`/api/${col}`, makeRouter(col));
 }
+
+// Farm-operation records share a small, consistent CRUD contract.  Keeping this
+// here avoids separate database connections and gives the mobile client stable IDs.
+const RECORD_TYPES = {
+  livestock: { collection: "livestock", id: "livestockId", prefix: "LS" },
+  vaccinations: { collection: "vaccinations", id: "vaccinationId", prefix: "VX" },
+  "health-records": { collection: "health_records", id: "healthRecordId", prefix: "HR" },
+  inventory: { collection: "inventory", id: "inventoryId", prefix: "INV" },
+  "farm-activities": { collection: "farm_activities", id: "activityId", prefix: "ACT" },
+};
+Object.entries(RECORD_TYPES).forEach(([path, cfg]) => {
+  app.get(`/api/${path}`, async (req, res) => {
+    try {
+      const filter = req.query.farmId ? { farmId: req.query.farmId } : {};
+      res.json(await db.collection(cfg.collection).find(filter).sort({ createdAt: -1 }).toArray());
+    } catch (e) { res.status(500).json({ error: e.message }); }
+  });
+  app.post(`/api/${path}`, async (req, res) => {
+    try {
+      if (!req.body.farmId) return res.status(400).json({ error: "farmId is required" });
+      const id = `${cfg.prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
+      const doc = { ...req.body, [cfg.id]: id, createdAt: new Date(), updatedAt: new Date() };
+      await db.collection(cfg.collection).insertOne(doc);
+      res.status(201).json({ success: true, record: doc });
+    } catch (e) { res.status(500).json({ error: e.message }); }
+  });
+  app.put(`/api/${path}/:id`, async (req, res) => {
+    try {
+      const updates = { ...req.body, updatedAt: new Date() };
+      delete updates[cfg.id]; delete updates._id;
+      const result = await db.collection(cfg.collection).findOneAndUpdate({ [cfg.id]: req.params.id }, { $set: updates }, { returnDocument: "after" });
+      if (!result) return res.status(404).json({ error: "Record not found" });
+      res.json({ success: true, record: result });
+    } catch (e) { res.status(500).json({ error: e.message }); }
+  });
+  app.delete(`/api/${path}/:id`, async (req, res) => {
+    try {
+      const result = await db.collection(cfg.collection).deleteOne({ [cfg.id]: req.params.id });
+      if (!result.deletedCount) return res.status(404).json({ error: "Record not found" });
+      res.json({ success: true });
+    } catch (e) { res.status(500).json({ error: e.message }); }
+  });
+});
 
 // Appointment requests are the assignment workflow between a farmer and a veterinarian.
 app.get("/api/veterinarians/available", async (req, res) => {

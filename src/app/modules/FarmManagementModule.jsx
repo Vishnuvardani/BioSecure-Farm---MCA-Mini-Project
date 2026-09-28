@@ -8,7 +8,8 @@ import {
 import {
   getFarmsByOwner, getFarms, createFarm, updateFarm,
   getFarmSummary, getFarmActivity,
-  getBiosecurityByFarmId,
+  getBiosecurityByFarmId, getHealthRecordsByFarm, getInventoryByFarm,
+  getFarmActivitiesByFarm,
 } from "../../api/mongoService";
 import { formatDate } from "../../utils/dateTime";
 
@@ -661,34 +662,48 @@ function VaccinationSummary({ data, onNavigate }) {
 }
 
 // ── Infrastructure Display ─────────────────────────────────────────────────
-function InfrastructureDisplay({ infra = {}, sheds, area, capacity }) {
-  const items = [
-    ["Feed Storage", infra.feedStorage],
-    ["Quarantine Area", infra.quarantineArea],
-    ["Waste Disposal", infra.wasteDisposal],
-    ["Disinfection Facility", infra.disinfectionFacility],
-    ["Fencing / Security", infra.fencing],
-    ["Visitor Entry Area", infra.visitorEntry],
-  ];
+function FarmOperationsDashboard({ farmId, onNavigate }) {
+  const [data, setData] = useState({ health: [], inventory: [], activities: [] });
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    if (!farmId) return;
+    setLoading(true);
+    Promise.all([getHealthRecordsByFarm(farmId), getInventoryByFarm(farmId), getFarmActivitiesByFarm(farmId)])
+      .then(([health, inventory, activities]) => setData({ health: Array.isArray(health) ? health : [], inventory: Array.isArray(inventory) ? inventory : [], activities: Array.isArray(activities) ? activities : [] }))
+      .catch(() => setData({ health: [], inventory: [], activities: [] }))
+      .finally(() => setLoading(false));
+  }, [farmId]);
+  const lowStock = data.inventory.filter(i => Number(i.quantity) <= Number(i.minimumStockLevel || 0)).length;
+  const expired = data.inventory.filter(i => i.expiryDate && new Date(i.expiryDate) < new Date()).length;
   return (
     <Card style={{ padding: 18 }}>
-      <SectionTitle icon={Building2} title="Infrastructure" />
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 12 }}>
-        {[["Sheds", sheds ?? "—"], ["Farm Area", area ? `${area} acres` : "—"], ["Capacity", capacity ?? "—"], ["Water Source", infra.waterSource || "—"]].map(([k, v]) => (
+      <SectionTitle icon={Activity} title="Farm Operations Dashboard" />
+      <p style={{ fontSize: 11, color: P.mid, margin: "-8px 0 12px" }}>Daily animal health, stock, and farm work at a glance.</p>
+      {loading ? <Spinner /> : <>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(110px, 1fr))", gap: 8, marginBottom: 12 }}>
+        {[["Recent Health Records", data.health.length, P.danger], ["Low Stock Items", lowStock, P.warning], ["Expired Items", expired, P.danger], ["Farm Activities", data.activities.length, P.info]].map(([k, v, color]) => (
           <div key={k} style={{ background: P.ivoryDark, borderRadius: 10, padding: "10px 12px" }}>
             <p style={{ fontSize: 10, color: P.mid, margin: 0 }}>{k}</p>
-            <p style={{ fontSize: 13, fontWeight: 700, color: P.dark, margin: "2px 0 0" }}>{v}</p>
+            <p style={{ fontSize: 18, fontWeight: 700, color, margin: "2px 0 0" }}>{v}</p>
           </div>
         ))}
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
-        {items.map(([label, val]) => (
-          <div key={label} style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: val ? P.dark : P.light }}>
-            {val ? <CheckCircle size={13} color={P.success} /> : <X size={13} color="#d1d5db" />}
-            {label}
-          </div>
-        ))}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+        <div style={{ border: `1px solid ${P.ivoryDark}`, borderRadius: 10, padding: 10 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, color: P.dark, margin: "0 0 6px" }}>Recent health issues</p>
+          {data.health.slice(0, 2).map((r, i) => <p key={r.healthRecordId || i} style={{ fontSize: 11, color: P.mid, margin: "4px 0" }}>{r.healthCondition || r.symptoms || "Health observation"}</p>)}
+          {!data.health.length && <p style={{ fontSize: 11, color: P.light, margin: 0 }}>No health records yet.</p>}
+        </div>
+        <div style={{ border: `1px solid ${P.ivoryDark}`, borderRadius: 10, padding: 10 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, color: P.dark, margin: "0 0 6px" }}>Recent farm activities</p>
+          {data.activities.slice(0, 2).map((r, i) => <p key={r.activityId || i} style={{ fontSize: 11, color: P.mid, margin: "4px 0" }}>{r.activityType || "Farm activity"}{r.date ? ` · ${formatDate(r.date)}` : ""}</p>)}
+          {!data.activities.length && <p style={{ fontSize: 11, color: P.light, margin: 0 }}>No activities recorded yet.</p>}
+        </div>
       </div>
+      <div style={{ display: "flex", gap: 8, marginTop: 12, flexWrap: "wrap" }}>
+        {[["Livestock", "Animals"], ["Health Records", "Health Records"], ["Inventory", "Inventory"], ["Farm Activities", "Farm Activities"]].map(([label, page]) => <button key={label} onClick={() => onNavigate(page)} style={{ padding: "7px 10px", borderRadius: 8, background: P.ivoryDark, color: P.olive, fontWeight: 700, fontSize: 11, border: "none", cursor: "pointer" }}>{label}</button>)}
+      </div>
+      </>}
     </Card>
   );
 }
@@ -1058,7 +1073,7 @@ export default function FarmManagementModule({ user, role, farms: propFarms = []
                 <BiosecuritySummary data={biosec} onNavigate={nav} />
               </div>
               <div style={{ marginBottom: 14 }}>
-                <InfrastructureDisplay infra={farm.infrastructure || {}} sheds={farm.numberOfSheds} area={farm.farmArea} capacity={farm.animalCapacity} />
+                <FarmOperationsDashboard farmId={farm.farmId} onNavigate={nav} />
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 14 }}>
                 <LivestockSummary data={liveStock} onNavigate={nav} />

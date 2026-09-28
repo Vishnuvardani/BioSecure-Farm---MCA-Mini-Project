@@ -21,6 +21,12 @@ async function post(path, body) {
   return res.json();
 }
 
+async function del(path) {
+  const res = await fetch(`${BASE}${path}`, { method: "DELETE" });
+  if (!res.ok) throw new Error(`API error ${res.status}: ${path}`);
+  return res.json();
+}
+
 // ── Auth ──────────────────────────────────────────────────────────────────
 export const loginUser = (role) => post("/users/login", { role });
 
@@ -35,6 +41,11 @@ export const getFarmById        = (id)       => get(`/farms/${id}`);
 export const getFarmsByOwner    = (ownerId)  => get(`/farms?ownerId=${ownerId}`);
 export const getFarmsByState    = (state)    => get(`/farms?state=${encodeURIComponent(state)}`);
 export const getFarmsByDistrict = (district) => get(`/farms?district=${encodeURIComponent(district)}`);
+export const createFarm          = (data) => post("/farms/create", data);
+export const updateFarm          = (id, data) => put(`/farms/${id}`, data);
+export const deleteFarm          = (id) => del(`/farms/${id}`);
+export const getFarmSummary      = (id) => get(`/farms/${id}/summary`);
+export const getFarmActivity     = (id) => get(`/farms/${id}/activity`);
 
 // ── Veterinary appointment booking ────────────────────────────────────────
 export const getAvailableVeterinarians = (farmId) => get(`/veterinarians/available?farmId=${encodeURIComponent(farmId)}`);
@@ -49,11 +60,27 @@ export const updateAppointmentStatus = (appointmentId, data) => put(`/appointmen
 export const getLivestock         = ()       => get("/livestock");
 export const getLivestockByFarm   = (farmId) => get(`/livestock?farmId=${farmId}`);
 export const getLivestockByHealth = (status) => get(`/livestock?healthStatus=${encodeURIComponent(status)}`);
+export const createLivestock      = (data) => post("/livestock", data);
+export const updateLivestock      = (id, data) => put(`/livestock/${id}`, data);
+export const deleteLivestock      = (id) => del(`/livestock/${id}`);
 
 // ── Vaccinations ──────────────────────────────────────────────────────────
 export const getVaccinations        = ()       => get("/vaccinations");
 export const getVaccinationsByFarm  = (farmId) => get(`/vaccinations?farmId=${farmId}`);
 export const getVaccinationsByStatus= (status) => get(`/vaccinations?status=${encodeURIComponent(status)}`);
+export const createVaccination      = (data) => post("/vaccinations", data);
+export const updateVaccination      = (id, data) => put(`/vaccinations/${id}`, data);
+export const deleteVaccination      = (id) => del(`/vaccinations/${id}`);
+
+// ── Farm operations ──────────────────────────────────────────────────────
+export const getHealthRecordsByFarm = (farmId) => get(`/health-records?farmId=${encodeURIComponent(farmId)}`);
+export const createHealthRecord = (data) => post("/health-records", data);
+export const updateHealthRecord = (id, data) => put(`/health-records/${id}`, data);
+export const getInventoryByFarm = (farmId) => get(`/inventory?farmId=${encodeURIComponent(farmId)}`);
+export const createInventoryItem = (data) => post("/inventory", data);
+export const updateInventoryItem = (id, data) => put(`/inventory/${id}`, data);
+export const getFarmActivitiesByFarm = (farmId) => get(`/farm-activities?farmId=${encodeURIComponent(farmId)}`);
+export const createFarmActivity = (data) => post("/farm-activities", data);
 
 // ── Diseases ──────────────────────────────────────────────────────────────
 export const getDiseases           = ()         => get("/diseases");

@@ -113,4 +113,24 @@ export const userAPI = {
   getStats: () => api.get('/users/stats')
 };
 
+// Health Records
+export const healthAPI = {
+  create: (data) => api.post('/health-records', data),
+  getAll: (params) => api.get('/health-records', { params }),
+  update: (id, data) => api.put(`/health-records/${id}`, data)
+};
+
+// Inventory
+export const inventoryAPI = {
+  create: (data) => api.post('/inventory', data),
+  getAll: (params) => api.get('/inventory', { params }),
+  update: (id, data) => api.put(`/inventory/${id}`, data)
+};
+
+// Farm Activities
+export const farmActivityAPI = {
+  create: (data) => api.post('/farm-activities', data),
+  getAll: (params) => api.get('/farm-activities', { params })
+};
+
 export default api;

@@ -32,7 +32,7 @@ export default function FarmerDashboard() {
         notificationAPI.getAll()
       ]);
       setStats(statsRes.data);
-      setNotifications(notifRes.data?.slice(0, 3) || []);
+      setNotifications(notifRes.data?.slice(0, 5) || []);
     } catch { }
     setLoading(false);
     setRefreshing(false);
@@ -106,27 +106,28 @@ export default function FarmerDashboard() {
           ))}
         </View>
 
-        {/* Recent Notifications */}
-        {notifications.length > 0 && (
-          <>
-            <View style={styles.sectionHeader}>
-              <Text style={styles.sectionTitle}>Recent Alerts</Text>
-              <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
-                <Text style={styles.seeAll}>See All</Text>
-              </TouchableOpacity>
+        {/* Recent Activities */}
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>Recent Activities</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
+            <Text style={styles.seeAll}>See All</Text>
+          </TouchableOpacity>
+        </View>
+        {notifications.length > 0 ? notifications.map((n) => (
+          <Card key={n._id} style={styles.notifCard}>
+            <View style={styles.notifRow}>
+              <View style={[styles.notifDot, { backgroundColor: n.type === 'alert' ? Colors.danger : Colors.primary }]} />
+              <View style={{ flex: 1 }}>
+                <Text style={styles.notifTitle}>{n.title}</Text>
+                <Text style={styles.notifMsg} numberOfLines={2}>{n.message}</Text>
+                {n.createdAt && <Text style={styles.notifTime}>{new Date(n.createdAt).toLocaleDateString()}</Text>}
+              </View>
             </View>
-            {notifications.map((n) => (
-              <Card key={n._id} style={styles.notifCard}>
-                <View style={styles.notifRow}>
-                  <View style={[styles.notifDot, { backgroundColor: n.type === 'alert' ? Colors.danger : Colors.primary }]} />
-                  <View style={{ flex: 1 }}>
-                    <Text style={styles.notifTitle}>{n.title}</Text>
-                    <Text style={styles.notifMsg} numberOfLines={2}>{n.message}</Text>
-                  </View>
-                </View>
-              </Card>
-            ))}
-          </>
+          </Card>
+        )) : (
+          <Card style={styles.notifCard}>
+            <Text style={styles.notifMsg}>No recent activities</Text>
+          </Card>
         )}
 
         <View style={{ height: 80 }} />
@@ -160,5 +161,6 @@ const styles = StyleSheet.create({
   notifRow: { flexDirection: 'row', alignItems: 'flex-start' },
   notifDot: { width: 10, height: 10, borderRadius: 5, marginTop: 4, marginRight: Spacing.sm },
   notifTitle: { fontSize: FontSize.sm, fontWeight: '700', color: Colors.text },
-  notifMsg: { fontSize: FontSize.xs, color: Colors.textSecondary, marginTop: 2 }
+  notifMsg: { fontSize: FontSize.xs, color: Colors.textSecondary, marginTop: 2 },
+  notifTime: { fontSize: 10, color: Colors.textSecondary, marginTop: 2 }
 });
