@@ -47,13 +47,35 @@ function makeRouter(collectionName) {
     } catch (e) { res.status(500).json({ error: e.message }); }
   });
 
+  router.post("/", async (req, res) => {
+    try {
+      const doc = { ...req.body, createdAt: new Date(), updatedAt: new Date() };
+      const result = await db.collection(collectionName).insertOne(doc);
+      res.status(201).json({ _id: result.insertedId, ...doc });
+    } catch (e) { res.status(500).json({ error: e.message }); }
+  });
+
+  router.put("/:id", async (req, res, next) => {
+    try {
+      if (collectionName === "farms") return next();
+      const doc = { ...req.body, updatedAt: new Date() };
+      const result = await db.collection(collectionName).findOneAndUpdate(
+        { $or: [{ _id: ObjectId.isValid(req.params.id) ? new ObjectId(req.params.id) : null }, { livestockId: req.params.id }, { id: req.params.id }].filter(Boolean) },
+        { $set: doc },
+        { returnDocument: "after" }
+      );
+      if (!result || !result.value) return res.status(404).json({ error: "Not found" });
+      res.json(result.value);
+    } catch (e) { res.status(500).json({ error: e.message }); }
+  });
+
   // GET by id field (e.g. userId, farmId, etc.)
   router.get("/:id", async (req, res) => {
     try {
       const id = req.params.id;
       // Try all common id fields
       const idFields = ["userId","farmId","livestockId","vaccinationId","outbreakId",
-                        "assessmentId","reportId","alertId","locationId","notificationId"];
+                        "assessmentId","reportId","alertId","locationId","notificationId","id"];
       let doc = null;
       for (const field of idFields) {
         doc = await db.collection(collectionName).findOne({ [field]: id });
@@ -69,6 +91,84 @@ function makeRouter(collectionName) {
 
   return router;
 }
+
+app.get("/api/livestock", async (req, res) => {
+  try {
+    const filter = {};
+    for (const [key, val] of Object.entries(req.query)) {
+      if (val === "true") filter[key] = true;
+      else if (val === "false") filter[key] = false;
+      else filter[key] = val;
+    }
+    const docs = await db.collection("livestock").find(filter).sort({ createdAt: -1 }).toArray();
+    res.json(docs);
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+app.post("/api/livestock", async (req, res) => {
+  try {
+    const body = req.body || {};
+    const farmId = body.farmId || body.farm || "";
+    const ownerId = body.ownerId || body.owner || "";
+    const livestockId = body.livestockId || body.id || `LS-${Date.now()}`;
+    const doc = {
+      ...body,
+      livestockId,
+      id: livestockId,
+      name: body.name || "",
+      species: body.species || body.animalType || "",
+      breed: body.breed || "",
+      age: body.age || "N/A",
+      weight: Number(body.weight) || 0,
+      paddock: body.paddock || body.pen || "",
+      vaccinated: Boolean(body.vaccinated),
+      health: body.health || body.healthStatus || "Healthy",
+      healthStatus: body.health || body.healthStatus || "Healthy",
+      farmId,
+      ownerId,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    const result = await db.collection("livestock").insertOne(doc);
+    res.status(201).json({ success: true, data: { ...doc, _id: result.insertedId } });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+app.put("/api/livestock/:id", async (req, res) => {
+  try {
+    const body = req.body || {};
+    const livestockId = body.livestockId || body.id || req.params.id;
+    const doc = {
+      ...body,
+      livestockId,
+      id: livestockId,
+      name: body.name || "",
+      species: body.species || body.animalType || "",
+      breed: body.breed || "",
+      age: body.age || "N/A",
+      weight: Number(body.weight) || 0,
+      paddock: body.paddock || body.pen || "",
+      vaccinated: Boolean(body.vaccinated),
+      health: body.health || body.healthStatus || "Healthy",
+      healthStatus: body.health || body.healthStatus || "Healthy",
+      updatedAt: new Date(),
+    };
+    const query = ObjectId.isValid(req.params.id) ? { _id: new ObjectId(req.params.id) } : { livestockId: req.params.id };
+    const result = await db.collection("livestock").findOneAndUpdate(query, { $set: doc }, { returnDocument: "after" });
+    const updatedAnimal = result?.value || result;
+    if (!updatedAnimal) return res.status(404).json({ error: "Animal not found" });
+    res.json({ success: true, data: updatedAnimal });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+app.delete("/api/livestock/:id", async (req, res) => {
+  try {
+    const query = ObjectId.isValid(req.params.id) ? { _id: new ObjectId(req.params.id) } : { livestockId: req.params.id };
+    const result = await db.collection("livestock").deleteOne(query);
+    if (!result.deletedCount) return res.status(404).json({ error: "Animal not found" });
+    res.json({ success: true });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
 
 // ── Auth: Register ────────────────────────────────────────────────────────
 app.post("/api/auth/register", async (req, res) => {
@@ -476,6 +576,10 @@ function validateFarmFields(body, requireAll = false) {
     const n = Number(body.animalCount);
     if (!Number.isInteger(n) || n < 0) errors.push("animalCount must be a non-negative integer");
   }
+  if (body.activeZoneCount !== undefined && body.activeZoneCount !== "") {
+    const n = Number(body.activeZoneCount);
+    if (!Number.isInteger(n) || n < 0) errors.push("activeZoneCount must be a non-negative integer");
+  }
   if (body.latitude !== undefined && body.latitude !== null && body.latitude !== "") {
     const lat = Number(body.latitude);
     if (isNaN(lat) || lat < -90 || lat > 90) errors.push("latitude must be between -90 and 90");
@@ -525,16 +629,33 @@ app.post("/api/farms/create", async (req, res) => {
       farmArea:       body.farmArea        ? Number(body.farmArea)        : null,
       animalCapacity: body.animalCapacity  ? Number(body.animalCapacity)  : null,
       animalCount:    body.animalCount     ? Number(body.animalCount)     : 0,
+      activeZoneCount: Number(body.activeZoneCount) || 0,
       numberOfSheds:  body.numberOfSheds   ? Number(body.numberOfSheds)   : null,
       establishedYear:body.establishedYear ? Number(body.establishedYear) : null,
       latitude:       body.latitude        ? Number(body.latitude)        : null,
       longitude:      body.longitude       ? Number(body.longitude)       : null,
       infrastructure: body.infrastructure  || {},
+      zones:          Array.isArray(body.zones) ? body.zones : [],
       personnel:      body.personnel       || [],
       createdAt:      new Date(),
       updatedAt:      new Date(),
     };
     await db.collection("farms").insertOne(doc);
+    try {
+      await db.collection("farm_activities").insertOne({
+        activityId: `ACT-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+        farmId,
+        ownerId,
+        activityType: "other",
+        description: `Farm registered: ${farmName}`,
+        personResponsible: doc.ownerName,
+        date: doc.createdAt,
+        createdAt: doc.createdAt,
+        updatedAt: doc.createdAt,
+      });
+    } catch (activityError) {
+      console.error("Farm created but activity could not be recorded:", activityError.message);
+    }
     res.status(201).json({ success: true, farmId, farm: doc });
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
@@ -563,13 +684,13 @@ app.put("/api/farms/:farmId", async (req, res) => {
     const ALLOWED = [
       "farmName","ownerName","farmType","status","registrationNo",
       "phone","email","address","village","district","state","pincode",
-      "farmArea","animalCapacity","animalCount","numberOfSheds",
+      "farmArea","animalCapacity","animalCount","activeZoneCount","numberOfSheds",
       "establishedYear","latitude","longitude","infrastructure","personnel"
     ];
     const updates = {};
     for (const key of ALLOWED) {
       if (body[key] !== undefined) {
-        if (["farmArea","animalCapacity","animalCount","numberOfSheds","establishedYear"].includes(key))
+        if (["farmArea","animalCapacity","animalCount","activeZoneCount","numberOfSheds","establishedYear"].includes(key))
           updates[key] = body[key] === "" ? null : Number(body[key]);
         else if (["latitude","longitude"].includes(key))
           updates[key] = body[key] === "" || body[key] === null ? null : Number(body[key]);
@@ -583,6 +704,53 @@ app.put("/api/farms/:farmId", async (req, res) => {
     await db.collection("farms").updateOne({ farmId }, { $set: updates });
     const updated = await db.collection("farms").findOne({ farmId });
     res.json({ success: true, farm: updated });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+app.post("/api/farms/:farmId/zones", async (req, res) => {
+  try {
+    const { farmId } = req.params;
+    const { name, area, capacity, ownerId } = req.body || {};
+    const farm = await db.collection("farms").findOne({ farmId });
+    if (!farm) return res.status(404).json({ error: "Farm not found" });
+    if (!ownerId || ownerId !== farm.ownerId) return res.status(403).json({ error: "Farm owner does not match" });
+    if (typeof name !== "string" || !name.trim()) return res.status(400).json({ error: "Zone name is required" });
+    if (!Number.isFinite(Number(area)) || Number(area) <= 0) return res.status(400).json({ error: "Zone area must be positive" });
+    if (!Number.isFinite(Number(capacity)) || Number(capacity) <= 0) return res.status(400).json({ error: "Zone capacity must be positive" });
+
+    const requestedIds = Array.isArray(req.body.animalIds) ? [...new Set(req.body.animalIds.map(String))] : [];
+    if (requestedIds.length > Number(capacity)) return res.status(400).json({ error: "Assigned animals cannot exceed zone capacity" });
+    const animalFilters = [{ livestockId: { $in: requestedIds } }, { id: { $in: requestedIds } }];
+    const objectIds = requestedIds.filter(ObjectId.isValid).map((id) => new ObjectId(id));
+    if (objectIds.length) animalFilters.push({ _id: { $in: objectIds } });
+    const farmAnimals = requestedIds.length
+      ? await db.collection("livestock").find({ farmId, $or: animalFilters }).toArray()
+      : [];
+    const validIds = new Set(farmAnimals.flatMap((animal) => [
+      animal.livestockId,
+      animal.id,
+      animal._id?.toString(),
+    ].filter(Boolean).map(String)));
+    if (requestedIds.some((id) => !validIds.has(id))) {
+      return res.status(400).json({ error: "Select animals that belong to this farm" });
+    }
+
+    const zone = {
+      zoneId: `ZONE-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+      name: name.trim(),
+      area: Number(area),
+      capacity: Number(capacity),
+      animalIds: farmAnimals.map((animal) => String(animal.livestockId || animal.id || animal._id)),
+      status: "Active",
+      createdAt: new Date(),
+    };
+    const activeZoneCount = (Array.isArray(farm.zones) ? farm.zones : []).filter((entry) => entry.status !== "Inactive").length + 1;
+    await db.collection("farms").updateOne(
+      { farmId, ownerId },
+      { $push: { zones: zone }, $set: { activeZoneCount, updatedAt: new Date() } }
+    );
+    const updatedFarm = await db.collection("farms").findOne({ farmId });
+    res.status(201).json({ success: true, farm: updatedFarm, zone });
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
@@ -631,15 +799,17 @@ app.get("/api/farms/:farmId/summary", async (req, res) => {
 app.get("/api/farms/:farmId/activity", async (req, res) => {
   try {
     const { farmId } = req.params;
-    const [reports, vaccinations, assessments] = await Promise.all([
+    const [reports, vaccinations, assessments, farmActivities] = await Promise.all([
       db.collection("disease_reports").find({ farmId }).sort({ createdAt: -1 }).limit(5).toArray(),
       db.collection("vaccinations").find({ farmId }).sort({ createdAt: -1 }).limit(5).toArray(),
       db.collection("biosecurity_assessments").find({ farmId }).sort({ createdAt: -1 }).limit(5).toArray(),
+      db.collection("farm_activities").find({ farmId }).sort({ createdAt: -1 }).limit(10).toArray(),
     ]);
     const events = [
       ...reports.map(r => ({ type: "disease_report", label: `Disease report submitted — Suspected ${r.suspectedDisease}`, date: r.createdAt, id: r.reportId })),
       ...vaccinations.map(v => ({ type: "vaccination", label: `Vaccination recorded — ${v.disease || v.vaccineName || "vaccine"}`, date: v.createdAt || v.vaccinationDate, id: v.vaccinationId })),
       ...assessments.map(a => ({ type: "biosecurity", label: `Biosecurity assessment completed — Score: ${a.overallScore}/100`, date: a.createdAt, id: a.assessmentId })),
+      ...farmActivities.map(a => ({ type: "farm_activity", label: a.description || `Farm activity recorded — ${a.activityType || "other"}`, date: a.date || a.createdAt, id: a.activityId || a._id.toString() })),
     ];
     events.sort((a, b) => new Date(b.date) - new Date(a.date));
     res.json(events.slice(0, 15));

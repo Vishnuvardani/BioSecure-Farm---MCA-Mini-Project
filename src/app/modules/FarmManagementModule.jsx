@@ -3,11 +3,12 @@ import {
   Leaf, MapPin, Shield, Activity, Syringe, AlertTriangle,
   Edit2, Plus, Save, X, RefreshCw, CheckCircle, Clock,
   Phone, Mail, Building2, FileText, Users, ChevronRight,
-  AlertCircle, Info, ChevronDown
+  AlertCircle, Info, ChevronDown, Layers
 } from "lucide-react";
 import {
   getFarmsByOwner, getFarms, createFarm, updateFarm,
   getFarmSummary, getFarmActivity,
+  getLivestockByFarm, addFarmZone,
   getBiosecurityByFarmId, getHealthRecordsByFarm, getInventoryByFarm,
   getFarmActivitiesByFarm,
 } from "../../api/mongoService";
@@ -84,6 +85,10 @@ function validateForm(f) {
     if (!Number.isInteger(n) || n < 0) errs.animalCount = "Must be 0 or more";
     if (f.animalCapacity && n > Number(f.animalCapacity)) errs.animalCount = "Cannot exceed capacity";
   }
+  if (f.activeZoneCount !== "" && f.activeZoneCount !== null && f.activeZoneCount !== undefined) {
+    const zones = Number(f.activeZoneCount);
+    if (!Number.isInteger(zones) || zones < 0) errs.activeZoneCount = "Must be 0 or more";
+  }
   if (f.numberOfSheds !== "" && f.numberOfSheds !== null && f.numberOfSheds !== undefined) {
     const s = Number(f.numberOfSheds);
     if (!Number.isInteger(s) || s < 0) errs.numberOfSheds = "Must be 0 or more";
@@ -112,7 +117,7 @@ const EMPTY_FORM = {
   farmName: "", ownerName: "", farmType: "Poultry", status: "Active",
   registrationNo: "", phone: "", email: "",
   address: "", village: "", district: "", state: "", pincode: "",
-  farmArea: "", animalCapacity: "", animalCount: "", numberOfSheds: "",
+  farmArea: "", animalCapacity: "", animalCount: "", activeZoneCount: "0", numberOfSheds: "",
   establishedYear: "", latitude: "", longitude: "",
   infrastructure: {
     feedStorage: false, waterSource: "", quarantineArea: false,
@@ -159,12 +164,12 @@ function Field({ label, error, required, children }) {
   );
 }
 
-function Input({ value, onChange, placeholder = "", type = "text", disabled = false, error = false, min, max }) {
+function Input({ value, onChange, placeholder = "", type = "text", disabled = false, error = false, min, max, step }) {
   return (
     <input
       type={type} value={value ?? ""} onChange={onChange}
       placeholder={placeholder} disabled={disabled}
-      min={min} max={max}
+      min={min} max={max} step={step}
       style={{
         width: "100%", padding: "9px 12px", borderRadius: 10, fontSize: 12,
         border: `1.5px solid ${error ? P.danger : "rgba(128,128,52,0.2)"}`,
@@ -476,6 +481,13 @@ function FarmForm({ initial, onSave, onCancel, saving, saveError }) {
                 placeholder="e.g. 970" min="0" error={!!(touched.animalCount && errs.animalCount)} />
             </Field>
           </div>
+          <div id="field-activeZoneCount">
+            <Field label="Active Zones" error={touched.activeZoneCount && errs.activeZoneCount}>
+              <Input type="number" value={form.activeZoneCount} onChange={e => set("activeZoneCount", e.target.value)}
+                onBlur={() => handleBlur("activeZoneCount")}
+                placeholder="e.g. 4" min="0" error={!!(touched.activeZoneCount && errs.activeZoneCount)} />
+            </Field>
+          </div>
           <div id="field-numberOfSheds">
             <Field label="Number of Sheds" error={touched.numberOfSheds && errs.numberOfSheds}>
               <Input type="number" value={form.numberOfSheds} onChange={e => set("numberOfSheds", e.target.value)}
@@ -763,8 +775,8 @@ function ActivityFeed({ farmId }) {
       .finally(() => setLoading(false));
   }, [farmId]);
 
-  const typeIcon = { disease_report: AlertTriangle, vaccination: Syringe, biosecurity: Shield };
-  const typeColor = { disease_report: P.danger, vaccination: P.success, biosecurity: P.olive };
+  const typeIcon = { disease_report: AlertTriangle, vaccination: Syringe, biosecurity: Shield, farm_activity: Building2 };
+  const typeColor = { disease_report: P.danger, vaccination: P.success, biosecurity: P.olive, farm_activity: P.info };
 
   return (
     <Card style={{ padding: 18 }}>
@@ -800,19 +812,17 @@ function ActivityFeed({ farmId }) {
 }
 
 // ── Farm Details View ──────────────────────────────────────────────────────
-function FarmDetailsView({ farm }) {
+function FarmDetailsView({ farm, user }) {
   const rows = [
     ["Farm ID", farm.farmId],
+    ["Owner", farm.ownerName || "—"],
     ["Registration No.", farm.registrationNo || "—"],
     ["Farm Type", farm.farmType || "—"],
     ["Established", farm.establishedYear || "—"],
-    ["Phone", farm.phone || "—"],
-    ["Email", farm.email || "—"],
+    ["Phone", user?.phone || user?.mobile || "—"],
+    ["Email", user?.email || "—"],
     ["Village", farm.village || "—"],
     ["District", farm.district || "—"],
-    ["State", farm.state || "—"],
-    ["Pincode", farm.pincode || "—"],
-    ["Address", farm.address || "—"],
   ];
   return (
     <Card style={{ padding: 18 }}>
@@ -823,6 +833,151 @@ function FarmDetailsView({ farm }) {
           <span style={{ fontSize: 12, fontWeight: 600, color: P.dark, maxWidth: "60%", textAlign: "right", wordBreak: "break-word" }}>{String(v)}</span>
         </div>
       ))}
+    </Card>
+  );
+}
+
+const livestockIdentity = (animal) => String(animal.livestockId || animal.id || animal._id || "");
+
+function FarmZonesPanel({ farm, livestock, onAddZone }) {
+  const [showForm, setShowForm] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
+  const [form, setForm] = useState({ name: "", area: "", capacity: "", animalIds: [] });
+  const zones = Array.isArray(farm.zones) ? farm.zones : [];
+
+  const submitZone = async (event) => {
+    event.preventDefault();
+    setError("");
+    if (!form.name.trim() || !Number.isFinite(Number(form.area)) || Number(form.area) <= 0 || !Number.isFinite(Number(form.capacity)) || Number(form.capacity) <= 0) {
+      setError("Enter a zone name, positive area, and positive capacity.");
+      return;
+    }
+    if (form.animalIds.length > Number(form.capacity)) {
+      setError("Selected animals cannot exceed this zone's capacity.");
+      return;
+    }
+    setSaving(true);
+    try {
+      await onAddZone({ ...form, name: form.name.trim(), area: Number(form.area), capacity: Number(form.capacity) });
+      setForm({ name: "", area: "", capacity: "", animalIds: [] });
+      setShowForm(false);
+    } catch (saveError) {
+      setError(saveError.message || "Unable to save this zone.");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const toggleAnimal = (animalId) => setForm((current) => ({
+    ...current,
+    animalIds: current.animalIds.includes(animalId)
+      ? current.animalIds.filter((id) => id !== animalId)
+      : [...current.animalIds, animalId],
+  }));
+
+  return (
+    <Card style={{ padding: 18, marginBottom: 14 }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, marginBottom: 12 }}>
+        <SectionTitle icon={Layers} title="Farm Zones" />
+        <button onClick={() => { setError(""); setShowForm(true); }} style={{ display: "flex", alignItems: "center", gap: 5, padding: "7px 11px", borderRadius: 9, background: P.olive + "14", color: P.olive, fontWeight: 700, fontSize: 11, border: "none", cursor: "pointer", flexShrink: 0 }}>
+          <Plus size={13} /> Add Zone
+        </button>
+      </div>
+      {zones.length === 0 ? <EmptyState message="No zones recorded for this farm yet." /> : (
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 10 }}>
+          {zones.map((zone) => {
+            const animalIds = Array.isArray(zone.animalIds) ? zone.animalIds.map(String) : [];
+            const zoneAnimals = livestock.filter((animal) => animalIds.includes(livestockIdentity(animal)));
+            const count = animalIds.length;
+            const fill = Number(zone.capacity) > 0 ? Math.min(100, Math.round(count / Number(zone.capacity) * 100)) : 0;
+            return (
+              <div key={zone.zoneId || zone.name} style={{ border: `1px solid ${P.ivoryDark}`, borderRadius: 10, padding: 12 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", gap: 8 }}>
+                  <div>
+                    <p style={{ fontSize: 12, color: P.dark, fontWeight: 700, margin: 0 }}>{zone.name}</p>
+                    <p style={{ fontSize: 10, color: P.mid, margin: "3px 0 0" }}>{zone.area} acres · Capacity {zone.capacity}</p>
+                  </div>
+                  <StatusBadge status={zone.status || "Active"} />
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, color: P.mid, margin: "10px 0 5px" }}>
+                  <span>{count} animals assigned</span><span>{fill}% capacity</span>
+                </div>
+                <div style={{ height: 6, borderRadius: 5, background: P.ivoryDark, overflow: "hidden" }}>
+                  <div style={{ height: "100%", width: `${fill}%`, background: fill >= 90 ? P.warning : P.olive }} />
+                </div>
+                <p style={{ fontSize: 10, color: P.mid, lineHeight: 1.5, margin: "8px 0 0" }}>
+                  {zoneAnimals.length ? zoneAnimals.map((animal) => animal.name || animal.livestockId || animal.id).join(", ") : count ? "Assigned livestock records are not available." : "No animals assigned."}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      )}
+      {showForm && (
+        <div style={{ position: "fixed", inset: 0, zIndex: 60, background: "rgba(0,0,0,0.35)", display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
+          <form onSubmit={submitZone} style={{ width: "100%", maxWidth: 520, maxHeight: "90vh", overflowY: "auto", background: P.white, borderRadius: 14, padding: 20, boxShadow: "0 18px 50px rgba(0,0,0,0.2)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+              <h3 style={{ fontFamily: "Poppins", fontSize: 15, color: P.dark, margin: 0 }}>Add Farm Zone</h3>
+              <button type="button" onClick={() => setShowForm(false)} aria-label="Close" style={{ border: 0, background: "transparent", color: P.mid, cursor: "pointer" }}><X size={17} /></button>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+              {[["name", "Zone name", "text"], ["area", "Area (acres)", "number"], ["capacity", "Capacity (animals)", "number"]].map(([key, label, type]) => (
+                <Field key={key} label={label} required>
+                  <Input type={type} value={form[key]} onChange={(event) => setForm((current) => ({ ...current, [key]: event.target.value }))} placeholder={label} min={type === "number" ? "0.1" : undefined} step={type === "number" ? "any" : undefined} />
+                </Field>
+              ))}
+            </div>
+            <div style={{ marginTop: 14 }}>
+              <p style={{ fontSize: 11, color: P.mid, fontWeight: 700, margin: "0 0 7px" }}>Assign animals from this farm</p>
+              <div style={{ maxHeight: 180, overflowY: "auto", border: `1px solid ${P.ivoryDark}`, borderRadius: 9, padding: 8 }}>
+                {livestock.length === 0 ? <p style={{ fontSize: 11, color: P.light, margin: 4 }}>No livestock records found for this farm.</p> : livestock.map((animal) => {
+                  const animalId = livestockIdentity(animal);
+                  return (
+                    <label key={animalId} style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 3px", borderBottom: `1px solid ${P.ivoryDark}`, cursor: "pointer" }}>
+                      <input type="checkbox" checked={form.animalIds.includes(animalId)} onChange={() => toggleAnimal(animalId)} />
+                      <span style={{ fontSize: 11, color: P.dark, flex: 1 }}>{animal.name || animalId}</span>
+                      <span style={{ fontSize: 10, color: P.mid }}>{animal.species || animal.animalType} · {animal.breed}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
+            {error && <p style={{ fontSize: 11, color: P.danger, margin: "10px 0 0" }}>{error}</p>}
+            <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, marginTop: 16 }}>
+              <button type="button" onClick={() => setShowForm(false)} style={{ padding: "8px 13px", borderRadius: 8, background: P.ivoryDark, color: P.mid, border: 0, cursor: "pointer" }}>Cancel</button>
+              <button type="submit" disabled={saving} style={{ padding: "8px 13px", borderRadius: 8, background: P.olive, color: P.white, border: 0, cursor: saving ? "wait" : "pointer" }}>{saving ? "Saving..." : "Save Zone"}</button>
+            </div>
+          </form>
+        </div>
+      )}
+    </Card>
+  );
+}
+
+function FarmInfrastructureStatus({ infrastructure = {} }) {
+  const items = [
+    ["feedStorage", "Feed Storage"],
+    ["waterSource", "Water Source"],
+    ["quarantineArea", "Quarantine Area"],
+    ["wasteDisposal", "Waste Disposal"],
+    ["disinfectionFacility", "Disinfection Facility"],
+    ["fencing", "Fencing / Security"],
+    ["visitorEntry", "Visitor Entry Area"],
+  ];
+  return (
+    <Card style={{ padding: 18, marginBottom: 14 }}>
+      <SectionTitle icon={Building2} title="Infrastructure Status" />
+      {items.map(([key, label]) => {
+        const available = key === "waterSource" ? Boolean(infrastructure[key]) : Boolean(infrastructure[key]);
+        const value = key === "waterSource" && available ? infrastructure[key] : available ? "Available" : "Not recorded";
+        return (
+          <div key={key} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, padding: "8px 0", borderBottom: `1px solid ${P.ivoryDark}` }}>
+            <span style={{ fontSize: 11, color: P.mid }}>{label}</span>
+            <span style={{ fontSize: 10, color: available ? P.success : P.light, fontWeight: 700 }}>{value}</span>
+          </div>
+        );
+      })}
     </Card>
   );
 }
@@ -840,6 +995,7 @@ export default function FarmManagementModule({ user, role, farms: propFarms = []
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
+  const [farmLivestock, setFarmLivestock] = useState([]);
 
   const isFarmer = role === "farmer";
   const isAdmin  = role === "admin";
@@ -866,6 +1022,18 @@ export default function FarmManagementModule({ user, role, farms: propFarms = []
   }, [user?.userId, isFarmer]);
 
   useEffect(() => { loadFarms(); }, [loadFarms]);
+
+  useEffect(() => {
+    if (!selectedFarm?.farmId) {
+      setFarmLivestock([]);
+      return undefined;
+    }
+    let cancelled = false;
+    getLivestockByFarm(selectedFarm.farmId)
+      .then((records) => { if (!cancelled) setFarmLivestock(Array.isArray(records) ? records : []); })
+      .catch(() => { if (!cancelled) setFarmLivestock([]); });
+    return () => { cancelled = true; };
+  }, [selectedFarm?.farmId]);
 
   useEffect(() => {
     if (!selectedFarm?.farmId) return;
@@ -907,7 +1075,20 @@ export default function FarmManagementModule({ user, role, farms: propFarms = []
     }
   };
 
-  const nav = (page) => { if (onNavigate) onNavigate(page); };
+  const handleAddZone = async (zoneData) => {
+    if (!selectedFarm?.farmId) throw new Error("Select a farm before adding a zone.");
+    const response = await addFarmZone(selectedFarm.farmId, { ...zoneData, ownerId: user?.userId || "" });
+    const updatedFarm = response.farm;
+    setSelectedFarm(updatedFarm);
+    setFarms((currentFarms) => currentFarms.map((farmRecord) => farmRecord.farmId === updatedFarm.farmId ? updatedFarm : farmRecord));
+    setSuccessMsg("Farm zone saved successfully.");
+    setTimeout(() => setSuccessMsg(""), 4000);
+  };
+
+  const nav = (page) => {
+    if (!onNavigate) return;
+    onNavigate(page);
+  };
 
   if (loadingFarms) return (
     <div style={{ fontFamily: "Inter" }}>
@@ -954,6 +1135,7 @@ export default function FarmManagementModule({ user, role, farms: propFarms = []
           farmArea: selectedFarm.farmArea ?? "",
           animalCapacity: selectedFarm.animalCapacity ?? "",
           animalCount: selectedFarm.animalCount ?? "",
+          activeZoneCount: selectedFarm.activeZoneCount ?? (Array.isArray(selectedFarm.zones) ? selectedFarm.zones.filter((zone) => zone.status !== "Inactive").length : 0),
           numberOfSheds: selectedFarm.numberOfSheds ?? "",
           establishedYear: selectedFarm.establishedYear ? String(selectedFarm.establishedYear) : "",
           latitude: selectedFarm.latitude ?? "",
@@ -968,9 +1150,12 @@ export default function FarmManagementModule({ user, role, farms: propFarms = []
   // View mode
   const farm = selectedFarm;
   const liveStock = summary?.livestock;
-  const biosec    = summary?.biosecurity;
-  const vax       = summary?.vaccination;
   const disease   = summary?.diseaseReports;
+  const zones = Array.isArray(farm?.zones) ? farm.zones : [];
+  const activeZones = zones.length ? zones.filter((zone) => zone.status !== "Inactive").length : Number(farm?.activeZoneCount) || 0;
+  const animalTotal = farmLivestock.length
+    ? farmLivestock.reduce((total, animal) => total + (Number(animal.quantity) > 0 ? Number(animal.quantity) : 1), 0)
+    : Number(farm?.animalCount ?? liveStock?.total ?? 0);
 
   return (
     <div style={{ fontFamily: "Inter" }}>
@@ -1055,12 +1240,18 @@ export default function FarmManagementModule({ user, role, farms: propFarms = []
               )}
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 10, marginTop: 16 }}>
-              <KPI label="Animals" value={farm.animalCount ?? liveStock?.total ?? "—"} icon={Activity} color={P.olive} />
+              <KPI label="Animals" value={animalTotal.toLocaleString()} icon={Activity} color={P.olive} />
               <KPI label="Sheds" value={farm.numberOfSheds ?? "—"} icon={Building2} color={P.info} />
-              <KPI label="Farm Area" value={farm.farmArea ? `${farm.farmArea} ac` : "—"} icon={Leaf} color={P.success} />
+              <KPI label="Total Farm Area" value={farm.farmArea ? `${farm.farmArea} ac` : "—"} icon={Leaf} color={P.success} />
+              <KPI label="Active Zones" value={activeZones} icon={Layers} color={P.success} />
               <KPI label="Capacity" value={farm.animalCapacity ?? "—"} icon={CheckCircle} color={P.warning} />
             </div>
           </Card>
+
+          <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1.5fr) minmax(260px, 1fr)", gap: 14, marginBottom: 14 }}>
+            <FarmZonesPanel key={farm.farmId} farm={farm} livestock={farmLivestock} onAddZone={handleAddZone} />
+            <FarmInfrastructureStatus infrastructure={farm.infrastructure || {}} />
+          </div>
 
           {loadingSummary ? <Spinner /> : summaryError ? (
             <div style={{ marginBottom: 16 }}>
@@ -1069,20 +1260,10 @@ export default function FarmManagementModule({ user, role, farms: propFarms = []
           ) : (
             <>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 14 }}>
-                <LocationMap lat={farm.latitude} lon={farm.longitude} onNavigate={nav} />
-                <BiosecuritySummary data={biosec} onNavigate={nav} />
-              </div>
-              <div style={{ marginBottom: 14 }}>
-                <FarmOperationsDashboard farmId={farm.farmId} onNavigate={nav} />
-              </div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 14 }}>
                 <LivestockSummary data={liveStock} onNavigate={nav} />
                 <DiseaseSummary data={disease} onNavigate={nav} />
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 14 }}>
-                <VaccinationSummary data={vax} onNavigate={nav} />
-                <FarmDetailsView farm={farm} />
-              </div>
+              <FarmDetailsView farm={farm} user={user} />
             </>
           )}
           <ActivityFeed farmId={farm.farmId} />

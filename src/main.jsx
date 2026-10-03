@@ -65,7 +65,7 @@ const SESSION_TTL = 24 * 60 * 60 * 1000;
 function DataConsumer({ mongoRole, onLogout, language }) {
   const { user, farms, livestock, vaccinations, diseases, biosecurity,
           vetReports, alerts, gisLocations, notifications, analytics,
-          allUsers, loading, error, reload } = useData();
+      allUsers, activities, loading, error, reload } = useData();
 
   const shortRole = ROLE_REVERSE[mongoRole] || "farmer";
 
@@ -73,8 +73,8 @@ function DataConsumer({ mongoRole, onLogout, language }) {
   if (error)   return <ErrorScreen error={error} onRetry={reload} />;
 
   // renderLegacyPage delegates to App's renderPage function
-  const renderLegacyPage = (role, page) =>
-    renderPage(role, page, user, { farms, livestock, vaccinations, alerts, biosecurity }, language);
+  const renderLegacyPage = (role, page, onNavigate) =>
+    renderPage(role, page, user, { farms, livestock, vaccinations, alerts, biosecurity, activities }, language, onNavigate);
 
   return (
     <IntegratedDashboard

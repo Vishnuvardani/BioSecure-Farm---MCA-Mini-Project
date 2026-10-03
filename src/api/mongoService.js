@@ -46,6 +46,7 @@ export const updateFarm          = (id, data) => put(`/farms/${id}`, data);
 export const deleteFarm          = (id) => del(`/farms/${id}`);
 export const getFarmSummary      = (id) => get(`/farms/${id}/summary`);
 export const getFarmActivity     = (id) => get(`/farms/${id}/activity`);
+export const addFarmZone          = (farmId, data) => post(`/farms/${encodeURIComponent(farmId)}/zones`, data);
 
 // ── Veterinary appointment booking ────────────────────────────────────────
 export const getAvailableVeterinarians = (farmId) => get(`/veterinarians/available?farmId=${encodeURIComponent(farmId)}`);

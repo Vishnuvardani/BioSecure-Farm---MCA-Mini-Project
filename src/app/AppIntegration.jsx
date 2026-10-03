@@ -244,7 +244,7 @@ export function IntegratedDashboard({ role, user, farms, onLogout, renderLegacyP
         <div style={{ flex: 1, overflowY: "auto", padding: 24 }}>
           {isNewModule
             ? renderNewModule(activeModule, farms || [], user, role)
-            : renderLegacyPage(role, activeModule)
+            : renderLegacyPage(role, activeModule, setActiveModule)
           }
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { useState, useRef, useEffect } from "react";
 import { formatDate, formatTime } from "../utils/dateTime";
+import FarmManagementModule from "./modules/FarmManagementModule";
 import {
   AreaChart,
   Area,
@@ -641,6 +642,11 @@ function WeatherWidget({ coordinates = null, locationName = "Current location", 
   const [loading, setLoading] = useState(true);
   const [loadingMessage, setLoadingMessage] = useState("Finding farm location…");
   const [error, setError] = useState("");
+  const [refreshToken, setRefreshToken] = useState(0);
+  useEffect(() => {
+    const refreshTimer = window.setInterval(() => setRefreshToken((token) => token + 1), 60 * 60 * 1000);
+    return () => window.clearInterval(refreshTimer);
+  }, []);
   useEffect(() => {
     let cancelled = false;
     if (coordinates) {
@@ -649,6 +655,48 @@ function WeatherWidget({ coordinates = null, locationName = "Current location", 
       setError("");
       setLocation(coordinates);
       return () => { cancelled = true; };
+    }
+    const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
+    if (apiKey && locationQuery.trim()) {
+      setLoading(true);
+      setLoadingMessage("Loading today's weather…");
+      setError("");
+      setWeather(null);
+      const controller = new AbortController();
+      const requestTimer = setTimeout(() => controller.abort(), 12000);
+      const params = new URLSearchParams({ q: locationQuery, appid: apiKey, units: "metric" });
+      fetch(`https://api.openweathermap.org/data/2.5/weather?${params}`, { signal: controller.signal })
+        .then(async (response) => {
+          if (response.status === 401) throw new Error("OpenWeather rejected the API key; check that it is active");
+          if (!response.ok) throw new Error("Today's weather could not be loaded for this location");
+          return response.json();
+        })
+        .then((currentData) => {
+          if (cancelled) return;
+          setWeather({
+            current: {
+              temperature: currentData.main.temp,
+              humidity: currentData.main.humidity,
+              feelsLike: currentData.main.feels_like,
+              windSpeed: currentData.wind.speed,
+              description: currentData.weather?.[0]?.description || "Current conditions",
+              iconCode: currentData.weather?.[0]?.id,
+            },
+            locationName: currentData.name,
+          });
+          setLoading(false);
+        })
+        .catch((fetchError) => {
+          if (cancelled) return;
+          setError(fetchError.name === "AbortError" ? "Weather request timed out. Please try again." : fetchError.message || "Today's weather could not be loaded");
+          setLoading(false);
+        })
+        .finally(() => clearTimeout(requestTimer));
+      return () => {
+        cancelled = true;
+        clearTimeout(requestTimer);
+        controller.abort();
+      };
     }
     setLoading(true);
     setError("");
@@ -684,7 +732,6 @@ function WeatherWidget({ coordinates = null, locationName = "Current location", 
         { enableHighAccuracy: true, timeout: 10000, maximumAge: 300000 }
       );
     };
-    const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
     if (apiKey && locationQuery.trim()) {
       setLoadingMessage("Finding farm location…");
       const controller = new AbortController();
@@ -709,7 +756,7 @@ function WeatherWidget({ coordinates = null, locationName = "Current location", 
       resolveBrowserLocation();
     }
     return () => { cancelled = true; };
-  }, [coordinates?.latitude, coordinates?.longitude, locationQuery]);
+  }, [coordinates?.latitude, coordinates?.longitude, locationQuery, refreshToken]);
   useEffect(() => {
     if (!location) return;
     const controller = new AbortController();
@@ -752,8 +799,7 @@ function WeatherWidget({ coordinates = null, locationName = "Current location", 
             description: currentData.weather?.[0]?.description || "Current conditions",
             iconCode: currentData.weather?.[0]?.id
           },
-          locationName: currentData.name,
-          forecast: []
+          locationName: currentData.name
         });
         setLoading(false);
       })
@@ -762,26 +808,7 @@ function WeatherWidget({ coordinates = null, locationName = "Current location", 
         setError(fetchError.message || "Current weather could not be loaded");
         setLoading(false);
       });
-    const forecastRequest = fetch(`https://api.openweathermap.org/data/2.5/forecast?${params}`, { signal: controller.signal })
-      .then(async (response) => {
-        if (!response.ok) throw new Error("Forecast unavailable");
-        return response.json();
-      })
-      .then((forecastData) => {
-        if (cancelled) return;
-        const dailyForecast = Object.values((forecastData.list || []).reduce((days, entry) => {
-          const date = entry.dt_txt.split(" ")[0];
-          if (!days[date]) days[date] = { date, high: entry.main.temp_max, low: entry.main.temp_min };
-          else {
-            days[date].high = Math.max(days[date].high, entry.main.temp_max);
-            days[date].low = Math.min(days[date].low, entry.main.temp_min);
-          }
-          return days;
-        }, {})).slice(0, 4);
-        setWeather((previous) => previous ? { ...previous, forecast: dailyForecast } : previous);
-      })
-      .catch(() => {});
-    Promise.allSettled([currentRequest, forecastRequest]).finally(() => {
+    currentRequest.finally(() => {
       clearTimeout(requestTimer);
       if (requestTimedOut && !cancelled) {
         setError((previous) => previous || "Weather request timed out. Please try again.");
@@ -793,15 +820,15 @@ function WeatherWidget({ coordinates = null, locationName = "Current location", 
       clearTimeout(requestTimer);
       controller.abort();
     };
-  }, [location]);
+  }, [location, refreshToken]);
   const current = weather?.current;
   const iconGroup = Math.floor((current?.iconCode || 0) / 100);
   const WeatherIcon = iconGroup === 8 ? (current?.iconCode === 800 ? Sun : CloudSun) : CloudRain;
-  const forecast = weather?.forecast || [];
   return /* @__PURE__ */ jsxs(Card, { className: "p-4", style: { background: "linear-gradient(135deg, #1a5276 0%, #2980b9 100%)", border: "none" }, children: [
     /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between mb-3", children: [
       /* @__PURE__ */ jsxs("div", { className: "min-w-0", children: [
-        /* @__PURE__ */ jsx("p", { className: "text-white text-xs opacity-70 truncate", children: weather?.locationName || locationName }),
+        /* @__PURE__ */ jsx("p", { className: "text-white text-xs opacity-70 truncate", children: locationName || weather?.locationName || "Current location" }),
+        /* @__PURE__ */ jsx("p", { className: "text-white text-xs opacity-70 mt-1", children: `Today · ${new Intl.DateTimeFormat(undefined, { weekday: "long", month: "short", day: "numeric" }).format(new Date())}` }),
         current ? /* @__PURE__ */ jsx("p", { className: "text-white font-bold text-2xl", style: { fontFamily: "Poppins" }, children: `${Math.round(current.temperature)}°C` }) : /* @__PURE__ */ jsx("p", { className: "text-white text-sm font-medium mt-1", children: loading ? loadingMessage : "Weather unavailable" }),
         current && /* @__PURE__ */ jsx("p", { className: "text-white text-xs opacity-80 mt-0.5 capitalize", children: current.description })
       ] }),
@@ -812,12 +839,7 @@ function WeatherWidget({ coordinates = null, locationName = "Current location", 
       /* @__PURE__ */ jsx("p", { className: "text-white opacity-60", style: { fontSize: "10px" }, children: label }),
       /* @__PURE__ */ jsx("p", { className: "text-white text-xs font-medium", children: value })
     ] }, label)) }),
-    error && /* @__PURE__ */ jsx("p", { className: "text-white text-xs mt-2", children: error }),
-    forecast.length > 0 && /* @__PURE__ */ jsx("div", { className: "grid grid-cols-4 gap-1 mt-3 pt-2", style: { borderTop: "1px solid rgba(255,255,255,0.15)" }, children: forecast.map((day) => /* @__PURE__ */ jsxs("div", { className: "flex flex-col items-center gap-0.5", children: [
-      /* @__PURE__ */ jsx("span", { className: "text-white opacity-60", style: { fontSize: "10px" }, children: new Intl.DateTimeFormat(undefined, { weekday: "short" }).format(new Date(`${day.date}T12:00:00`)) }),
-      /* @__PURE__ */ jsx("span", { className: "text-white text-xs font-semibold", children: `${Math.round(day.high)}°` }),
-      /* @__PURE__ */ jsx("span", { className: "text-white text-xs opacity-60", children: `${Math.round(day.low)}°` })
-    ] }, day.date)) })
+    error && /* @__PURE__ */ jsx("p", { className: "text-white text-xs mt-2", children: error })
   ] });
 }
 function AIRecommendationCard() {
@@ -1467,50 +1489,54 @@ function RegisterScreen({ onBack, onSuccess, language, onLanguageChange }) {
     ] })
   ] });
 }
-function FarmerDashboardPage({ user, farms = [], livestock = [], vaccinations = [], alerts = [], biosecurity = [] }) {
-  const vaccineData = [{ name: "CSF", coverage: 88, color: P.olive }, { name: "PRRS", coverage: 72, color: P.purple }, { name: "Newcastle", coverage: 95, color: P.success }, { name: "IBD", coverage: 61, color: P.warning }];
-  const recentActivity = [
-    { action: "AI Alert: Respiratory symptoms detected in Finisher Pen \u2013 PRRS suspected", time: "10:24 AM", type: "ai" },
-    { action: "Vaccination record updated \u2013 320 pigs vaccinated for CSF", time: "09:15 AM", type: "vaccine" },
-    { action: "GIS boundary review completed by Dr. Nimal W.", time: "Yesterday", type: "gis" },
-    { action: "Dr. Nimal Wickramasinghe conducted farm visit", time: "2 days ago", type: "visit" },
-    { action: "Biosecurity assessment score updated to 78/100", time: "3 days ago", type: "check" }
-  ];
-  const typeColors = { ai: P.purple, vaccine: P.olive, gis: P.info, visit: P.success, check: P.warning };
+function FarmerDashboardPage({ user, farms = [], livestock = [], vaccinations = [], alerts = [], biosecurity = [], activities = [] }) {
+  const recentActivity = activities.slice(0, 5).map((activity) => ({
+    action: activity.label || activity.description || "Farm activity recorded",
+    time: activity.date ? formatDate(activity.date, { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" }) : "",
+    type: activity.type || "farm_activity",
+    id: activity.id || activity.activityId,
+  }));
+  const typeColors = { disease_report: P.danger, vaccination: P.success, biosecurity: P.olive, farm_activity: P.info };
   const locatedFarm = farms.find((farm) => farm.latitude !== undefined && farm.latitude !== null && farm.latitude !== "" && farm.longitude !== undefined && farm.longitude !== null && farm.longitude !== "" && Number.isFinite(Number(farm.latitude)) && Number.isFinite(Number(farm.longitude)) && Number(farm.latitude) >= -90 && Number(farm.latitude) <= 90 && Number(farm.longitude) >= -180 && Number(farm.longitude) <= 180);
   const farmCoordinates = locatedFarm ? { latitude: Number(locatedFarm.latitude), longitude: Number(locatedFarm.longitude) } : null;
-  const weatherDistrict = locatedFarm?.district || user?.extra?.District || "";
-  const weatherLocationName = weatherDistrict || "District not set";
-  const weatherLocationQuery = [weatherDistrict, user?.extra?.State, user?.extra?.Country || "Sri Lanka"].filter(Boolean).join(", ");
-  const totalAnimals = farms.reduce((total, farm) => total + (Number(farm.animalCount) || 0), 0) || livestock.length;
-  const latestScore = biosecurity[0]?.overallScore ?? biosecurity[0]?.score ?? "-";
+  const weatherState = farms[0]?.state || user?.state || user?.extra?.State || "";
+  const weatherDistrict = farms[0]?.district || user?.district || user?.extra?.District || "";
+  const weatherLocationName = weatherState || weatherDistrict || "State not set";
+  const weatherLocationQuery = [weatherDistrict, weatherState, user?.country || user?.extra?.Country || "India"].filter(Boolean).join(", ");
+  const totalAnimals = livestock.reduce((total, animal) => {
+    if (animal.quantity === undefined || animal.quantity === null || animal.quantity === "") return total + 1;
+    return total + (Number(animal.quantity) || 0);
+  }, 0);
+  const latestAssessment = biosecurity[0];
+  const rawScore = latestAssessment?.overallScore ?? latestAssessment?.score;
+  const latestScore = rawScore === undefined || rawScore === null || rawScore === "" ? null : Number(rawScore);
   return /* @__PURE__ */ jsxs("div", { className: "space-y-6", children: [
     /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-2 lg:grid-cols-4 gap-4", children: [
       /* @__PURE__ */ jsx(KPICard, { label: "Total Animals", value: totalAnimals.toLocaleString(), sub: `${farms.length} registered farm${farms.length === 1 ? "" : "s"}`, icon: Activity, color: P.olive, trend: "up" }),
       /* @__PURE__ */ jsx(KPICard, { label: "Health Alerts", value: alerts.length.toLocaleString(), sub: "From MongoDB", icon: AlertTriangle, color: P.danger, trend: alerts.length ? "down" : "neutral" }),
-      /* @__PURE__ */ jsx(KPICard, { label: "Biosecurity Score", value: latestScore === "-" ? "-" : `${latestScore}/100`, sub: latestScore === "-" ? "No assessment yet" : "Latest assessment", icon: Shield, color: P.success, trend: "up" }),
+      /* @__PURE__ */ jsx(KPICard, { label: "Biosecurity Score", value: latestScore === null ? "-" : `${latestScore}/100`, sub: latestScore === null ? "No assessment yet" : "Latest assessment", icon: Shield, color: P.success, trend: "up" }),
       /* @__PURE__ */ jsx(KPICard, { label: "Vaccinations", value: vaccinations.length.toLocaleString(), sub: "Records in MongoDB", icon: Syringe, color: P.warning, trend: "neutral" })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-3 gap-6", children: [
       /* @__PURE__ */ jsxs(Card, { className: "lg:col-span-2 overflow-hidden", children: [
         /* @__PURE__ */ jsx("div", { className: "flex items-center justify-between p-5 pb-3", style: { borderBottom: `1px solid ${P.ivoryDark}` }, children: /* @__PURE__ */ jsx("h3", { className: "font-semibold text-sm", style: { fontFamily: "Poppins", color: P.dark }, children: "Recent Activity" }) }),
-        /* @__PURE__ */ jsx("div", { className: "p-5 flex flex-col gap-0", children: recentActivity.map((a, i) => /* @__PURE__ */ jsxs("div", { className: "flex gap-4 pb-4", children: [
+        /* @__PURE__ */ jsx("div", { className: "p-5 flex flex-col gap-0", children: recentActivity.length ? recentActivity.map((a, i) => /* @__PURE__ */ jsxs("div", { className: "flex gap-4 pb-4", children: [
           /* @__PURE__ */ jsxs("div", { className: "flex flex-col items-center", children: [
-            /* @__PURE__ */ jsx("div", { className: "w-2.5 h-2.5 rounded-full mt-0.5", style: { background: typeColors[a.type] } }),
+            /* @__PURE__ */ jsx("div", { className: "w-2.5 h-2.5 rounded-full mt-0.5", style: { background: typeColors[a.type] || P.mid } }),
             i < recentActivity.length - 1 && /* @__PURE__ */ jsx("div", { className: "w-px flex-1 mt-1", style: { background: P.ivoryDark } })
           ] }),
           /* @__PURE__ */ jsxs("div", { className: "flex-1 pb-0", children: [
             /* @__PURE__ */ jsx("p", { className: "text-xs", style: { color: P.dark }, children: a.action }),
             /* @__PURE__ */ jsx("p", { className: "text-xs mt-0.5", style: { color: P.light }, children: a.time })
           ] })
-        ] }, i)) })
+        ] }, a.id || i)) : /* @__PURE__ */ jsx("p", { className: "text-xs", style: { color: P.mid }, children: "No recent farm activity recorded." }) })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-4", children: [
         /* @__PURE__ */ jsxs(Card, { className: "p-5", children: [
           /* @__PURE__ */ jsx("h3", { className: "font-semibold text-sm mb-3", style: { fontFamily: "Poppins", color: P.dark }, children: "Biosecurity Score" }),
-          /* @__PURE__ */ jsx(BiosecurityGauge, { score: 78 })
+          latestScore === null ? /* @__PURE__ */ jsx("p", { className: "text-xs text-center py-4", style: { color: P.mid }, children: "No assessment data available." }) : /* @__PURE__ */ jsx(BiosecurityGauge, { score: latestScore })
         ] }),
-        /* @__PURE__ */ jsx(WeatherWidget, { coordinates: farmCoordinates, locationName: weatherLocationName, locationQuery: weatherLocationQuery })
+        /* @__PURE__ */ jsx(WeatherWidget, { locationName: weatherLocationName, locationQuery: weatherLocationQuery })
       ] })
     ] })
   ] });
@@ -1609,39 +1635,193 @@ function FarmManagementPage() {
     ] })
   ] });
 }
-function LivestockManagementPage() {
+const normalizeAnimalRecord = (animal = {}) => {
+  const rawId = animal.livestockId || animal.animalId || animal.id || animal.tagId || animal._id || "";
+  const rawSpecies = animal.species || animal.animalType || animal.type || "Unknown";
+  const rawHealth = animal.health || animal.healthStatus || animal.status || "Healthy";
+  const normalizedHealth = {
+    healthy: "Healthy",
+    "at risk": "At Risk",
+    warning: "At Risk",
+    sick: "Sick",
+    quarantine: "At Risk",
+    deceased: "Sick",
+  }[String(rawHealth).toLowerCase()] || String(rawHealth || "Healthy");
+
+  return {
+    ...animal,
+    id: String(rawId || ""),
+    name: animal.name || animal.tagId || `Animal ${rawId || "New"}`,
+    species: String(rawSpecies || "Unknown"),
+    breed: animal.breed || "Unknown breed",
+    age: animal.age || animal.dateOfBirth || "N/A",
+    weight: animal.weight ?? animal.weightKg ?? animal.weight_kg ?? "N/A",
+    paddock: animal.paddock || animal.paddockName || animal.pen || animal.location || "Unassigned",
+    vaccinated: typeof animal.vaccinated === "string" ? ["true", "yes", "1"].includes(animal.vaccinated.toLowerCase()) : Boolean(animal.vaccinated),
+    health: normalizedHealth,
+  };
+};
+
+function LivestockManagementPage({ user, farms = [], livestock: livestockData = [] }) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
-  const [selectedAnimal, setSelectedAnimal] = useState(null);
-  const speciesCounts = [{ name: "Broiler", value: 21800, color: P.olive }, { name: "Layer", value: 8e3, color: P.purple }, { name: "Pig (Herd)", value: 356, color: P.warning }, { name: "Breeder", value: 4200, color: P.info }];
-  const filtered = livestock.filter((a) => (filter === "All" || a.health === filter) && (a.name.toLowerCase().includes(search.toLowerCase()) || a.id.toLowerCase().includes(search.toLowerCase())));
+  const [menuOpenId, setMenuOpenId] = useState(null);
+  const [showForm, setShowForm] = useState(false);
+  const [editingAnimal, setEditingAnimal] = useState(null);
+  const [form, setForm] = useState({
+    id: "",
+    name: "",
+    species: "",
+    breed: "",
+    age: "",
+    weight: "",
+    paddock: "",
+    vaccinated: true,
+    health: "Healthy",
+  });
+  const [animals, setAnimals] = useState(() => Array.isArray(livestockData) ? livestockData.map(normalizeAnimalRecord) : []);
+
+  useEffect(() => {
+    setAnimals(Array.isArray(livestockData) ? livestockData.map(normalizeAnimalRecord) : []);
+  }, [livestockData]);
+
+  const selectedFarmId = farms.find((farm) => farm.ownerId === user?.userId || farm.ownerId === user?.id || farm.farmId === user?.farmId)?.farmId || farms[0]?.farmId || "";
+  const visibleAnimals = animals.filter((animal) => !selectedFarmId || animal.farmId === selectedFarmId || !animal.farmId || animal.ownerId === user?.userId || animal.ownerId === user?.id);
+  const speciesCounts = [
+    { name: "Pig", value: visibleAnimals.filter((a) => String(a.species).toLowerCase().includes("pig")).length, color: P.warning },
+    { name: "Broiler", value: visibleAnimals.filter((a) => String(a.species).toLowerCase().includes("broiler")).length, color: P.olive },
+    { name: "Layer", value: visibleAnimals.filter((a) => String(a.species).toLowerCase().includes("layer")).length, color: P.purple },
+    { name: "Other", value: visibleAnimals.filter((a) => !["pig", "broiler", "layer"].some((s) => String(a.species).toLowerCase().includes(s))).length, color: P.info },
+  ].filter((item) => item.value > 0);
+  const filtered = visibleAnimals.filter((a) => (filter === "All" || a.health === filter) && (a.name.toLowerCase().includes(search.toLowerCase()) || a.id.toLowerCase().includes(search.toLowerCase()) || a.species.toLowerCase().includes(search.toLowerCase())));
+
+  const resetForm = () => {
+    setForm({ id: "", name: "", species: "", breed: "", age: "", weight: "", paddock: "", vaccinated: true, health: "Healthy" });
+    setEditingAnimal(null);
+  };
+
+  const openAddForm = () => {
+    resetForm();
+    setShowForm(true);
+  };
+
+  const openEditForm = (animal) => {
+    setEditingAnimal(animal);
+    setForm({
+      id: animal.id || "",
+      name: animal.name || "",
+      species: animal.species || "",
+      breed: animal.breed || "",
+      age: animal.age || "",
+      weight: animal.weight === "N/A" ? "" : String(animal.weight || ""),
+      paddock: animal.paddock || "",
+      vaccinated: Boolean(animal.vaccinated),
+      health: animal.health || "Healthy",
+    });
+    setMenuOpenId(null);
+    setShowForm(true);
+  };
+
+  const deleteAnimal = async (animal) => {
+    if (!window.confirm(`Delete animal ${animal.id}? This cannot be undone.`)) return;
+    try {
+      const response = await fetch(`http://localhost:5000/api/livestock/${encodeURIComponent(animal.id)}`, { method: "DELETE" });
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || "Unable to delete animal.");
+      }
+      setAnimals((currentAnimals) => currentAnimals.filter((record) => record.id !== animal.id));
+      setMenuOpenId(null);
+    } catch (error) {
+      window.alert(error.message || "Unable to delete animal data.");
+    }
+  };
+
+  const saveAnimal = async (event) => {
+    event.preventDefault();
+    const trimmedId = form.id.trim();
+    const trimmedName = form.name.trim();
+    const trimmedSpecies = form.species.trim();
+    const trimmedBreed = form.breed.trim();
+    const trimmedPaddock = form.paddock.trim();
+
+    if (!trimmedId || !trimmedName || !trimmedSpecies || !trimmedBreed || !trimmedPaddock) {
+      window.alert("Please fill in ID, name, species, breed and paddock.");
+      return;
+    }
+
+    const payload = {
+      livestockId: trimmedId,
+      id: trimmedId,
+      name: trimmedName,
+      species: trimmedSpecies,
+      breed: trimmedBreed,
+      age: form.age.trim() || "N/A",
+      weight: Number(form.weight) || 0,
+      paddock: trimmedPaddock,
+      vaccinated: Boolean(form.vaccinated),
+      health: form.health || "Healthy",
+      farmId: selectedFarmId || farms[0]?.farmId || "",
+      ownerId: user?.userId || user?.id || "",
+      ownerName: user?.name || "",
+      healthStatus: form.health || "Healthy",
+    };
+
+    try {
+      const url = editingAnimal ? `http://localhost:5000/api/livestock/${encodeURIComponent(editingAnimal.id)}` : "http://localhost:5000/api/livestock";
+      const method = editingAnimal ? "PUT" : "POST";
+      const response = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || "Unable to save animal.");
+      }
+
+      const result = await response.json();
+      const savedAnimal = normalizeAnimalRecord(result.data || result || payload);
+      setAnimals((currentAnimals) => {
+        if (editingAnimal) {
+          return currentAnimals.map((animal) => (animal.id === editingAnimal.id ? savedAnimal : animal));
+        }
+        return [savedAnimal, ...currentAnimals];
+      });
+      setShowForm(false);
+      resetForm();
+    } catch (error) {
+      window.alert(error.message || "Unable to save animal data.");
+    }
+  };
   return /* @__PURE__ */ jsxs("div", { className: "space-y-6", children: [
     /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-2 lg:grid-cols-4 gap-4", children: [
-      /* @__PURE__ */ jsx(KPICard, { label: "Total Animals", value: "34,356", sub: "Pigs + Poultry", icon: Activity, color: P.olive }),
-      /* @__PURE__ */ jsx(KPICard, { label: "Healthy", value: "463", sub: "96.5%", icon: CheckCircle, color: P.success }),
-      /* @__PURE__ */ jsx(KPICard, { label: "At Risk", value: "11", sub: "2.3%", icon: AlertTriangle, color: P.warning }),
-      /* @__PURE__ */ jsx(KPICard, { label: "Sick", value: "6", sub: "1.2%", icon: AlertCircle, color: P.danger })
+      /* @__PURE__ */ jsx(KPICard, { label: "Total Animals", value: String(visibleAnimals.length), sub: "From MongoDB", icon: Activity, color: P.olive }),
+      /* @__PURE__ */ jsx(KPICard, { label: "Healthy", value: String(visibleAnimals.filter((a) => a.health === "Healthy").length), sub: "Current status", icon: CheckCircle, color: P.success }),
+      /* @__PURE__ */ jsx(KPICard, { label: "At Risk", value: String(visibleAnimals.filter((a) => a.health === "At Risk").length), sub: "Monitor", icon: AlertTriangle, color: P.warning }),
+      /* @__PURE__ */ jsx(KPICard, { label: "Sick", value: String(visibleAnimals.filter((a) => a.health === "Sick").length), sub: "Need attention", icon: AlertCircle, color: P.danger })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-4 gap-6", children: [
       /* @__PURE__ */ jsx("div", { className: "lg:col-span-3", children: /* @__PURE__ */ jsxs(Card, { className: "overflow-hidden", children: [
         /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap items-center gap-3 p-5 pb-3", style: { borderBottom: `1px solid ${P.ivoryDark}` }, children: [
           /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 flex-1 px-3 py-2 rounded-xl min-w-48", style: { background: P.ivoryDark }, children: [
             /* @__PURE__ */ jsx(Search, { className: "w-4 h-4", style: { color: P.mid } }),
-            /* @__PURE__ */ jsx("input", { value: search, onChange: (e) => setSearch(e.target.value), placeholder: "Search by name or tag\u2026", className: "bg-transparent text-sm outline-none flex-1", style: { color: P.dark } })
+            /* @__PURE__ */ jsx("input", { value: search, onChange: (e) => setSearch(e.target.value), placeholder: "Search by name, ID or species…", className: "bg-transparent text-sm outline-none flex-1", style: { color: P.dark } })
           ] }),
           /* @__PURE__ */ jsx("div", { className: "flex gap-2", children: ["All", "Healthy", "At Risk", "Sick"].map((f) => /* @__PURE__ */ jsx("button", { onClick: () => setFilter(f), className: "text-xs px-3 py-1.5 rounded-lg font-medium transition-all", style: { background: filter === f ? P.olive : P.ivoryDark, color: filter === f ? "#fff" : P.mid }, children: f }, f)) }),
-          /* @__PURE__ */ jsxs("button", { className: "flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg", style: { background: P.olive, color: "#fff" }, children: [
+          /* @__PURE__ */ jsxs("button", { onClick: openAddForm, className: "flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg", style: { background: P.olive, color: "#fff" }, children: [
             /* @__PURE__ */ jsx(Plus, { className: "w-3.5 h-3.5" }),
             "Add Animal"
           ] })
         ] }),
         /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "w-full", children: [
           /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsx("tr", { style: { background: P.ivoryDark }, children: ["ID", "Name", "Species/Breed", "Age/Weight", "Paddock", "Vaccinated", "Health", ""].map((h) => /* @__PURE__ */ jsx("th", { className: "text-left text-xs font-semibold px-4 py-3", style: { color: P.mid }, children: h }, h)) }) }),
-          /* @__PURE__ */ jsx("tbody", { children: filtered.map((a) => /* @__PURE__ */ jsxs("tr", { className: "hover:bg-amber-50/30 cursor-pointer transition-colors", onClick: () => setSelectedAnimal(a), style: { borderBottom: `1px solid ${P.ivoryDark}` }, children: [
+          /* @__PURE__ */ jsx("tbody", { children: filtered.map((a) => /* @__PURE__ */ jsxs("tr", { className: "hover:bg-amber-50/30 transition-colors", style: { borderBottom: `1px solid ${P.ivoryDark}` }, children: [
             /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-xs font-mono", style: { color: P.mid }, children: a.id }),
             /* @__PURE__ */ jsxs("td", { className: "px-4 py-3", children: [
               /* @__PURE__ */ jsx("p", { className: "text-xs font-semibold", style: { color: P.dark }, children: a.name }),
-              /* @__PURE__ */ jsx("p", { className: "text-xs", style: { color: P.light }, children: a.tag })
+              /* @__PURE__ */ jsx("p", { className: "text-xs", style: { color: P.light }, children: a.id })
             ] }),
             /* @__PURE__ */ jsxs("td", { className: "px-4 py-3", children: [
               /* @__PURE__ */ jsx("p", { className: "text-xs font-medium", style: { color: P.dark }, children: a.species }),
@@ -1649,45 +1829,77 @@ function LivestockManagementPage() {
             ] }),
             /* @__PURE__ */ jsxs("td", { className: "px-4 py-3", children: [
               /* @__PURE__ */ jsx("p", { className: "text-xs", style: { color: P.dark }, children: a.age }),
-              /* @__PURE__ */ jsx("p", { className: "text-xs", style: { color: P.mid }, children: a.weight })
+              /* @__PURE__ */ jsx("p", { className: "text-xs", style: { color: P.mid }, children: `${a.weight}kg` })
             ] }),
             /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-xs", style: { color: P.mid }, children: a.paddock }),
             /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: a.vaccinated ? /* @__PURE__ */ jsx(CheckCircle, { className: "w-4 h-4", style: { color: P.success } }) : /* @__PURE__ */ jsx(X, { className: "w-4 h-4", style: { color: P.danger } }) }),
             /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: /* @__PURE__ */ jsx(Badge, { text: a.health, color: healthColor[a.health], bg: `${healthColor[a.health]}15` }) }),
-            /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: /* @__PURE__ */ jsx("button", { className: "p-1 rounded-lg hover:bg-gray-100", children: /* @__PURE__ */ jsx(MoreVertical, { className: "w-4 h-4", style: { color: P.light } }) }) })
+            /* @__PURE__ */ jsx("td", { className: "px-4 py-3 relative", children: /* @__PURE__ */ jsxs("div", { children: [
+              /* @__PURE__ */ jsx("button", { onClick: (e) => { e.stopPropagation(); setMenuOpenId((current) => current === a.id ? null : a.id); }, className: "p-1 rounded-lg hover:bg-gray-100", children: /* @__PURE__ */ jsx(MoreVertical, { className: "w-4 h-4", style: { color: P.light } }) }),
+              menuOpenId === a.id && /* @__PURE__ */ jsxs("div", { className: "absolute right-0 top-9 z-10 p-2 rounded-xl shadow-lg border", style: { background: "#fff", borderColor: P.ivoryDark, minWidth: 120 }, children: [
+                /* @__PURE__ */ jsx("button", { onClick: () => openEditForm(a), className: "flex items-center gap-2 text-xs font-medium px-2 py-1.5 rounded-lg w-full text-left", style: { color: P.dark }, children: [/* @__PURE__ */ jsx(Edit2, { className: "w-3.5 h-3.5" }), "Edit"] }),
+                /* @__PURE__ */ jsx("button", { onClick: () => deleteAnimal(a), className: "flex items-center gap-2 text-xs font-medium px-2 py-1.5 rounded-lg w-full text-left", style: { color: P.danger }, children: [/* @__PURE__ */ jsx(Trash2, { className: "w-3.5 h-3.5" }), "Delete"] })
+              ] })
+            ] }) })
           ] }, a.id)) })
         ] }) })
       ] }) }),
       /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-4", children: [
         /* @__PURE__ */ jsxs(Card, { className: "p-5", children: [
           /* @__PURE__ */ jsx("h3", { className: "font-semibold text-sm mb-4", style: { fontFamily: "Poppins", color: P.dark }, children: "Species Breakdown" }),
-          /* @__PURE__ */ jsx(ResponsiveContainer, { width: "100%", height: 140, children: /* @__PURE__ */ jsx(PieChart, { children: /* @__PURE__ */ jsx(Pie, { data: speciesCounts, cx: "50%", cy: "50%", innerRadius: 40, outerRadius: 60, dataKey: "value", paddingAngle: 3, children: speciesCounts.map((_, i) => /* @__PURE__ */ jsx(Cell, { fill: speciesCounts[i].color }, i)) }) }) }),
-          /* @__PURE__ */ jsx("div", { className: "flex flex-col gap-2 mt-2", children: speciesCounts.map((s) => /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between", children: [
-            /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
-              /* @__PURE__ */ jsx("div", { className: "w-2.5 h-2.5 rounded-sm", style: { background: s.color } }),
-              /* @__PURE__ */ jsx("span", { className: "text-xs", style: { color: P.mid }, children: s.name })
-            ] }),
-            /* @__PURE__ */ jsx("span", { className: "text-xs font-semibold", style: { color: P.dark }, children: s.value })
-          ] }, s.name)) })
-        ] }),
-        selectedAnimal && /* @__PURE__ */ jsxs(Card, { className: "p-5", children: [
-          /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between mb-3", children: [
-            /* @__PURE__ */ jsx("h3", { className: "font-semibold text-sm", style: { fontFamily: "Poppins", color: P.dark }, children: "Animal Detail" }),
-            /* @__PURE__ */ jsx("button", { onClick: () => setSelectedAnimal(null), children: /* @__PURE__ */ jsx(X, { className: "w-4 h-4", style: { color: P.mid } }) })
-          ] }),
-          /* @__PURE__ */ jsx("div", { className: "w-12 h-12 rounded-xl mb-3 flex items-center justify-center", style: { background: `${P.olive}14` }, children: /* @__PURE__ */ jsx(Activity, { className: "w-6 h-6", style: { color: P.olive } }) }),
-          /* @__PURE__ */ jsx("p", { className: "font-bold", style: { color: P.dark, fontFamily: "Poppins" }, children: selectedAnimal.name }),
-          /* @__PURE__ */ jsx("p", { className: "text-xs mb-3", style: { color: P.mid }, children: selectedAnimal.tag }),
-          [["Species", selectedAnimal.species], ["Breed", selectedAnimal.breed], ["Age", selectedAnimal.age], ["Weight", selectedAnimal.weight], ["Paddock", selectedAnimal.paddock], ["Vaccinated", selectedAnimal.vaccinated ? "Yes" : "No"]].map(([k, v]) => /* @__PURE__ */ jsxs("div", { className: "flex justify-between py-1.5", style: { borderBottom: `1px solid ${P.ivoryDark}` }, children: [
-            /* @__PURE__ */ jsx("span", { className: "text-xs", style: { color: P.mid }, children: String(k) }),
-            /* @__PURE__ */ jsx("span", { className: "text-xs font-medium", style: { color: P.dark }, children: String(v) })
-          ] }, String(k))),
-          /* @__PURE__ */ jsx(Badge, { text: selectedAnimal.health, color: healthColor[selectedAnimal.health], bg: `${healthColor[selectedAnimal.health]}15` })
+          speciesCounts.length === 0 ? /* @__PURE__ */ jsx("p", { className: "text-xs", style: { color: P.mid }, children: "No animal records yet." }) : /* @__PURE__ */ jsx(Fragment, { children: [
+            /* @__PURE__ */ jsx(ResponsiveContainer, { width: "100%", height: 140, children: /* @__PURE__ */ jsx(PieChart, { children: /* @__PURE__ */ jsx(Pie, { data: speciesCounts, cx: "50%", cy: "50%", innerRadius: 40, outerRadius: 60, dataKey: "value", paddingAngle: 3, children: speciesCounts.map((s, i) => /* @__PURE__ */ jsx(Cell, { fill: speciesCounts[i].color }, s.name)) }) }) }),
+            /* @__PURE__ */ jsx("div", { className: "flex flex-col gap-2 mt-2", children: speciesCounts.map((s) => /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between", children: [
+              /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
+                /* @__PURE__ */ jsx("div", { className: "w-2.5 h-2.5 rounded-sm", style: { background: s.color } }),
+                /* @__PURE__ */ jsx("span", { className: "text-xs", style: { color: P.mid }, children: s.name })
+              ] }),
+              /* @__PURE__ */ jsx("span", { className: "text-xs font-semibold", style: { color: P.dark }, children: s.value })
+            ] }, s.name)) })
+          ] })
         ] })
       ] })
-    ] })
+    ] }),
+    showForm && /* @__PURE__ */ jsx(LivestockFormModal, { visible: showForm, editingAnimal, form, setForm, onClose: () => { setShowForm(false); resetForm(); }, onCancel: () => { setShowForm(false); resetForm(); }, onSubmit: saveAnimal })
   ] });
 }
+
+function LivestockFormModal({ visible, editingAnimal, form, setForm, onClose, onSubmit, onCancel }) {
+  if (!visible) return null;
+  return /* @__PURE__ */ jsx("div", { className: "fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4", children: /* @__PURE__ */ jsxs("div", { className: "w-full max-w-xl rounded-2xl p-5 shadow-xl", style: { background: "#fff" }, children: [
+    /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between mb-4", children: [
+      /* @__PURE__ */ jsx("h3", { className: "font-semibold text-base", style: { fontFamily: "Poppins", color: P.dark }, children: editingAnimal ? "Edit Animal" : "Add Animal" }),
+      /* @__PURE__ */ jsx("button", { onClick: onClose, className: "p-1 rounded-lg hover:bg-gray-100", children: /* @__PURE__ */ jsx(X, { className: "w-4 h-4", style: { color: P.mid } }) })
+    ] }),
+    /* @__PURE__ */ jsxs("form", { onSubmit: onSubmit, className: "grid grid-cols-1 md:grid-cols-2 gap-3", children: [
+      [
+        ["id", "Animal ID"],
+        ["name", "Name"],
+        ["species", "Species"],
+        ["breed", "Breed"],
+        ["age", "Age"],
+        ["weight", "Weight (kg)"],
+        ["paddock", "Paddock"],
+        ["health", "Health"]
+      ].map(([field, label]) => /* @__PURE__ */ jsxs("label", { className: "flex flex-col gap-1 text-xs", style: { color: P.mid }, children: [
+        label,
+        field === "health" ? /* @__PURE__ */ jsx("select", { value: form.health, onChange: (e) => setForm((current) => ({ ...current, health: e.target.value })), className: "rounded-xl border px-3 py-2 text-sm", style: { borderColor: P.ivoryDark, color: P.dark }, children: ["Healthy", "At Risk", "Sick"].map((option) => /* @__PURE__ */ jsx("option", { value: option, children: option }, option)) }) : /* @__PURE__ */ jsx("input", { value: form[field], onChange: (e) => setForm((current) => ({ ...current, [field]: e.target.value })), className: "rounded-xl border px-3 py-2 text-sm", style: { borderColor: P.ivoryDark, color: P.dark }, placeholder: label })
+      ] }, field)),
+      /* @__PURE__ */ jsxs("label", { className: "flex flex-col gap-1 text-xs md:col-span-2", style: { color: P.mid }, children: [
+        "Vaccinated",
+        /* @__PURE__ */ jsx("select", { value: form.vaccinated ? "Yes" : "No", onChange: (e) => setForm((current) => ({ ...current, vaccinated: e.target.value === "Yes" })), className: "rounded-xl border px-3 py-2 text-sm", style: { borderColor: P.ivoryDark, color: P.dark }, children: [
+          /* @__PURE__ */ jsx("option", { value: "Yes", children: "Yes" }),
+          /* @__PURE__ */ jsx("option", { value: "No", children: "No" })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "md:col-span-2 flex justify-end gap-2 mt-2", children: [
+        /* @__PURE__ */ jsx("button", { type: "button", onClick: onCancel, className: "px-4 py-2 rounded-xl text-sm font-medium", style: { background: P.ivoryDark, color: P.mid }, children: "Cancel" }),
+        /* @__PURE__ */ jsx("button", { type: "submit", className: "px-4 py-2 rounded-xl text-sm font-semibold text-white", style: { background: P.olive }, children: editingAnimal ? "Update" : "Save" })
+      ] })
+    ] })
+  ] }) });
+}
+
 function BiosecurityAssessmentPage() {
   const [checklist, setChecklist] = useState(biosecurityChecklist);
   const totalItems = checklist.flatMap((c) => c.items).length;
@@ -1848,16 +2060,36 @@ function DiseaseAlertsPage() {
     }) })
   ] });
 }
-function VaccinationPage() {
+function VaccinationPage({ vaccinations: vaccinationData = [] }) {
   const [tab, setTab] = useState("schedule");
-  const upcoming = vaccinations.filter((v) => v.status !== "Completed");
-  const history = vaccinations.filter((v) => v.status === "Completed");
+  const records = vaccinationData.map((record) => {
+    const rawStatus = String(record.status || "Pending");
+    const statusKey = rawStatus.toLowerCase();
+    const status = statusKey === "completed" ? "Completed" : statusKey === "scheduled" || statusKey === "upcoming" ? "Scheduled" : statusKey === "pending" ? "Pending" : rawStatus;
+    const vet = record.vetName || record.veterinarianName || record.doctorName || record.assignedVet || record.vet || record.veterinarian;
+    return {
+      id: record.vaccinationId || record.id || record._id || "—",
+      disease: record.disease || record.vaccineName || record.vaccine || record.diseaseName || "Vaccination",
+      animals: record.animals ?? record.animalCount ?? record.numberOfAnimals ?? record.quantity ?? 0,
+      date: record.vaccinationDate || record.date || record.scheduledDate || record.createdAt,
+      vet: typeof vet === "string" && vet.trim() ? vet : vet?.name || vet?.fullName || "Unassigned",
+      coverage: Math.max(0, Math.min(100, Number(record.coverage ?? record.coveragePercent ?? record.coverageRate) || 0)),
+      status,
+    };
+  });
+  const upcoming = records.filter((record) => record.status !== "Completed");
+  const history = records.filter((record) => record.status === "Completed");
+  const coverageValues = records.map((record) => Number(record.coverage)).filter((coverage) => coverage > 0);
+  const averageCoverage = coverageValues.length ? `${(coverageValues.reduce((sum, coverage) => sum + coverage, 0) / coverageValues.length).toFixed(1)}%` : "—";
+  const completedRecently = history.filter((record) => record.date && Date.now() - new Date(record.date).getTime() <= 90 * 24 * 60 * 60 * 1000);
+  const recentCompletedAnimals = completedRecently.reduce((sum, record) => sum + (Number(record.animals) || 0), 0);
+  const animalsDue = upcoming.reduce((sum, record) => sum + (Number(record.animals) || 0), 0);
   return /* @__PURE__ */ jsxs("div", { className: "space-y-6", children: [
     /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-2 lg:grid-cols-4 gap-4", children: [
-      /* @__PURE__ */ jsx(KPICard, { label: "Scheduled", value: "3", sub: "Next 30 days", icon: Calendar, color: P.olive }),
-      /* @__PURE__ */ jsx(KPICard, { label: "Animals Due", value: "80", sub: "Across 2 vaccines", icon: Syringe, color: P.warning }),
-      /* @__PURE__ */ jsx(KPICard, { label: "Coverage (Avg)", value: "81.2%", sub: "All vaccines", icon: TrendingUp, color: P.success }),
-      /* @__PURE__ */ jsx(KPICard, { label: "Completed (90d)", value: "2", sub: "570 animals", icon: CheckCircle, color: P.info })
+      /* @__PURE__ */ jsx(KPICard, { label: "Scheduled", value: String(upcoming.length), sub: "From farm records", icon: Calendar, color: P.olive }),
+      /* @__PURE__ */ jsx(KPICard, { label: "Animals Due", value: animalsDue.toLocaleString(), sub: "Outstanding records", icon: Syringe, color: P.warning }),
+      /* @__PURE__ */ jsx(KPICard, { label: "Coverage (Avg)", value: averageCoverage, sub: "Reported coverage", icon: TrendingUp, color: P.success }),
+      /* @__PURE__ */ jsx(KPICard, { label: "Completed (90d)", value: String(completedRecently.length), sub: `${recentCompletedAnimals.toLocaleString()} animals`, icon: CheckCircle, color: P.info })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "flex gap-2", children: [
       [["schedule", "Upcoming & Scheduled"], ["history", "Vaccination History"]].map(([t, l]) => /* @__PURE__ */ jsx(
@@ -1877,11 +2109,11 @@ function VaccinationPage() {
     ] }),
     /* @__PURE__ */ jsx(Card, { className: "overflow-hidden", children: /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "w-full", children: [
       /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsx("tr", { style: { background: P.ivoryDark }, children: ["ID", "Disease", "Animals", "Date", "Vet", "Coverage", "Status", ""].map((h) => /* @__PURE__ */ jsx("th", { className: "text-left text-xs font-semibold px-4 py-3", style: { color: P.mid }, children: h }, h)) }) }),
-      /* @__PURE__ */ jsx("tbody", { children: (tab === "schedule" ? upcoming : history).map((v) => /* @__PURE__ */ jsxs("tr", { className: "hover:bg-amber-50/30 cursor-pointer", style: { borderBottom: `1px solid ${P.ivoryDark}` }, children: [
+      /* @__PURE__ */ jsx("tbody", { children: (tab === "schedule" ? upcoming : history).length === 0 ? /* @__PURE__ */ jsx("tr", { children: /* @__PURE__ */ jsx("td", { colSpan: 8, className: "px-4 py-8 text-center text-xs", style: { color: P.mid }, children: "No vaccination records for this farm." }) }) : (tab === "schedule" ? upcoming : history).map((v) => /* @__PURE__ */ jsxs("tr", { className: "hover:bg-amber-50/30", style: { borderBottom: `1px solid ${P.ivoryDark}` }, children: [
         /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-xs font-mono", style: { color: P.mid }, children: v.id }),
         /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-xs font-semibold", style: { color: P.dark }, children: v.disease }),
         /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-xs", style: { color: P.dark }, children: v.animals }),
-        /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-xs", style: { color: P.dark }, children: v.date }),
+        /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-xs", style: { color: P.dark }, children: v.date ? formatDate(v.date) : "—" }),
         /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-xs", style: { color: P.mid }, children: v.vet }),
         /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
           /* @__PURE__ */ jsx("div", { className: "h-1.5 w-16 rounded-full", style: { background: P.ivoryDark }, children: /* @__PURE__ */ jsx("div", { className: "h-full rounded-full", style: { width: `${v.coverage}%`, background: sc(v.coverage) } }) }),
@@ -1894,37 +2126,7 @@ function VaccinationPage() {
         /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: /* @__PURE__ */ jsx("button", { className: "p-1 rounded-lg hover:bg-gray-100", children: /* @__PURE__ */ jsx(MoreVertical, { className: "w-4 h-4", style: { color: P.light } }) }) })
       ] }, v.id)) })
     ] }) }) }),
-    /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-2 gap-6", children: [
-      /* @__PURE__ */ jsxs(Card, { className: "p-5", children: [
-        /* @__PURE__ */ jsx("h3", { className: "font-semibold text-sm mb-4", style: { fontFamily: "Poppins", color: P.dark }, children: "Coverage by Disease" }),
-        /* @__PURE__ */ jsx(ResponsiveContainer, { width: "100%", height: 180, children: /* @__PURE__ */ jsxs(BarChart, { data: vaccinations.map((v) => ({ name: v.disease, coverage: v.coverage })), barSize: 32, children: [
-          /* @__PURE__ */ jsx(CartesianGrid, { strokeDasharray: "3 3", stroke: P.ivoryDark, vertical: false }),
-          /* @__PURE__ */ jsx(XAxis, { dataKey: "name", tick: { fontSize: 11, fill: P.mid }, axisLine: false, tickLine: false }),
-          /* @__PURE__ */ jsx(YAxis, { tick: { fontSize: 11, fill: P.mid }, axisLine: false, tickLine: false, domain: [0, 100] }),
-          /* @__PURE__ */ jsx(Tooltip, { contentStyle: { borderRadius: "12px", fontSize: 12 } }),
-          /* @__PURE__ */ jsx(Bar, { dataKey: "coverage", radius: [6, 6, 0, 0], name: "Coverage %", children: vaccinations.map((v, i) => /* @__PURE__ */ jsx(Cell, { fill: sc(v.coverage) }, i)) })
-        ] }) })
-      ] }),
-      /* @__PURE__ */ jsxs(Card, { className: "p-5", children: [
-        /* @__PURE__ */ jsx("h3", { className: "font-semibold text-sm mb-3", style: { fontFamily: "Poppins", color: P.dark }, children: "Upcoming Schedule" }),
-        upcoming.map((v) => /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3 py-3", style: { borderBottom: `1px solid ${P.ivoryDark}` }, children: [
-          /* @__PURE__ */ jsx("div", { className: "w-9 h-9 rounded-xl flex items-center justify-center", style: { background: `${P.olive}14` }, children: /* @__PURE__ */ jsx(Syringe, { className: "w-4 h-4", style: { color: P.olive } }) }),
-          /* @__PURE__ */ jsxs("div", { className: "flex-1", children: [
-            /* @__PURE__ */ jsxs("p", { className: "text-xs font-semibold", style: { color: P.dark }, children: [
-              v.disease,
-              " Vaccination"
-            ] }),
-            /* @__PURE__ */ jsxs("p", { className: "text-xs", style: { color: P.mid }, children: [
-              v.date,
-              " \xB7 ",
-              v.animals,
-              " animals"
-            ] })
-          ] }),
-          /* @__PURE__ */ jsx(Badge, { text: v.status, color: v.status === "Scheduled" ? P.info : P.warning, bg: v.status === "Scheduled" ? "#eff6ff" : "#fff7ed" })
-        ] }, v.id))
-      ] })
-    ] })
+
   ] });
 }
 function AIAssistantPage() {
@@ -3342,15 +3544,15 @@ const navConfig = {
     items: [{ key: "Dashboard", labelKey: "dashboard", label: "Dashboard", icon: Home }, { key: "User Management", labelKey: "userManagement", label: "User Management", icon: Users }, { key: "Farm Management", labelKey: "farmManagement", label: "Farm Management", icon: Leaf }, { key: "Disease Database", labelKey: "diseaseDatabase", label: "Disease Database", icon: Database }, { key: "Notifications", labelKey: "notifications", label: "Notifications", icon: Bell }, { key: "Analytics", labelKey: "analytics", label: "Analytics", icon: BarChart2 }, { key: "System Settings", labelKey: "systemSettings", label: "System Settings", icon: Settings }, { key: "Profile", labelKey: "profile", label: "Profile", icon: User }]
   }
 };
-function renderPage(role, module, user, data = {}, language = "en") {
+function renderPage(role, module, user, data = {}, language = "en", onNavigate) {
   if (role === "farmer") {
     switch (module) {
       case "Dashboard":
-        return /* @__PURE__ */ jsx(FarmerDashboardPage, { user, farms: data.farms, livestock: data.livestock, vaccinations: data.vaccinations, alerts: data.alerts, biosecurity: data.biosecurity });
+        return /* @__PURE__ */ jsx(FarmerDashboardPage, { user, farms: data.farms, livestock: data.livestock, vaccinations: data.vaccinations, alerts: data.alerts, biosecurity: data.biosecurity, activities: data.activities });
       case "Farm Management":
-        return /* @__PURE__ */ jsx(FarmManagementPage, {});
+        return /* @__PURE__ */ jsx(FarmManagementModule, { user, role, onNavigate });
       case "Animals":
-        return /* @__PURE__ */ jsx(LivestockManagementPage, {});
+        return /* @__PURE__ */ jsx(LivestockManagementPage, { user, farms: data.farms || [], livestock: data.livestock || [] });
       case "Biosecurity":
         return /* @__PURE__ */ jsx(BiosecurityAssessmentPage, {});
       case "GIS Map":
@@ -3358,7 +3560,7 @@ function renderPage(role, module, user, data = {}, language = "en") {
       case "Disease Alerts":
         return /* @__PURE__ */ jsx(DiseaseAlertsPage, {});
       case "Vaccination":
-        return /* @__PURE__ */ jsx(VaccinationPage, {});
+        return /* @__PURE__ */ jsx(VaccinationPage, { vaccinations: data.vaccinations || [] });
       case "AI Assistant":
         return /* @__PURE__ */ jsx(AIAssistantPage, {});
       case "Reports":
@@ -3380,7 +3582,7 @@ function renderPage(role, module, user, data = {}, language = "en") {
       case "Health Records":
         return /* @__PURE__ */ jsx(HealthRecordsPage, {});
       case "Vaccination":
-        return /* @__PURE__ */ jsx(VaccinationPage, {});
+        return /* @__PURE__ */ jsx(VaccinationPage, { vaccinations: data.vaccinations || [] });
       case "Disease Report":
         return /* @__PURE__ */ jsx(DiseaseReportPage, {});
       case "AI Recommendation":
@@ -3547,7 +3749,7 @@ function DashboardShell({ role, onLogout, user, data = {}, language = "en" }) {
         }
       ),
       /* @__PURE__ */ jsxs("div", { className: "p-6", children: [
-        renderPage(role, activeModule, user, data)
+        renderPage(role, activeModule, user, data, language, setActiveModule)
       ] })
     ] })
   ] });

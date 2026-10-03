@@ -9,13 +9,14 @@ import {
   getLivestock, getLivestockByFarm,
   getVaccinations, getVaccinationsByFarm,
   getDiseases, getDiseasesByDistrict,
-  getBiosecurity, getBiosecurityByFarm,
+  getBiosecurity, getBiosecurityByFarm, getBiosecurityByFarmId,
   getVetReports, getVetReportsByFarm,
   getAlerts, getAlertsByDistrict,
   getGISLocations,
   getNotifications, getNotificationsByUser,
   getAnalyticsSummary,
   getUsers,
+  getFarmActivity,
 } from "./mongoService";
 
 export function useBioSecureData(role, authenticatedUser = null) {
@@ -25,6 +26,7 @@ export function useBioSecureData(role, authenticatedUser = null) {
   const [vaccinations,  setVaccinations]  = useState([]);
   const [diseases,      setDiseases]      = useState([]);
   const [biosecurity,   setBiosecurity]   = useState([]);
+  const [activities,    setActivities]    = useState([]);
   const [vetReports,    setVetReports]    = useState([]);
   const [alerts,        setAlerts]        = useState([]);
   const [gisLocations,  setGisLocations]  = useState([]);
@@ -47,11 +49,7 @@ export function useBioSecureData(role, authenticatedUser = null) {
       const { userId, district } = loggedUser;
 
       if (role === "Farmer") {
-        // Load farms for this owner; fallback to district farms
-        let myFarms = await safe(getFarmsByOwner(userId));
-        if (!myFarms || myFarms.length === 0) {
-          myFarms = await safe(getFarmsByDistrict(district));
-        }
+        const myFarms = await safe(getFarmsByOwner(userId));
         setFarms(myFarms);
 
         const [diseasesData, alertsData, gisData, notifsData, analyticsData] =
@@ -68,20 +66,21 @@ export function useBioSecureData(role, authenticatedUser = null) {
         setNotifications(notifsData);
         setAnalytics(analyticsData);
 
-        // Load farm-specific data for first farm
-        if (myFarms.length > 0) {
-          const farmId = myFarms[0].farmId;
-          const [lvData, vacData, bioData, vetData] = await Promise.all([
-            safe(getLivestockByFarm(farmId)),
-            safe(getVaccinationsByFarm(farmId)),
-            safe(getBiosecurityByFarm(farmId)),
-            safe(getVetReportsByFarm(farmId)),
+        const farmData = await Promise.all(myFarms.map(async (farm) => {
+          const [livestockData, vaccinationData, assessmentData, vetData, activityData] = await Promise.all([
+            safe(getLivestockByFarm(farm.farmId)),
+            safe(getVaccinationsByFarm(farm.farmId)),
+            getBiosecurityByFarmId(farm.farmId).then((record) => record ? [record] : []).catch(() => []),
+            safe(getVetReportsByFarm(farm.farmId)),
+            safe(getFarmActivity(farm.farmId)),
           ]);
-          setLivestock(lvData);
-          setVaccinations(vacData);
-          setBiosecurity(bioData);
-          setVetReports(vetData);
-        }
+          return { livestockData, vaccinationData, assessmentData, vetData, activityData };
+        }));
+        setLivestock(farmData.flatMap((farm) => farm.livestockData));
+        setVaccinations(farmData.flatMap((farm) => farm.vaccinationData));
+        setBiosecurity(farmData.flatMap((farm) => farm.assessmentData).sort((a, b) => new Date(b.assessmentDate || b.createdAt) - new Date(a.assessmentDate || a.createdAt)));
+        setVetReports(farmData.flatMap((farm) => farm.vetData));
+        setActivities(farmData.flatMap((farm) => farm.activityData).sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 15));
 
       } else if (role === "Veterinarian") {
         const [farmsData, diseasesData, alertsData, gisData, notifsData,
@@ -145,7 +144,7 @@ export function useBioSecureData(role, authenticatedUser = null) {
 
   return {
     user, farms, livestock, vaccinations, diseases,
-    biosecurity, vetReports, alerts, gisLocations,
+    biosecurity, vetReports, alerts, gisLocations, activities,
     notifications, analytics, allUsers,
     loading, error, reload: load,
   };
