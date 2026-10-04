@@ -1,9 +1,12 @@
 /**
  * BioSecure Farm - API Service
- * Fetches data from Express server (localhost:5000) -> MongoDB (localhost:27017)
+ * Fetches data from the configured Express API -> MongoDB.
  */
-
-const BASE = "http://localhost:5000/api";
+const localApiBase = typeof window === "undefined"
+  ? "http://localhost:5000/api"
+  : `${window.location.protocol}//${window.location.hostname}:5000/api`;
+export const API_BASE = (import.meta.env.VITE_API_BASE_URL || localApiBase).replace(/\/+$/, "");
+const BASE = API_BASE;
 
 async function get(path) {
   const res = await fetch(`${BASE}${path}`);

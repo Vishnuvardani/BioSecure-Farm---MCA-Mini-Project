@@ -1,6 +1,7 @@
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 import { useState, useRef, useEffect } from "react";
 import { formatDate, formatTime } from "../utils/dateTime";
+import { API_BASE } from "../api/mongoService";
 import FarmManagementModule from "./modules/FarmManagementModule";
 import {
   AreaChart,
@@ -732,29 +733,7 @@ function WeatherWidget({ coordinates = null, locationName = "Current location", 
         { enableHighAccuracy: true, timeout: 10000, maximumAge: 300000 }
       );
     };
-    if (apiKey && locationQuery.trim()) {
-      setLoadingMessage("Finding farm location…");
-      const controller = new AbortController();
-      const lookupTimer = setTimeout(() => controller.abort(), 8000);
-      const params = new URLSearchParams({ q: locationQuery, limit: "1", appid: apiKey });
-      fetch(`https://api.openweathermap.org/geo/1.0/direct?${params}`, { signal: controller.signal })
-        .then((response) => response.ok ? response.json() : [])
-        .then((matches) => {
-          clearTimeout(lookupTimer);
-          if (cancelled) return;
-          if (matches[0] && Number.isFinite(matches[0].lat) && Number.isFinite(matches[0].lon)) {
-            setLocation({ latitude: matches[0].lat, longitude: matches[0].lon });
-          } else {
-            resolveBrowserLocation();
-          }
-        })
-        .catch(() => {
-          clearTimeout(lookupTimer);
-          if (!cancelled) resolveBrowserLocation();
-        });
-    } else {
-      resolveBrowserLocation();
-    }
+    resolveBrowserLocation();
     return () => { cancelled = true; };
   }, [coordinates?.latitude, coordinates?.longitude, locationQuery, refreshToken]);
   useEffect(() => {
@@ -993,7 +972,7 @@ function LoginScreen({ onLogin, onRegister, language, onLanguageChange }) {
     if (Object.keys(e).length) return;
     setLoading(true); setError("");
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      const res = await fetch(`${API_BASE}/auth/login`, {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
       });
@@ -1023,7 +1002,7 @@ function LoginScreen({ onLogin, onRegister, language, onLanguageChange }) {
       const auth = getAuth(app);
       const result = await signInWithPopup(auth, new GoogleAuthProvider());
       const { displayName, email: gEmail, uid, photoURL } = result.user;
-      const res = await fetch("http://localhost:5000/api/auth/google", {
+      const res = await fetch(`${API_BASE}/auth/google`, {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: gEmail, name: displayName, googleId: uid, picture: photoURL })
       });
@@ -1228,7 +1207,7 @@ function RegisterScreen({ onBack, onSuccess, language, onLanguageChange }) {
     if (!agreedTerms) { setError("Please agree to the Terms of Service to continue"); return; }
     setLoading(true); setError("");
     try {
-      const res = await fetch("http://localhost:5000/api/auth/register", {
+      const res = await fetch(`${API_BASE}/auth/register`, {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ firstName: form.firstName, lastName: form.lastName, email: form.email, phone: form.phone, password: form.password, role: selectedRole, extra: form.extra, location: form.location || null })
       });
@@ -1725,7 +1704,7 @@ function LivestockManagementPage({ user, farms = [], livestock: livestockData = 
   const deleteAnimal = async (animal) => {
     if (!window.confirm(`Delete animal ${animal.id}? This cannot be undone.`)) return;
     try {
-      const response = await fetch(`http://localhost:5000/api/livestock/${encodeURIComponent(animal.id)}`, { method: "DELETE" });
+      const response = await fetch(`${API_BASE}/livestock/${encodeURIComponent(animal.id)}`, { method: "DELETE" });
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
         throw new Error(errorData.error || "Unable to delete animal.");
@@ -1768,7 +1747,7 @@ function LivestockManagementPage({ user, farms = [], livestock: livestockData = 
     };
 
     try {
-      const url = editingAnimal ? `http://localhost:5000/api/livestock/${encodeURIComponent(editingAnimal.id)}` : "http://localhost:5000/api/livestock";
+      const url = editingAnimal ? `${API_BASE}/livestock/${encodeURIComponent(editingAnimal.id)}` : `${API_BASE}/livestock`;
       const method = editingAnimal ? "PUT" : "POST";
       const response = await fetch(url, {
         method,
@@ -2325,7 +2304,7 @@ function LiveProfilePage({ role, user, language = "en" }) {
   const save = async () => {
     setStatus("");
     try {
-      const response = await fetch(`http://localhost:5000/api/users/${user.userId}`, {
+      const response = await fetch(`${API_BASE}/users/${user.userId}`, {
         method: "PUT", headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
@@ -2339,7 +2318,7 @@ function LiveProfilePage({ role, user, language = "en" }) {
     if (passwordForm.newPassword.length < 8) return setStatus(t(language, "passwordMin", "Min 8 characters"));
     if (passwordForm.newPassword !== passwordForm.confirmPassword) return setStatus(t(language, "passwordsMismatch", "Passwords do not match"));
     try {
-      const response = await fetch(`http://localhost:5000/api/users/${user.userId}/password`, {
+      const response = await fetch(`${API_BASE}/users/${user.userId}/password`, {
         method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(passwordForm),
       });
       const data = await response.json();

@@ -1,6 +1,6 @@
 /**
  * BioSecure Farm - Express API Server
- * Connects to mongodb://localhost:27017/biosecure_db
+ * Connects to MongoDB using MONGO_URI and DB_NAME environment variables.
  * Run: node server/index.js
  */
 const express    = require("express");
@@ -9,9 +9,9 @@ const bcrypt     = require("bcryptjs");
 const { MongoClient, ObjectId } = require("mongodb");
 
 const app      = express();
-const PORT     = 5000;
-const MONGO_URI = "mongodb://127.0.0.1:27017";
-const DB_NAME   = "biosecure_db";
+const PORT     = Number(process.env.PORT) || 5000;
+const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017";
+const DB_NAME   = process.env.DB_NAME || "biosecure_db";
 
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
@@ -22,7 +22,7 @@ MongoClient.connect(MONGO_URI)
   .then(client => {
     db = client.db(DB_NAME);
     console.log("[OK] Connected to MongoDB:", DB_NAME);
-    app.listen(PORT, () => console.log(`[OK] API Server running on http://localhost:${PORT}/api`));
+    app.listen(PORT, "0.0.0.0", () => console.log(`[OK] API Server running on http://localhost:${PORT}/api`));
   })
   .catch(err => {
     console.error("[ERROR] MongoDB connection failed:", err.message);
