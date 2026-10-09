@@ -66,10 +66,10 @@ export default function GovDashboard() {
 
         <View style={styles.actionsGrid}>
           {[
+            { label: 'Farm Monitoring', icon: 'eye', color: '#6f42c1', screen: 'FarmMonitoring' },
             { label: 'Outbreak Monitor', icon: 'warning', color: Colors.danger, screen: 'Outbreaks' },
             { label: 'Compliance', icon: 'shield-checkmark', color: Colors.secondary, screen: 'Compliance' },
             { label: 'GIS Hotspots', icon: 'map', color: Colors.primary, screen: 'Map' },
-            { label: 'Analytics', icon: 'bar-chart', color: '#6f42c1', screen: 'Analytics' }
           ].map(a => (
             <TouchableOpacity key={a.label} style={styles.actionCard} onPress={() => navigation.navigate(a.screen)}>
               <View style={[styles.actionIcon, { backgroundColor: a.color + '20' }]}>

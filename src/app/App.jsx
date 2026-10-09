@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { formatDate, formatTime } from "../utils/dateTime";
 import { API_BASE } from "../api/mongoService";
 import FarmManagementModule from "./modules/FarmManagementModule";
+import GovernmentFarmMonitoringModule from "./modules/GovernmentFarmMonitoringModule";
 import {
   AreaChart,
   Area,
@@ -2896,45 +2897,8 @@ function GovDashboardPage() {
     ] })
   ] });
 }
-function FarmMonitoringPage() {
-  const [filter, setFilter] = useState("All");
-  const filtered = filter === "All" ? allFarms : allFarms.filter((f) => f.status === filter);
-  return /* @__PURE__ */ jsxs("div", { className: "space-y-6", children: [
-    /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-2 lg:grid-cols-4 gap-4", children: [
-      /* @__PURE__ */ jsx(KPICard, { label: "Total Farms", value: "2,847", sub: "Nationally registered", icon: Leaf, color: P.olive }),
-      /* @__PURE__ */ jsx(KPICard, { label: "Alert Status", value: "34", sub: "Active alerts", icon: AlertTriangle, color: P.danger }),
-      /* @__PURE__ */ jsx(KPICard, { label: "Healthy Farms", value: "2,780", sub: "97.6%", icon: CheckCircle, color: P.success }),
-      /* @__PURE__ */ jsx(KPICard, { label: "Pending Registration", value: "23", sub: "Awaiting approval", icon: Clock, color: P.warning })
-    ] }),
-    /* @__PURE__ */ jsxs("div", { className: "flex flex-wrap gap-3", children: [
-      /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 px-3 py-2 rounded-xl flex-1 min-w-48", style: { background: P.ivoryDark }, children: [
-        /* @__PURE__ */ jsx(Search, { className: "w-4 h-4", style: { color: P.mid } }),
-        /* @__PURE__ */ jsx("input", { placeholder: "Search farms by name, district, owner\u2026", className: "bg-transparent text-sm outline-none flex-1", style: { color: P.dark } })
-      ] }),
-      /* @__PURE__ */ jsx("div", { className: "flex gap-2", children: ["All", "Alert", "Warning", "Healthy"].map((f) => /* @__PURE__ */ jsx("button", { onClick: () => setFilter(f), className: "text-xs px-3 py-1.5 rounded-lg font-medium", style: { background: filter === f ? P.olive : P.ivoryDark, color: filter === f ? "#fff" : P.mid }, children: f }, f)) })
-    ] }),
-    /* @__PURE__ */ jsx(GISMap, { height: 240 }),
-    /* @__PURE__ */ jsx(Card, { className: "overflow-hidden", children: /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "w-full", children: [
-      /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsx("tr", { style: { background: P.ivoryDark }, children: ["Farm ID", "Farm Name", "Owner", "District", "Animals", "Biosecurity", "Compliance", "Status", "Action"].map((h) => /* @__PURE__ */ jsx("th", { className: "text-left text-xs font-semibold px-4 py-3", style: { color: P.mid }, children: h }, h)) }) }),
-      /* @__PURE__ */ jsx("tbody", { children: filtered.map((f) => /* @__PURE__ */ jsxs("tr", { className: "hover:bg-amber-50/30 cursor-pointer", style: { borderBottom: `1px solid ${P.ivoryDark}` }, children: [
-        /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-xs font-mono", style: { color: P.mid }, children: f.id }),
-        /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-xs font-semibold", style: { color: P.dark }, children: f.name }),
-        /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-xs", style: { color: P.mid }, children: f.owner }),
-        /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-xs", style: { color: P.dark }, children: f.district }),
-        /* @__PURE__ */ jsx("td", { className: "px-4 py-3 text-xs", style: { color: P.dark }, children: f.animals }),
-        /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
-          /* @__PURE__ */ jsx("div", { className: "h-1.5 w-14 rounded-full", style: { background: P.ivoryDark }, children: /* @__PURE__ */ jsx("div", { className: "h-full rounded-full", style: { width: `${f.biosecurity}%`, background: sc(f.biosecurity) } }) }),
-          /* @__PURE__ */ jsx("span", { className: "text-xs", style: { color: P.mid }, children: f.biosecurity })
-        ] }) }),
-        /* @__PURE__ */ jsxs("td", { className: "px-4 py-3 text-xs font-semibold", style: { color: sc(f.compliance) }, children: [
-          f.compliance,
-          "%"
-        ] }),
-        /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: /* @__PURE__ */ jsx(Badge, { text: f.status, color: statusColor[f.status], bg: `${statusColor[f.status]}15` }) }),
-        /* @__PURE__ */ jsx("td", { className: "px-4 py-3", children: /* @__PURE__ */ jsx("button", { className: "text-xs px-3 py-1.5 rounded-lg font-medium", style: { background: `${P.olive}14`, color: P.olive }, children: "View" }) })
-      ] }, f.id)) })
-    ] }) }) })
-  ] });
+function FarmMonitoringPage({ user }) {
+  return <GovernmentFarmMonitoringModule user={user} />;
 }
 function DiseaseSurveillancePage() {
   const timelineData = [
@@ -3577,7 +3541,7 @@ function renderPage(role, module, user, data = {}, language = "en", onNavigate) 
       case "Dashboard":
         return /* @__PURE__ */ jsx(GovDashboardPage, {});
       case "Farm Monitoring":
-        return /* @__PURE__ */ jsx(FarmMonitoringPage, {});
+        return /* @__PURE__ */ jsx(FarmMonitoringPage, { user });
       case "Disease Surveillance":
         return /* @__PURE__ */ jsx(DiseaseSurveillancePage, {});
       case "GIS Dashboard":
